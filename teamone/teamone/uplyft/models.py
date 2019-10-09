@@ -1,5 +1,6 @@
 import datetime
 from django.utils import timezone
+from django import forms
 from django.db import models
 from django.forms import ModelForm, ModelChoiceField
 from django.contrib.auth.models import AbstractUser
@@ -27,41 +28,11 @@ YEARS_OF_EXPERIENCE = [
 ]
 
 class CustomUser(AbstractUser):
-    pass
-    
-    #TODO
-
-class CandidateRegistrationModel(models.Model):
-    first_name = models.CharField(
-        max_length=60,
-        null=False,
-        blank=True,
-        help_text="The candidate's first name.",
+    password2 = models.CharField(
+        max_length=200, 
+        null = False,
+        blank = True,
+        help_text="The candidate's password, again."
     )
-    last_name = models.CharField(
-        max_length=60,
-        null=False,
-        blank=True,
-        help_text="The candidate's last name.",
-    )
-    email = models.EmailField(
-        max_length=200,
-        null=False,
-        blank=True,
-        help_text="The candidate's email address.",
-    )
-    password = models.CharField(
-        max_length=200,
-        null=False,
-        blank=True,
-        help_text="The candidate's password.",
-    )
-    password_retype = models.CharField(
-        max_length=200,
-        null=False,
-        blank=True,
-        help_text="The candidate's password, again.",
-    )
-
     def __str__(self):
-        return self.first_name
+        return self.username
