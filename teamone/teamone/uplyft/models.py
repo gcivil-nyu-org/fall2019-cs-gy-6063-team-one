@@ -27,7 +27,7 @@ YEARS_OF_EXPERIENCE = [
 ]
 
 class User(AbstractUser):
-    pass
+    #TODO
 
 class CandidateRegistrationModel(models.Model):
     first_name = models.CharField(
