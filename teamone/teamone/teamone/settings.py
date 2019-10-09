@@ -27,9 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-# https://docs.djangoproject.com/en/2.2/topics/auth/customizing/#auth-custom-user
-AUTH_USER_MODEL = 'uplyft.User'
-
 # Application definition
 INSTALLED_APPS = [
     'localflavor',

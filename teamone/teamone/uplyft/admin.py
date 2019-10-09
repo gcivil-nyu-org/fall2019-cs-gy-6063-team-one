@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import User, CandidateRegistrationModel
+from .models import CandidateRegistrationModel
 
 
 class CandidateRegistrationAdmin(admin.ModelAdmin):
@@ -14,4 +14,3 @@ class CandidateRegistrationAdmin(admin.ModelAdmin):
 
 #Tell the admin that CandidateRegistrationModel objects have an admin interface
 admin.site.register(CandidateRegistrationModel, CandidateRegistrationAdmin)
-admin.site.register(User)
