@@ -28,11 +28,5 @@ YEARS_OF_EXPERIENCE = [
 ]
 
 class CustomUser(AbstractUser):
-    password2 = models.CharField(
-        max_length=200, 
-        null = False,
-        blank = True,
-        help_text="The candidate's password, again."
-    )
     def __str__(self):
         return self.username
