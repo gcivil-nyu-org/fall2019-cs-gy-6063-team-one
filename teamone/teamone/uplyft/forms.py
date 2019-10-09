@@ -1,16 +1,16 @@
 from django import forms
 from django.forms import ModelForm, ModelChoiceField
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, UserCreationForm
 from .models import CustomUser
 
-class CandidateRegistrationForm(ModelForm):
-    def __init__(self, *args, **kwargs): 
-    	super(CandidateRegistrationForm, self).__init__(*args, **kwargs)
-    	self.fields['password2'].label = 'Retype password'
+class CandidateRegistrationForm(UserCreationForm):
+    first_name = forms.CharField(label="First Name")
+    last_name = forms.CharField(label="Last Name")
+    email = forms.EmailField(label="Email")
 
-    class Meta:
+    class Meta: 
         model = CustomUser
-        fields = ('first_name', 'last_name', 'email', 'username', 'password', 'password2')
+        fields = ("first_name", "last_name", "username", "email")
         
 
 
