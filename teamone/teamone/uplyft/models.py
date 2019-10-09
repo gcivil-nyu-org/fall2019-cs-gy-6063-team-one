@@ -26,6 +26,11 @@ YEARS_OF_EXPERIENCE = [
     ('10+', '10+ years'),
 ]
 
+class CustomUser(AbstractUser):
+    pass
+    
+    #TODO
+
 class CandidateRegistrationModel(models.Model):
     first_name = models.CharField(
         max_length=60,

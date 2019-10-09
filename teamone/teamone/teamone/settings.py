@@ -27,6 +27,9 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+#Creating a custom user model 
+AUTH_USER_MODEL = 'uplyft.CustomUser'
+
 # Application definition
 INSTALLED_APPS = [
     'localflavor',
