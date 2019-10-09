@@ -11,7 +11,6 @@ class CandidateRegistrationForm(UserCreationForm):
     class Meta: 
         model = get_user_model()
         fields = ("first_name", "last_name", "username", "email")
-        
 
 
 class CustomUserCreationForm(UserCreationForm):

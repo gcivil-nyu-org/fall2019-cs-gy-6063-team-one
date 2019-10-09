@@ -1,8 +1,29 @@
-<h1>Register</h1>
 
-<form action="{% url 'uplyft:register' %}" method="post">
 
-{% csrf_token %} <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
-{{ form }}
-<input type="submit" value="Submit!">
-</form>
+
+{% block content %}
+
+<div class="login">
+	{% if messages %}
+		<ul>
+			{% for message in messages %}
+			<li>{{ message }}</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+
+	<h1>Create account - Uplyft </h1>
+
+	<form action="{% url 'uplyft:register' %}" method="post">
+		{% csrf_token %} <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
+		<table>
+			{{ form.as_table }}
+			<tr>
+				<td></td>
+				<td><input type="submit" name="submit" value="Submit!"/></td>
+			</tr>
+		</table>
+	</form>
+</div>
+
+{% endblock %}
