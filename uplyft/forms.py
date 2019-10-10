@@ -8,7 +8,7 @@ class CandidateRegistrationForm(UserCreationForm):
     last_name = forms.CharField(label="Last Name")
     email = forms.EmailField(label="Email")
 
-    class Meta: 
+    class Meta:
         model = get_user_model()
         fields = ("first_name", "last_name", "username", "email")
 

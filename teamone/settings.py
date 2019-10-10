@@ -27,12 +27,13 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-#Creating a custom user model 
+#Creating a custom user model
 AUTH_USER_MODEL = 'uplyft.CustomUser'
 
 # Application definition
 INSTALLED_APPS = [
     'localflavor',
+    'crispy_forms',
     'uplyft.apps.UplyftConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -109,6 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'America/New_York'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 USE_I18N = True
 

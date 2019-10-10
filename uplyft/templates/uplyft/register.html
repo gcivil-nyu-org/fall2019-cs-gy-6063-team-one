@@ -1,5 +1,9 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'uplyft/style.css' %}">
+<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Varela+Round" /> <!-- Get the font from the template -->
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
-
+{% load crispy_forms_tags %}
 
 {% block content %}
 
@@ -12,17 +16,21 @@
 		</ul>
 	{% endif %}
 
-	<h1>Create account - Uplyft </h1>
+<div class="col-md-10 col-lg-8 mx-auto">
+	<h1 class="text-white mb-5">Create Account - Uplyft </h1>
 
-	<form action="{% url 'uplyft:register' %}" method="post">
+	<form class="reg_form" action="{% url 'uplyft:register' %}" method="post">
 		{% csrf_token %} <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
+		{{ form|crispy }}
+		<input type="submit" name="submit" value="Submit"/>
+<!--
 		<table>
 			{{ form.as_table }}
 			<tr>
 				<td></td>
-				<td><input type="submit" name="submit" value="Submit!"/></td>
+				<td></td>
 			</tr>
-		</table>
+		</table> -->
 	</form>
 </div>
 
