@@ -31,7 +31,7 @@ def register(request):
         	user = authenticate(email=email, password=password)
         	login(request, user)
         	messages.success(request, 'Account created successfully')
-        	return HttpResponseRedirect('uplyft/')
+        	return HttpResponseRedirect(reverse('uplyft:login'))
         else: 
         	form = CandidateRegistrationForm()
     else:
