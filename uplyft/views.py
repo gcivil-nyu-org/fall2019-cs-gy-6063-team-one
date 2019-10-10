@@ -19,7 +19,6 @@ def register(request):
         if form.is_valid():
         	user = form.save(commit=True)
         	username = form.cleaned_data.get('username')
-        	email = form.cleaned_data.get('email')
         	password = form.cleaned_data.get('password1')
         	user.save()
         	user = authenticate(username=username, password=password)
