@@ -29,6 +29,7 @@ ALLOWED_HOSTS = []
 
 #Creating a custom user model 
 AUTH_USER_MODEL = 'uplyft.CustomUser'
+LOGIN_REDIRECT_URL = 'confetti/' # FIXME: Hard coded url
 
 # Application definition
 INSTALLED_APPS = [
