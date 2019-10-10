@@ -2,17 +2,15 @@
 {% block content %}
     {% load static %}
     {% load crispy_forms_tags %}
-    <div class="login">
+
+    <div class="col-md-6 col-lg-6 mx-auto">
         {% if messages %}
             <ul>
                 {% for message in messages %}
-                    <li>{{ message }}</li>
+                    <li class="text-white mb-5">{{ message }}</li>
                 {% endfor %}
             </ul>
         {% endif %}
-    </div>
-
-    <div class="col-md-6 col-lg-6 mx-auto">
         <h1 class="text-white mb-5">Login </h1>
         <form class="reg_form" action="{% url 'uplyft:login' %}" method="post">
             {% csrf_token %}
