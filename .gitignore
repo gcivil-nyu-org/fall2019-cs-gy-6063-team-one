@@ -134,3 +134,6 @@ dmypy.json
 */*/*/__pycache__/
 */*/__pycache__/
 */__pycache__/
+
+#Mac OS
+*.DS_Store

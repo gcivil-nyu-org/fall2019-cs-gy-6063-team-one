@@ -1,7 +1,53 @@
-li a {
-    color: green;
-}
 
 body {
-    background: white url("images/nailHouse.png") no-repeat;
+  padding: 10rem 0;
+  background: linear-gradient(to bottom, rgba(22, 22, 22, 0.1) 0%, rgba(22, 22, 22, 0.5) 75%, #161616 100%), url("images/bg-signup.jpg");
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
+  background-size: cover;
+}
+
+/* Hide Labels
+[for = "id_first_name"],[for="id_last_name"], [for="id_username"], [for="id_email"],[for="id_password1"],[for="id_password2"]{
+  display:none;
+}*/
+.reg_form small{
+  color:#fff !important;
+  font-style: oblique;
+}
+
+.reg_form ul{
+  padding-left: 1rem;
+}
+
+.reg_form label {
+  color:#fff;
+}
+
+.reg_form input[type="text"], .reg_form input[type="email"], .reg_form input[type="password"] {
+  box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+  padding: 1.25rem 1rem;
+  height: 3em;
+  font-family: 'Varela Round';
+  font-size: 80%;
+  /*text-transform: uppercase;*/
+  letter-spacing: 0.15rem;
+  border: 0;
+}
+
+.reg_form input[type="submit"] {
+    background-color: #64a19d;
+    box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+    padding: 1.25rem 2rem;
+    font-family: 'Varela Round';
+    font-size: 80%;
+    text-transform: uppercase;
+    letter-spacing: .15rem;
+    border: 0;
+    color: white;
+}
+
+.reg_form input[type=submit]:hover{
+    background-color: #4f837f;
 }
