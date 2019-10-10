@@ -6,7 +6,7 @@ from django.forms import ModelForm, ModelChoiceField
 from django.contrib.auth.models import AbstractUser
 
 #https://django-localflavor.readthedocs.io/en/latest/localflavor/us/
-from localflavor.us.models import USStateField, USZipCodeField
+from localflavor.us.models import USStateField, USZipCodeField 
 
 class CustomUser(AbstractUser):
     def __str__(self):
