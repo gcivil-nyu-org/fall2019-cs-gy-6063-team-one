@@ -8,6 +8,7 @@ from .forms import CandidateRegistrationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.auth import authenticate, login
+from django.utils.translation import ugettext_lazy as _
 
 class IndexView(generic.ListView):
     template_name = 'uplyft/index.html'
@@ -18,10 +19,10 @@ def register(request):
         form = CandidateRegistrationForm(request.POST)
         if form.is_valid():
         	user = form.save(commit=True)
-        	username = form.cleaned_data.get('username')
+        	email = form.cleaned_data.get('email')
         	password = form.cleaned_data.get('password1')
         	user.save()
-        	user = authenticate(username=username, password=password)
+        	user = authenticate(email=email, password=password)
         	login(request, user)
         	messages.success(request, 'Account created successfully')
         	return HttpResponseRedirect('uplyft/')
