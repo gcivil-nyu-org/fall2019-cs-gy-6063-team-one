@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm, ModelChoiceField
-from django.contrib.auth.forms import UserCreationForm, UserChangeForm, UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm, UserCreationForm, AuthenticationForm
 from django.contrib.auth import get_user_model
 
 class CandidateRegistrationForm(UserCreationForm):
@@ -24,3 +24,10 @@ class CustomUserChangeForm(UserChangeForm):
     class Meta:
         model = get_user_model()
         fields = ('username', 'email')
+
+class UplyftCandidateLoginForm(AuthenticationForm):
+    foo = 'hello'
+
+    class Meta:
+        model = get_user_model()
+        # fields = CustomUserCreationForm.Meta.fields

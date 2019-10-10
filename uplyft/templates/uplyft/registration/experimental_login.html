@@ -9,9 +9,9 @@
 		</ul>
 	{% endif %}
 
-	<h1>Create account - Uplyft </h1>
+	<h1>Login - Uplyft </h1>
 
-	<form action="{% url 'uplyft:register' %}" method="post">
+	<form action="{% url 'uplyft:login' %}" method="post">
 		{% csrf_token %} <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
 		<table>
 			{{ form.as_table }}
