@@ -72,5 +72,5 @@ def login_confetti(request):
 			name = request.user.username
 		messages.success(request, 'Hi, ' + name + '!')
 	else:
-		messages.info(request, 'You need to log in to use Uplyft.')
+		HttpResponseRedirect('uplyft:login')
 	return render(request, 'uplyft/registration/login_success.html', {})
