@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'uplyft.apps.UplyftConfig',
     'register.apps.RegisterConfig',
     'login.apps.LoginConfig',
+    'jobs.apps.JobsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
