@@ -15,7 +15,7 @@
     </div>
 	<h1 class="text-white mb-5">Create Account </h1>
 
-	<form class="reg_form" action="{% url 'uplyft:register' %}" method="post">
+	<form class="reg_form" action="{% url 'register:register' %}" method="post">
 		{% csrf_token %} <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
 		{{ form|crispy }}
 		<input type="submit" name="Register" value="Submit"/>

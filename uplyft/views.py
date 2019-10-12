@@ -14,29 +14,10 @@ from django.contrib.auth.decorators import login_required
 
 
 # Uplyft imports
-from .forms import CandidateRegistrationForm, UplyftCandidateLoginForm
+from .forms import UplyftCandidateLoginForm
 
 class IndexView(generic.ListView):
     template_name = 'uplyft/index.html'
-
-
-def register(request): 
-    if request.method == 'POST':
-        form = CandidateRegistrationForm(request.POST)
-        if form.is_valid():
-        	user = form.save(commit=True)
-        	email = form.cleaned_data.get('email')
-        	password = form.cleaned_data.get('password1')
-        	user.save()
-        	user = authenticate(email=email, password=password)
-        	login(request, user)
-        	messages.success(request, 'Account created successfully')
-        	return HttpResponseRedirect(reverse('uplyft:login'))
-        else: 
-        	form = CandidateRegistrationForm()
-    else:
-        form = CandidateRegistrationForm()
-    return render(request, 'uplyft/register.html', {'form': form})
 
 # Login
 

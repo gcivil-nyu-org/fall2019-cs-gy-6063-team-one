@@ -36,6 +36,7 @@ INSTALLED_APPS = [
     'localflavor',
     'crispy_forms',
     'uplyft.apps.UplyftConfig',
+    'register.apps.RegisterConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
