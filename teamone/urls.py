@@ -20,4 +20,5 @@ urlpatterns = [
     path('uplyft/', include('uplyft.urls')), #referencing the URLconf of uplyft
     path('admin/', admin.site.urls),
     path('register/', include('register.urls')),
+    path('login/', include('login.urls')),
 ]

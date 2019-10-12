@@ -29,7 +29,7 @@ def register(request):
         	user = authenticate(email=email, password=password)
         	login(request, user)
         	messages.success(request, 'Account created successfully')
-        	return HttpResponseRedirect(reverse('uplyft:login'))
+        	return HttpResponseRedirect(reverse('login:login'))
         else:
         	form = CandidateRegistrationForm()
     else:

@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'uplyft.apps.UplyftConfig',
     'register.apps.RegisterConfig',
+    'login.apps.LoginConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
