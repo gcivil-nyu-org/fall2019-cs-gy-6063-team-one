@@ -12,7 +12,7 @@
             </ul>
         {% endif %}
         <h1 class="text-white mb-5">Login </h1>
-        <form class="reg_form" action="{% url 'uplyft:login' %}" method="post">
+        <form class="reg_form" action="{% url 'candidate_login:candidate_login' %}" method="post">
             {% csrf_token %}
             {{ form|crispy }}
             <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
@@ -20,7 +20,7 @@
                 <tr>
                     <td></td>
                     <td><input type="submit" name="submit" value="Login"/>
-                        <a href="{% url 'uplyft:register' %}">
+                        <a href="{% url 'register:register' %}">
                         <input type="button" value="Register"/>
                     </a></td>
                 </tr>
