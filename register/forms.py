@@ -5,9 +5,21 @@ from django.core.exceptions import ValidationError
 
 
 class CandidateRegistrationForm(UserCreationForm):
-    first_name = forms.CharField(label="First Name")
-    last_name = forms.CharField(label="Last Name")
-    email = forms.EmailField(label="Email")
+    first_name = forms.CharField(
+        label="First Name",
+        max_length=60,
+        required=True,
+    )
+    last_name = forms.CharField(
+        label="Last Name",
+        max_length=60,
+        required=True,
+    )
+    email = forms.EmailField(
+        label="Email",
+        max_length=200,
+        required=True,
+    )
 
     class Meta:
         model = get_user_model()
