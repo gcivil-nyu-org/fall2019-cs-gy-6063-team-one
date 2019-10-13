@@ -12,7 +12,7 @@
             </ul>
         {% endif %}
         <h1 class="text-white mb-5">Login </h1>
-        <form class="reg_form" action="{% url 'login:login' %}" method="post">
+        <form class="reg_form" action="{% url 'employer_login:login' %}" method="post">
             {% csrf_token %}
             {{ form|crispy }}
             <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->

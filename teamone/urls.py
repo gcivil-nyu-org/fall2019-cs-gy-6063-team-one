@@ -20,6 +20,7 @@ urlpatterns = [
     path('uplyft/', include('uplyft.urls')),
     path('admin/', admin.site.urls),
     path('register/', include('register.urls')),
-    path('login/', include('login.urls')),
     path('jobs/', include('jobs.urls')),
+    path('candidate_login/', include('candidate_login.urls')),
+    path('employer_login/', include('employer_login.urls')),
 ]

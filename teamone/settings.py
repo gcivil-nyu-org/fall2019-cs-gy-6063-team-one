@@ -28,7 +28,7 @@ ALLOWED_HOSTS = []
 
 # Creating a custom user model
 AUTH_USER_MODEL = 'uplyft.CustomUser'
-LOGIN_REDIRECT_URL = 'confetti/'  # FIXME: Hard coded url
+LOGIN_REDIRECT_URL = 'success/'  # FIXME: Hard coded url
 
 # Application definition
 INSTALLED_APPS = [
@@ -36,7 +36,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'uplyft.apps.UplyftConfig',
     'register.apps.RegisterConfig',
-    'login.apps.LoginConfig',
+    'candidate_login.apps.CandidateLoginConfig',
+    'employer_login.apps.EmployerLoginConfig',
     'jobs.apps.JobsConfig',
     'django.contrib.admin',
     'django.contrib.auth',
