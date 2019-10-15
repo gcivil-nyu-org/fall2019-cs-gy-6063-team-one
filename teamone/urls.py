@@ -15,6 +15,10 @@ Including another URL conf
 """
 from django.contrib import admin
 from django.urls import include, path
+from django.http import HttpResponse
+
+def profile_view(request):
+    return HttpResponse("Welcome %s" % request.user)
 
 urlpatterns = [
     path('uplyft/', include('uplyft.urls')),
@@ -23,4 +27,6 @@ urlpatterns = [
     path('jobs/', include('jobs.urls')),
     path('candidate_login/', include('candidate_login.urls')),
     path('employer_login/', include('employer_login.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('accounts/google/login/callback/success/', profile_view),
 ]

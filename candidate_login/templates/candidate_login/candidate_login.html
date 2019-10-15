@@ -1,4 +1,6 @@
 {% extends "uplyft/base.html" %}
+{% load socialaccount %}
+{% providers_media_js %}
 {% block content %}
     {% load static %}
     {% load crispy_forms_tags %}
@@ -22,7 +24,11 @@
                     <td><input type="submit" name="submit" value="Login"/>
                         <a href="{% url 'register:register' %}">
                         <input type="button" value="Register"/>
-                    </a></td>
+                    </a>
+                    <a href="{% provider_login_url "google" %}">
+                    <input type="button" value="Login with Gmail">
+                    </a>
+                    </td>
                 </tr>
             </table>
         </form>
