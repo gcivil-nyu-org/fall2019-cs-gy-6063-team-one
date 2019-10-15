@@ -27,8 +27,8 @@ class CandidateRegistrationForm(UserCreationForm):
 
     def clean_email(self):
         email = self.cleaned_data['email'].lower()
-        usersWithEmail = get_user_model().objects.filter(email=email)
-        if usersWithEmail.count() > 0:
+        users_with_email = get_user_model().objects.filter(email=email)
+        if users_with_email.count() > 0:
             raise ValidationError("Email already exists")
         return email
 
