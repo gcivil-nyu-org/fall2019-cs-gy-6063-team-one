@@ -15,6 +15,7 @@ Including another URL conf
 """
 from django.contrib import admin
 from django.urls import include, path
+from candidate_login.views import login_success
 
 urlpatterns = [
     path('uplyft/', include('uplyft.urls')),
@@ -23,4 +24,6 @@ urlpatterns = [
     path('jobs/', include('jobs.urls')),
     path('candidate_login/', include('candidate_login.urls')),
     path('employer_login/', include('employer_login.urls')),
+    path('accounts/', include('allauth.urls')),
+    path('accounts/google/login/callback/success/', login_success),
 ]
