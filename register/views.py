@@ -18,9 +18,7 @@ def register(request):
             login(request, user)
             messages.success(request, 'Account created successfully')
             return HttpResponseRedirect(reverse('candidate_login:candidate_login'))
-        #else:
 
-            #form = CandidateRegistrationForm()
     else:
         form = CandidateRegistrationForm()
     return render(request, 'register/register.html', {'form': form})
