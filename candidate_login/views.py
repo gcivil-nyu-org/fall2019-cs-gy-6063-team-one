@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.contrib.auth import views as auth_views
@@ -18,8 +18,7 @@ def login_success(request):
         messages.success(request, 'Hi, ' + name + '!')
     else:
         messages.info(request, 'This page requires login.')
-        HttpResponseRedirect('candidate_login:candidate_login')
-        return
+        return redirect('candidate_login:candidate_login')
     return render(request, 'candidate_login/candidate_login_success.html')
 
 class CandidateLogoutView(auth_views.LogoutView):
