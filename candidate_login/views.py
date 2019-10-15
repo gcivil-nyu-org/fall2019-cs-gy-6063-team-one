@@ -17,5 +17,10 @@ def login_success(request):
             name = request.user.username
         messages.success(request, 'Hi, ' + name + '!')
     else:
+        messages.info(request, 'This page requires login.')
         HttpResponseRedirect('candidate_login:candidate_login')
+        return
     return render(request, 'candidate_login/candidate_login_success.html')
+
+class CandidateLogoutView(auth_views.LogoutView):
+    template_name = 'candidate_login/candidate_login.html'
