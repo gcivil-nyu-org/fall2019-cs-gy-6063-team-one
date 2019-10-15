@@ -1,7 +1,7 @@
 from django.test import TestCase
 
 from register.forms import CandidateRegistrationForm
-
+from django.contrib.auth import get_user_model
 
 class CandidateRegistrationFormTest(TestCase):
 
@@ -71,3 +71,10 @@ class CandidateRegistrationFormTest(TestCase):
         form = CandidateRegistrationForm(data={'first_name': 'James', 'last_name': '123', 'email': 'jamestan@gmail.com',
                                                'password1': 'Saddog123!', 'password2': 'Saddog123!'})
         self.assertFalse(form.is_valid())
+
+    def test_email_taken(self):
+        get_user_model().objects.create(first_name="Daisy", last_name="Crego", email="daisycrego@gmail.com", password="Saddog123!")
+        form = CandidateRegistrationForm(data={'first_name': 'James', 'last_name': 'Tan', 'email': 'daisycrego@gmail.com',
+                                               'password1': 'Saddog123!', 'password2': 'Saddog123!'})
+        self.assertFalse(form.is_valid())
+
