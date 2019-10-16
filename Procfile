@@ -1,1 +1,1 @@
-web: teamone teamone.wsgi
+web: gunicorn myproject.wsgi
