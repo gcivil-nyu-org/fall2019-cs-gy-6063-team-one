@@ -1,6 +1,6 @@
 from django.db import models
 
-MAX_CHARS = 10000
+MAX_CHARS = 12000
 
 
 # Create your models here.
