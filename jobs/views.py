@@ -31,12 +31,6 @@ class JobsView(ListView):
     context_object_name = 'jobs'
     template_name = 'jobs/jobs.html'
 
-
-def generate_fake_data(request):
-    from model_mommy import mommy
-    mommy.make('jobs.Job', _quantity=50)
-    return redirect('jobs')
-
 logger = logging.getLogger(__name__)
 
 

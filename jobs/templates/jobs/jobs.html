@@ -50,19 +50,21 @@
         <div class="card py-4 h-100">
           <div class="card-body text-center">
             <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-            <h4 class="text-uppercase m-0"><b> [Department] </b><!--{{ job.agency|truncatechars:30 }}--> </h4>
+            <h4 class="text-uppercase m-0"><b> [Department] </b>< {{ job.agency|truncatechars:30 }} </h4>
             <hr class="my-4">
-            <div class="small text-black-50"><b> [Location] </b> <!-- {{ job.work_location|truncatechars:10 }}--> | <b> [Division] </b> <!--{{ job.division|truncatechars:10 }}--> </div>
-              <p> <b> [Job Title] </b><!--{{ job.business_title|truncatechars:20}}--></p>
+            <div class="small text-black-50"><b> [Location] </b> {{ job.work_location|truncatechars:10 }} | <b> [Division] </b> {{ job.division|truncatechars:10 }} </div>
+              <p> <b> [Job Title] </b>< {{ job.business_title|truncatechars:20}} </p>
           </div>
         </div>
       </div>
 
       </br>
       {% empty %}
+    <!--
       <div class="infinite-item">
         <a href="{% url 'jobs:generate_fake_data' %}" style="color:#fff">Populate database</a>
       </div>
+      -->
     {% endfor %}
   </div>
 
