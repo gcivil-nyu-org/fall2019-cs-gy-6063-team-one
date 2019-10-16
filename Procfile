@@ -1,0 +1,1 @@
+web: teamone teamone.wsgi
