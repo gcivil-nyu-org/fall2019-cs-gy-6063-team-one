@@ -1,0 +1,102 @@
+{% extends "uplyft/base.html" %}
+{% load static %}
+
+<head>
+  <style type="text/css">
+    .infinite-item, .loading {
+      margin-bottom: 5px;
+      background-color: #1eaedb;
+      color: #fff; !important
+      text-align: center;
+      padding: 25px 0;
+    }
+    .loading {
+      background-color: #333;
+    }
+  </style>
+</head>
+
+<!--
+{% block javascript %}
+  <script>
+    var infinite = new Waypoint.Infinite({
+      element: $('.infinite-container')[0],
+      onBeforePageLoad: function () {
+        $('.loading').show();
+      },
+      onAfterPageLoad: function ($items) {
+        $('.loading').hide();
+      }
+    });
+  </script>
+
+{% endblock %}
+-->
+
+{% block content %}
+
+<div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto text-center">
+          <h1 class="text-white mb-4">Job Listings</h1>
+        </div>
+      </div>
+</div>
+
+<div class="jobs_body">
+  <div class="infinite-container">
+    {% for number in numbers %}
+      <div class="infinite-item">{{ number }}</div>
+    {% endfor %}
+  </div>
+
+  <div class="loading" style="display: none;">
+    Loading...
+  </div>
+
+  {% if numbers.has_next %}
+    <a class="infinite-more-link" href="?page={{ numbers.next_page_number }}">More</a>
+  {% endif %}
+
+<!--
+  <div class="row">
+
+    <div class="col-md-4 mb-3 mb-md-0">
+      <div class="card py-4 h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-map-marked-alt text-primary mb-2"></i>
+          <h4 class="text-uppercase m-0">Address</h4>
+          <hr class="my-4">
+          <div class="small text-black-50">4923 Market Street, Orlando FL</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3 mb-md-0">
+      <div class="card py-4 h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-envelope text-primary mb-2"></i>
+          <h4 class="text-uppercase m-0">Email</h4>
+          <hr class="my-4">
+          <div class="small text-black-50">
+            <a href="#">hello@yourdomain.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4 mb-3 mb-md-0">
+      <div class="card py-4 h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-mobile-alt text-primary mb-2"></i>
+          <h4 class="text-uppercase m-0">Phone</h4>
+          <hr class="my-4">
+          <div class="small text-black-50">+1 (555) 902-8832</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+-->
+{% endblock %}

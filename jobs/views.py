@@ -1,16 +1,41 @@
 import csv
 from datetime import datetime
-
 from django.contrib import messages
-from django.shortcuts import render
-
-from jobs.models import Job
 import logging
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.shortcuts import render
+from django.views.generic.list import ListView
+from .models import Job
+
+
+def dummy_jobs(request):
+
+    numbers_list = range(1, 1000)
+
+    page = request.GET.get('page', 1)
+
+    paginator = Paginator(numbers_list, 20)
+    try:
+        numbers = paginator.page(page)
+    except PageNotAnInteger:
+        numbers = paginator.page(1)
+    except EmptyPage:
+        numbers = paginator.page(paginator.num_pages)
+
+    return render(request, 'jobs/dummy_jobs.html', {'numbers': numbers})
+
+
+class JobsView(ListView):
+    model = Job
+    paginate_by = 25
+    context_object_name = 'jobs'
+    template_name = 'jobs/jobs.html'
 
 logger = logging.getLogger(__name__)
 
 
 def jobs(request):
+
     return render(request, 'jobs/jobs.html')
 
 
@@ -63,3 +88,8 @@ def load_jobs(request):
             return render(request, 'jobs/jobs_import.html')
     else:
         return render(request, 'jobs/jobs_import.html')
+
+
+
+
+
