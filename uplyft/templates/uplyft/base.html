@@ -22,6 +22,23 @@
   <!-- Custom styles for this template -->
   <link rel="stylesheet" type="text/css" href="{% static 'uplyft/style.css' %}">
 
+  <style type="text/css">
+  .jobs_body {
+    width: 900px;
+    margin: 0 auto;
+  }
+  .infinite-item, .loading {
+    margin-bottom: 5px;
+    background-color: #1eaedb;
+    color: #fff;
+    text-align: center;
+    padding: 25px 0;
+  }
+  .loading {
+    background-color: #333;
+  }
+  </style>
+
 </head>
 
 <body id="page-top">
@@ -66,14 +83,21 @@
   </footer>
 
   <!-- Bootstrap core JavaScript -->
+
   <script src="{% static 'uplyft/vendor/jquery/jquery.min.js' %}"></script>
   <script src="{% static 'uplyft/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'uplyft/js/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'uplyft/js/infinite.min.js' %}"></script>
+  <script src="{% static 'uplyft/js/jquery-3.1.1.min.js' %}"></script>
+  <!--{% block javascript %}{% endblock %}-->
 
   <!-- Plugin JavaScript -->
   <script src="{% static 'uplyft/vendor/jquery-easing/jquery.easing.min.js' %}"></script>
 
   <!-- Custom scripts for this template -->
   <script src="{% static 'uplyft/js/grayscale.min.js' %}"></script>
+
+
 
 </body>
 
