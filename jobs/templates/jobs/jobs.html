@@ -1,80 +1,44 @@
 {% extends "uplyft/base.html" %}
 {% load static %}
 
-<head>
-  <style type="text/css">
-    .infinite-item, .loading {
-      margin-bottom: 5px;
-      background-color: #1eaedb;
-      color: #fff; !important
-      text-align: center;
-      padding: 25px 0;
-    }
-    .loading {
-      background-color: #333;
-    }
-  </style>
-</head>
-
-<!--
-{% block javascript %}
-  <script>
-    var infinite = new Waypoint.Infinite({
-      element: $('.infinite-container')[0],
-      onBeforePageLoad: function () {
-        $('.loading').show();
-      },
-      onAfterPageLoad: function ($items) {
-        $('.loading').hide();
-      }
-    });
-  </script>
-
-{% endblock %}
--->
-
 {% block content %}
 
+<div class="col-md-12 col-lg-6 mx-auto">
+
 <div class="container">
-      <div class="row">
-        <div class="col-lg-8 mx-auto text-center">
-          <h1 class="text-white mb-4">Job Listings</h1>
-        </div>
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <h1 class="text-white mb-4">Job Listings</h1>
       </div>
+    </div>
 </div>
 
-<div class="jobs_body">
-  <div class="infinite-container">
+
+  <div class="container">
     {% for job in jobs %}
-      <div class="col-md-5 mb-3 mb-md-0">
-        <div class="card py-4 h-100">
-          <div class="card-body text-center">
-            <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-            <h4 class="text-uppercase m-0"><b> [Department] </b>< {{ job.agency|truncatechars:30 }} </h4>
-            <hr class="my-4">
-            <div class="small text-black-50"><b> [Location] </b> {{ job.work_location|truncatechars:10 }} | <b> [Division] </b> {{ job.division|truncatechars:10 }} </div>
-              <p> <b> [Job Title] </b>< {{ job.business_title|truncatechars:20}} </p>
-          </div>
+
+   <div class="col-md-12 mb-3 mb-md-0">
+      <div class="card py-4 h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-map-marked-alt text-primary mb-2"></i>
+          <h4 class="text-uppercase m-0"> {{ job.agency }} </h4>
+          <hr class="my-4">
+          <div class="small text-black-50"> {{ job.work_location }} | {{ job.division }} </div>
+            <p> {{ job.business_title}} </p>
         </div>
       </div>
+    </div>
 
       </br>
       {% empty %}
-    <!--
-      <div class="infinite-item">
-        <a href="{% url 'jobs:generate_fake_data' %}" style="color:#fff">Populate database</a>
-      </div>
-      -->
-    {% endfor %}
-  </div>
 
-  <div class="loading" style="display: none;">
-    Loading...
+    {% endfor %}
   </div>
 
   {% if page_obj.has_next %}
     <a class="infinite-more-link" href="?page={{ jobs.next_page_number }}">More</a>
   {% endif %}
+
 </div>
 <!--
   <div class="row">
