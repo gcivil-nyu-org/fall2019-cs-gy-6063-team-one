@@ -21,11 +21,6 @@ class CustomUserModelTest(TestCase):
             last_name=cls.last_name
         )
 
-    def test_first_name_label(self):
-        user = CustomUser.objects.get(id=1)
-        field_label = user._meta.get_field('first_name').verbose_name
-        self.assertEquals(field_label, 'first name')
-
     def test_fullname_correct(self):
         user = CustomUser.objects.get(id=1)
         name = user.get_full_name()
