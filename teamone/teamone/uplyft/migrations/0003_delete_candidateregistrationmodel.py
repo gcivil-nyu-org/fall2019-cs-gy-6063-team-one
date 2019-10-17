@@ -5,12 +5,6 @@ from django.db import migrations
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('uplyft', '0002_auto_20191009_1206'),
-    ]
+    dependencies = [("uplyft", "0002_auto_20191009_1206")]
 
-    operations = [
-        migrations.DeleteModel(
-            name='CandidateRegistrationModel',
-        ),
-    ]
+    operations = [migrations.DeleteModel(name="CandidateRegistrationModel")]
