@@ -6,31 +6,20 @@ import uplyft.models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('uplyft', '0002_auto_20191009_1206'),
-    ]
+    dependencies = [("uplyft", "0002_auto_20191009_1206")]
 
     operations = [
         migrations.AlterModelManagers(
-            name='customuser',
-            managers=[
-                ('objects', uplyft.models.CustomUserManager()),
-            ],
+            name="customuser", managers=[("objects", uplyft.models.CustomUserManager())]
         ),
-        migrations.RemoveField(
-            model_name='customuser',
-            name='password2',
-        ),
-        migrations.RemoveField(
-            model_name='customuser',
-            name='username',
-        ),
+        migrations.RemoveField(model_name="customuser", name="password2"),
+        migrations.RemoveField(model_name="customuser", name="username"),
         migrations.AlterField(
-            model_name='customuser',
-            name='email',
-            field=models.EmailField(max_length=254, unique=True, verbose_name='email address'),
+            model_name="customuser",
+            name="email",
+            field=models.EmailField(
+                max_length=254, unique=True, verbose_name="email address"
+            ),
         ),
-        migrations.DeleteModel(
-            name='CandidateRegistrationModel',
-        ),
+        migrations.DeleteModel(name="CandidateRegistrationModel"),
     ]
