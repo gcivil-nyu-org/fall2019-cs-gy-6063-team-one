@@ -1,7 +1,5 @@
 from django.test import TestCase
 from django.urls import reverse
-from register.views import register
-from django.contrib.auth import get_user_model
 
 
 class CandidateRegisterViewTest(TestCase):
