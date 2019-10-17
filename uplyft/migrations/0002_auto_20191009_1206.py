@@ -7,41 +7,40 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('uplyft', '0001_initial'),
-    ]
+    dependencies = [("uplyft", "0001_initial")]
 
     operations = [
         migrations.RenameField(
-            model_name='candidateregistrationmodel',
-            old_name='password',
-            new_name='password1',
+            model_name="candidateregistrationmodel",
+            old_name="password",
+            new_name="password1",
         ),
         migrations.RenameField(
-            model_name='candidateregistrationmodel',
-            old_name='password_retype',
-            new_name='password2',
+            model_name="candidateregistrationmodel",
+            old_name="password_retype",
+            new_name="password2",
+        ),
+        migrations.RemoveField(model_name="candidateregistrationmodel", name="email"),
+        migrations.RemoveField(
+            model_name="candidateregistrationmodel", name="first_name"
         ),
         migrations.RemoveField(
-            model_name='candidateregistrationmodel',
-            name='email',
-        ),
-        migrations.RemoveField(
-            model_name='candidateregistrationmodel',
-            name='first_name',
-        ),
-        migrations.RemoveField(
-            model_name='candidateregistrationmodel',
-            name='last_name',
+            model_name="candidateregistrationmodel", name="last_name"
         ),
         migrations.AddField(
-            model_name='candidateregistrationmodel',
-            name='user',
-            field=models.OneToOneField(default='', on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="candidateregistrationmodel",
+            name="user",
+            field=models.OneToOneField(
+                default="",
+                on_delete=django.db.models.deletion.CASCADE,
+                to=settings.AUTH_USER_MODEL,
+            ),
         ),
         migrations.AddField(
-            model_name='customuser',
-            name='password2',
-            field=models.CharField(blank=True, help_text="The candidate's password, again.", max_length=200),
+            model_name="customuser",
+            name="password2",
+            field=models.CharField(
+                blank=True, help_text="The candidate's password, again.", max_length=200
+            ),
         ),
     ]

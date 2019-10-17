@@ -1,3 +1,4 @@
+model_mommy
 django==2.2.6
 django-localflavor==2.2
 python-stdnum==1.11
@@ -8,3 +9,7 @@ django-crispy-forms==1.7.2
 django-allauth==0.40.0
 django-heroku==0.3.1
 gunicorn==19.9.0
+black==19.3b0
+flake8==3.7.8
+coverage==4.5.4
+python-coveralls==2.9.3
