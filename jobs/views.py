@@ -27,6 +27,7 @@ def dummy_jobs(request):
 class JobsView(ListView):
     model = Job
     paginate_by = 10
+    ordering = ["-posting_date"]
     context_object_name = "jobs"
     template_name = "jobs/jobs.html"
     queryset = Job.objects.all()
