@@ -5,118 +5,105 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('jobs', '0001_initial'),
-    ]
+    dependencies = [("jobs", "0001_initial")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='job',
-            name='id',
-        ),
+        migrations.RemoveField(model_name="job", name="id"),
         migrations.AlterField(
-            model_name='job',
-            name='additional_info',
+            model_name="job",
+            name="additional_info",
             field=models.CharField(max_length=12000),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='agency',
+            model_name="job", name="agency", field=models.CharField(max_length=12000)
+        ),
+        migrations.AlterField(
+            model_name="job",
+            name="business_title",
             field=models.CharField(max_length=12000),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='business_title',
+            model_name="job",
+            name="civil_service_title",
             field=models.CharField(max_length=12000),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='civil_service_title',
+            model_name="job", name="division", field=models.CharField(max_length=12000)
+        ),
+        migrations.AlterField(
+            model_name="job",
+            name="ft_pt_indicator",
             field=models.CharField(max_length=12000),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='division',
+            model_name="job",
+            name="hours_info",
             field=models.CharField(max_length=12000),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='ft_pt_indicator',
+            model_name="job",
+            name="job_category",
             field=models.CharField(max_length=12000),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='hours_info',
+            model_name="job",
+            name="job_description",
             field=models.CharField(max_length=12000),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='job_category',
-            field=models.CharField(max_length=12000),
-        ),
-        migrations.AlterField(
-            model_name='job',
-            name='job_description',
-            field=models.CharField(max_length=12000),
-        ),
-        migrations.AlterField(
-            model_name='job',
-            name='job_id',
+            model_name="job",
+            name="job_id",
             field=models.IntegerField(primary_key=True, serialize=False),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='level',
+            model_name="job", name="level", field=models.CharField(max_length=12000)
+        ),
+        migrations.AlterField(
+            model_name="job",
+            name="min_qualifications",
             field=models.CharField(max_length=12000),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='min_qualifications',
+            model_name="job",
+            name="posting_type",
             field=models.CharField(max_length=12000),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='posting_type',
+            model_name="job",
+            name="preferred_skills",
             field=models.CharField(max_length=12000),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='preferred_skills',
+            model_name="job",
+            name="recruitment_contact",
             field=models.CharField(max_length=12000),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='recruitment_contact',
+            model_name="job",
+            name="residency_requirement",
             field=models.CharField(max_length=12000),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='residency_requirement',
+            model_name="job",
+            name="salary_frequency",
             field=models.CharField(max_length=12000),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='salary_frequency',
+            model_name="job",
+            name="secondary_work_location",
             field=models.CharField(max_length=12000),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='secondary_work_location',
+            model_name="job",
+            name="title_code_no",
             field=models.CharField(max_length=12000),
         ),
         migrations.AlterField(
-            model_name='job',
-            name='title_code_no',
-            field=models.CharField(max_length=12000),
+            model_name="job", name="to_apply", field=models.CharField(max_length=12000)
         ),
         migrations.AlterField(
-            model_name='job',
-            name='to_apply',
-            field=models.CharField(max_length=12000),
-        ),
-        migrations.AlterField(
-            model_name='job',
-            name='work_location',
+            model_name="job",
+            name="work_location",
             field=models.CharField(max_length=12000),
         ),
     ]

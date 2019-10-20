@@ -37,7 +37,7 @@ class JobsView(ListView):
 def search(request):
     job_list = Job.objects.all()
     job_filter = JobFilter(request.GET, queryset=job_list)
-    return render(request, 'jobs/job_search.html', {'filter': job_filter})
+    return render(request, "jobs/job_search.html", {"filter": job_filter})
 
 
 logger = logging.getLogger(__name__)
