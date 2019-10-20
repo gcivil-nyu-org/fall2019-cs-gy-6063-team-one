@@ -6,6 +6,7 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from django.views.generic.list import ListView
 from .models import Job
+from .filters import JobFilter
 
 
 def dummy_jobs(request):
@@ -31,6 +32,12 @@ class JobsView(ListView):
     context_object_name = "jobs"
     template_name = "jobs/jobs.html"
     queryset = Job.objects.all()
+
+
+def search(request):
+    job_list = Job.objects.all()
+    job_filter = JobFilter(request.GET, queryset=job_list)
+    return render(request, 'jobs/job_search.html', {'filter': job_filter})
 
 
 logger = logging.getLogger(__name__)

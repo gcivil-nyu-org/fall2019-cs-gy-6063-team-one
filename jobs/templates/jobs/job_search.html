@@ -1,0 +1,66 @@
+{% extends "uplyft/base.html" %}
+{% load static %}
+{% load widget_tweaks %}
+
+{% block content %}
+
+<style>
+body{
+    background-attachment: fixed !important;
+}
+</style>
+
+<div class="col-md-10 mx-auto">
+  <form method="get">
+    <div class="card">
+      <div class="card-header"><b>Search for Jobs</b> </div>
+      <div class="card-body">
+        <div class="row">
+          <div class="form-group col-sm-4 col-md-3">
+            {{ filter.form.business_title.label_tag }}
+            {% render_field filter.form.business_title class="form-control" %}
+          </div>
+          <div class="form-group col-sm-4 col-md-3">
+            {{ filter.form.work_location.label_tag }}
+            {% render_field filter.form.work_location class="form-control" %}
+          </div>
+          <div class="form-group col-sm-4 col-md-3">
+            {{ filter.form.agency.label_tag }}
+            {% render_field filter.form.agency class="form-control" %}
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary">
+          <span class="glyphicon glyphicon-search"></span> Search
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<div class="col-md-10 mx-auto">
+  <table class="table table-striped table-bordered table-hover">
+      <thead>
+        <tr>
+          <th scope="col"> Job Title </th>
+          <th scope="col"> Location </th>
+          <th scope="col"> Agency </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for job in filter.qs %}
+          <tr>
+            <td>{{ job.business_title }}</td>
+            <td>{{ job.work_location }}</td>
+            <td>{{ job.agency }}</td>
+          </tr>
+        {% empty %}
+          <tr>
+            <td colspan="5">No data</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+</div>
+
+{% endblock %}
