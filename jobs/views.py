@@ -9,7 +9,6 @@ from .models import Job
 
 
 def dummy_jobs(request):
-
     numbers_list = range(1, 1000)
 
     page = request.GET.get("page", 1)
@@ -27,16 +26,16 @@ def dummy_jobs(request):
 
 class JobsView(ListView):
     model = Job
-    paginate_by = 25
+    paginate_by = 10
     context_object_name = "jobs"
     template_name = "jobs/jobs.html"
+    queryset = Job.objects.all()
 
 
 logger = logging.getLogger(__name__)
 
 
 def jobs(request):
-
     return render(request, "jobs/jobs.html")
 
 
