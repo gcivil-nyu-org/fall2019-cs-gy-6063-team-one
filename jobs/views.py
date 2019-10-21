@@ -5,6 +5,7 @@ import logging
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from django.views.generic.list import ListView
+from django.views.generic.detail import DetailView
 from .models import Job
 
 
@@ -30,6 +31,11 @@ class JobsView(ListView):
     paginate_by = 25
     context_object_name = "jobs"
     template_name = "jobs/jobs.html"
+
+
+class JobDetailView(DetailView):
+    model = Job
+    template_name = "jobs/job_detail.html"
 
 
 logger = logging.getLogger(__name__)
