@@ -7,6 +7,7 @@ from django.shortcuts import render
 from django.db.models import Q
 from django.views.generic.list import ListView
 from django_filters.views import FilterView
+from django.views.generic.detail import DetailView
 from .models import Job
 from .filters import JobFilter
 
@@ -53,6 +54,11 @@ class JobAdvancedSearch(FilterView):
     filterset_class = JobFilter
     template_name = "jobs/job_search.html"
     paginate_by = 10
+
+
+class JobDetailView(DetailView):
+    model = Job
+    template_name = "jobs/job_detail.html"
 
 
 logger = logging.getLogger(__name__)
