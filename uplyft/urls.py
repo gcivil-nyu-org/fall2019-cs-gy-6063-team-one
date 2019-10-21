@@ -1,8 +1,8 @@
 from django.urls import path
-from django.views.generic import TemplateView
+from .views import IndexView
 
 app_name = "uplyft"
 urlpatterns = [
     # ex: /uplyft/
-    path("", TemplateView.as_view(template_name="uplyft/index.html"), name="index")
+    path("", IndexView.as_view(), name="index")
 ]
