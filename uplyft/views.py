@@ -1,5 +1,5 @@
-from django.views import generic
+from django.views.generic import TemplateView
 
 
-class IndexView(generic.ListView):
+class IndexView(TemplateView):
     template_name = "uplyft/index.html"
