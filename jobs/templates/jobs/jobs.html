@@ -17,7 +17,7 @@ body{
 <div class="container">
   <div class="row">
     <div class="col-md-10 col-lg-8 mx-auto text-center">
-        <form  class="form-inline d-flex" method="GET" action="">
+        <form class="form-inline d-flex" method="GET" action="">
             {% csrf_token %} <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
             {{ form|crispy }}
             <input type="text" name="q" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" placeholder="Search jobs"/>
@@ -36,7 +36,7 @@ body{
                     <h5 class="card-title">{{ job.business_title }}</h5>
                     <p class="card-text text-muted h6">{{ job.agency }} | {{ job.posting_date}} </p>
                     <hr class="h-bar">
-                    <p class="card-text"><small>{{job.job_description|truncatechars:200 }}</small></p>
+                    <p class="card-text"><small>{{job.job_description|truncatechars:325 }}</small></p>
                     <p class="card-text"> <i class="fas fa-map-marked-alt text-primary mb-2"></i> {{job.work_location}}
                     </p>
                 </div>

@@ -4,13 +4,20 @@
 
 {% block content %}
 
+<!--
+<head>
+  <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css">
+</head>
+-->
+
 <style>
 body{
     background-attachment: fixed !important;
 }
 </style>
 
-<div class="col-md-10 mx-auto">
+<div class="col-md-10 mx-auto mb-5">
   <form method="get">
     <div class="card">
       <div class="card-header"><b>Search for Jobs</b> </div>
@@ -29,22 +36,32 @@ body{
             {% render_field filter.form.agency class="form-control" %}
           </div>
         </div>
+
+
+        <div class="row">
+          <div class="form-group col-sm-4 col-md-3">
+          {{ filter.form.posting_date.label_tag }}
+          {% render_field filter.form.posting_date class="form-control" %}
+          </div>
+        </div>
+
+
         <button type="submit" class="btn btn-primary">
-          <span class="glyphicon glyphicon-search"></span> Search
+          Search
         </button>
       </div>
     </div>
   </form>
 </div>
 
-
 <div class="col-md-10 mx-auto">
-  <table class="table table-striped table-bordered table-hover">
+  <table id="example" class="table table-bordered table-hover"  style="background-color: #fff;">
       <thead>
         <tr>
           <th scope="col"> Job Title </th>
           <th scope="col"> Location </th>
           <th scope="col"> Agency </th>
+          <th scope="col"> Posted </th>
         </tr>
       </thead>
       <tbody>
@@ -53,14 +70,23 @@ body{
             <td>{{ job.business_title }}</td>
             <td>{{ job.work_location }}</td>
             <td>{{ job.agency }}</td>
+            <td>{{ job.posting_date }}</td>
           </tr>
         {% empty %}
           <tr>
-            <td colspan="5">No data</td>
+            <td colspan="4">No data</td>
           </tr>
         {% endfor %}
       </tbody>
     </table>
 </div>
+
+{% block javascript %}
+<script type="text/javascript" src="{% static 'jobs/js/jquery.dataTables.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'jobs/js/dataTables.bootstrap4.min.js' %}"></script>
+<script type="text/javascript" src="{% static 'jobs/js/sort-table.js' %}"></script>
+<!--<script type="text/javascript" src="{% static 'jobs/js/sortable.js' %}"></script>-->
+<!--<script type="text/javascript" src="{% static 'jobs/js/sort_table.js' %}"></script>-->
+{% endblock %}
 
 {% endblock %}
