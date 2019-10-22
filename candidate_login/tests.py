@@ -23,7 +23,7 @@ def createFooUser():
     )
 
 
-class AuthenticationWithStandardAuthTestCase(TestCase):
+class LoginWithStandardAuthTestCase(TestCase):
     def setUp(self):
         createFooUser()
 
@@ -43,11 +43,6 @@ class AuthenticationWithStandardAuthTestCase(TestCase):
             email=foo_user["first_name"], password=foo_user["password"]
         )
         self.assertIsNone(fooUser)
-
-
-class PreLoginWithStandardAuthTestCase(TestCase):
-    def setUp(self):
-        createFooUser()
 
     def test_login_get_page(self):
         client = Client()
@@ -75,7 +70,7 @@ class PreLoginWithStandardAuthTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
 
 
-class AfterLoginLoginWithStandardAuthTestCase(TestCase):
+class PostLoginLoginWithStandardAuthTestCase(TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.client = Client()
@@ -84,10 +79,9 @@ class AfterLoginLoginWithStandardAuthTestCase(TestCase):
         createFooUser()
         self.client.login(
             username=foo_user["email"],
-            password=foo_user["password"] + foo_user["password"],
+            password=foo_user["password"],
         )
 
     def test_user_access_user_profile(self):
-        self.client = Client()
         response = self.client.get("/candidate_login/success/")
-        self.assertEqual(response.status_code, 302)
+        self.assertEqual(response.status_code, 200)
