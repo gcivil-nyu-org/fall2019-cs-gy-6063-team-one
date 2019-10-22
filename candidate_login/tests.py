@@ -77,10 +77,7 @@ class PostLoginLoginWithStandardAuthTestCase(TestCase):
 
     def setUp(self):
         createFooUser()
-        self.client.login(
-            username=foo_user["email"],
-            password=foo_user["password"],
-        )
+        self.client.login(username=foo_user["email"], password=foo_user["password"])
 
     def test_user_access_user_profile(self):
         response = self.client.get("/candidate_login/success/")
