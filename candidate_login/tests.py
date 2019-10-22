@@ -70,7 +70,7 @@ class LoginWithStandardAuthTestCase(TestCase):
         self.assertEqual(response.status_code, 302)
 
 
-class PostLoginLoginWithStandardAuthTestCase(TestCase):
+class PostLoginWithStandardAuthTestCase(TestCase):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.client = Client()
