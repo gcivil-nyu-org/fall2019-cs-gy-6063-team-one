@@ -1,0 +1,40 @@
+{% extends "uplyft/base.html" %}
+{% load static %}
+
+{% block content %}
+
+<div class="container">
+
+   <div class="col-md-12 mb-3 mb-md-0">
+      <div class="card py-4 h-100">
+        <div class="card-body text-center">
+          <h4 class="text-uppercase m-0"> {{ job.business_title }} </h4>
+          <hr class="my-4">
+          <div class="small text-black-50"> {{ job.work_location }} | {{ job.division }} </div>
+            <p> {{ job.agency}} </p>
+        </div>
+      
+    
+
+    <ul>
+        <li>#{{ job.job_id }}</li>
+        <li>category: {{ job.job_category }}</li>
+        <li>civil service title: {{ job.civil_service_title }}</li>
+        <li>agency: {{ job.agency }}</li>
+        <li>divsion: {{ job.division }}</li>
+        <li>location: {{ job.work_location }}</li>
+        <li>posting type: {{ job.posting_type }}</li>
+        <li>posting date: {{ job.posting_date }}</li>
+        <li>description: {{ job.job_description }}</li>
+        <li>minimum qualification: {{ job.min_qualifications }}</li>
+        <li>preferred skills: {{ job.preferred_skills }}</li>
+        <li>more info: {{ job.additional_info }}</li>
+        <li>residency requirement: {{ job.residency_requirement }}</li>
+        <li>: {{ job. }}</li>
+    
+    </ul>
+</div>
+</div>
+  </div>
+
+{% endblock %}
