@@ -26,7 +26,7 @@ urlpatterns = [
     path("candidate_login/", include("candidate_login.urls")),
     path("employer_login/", include("employer_login.urls")),
     path("accounts/", include("allauth.urls")),
-    path("accounts/google/login/callback/success/",login_success),
+    path("accounts/google/login/callback/success/", login_success),
     path(
         "password-reset/",
         auth_views.PasswordResetView.as_view(
@@ -55,5 +55,4 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
-
 ]
