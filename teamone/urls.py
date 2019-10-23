@@ -26,17 +26,34 @@ urlpatterns = [
     path("candidate_login/", include("candidate_login.urls")),
     path("employer_login/", include("employer_login.urls")),
     path("accounts/", include("allauth.urls")),
-    path("accounts/google/login/callback/success/", login_success),
-    path("password-reset/",
-         auth_views.PasswordResetView.as_view(template_name="candidate_login/password_reset.html"),
-         name="password_reset"),
-    path("password-reset/done/",
-         auth_views.PasswordResetDoneView.as_view(template_name="candidate_login/password_reset_done.html"),
-         name="password_reset_done"),
-    path("password-reset-confirm/<uidb64>/<token>/",
-         auth_views.PasswordResetConfirmView.as_view(template_name="candidate_login/password_reset_confirm.html"),
-         name="password_reset_confirm"),
-    path("password-reset-complete/",
-         auth_views.PasswordResetCompleteView.as_view(template_name="candidate_login/password_reset_complete.html"),
-         name="password_reset_complete"),
+    path("accounts/google/login/callback/success/",login_success),
+    path(
+        "password-reset/",
+        auth_views.PasswordResetView.as_view(
+            template_name="candidate_login/password_reset.html"
+        ),
+        name="password_reset",
+    ),
+    path(
+        "password-reset/done/",
+        auth_views.PasswordResetDoneView.as_view(
+            template_name="candidate_login/password_reset_done.html"
+        ),
+        name="password_reset_done",
+    ),
+    path(
+        "password-reset-confirm/<uidb64>/<token>/",
+        auth_views.PasswordResetConfirmView.as_view(
+            template_name="candidate_login/password_reset_confirm.html"
+        ),
+        name="password_reset_confirm",
+    ),
+    path(
+        "password-reset-complete/",
+        auth_views.PasswordResetCompleteView.as_view(
+            template_name="candidate_login/password_reset_complete.html"
+        ),
+        name="password_reset_complete",
+    ),
+
 ]
