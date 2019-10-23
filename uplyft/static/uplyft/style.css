@@ -1,0 +1,277 @@
+html {
+    margin: 0px;
+    min-height: 100%;
+    width: 100%;
+}
+
+body {
+    padding: 10rem 0;
+    background: linear-gradient(
+            rgba(100, 100, 100, 0.3),
+            rgba(100, 100, 100, 0.3)
+    ), url("images/background.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    min-height: 100%;
+}
+
+/* Hide Labels
+[for = "id_first_name"],[for="id_last_name"], [for="id_username"], [for="id_email"],[for="id_password1"],[for="id_password2"]{
+  display:none;
+}*/
+.reg_form small {
+    color: #fff !important;
+    font-style: oblique;
+}
+
+.reg_form ul {
+    padding-left: 1rem;
+}
+
+.reg_form label {
+    color: #fff;
+}
+
+.reg_form input[type="text"], .reg_form input[type="email"], .reg_form input[type="password"] {
+    box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+    padding: 1.25rem 1rem;
+    height: 3em;
+    font-family: 'Varela Round';
+    font-size: 80%;
+    /*text-transform: uppercase;*/
+    letter-spacing: 0.15rem;
+    border: 0;
+}
+
+.reg_form input[type="submit"] {
+    background-color: #64a19d;
+    box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+    padding: 1.25rem 2rem;
+    font-family: 'Varela Round';
+    font-size: 80%;
+    text-transform: uppercase;
+    letter-spacing: .15rem;
+    border: 0;
+    color: white;
+}
+
+.reg_form input[type="button"] {
+    background-color: #64a19d;
+    box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+    padding: 1.25rem 2rem;
+    font-family: 'Varela Round';
+    font-size: 80%;
+    text-transform: uppercase;
+    letter-spacing: .15rem;
+    border: 0;
+    color: white;
+}
+
+.reg_form input[type=submit]:hover {
+    background-color: #4f837f;
+}
+
+/*!
+ * Start Bootstrap - Grayscale v5.0.9 (https://startbootstrap.com/template-overviews/grayscale)
+ * Copyright 2013-2019 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap-grayscale/blob/master/LICENSE)
+ */
+
+#mainNav {
+    min-height: 56px;
+    background: linear-gradient(
+            rgba(50, 50, 50, 0.6),
+            rgba(50, 50, 50, 0.6)
+    );
+}
+
+#mainNav .navbar-toggler {
+    font-size: 80%;
+    padding: 0.75rem;
+    color: #64a19d;
+    border: 1px solid #64a19d;
+}
+
+#mainNav .navbar-toggler:focus {
+    outline: none;
+}
+
+#mainNav .navbar-brand {
+    color: #161616;
+    font-weight: 700;
+    padding: .9rem 0;
+}
+
+#mainNav .navbar-nav .nav-item:hover {
+    color: fade(white, 80%);
+    outline: none;
+    background-color: transparent;
+}
+
+#mainNav .navbar-nav .nav-item:active, #mainNav .navbar-nav .nav-item:focus {
+    outline: none;
+    background-color: transparent;
+}
+
+@media (min-width: 992px) {
+    #mainNav {
+        padding-top: 0;
+        padding-bottom: 0;
+        border-bottom: none;
+        background-color: transparent;
+        transition: background-color 0.3s ease-in-out;
+    }
+
+    #mainNav .navbar-brand {
+        padding: .5rem 0;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    #mainNav .nav-link {
+        transition: none;
+        padding: 2rem 1.5rem;
+        color: rgba(255, 255, 255, 0.5);
+    }
+
+    #mainNav .nav-link:hover {
+        color: rgba(255, 255, 255, 0.75);
+    }
+
+    #mainNav .nav-link:active {
+        color: white;
+    }
+
+    #mainNav.navbar-shrink {
+        background: linear-gradient(
+                rgba(50, 50, 50, 0.6),
+                rgba(50, 50, 50, 0.6)
+        );
+    }
+
+    #mainNav.navbar-shrink .navbar-brand {
+        color: white;
+    }
+
+    #mainNav.navbar-shrink .nav-link {
+        color: rgba(255, 255, 255, 0.5);
+        padding: 1.5rem 1.5rem 1.25rem;
+        border-bottom: 0.25rem solid transparent;
+    }
+
+    #mainNav.navbar-shrink .nav-link:hover {
+        color: white;
+    }
+
+    #mainNav.navbar-shrink .nav-link:active {
+        color: #467370;
+    }
+
+    #mainNav.navbar-shrink .nav-link.active {
+        color: #64a19d;
+        outline: none;
+        border-bottom: 0.25rem solid #64a19d;
+    }
+}
+
+@media (min-width: 768px) {
+    .masthead h1 {
+        font-size: 4rem;
+        line-height: 4rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .masthead {
+        height: 100vh;
+        padding: 0;
+    }
+
+    .masthead h1 {
+        font-size: 6.5rem;
+        line-height: 6.5rem;
+        letter-spacing: 0.8rem;
+    }
+
+    .masthead h2 {
+        max-width: 30rem;
+        font-size: 1.25rem;
+    }
+}
+
+.btn {
+    box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+    padding: 1.25rem 2rem;
+    font-family: 'Varela Round';
+    font-size: 80%;
+    text-transform: uppercase;
+    letter-spacing: .15rem;
+    border: 0;
+}
+
+.btn-primary {
+    background-color: #64a19d;
+}
+
+.btn-primary:hover {
+    background-color: #4f837f;
+}
+
+.btn-primary:focus {
+    background-color: #4f837f;
+    color: white;
+}
+
+.btn-primary:active {
+    background-color: #467370 !important;
+}
+
+body {
+    font-family: 'Nunito';
+    letter-spacing: 0.0625em;
+}
+
+a {
+    color: #64a19d;
+}
+
+a:focus, a:hover {
+    text-decoration: none;
+    color: #3c6360;
+}
+
+.bg-black {
+    background-color: #161616 !important;
+}
+
+.bg-primary {
+    background-color: #64a19d !important;
+}
+
+.text-primary {
+    color: #64a19d !important;
+}
+
+footer {
+    position: relative;
+    height: 40px;
+    clear: both;
+    padding-top: 10px;
+}
+
+.layer {
+    background-color: rgba(248, 247, 216, 0.7);
+}
+
+.card-body h5 {
+    display:inline;
+}
+
+.card-body span{
+    float:right;
+}
+
+.salary_info {
+    float:right;
+}
