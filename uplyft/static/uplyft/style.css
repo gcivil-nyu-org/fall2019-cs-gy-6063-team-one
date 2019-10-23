@@ -264,3 +264,14 @@ footer {
     background-color: rgba(248, 247, 216, 0.7);
 }
 
+.card-body h5 {
+    display:inline;
+}
+
+.card-body span{
+    float:right;
+}
+
+.salary_info {
+    float:right;
+}
