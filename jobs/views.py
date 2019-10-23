@@ -35,12 +35,15 @@ class JobsView(ListView):
 
     def get_queryset(self):
         try:
-            a = self.request.GET.get('q')
+            a = self.request.GET.get("q")
         except KeyError:
             a = None
         if a:
-            queryset = Job.objects.filter(Q(business_title__icontains=a)| Q(work_location__icontains=a) |
-                                          Q(agency__icontains=a)).order_by("-posting_date")
+            queryset = Job.objects.filter(
+                Q(business_title__icontains=a)
+                | Q(work_location__icontains=a)
+                | Q(agency__icontains=a)
+            ).order_by("-posting_date")
         else:
             queryset = Job.objects.all().order_by("-posting_date")
         return queryset
@@ -50,12 +53,6 @@ class JobAdvancedSearch(FilterView):
     filterset_class = JobFilter
     template_name = "jobs/job_search.html"
     paginate_by = 10
-
-"""
-    job_list = Job.objects.all().order_by("-posting_date")
-    job_filter = JobFilter(request.GET, queryset=job_list)
-    return render(request, "jobs/jobs.html", {"filter": job_filter})
-"""
 
 
 logger = logging.getLogger(__name__)
