@@ -1,9 +1,8 @@
-from django.contrib import messages
-from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from .forms import CandidateRegistrationForm
 
 

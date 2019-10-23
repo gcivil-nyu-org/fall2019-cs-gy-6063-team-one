@@ -15,7 +15,6 @@ Including another URL conf
 """
 from django.contrib import admin
 from django.urls import include, path
-
 from candidate_login.views import login_success
 
 urlpatterns = [

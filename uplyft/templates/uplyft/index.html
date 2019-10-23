@@ -1,14 +1,14 @@
 {% extends "uplyft/base.html" %}
 {% load static %}
 {% block content %}
-<!-- Header -->
+    <!-- Header -->
 
-<div class="container d-flex h-100 align-items-center">
-    <div class="mx-auto text-center">
+    <div class="container d-flex h-100 align-items-center">
+      <div class="mx-auto text-center">
         <h1 class="mx-auto my-0 text-uppercase text-white">Uplyft</h1>
         <h2 class="text-white-50 mx-auto mt-2 mb-5">Start a new journey!</h2>
         <a href="{% url 'candidate_login:candidate_login' %}" class="btn btn-primary js-scroll-trigger">Candidates</a>
         <a href="{% url 'employer_login:employer_login' %}" class="btn btn-primary js-scroll-trigger">Employers</a>
+      </div>
     </div>
-</div>
 {% endblock %}

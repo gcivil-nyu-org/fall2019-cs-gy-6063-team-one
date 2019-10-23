@@ -5,39 +5,39 @@
 
 <div class="col-md-12 col-lg-6 mx-auto">
 
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 mx-auto text-center">
-                <h1 class="text-white mb-4">Job Listings</h1>
-            </div>
+<div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <h1 class="text-white mb-4">Job Listings</h1>
+      </div>
+    </div>
+</div>
+
+
+  <div class="container">
+    {% for job in jobs %}
+
+   <div class="col-md-12 mb-3 mb-md-0">
+      <div class="card py-4 h-100">
+        <div class="card-body text-center">
+          <i class="fas fa-map-marked-alt text-primary mb-2"></i>
+          <h4 class="text-uppercase m-0"> {{ job.agency }} </h4>
+          <hr class="my-4">
+          <div class="small text-black-50"> {{ job.work_location }} | {{ job.division }} </div>
+            <p> {{ job.business_title}} </p>
         </div>
+      </div>
     </div>
 
+      </br>
+      {% empty %}
 
-    <div class="container">
-        {% for job in jobs %}
+    {% endfor %}
+  </div>
 
-        <div class="col-md-12 mb-3 mb-md-0">
-            <div class="card py-4 h-100">
-                <div class="card-body text-center">
-                    <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-                    <h4 class="text-uppercase m-0"> {{ job.agency }} </h4>
-                    <hr class="my-4">
-                    <div class="small text-black-50"> {{ job.work_location }} | {{ job.division }}</div>
-                    <p> {{ job.business_title}} </p>
-                </div>
-            </div>
-        </div>
-
-        </br>
-        {% empty %}
-
-        {% endfor %}
-    </div>
-
-    {% if page_obj.has_next %}
+  {% if page_obj.has_next %}
     <a class="infinite-more-link" href="?page={{ jobs.next_page_number }}">More</a>
-    {% endif %}
+  {% endif %}
 
 </div>
 <!--

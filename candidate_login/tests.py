@@ -1,8 +1,8 @@
-from django.contrib.auth import authenticate
 from django.test import TestCase, Client
+from django.contrib.auth import authenticate
 
-from candidate_login.views import CandidateLoginView
 from uplyft.models import CustomUser
+from candidate_login.views import CandidateLoginView
 
 foo_user = {
     "first_name": "John",
