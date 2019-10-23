@@ -11,10 +11,8 @@ class CandidateLoginView(auth_views.LoginView):
 
 def login_success(request):
     if request.user.is_authenticated:
-        name = request.user.first_name
-        if name == "" or name is None:
-            name = request.user.username
-        messages.success(request, "Hi, " + name + "!")
+        email = request.user.email
+        messages.success(request, "Hi, " + email + "!")
     else:
         messages.info(request, "This page requires login.")
         return redirect("candidate_login:candidate_login")
