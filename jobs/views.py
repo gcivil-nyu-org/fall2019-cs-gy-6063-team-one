@@ -44,11 +44,14 @@ class JobAdvancedSearch(FilterView):
 
 def basic_search(request):
     template = "jobs/jobs.html"
-    query = request.GET.get('q')
+    query = request.GET.get("q")
 
     # Check if the job title, job description or job location match the user query
-    results = Job.objects.filter(Q(business_title__icontains=query) | Q(job_description__icontains=query) |
-                                 Q(work_location__icontains=query))
+    results = Job.objects.filter(
+        Q(business_title__icontains=query)
+        | Q(job_description__icontains=query)
+        | Q(work_location__icontains=query)
+    )
 
     return render(request, template, {"results": results})
 
@@ -57,6 +60,7 @@ def basic_search(request):
     job_filter = JobFilter(request.GET, queryset=job_list)
     return render(request, "jobs/jobs.html", {"filter": job_filter})
 """
+
 
 logger = logging.getLogger(__name__)
 
