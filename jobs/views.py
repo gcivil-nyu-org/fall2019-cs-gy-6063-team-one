@@ -4,6 +4,7 @@ from django.contrib import messages
 import logging
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
+from django.db.models import Q
 from django.views.generic.list import ListView
 from django_filters.views import FilterView
 from .models import Job
@@ -41,11 +42,21 @@ class JobAdvancedSearch(FilterView):
     paginate_by = 10
 
 
-def search(request):
+def basic_search(request):
+    template = "jobs/jobs.html"
+    query = request.GET.get('q')
+
+    # Check if the job title, job description or job location match the user query
+    results = Job.objects.filter(Q(business_title__icontains=query) | Q(job_description__icontains=query) |
+                                 Q(work_location__icontains=query))
+
+    return render(request, template, {"results": results})
+
+    """
     job_list = Job.objects.all().order_by("-posting_date")
     job_filter = JobFilter(request.GET, queryset=job_list)
-    return render(request, "jobs/job_search.html", {"filter": job_filter})
-
+    return render(request, "jobs/jobs.html", {"filter": job_filter})
+"""
 
 logger = logging.getLogger(__name__)
 

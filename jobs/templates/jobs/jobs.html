@@ -15,21 +15,19 @@ body{
     <h1 class="text-white mb-4">Job Listings</h1>
 </div>
 
-<!--
+
 <div class="container">
   <div class="row">
     <div class="col-md-10 col-lg-8 mx-auto text-center">
-        <form class="form-inline d-flex" method="GET" action="">
+        <form class="form-inline d-flex" method="GET" action="{% url 'jobs:results'%}">
             {% csrf_token %}
             {{ form|crispy }}
-            <input type="text" name="q" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" placeholder="Search jobs"/>
+            <input type="text" name="q" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" value="{{request.GET.q}}" placeholder="Search jobs"/>
             <button type="submit" class="btn btn-primary mx-auto">Search </button>
         </form>
     </div>
   </div>
 </div>
-
--->
 
 <div class="container">
     <div class="row">
