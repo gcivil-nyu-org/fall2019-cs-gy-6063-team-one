@@ -28,11 +28,13 @@ body{
   </div>
 </div>
 
+
 <div class="container">
     <div class="row">
         <div class="col-md-9 mt-3 center mx-auto">
             {% for job in jobs %}
-            <div class="card mb-4">
+            <a href="{% url 'jobs:job_detail' job.job_id %}">
+              <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title">{{ job.business_title }}</h5>
                     <span> <small> {{ job.posting_date}} </small> </span>
@@ -49,6 +51,7 @@ body{
                     </p>
                 </div>
             </div>
+            </a>
             {% endfor %}
         </div>
 
