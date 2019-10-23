@@ -5,6 +5,7 @@ import logging
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from django.views.generic.list import ListView
+from django_filters.views import FilterView
 from .models import Job
 from .filters import JobFilter
 
@@ -34,8 +35,14 @@ class JobsView(ListView):
     queryset = Job.objects.all()
 
 
+class JobAdvancedSearch(FilterView):
+    filterset_class = JobFilter
+    template_name = "jobs/job_search.html"
+    paginate_by = 10
+
+
 def search(request):
-    job_list = Job.objects.all()
+    job_list = Job.objects.all().order_by("-posting_date")
     job_filter = JobFilter(request.GET, queryset=job_list)
     return render(request, "jobs/job_search.html", {"filter": job_filter})
 

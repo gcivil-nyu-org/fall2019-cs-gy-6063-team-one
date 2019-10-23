@@ -15,11 +15,12 @@ body{
     <h1 class="text-white mb-4">Job Listings</h1>
 </div>
 
+<!--
 <div class="container">
   <div class="row">
     <div class="col-md-10 col-lg-8 mx-auto text-center">
         <form class="form-inline d-flex" method="GET" action="">
-            {% csrf_token %} <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
+            {% csrf_token %}
             {{ form|crispy }}
             <input type="text" name="q" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" placeholder="Search jobs"/>
             <button type="submit" class="btn btn-primary mx-auto">Search </button>
@@ -27,6 +28,8 @@ body{
     </div>
   </div>
 </div>
+
+-->
 
 <div class="container">
     <div class="row">
