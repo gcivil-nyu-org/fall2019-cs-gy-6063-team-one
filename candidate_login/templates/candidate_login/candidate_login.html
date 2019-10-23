@@ -23,12 +23,15 @@
                     <td></td>
                     <td><input type="submit" name="submit" value="Login"/>
                         <a href="{% url 'register:register' %}">
-                        <input type="button" value="Register"/>
-                    </a>
-                    <a href="{% provider_login_url 'google' %}">
-                    <input type="button" value="Login with Gmail">
-                    </a>
+                            <input type="button" value="Register"/>
+                        </a>
+                        <a href="{% provider_login_url 'google' %}">
+                            <input type="button" value="Login with Gmail">
+                        </a>
                     </td>
+                </tr>
+                <tr>
+                    <a href="{% url 'password_reset' %}">Forgot Password</a>
                 </tr>
             </table>
         </form>

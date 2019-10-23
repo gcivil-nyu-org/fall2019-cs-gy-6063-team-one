@@ -4,12 +4,15 @@ from django.contrib import messages
 import logging
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
+from django.db.models import Q
 from django.views.generic.list import ListView
+from django_filters.views import FilterView
+from django.views.generic.detail import DetailView
 from .models import Job
+from .filters import JobFilter
 
 
 def dummy_jobs(request):
-
     numbers_list = range(1, 1000)
 
     page = request.GET.get("page", 1)
@@ -27,16 +30,41 @@ def dummy_jobs(request):
 
 class JobsView(ListView):
     model = Job
-    paginate_by = 25
+    paginate_by = 10
     context_object_name = "jobs"
     template_name = "jobs/jobs.html"
+
+    def get_queryset(self):
+        try:
+            a = self.request.GET.get("q")
+        except KeyError:
+            a = None
+        if a:
+            queryset = Job.objects.filter(
+                Q(business_title__icontains=a)
+                | Q(work_location__icontains=a)
+                | Q(agency__icontains=a)
+            ).order_by("-posting_date")
+        else:
+            queryset = Job.objects.all().order_by("-posting_date")
+        return queryset
+
+
+class JobAdvancedSearch(FilterView):
+    filterset_class = JobFilter
+    template_name = "jobs/job_search.html"
+    paginate_by = 10
+
+
+class JobDetailView(DetailView):
+    model = Job
+    template_name = "jobs/job_detail.html"
 
 
 logger = logging.getLogger(__name__)
 
 
 def jobs(request):
-
     return render(request, "jobs/jobs.html")
 
 
