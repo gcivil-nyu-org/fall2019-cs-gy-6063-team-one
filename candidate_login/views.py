@@ -12,7 +12,7 @@ class CandidateLoginView(auth_views.LoginView):
 def login_success(request):
     if request.user.is_authenticated:
         email = request.user.email
-        if email == "" or email is None:
+        if not email:
             email = request.user.email
         messages.success(request, "Hi, " + email + "!")
     else:
