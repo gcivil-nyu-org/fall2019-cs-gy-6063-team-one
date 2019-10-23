@@ -22,48 +22,23 @@ class JobsViewTest(TestCase):
         self.assertTemplateUsed(response, "jobs/jobs.html")
 
     def test_form_GET_response_renders_correct_template(self):
-        response = self.client.get(
-            reverse("jobs:jobs"),
-            data={
-                "q": self.q,
-            }
-        )
+        response = self.client.get(reverse("jobs:jobs"), data={"q": self.q})
         self.assertTemplateUsed(response, "uplyft/base.html")
         self.assertTemplateUsed(response, "jobs/jobs.html")
 
     def test_form_GET_response_returns_queryset_in_context(self):
-        response = self.client.get(
-            reverse("jobs:jobs"),
-            data={
-                "q": self.q,
-            }
-        )
-        self.assertIsInstance(response.context['jobs'], QuerySet);
+        response = self.client.get(reverse("jobs:jobs"), data={"q": self.q})
+        self.assertIsInstance(response.context["jobs"], QuerySet)
 
     def test_form_GET_response_returns_correct_view_in_context(self):
-        response = self.client.get(
-            reverse("jobs:jobs"),
-            data={
-                "q": self.q,
-            }
-        )
-        self.assertIsInstance(response.context['view'], JobsView)
+        response = self.client.get(reverse("jobs:jobs"), data={"q": self.q})
+        self.assertIsInstance(response.context["view"], JobsView)
 
     def test_form_GET_response_returns_a_queryset(self):
-        response = self.client.get(
-            reverse("jobs:jobs"),
-            data={
-                "q": self.q,
-            }
-        )
+        response = self.client.get(reverse("jobs:jobs"), data={"q": self.q})
         self.assertTrue("jobs" in response.context)
         self.assertIsInstance(response.context["jobs"], QuerySet)
 
     def test_form_GET_response_retains_form_data(self):
-        response = self.client.get(
-            reverse("jobs:jobs"),
-            data={
-                "q": "manager",
-            }
-        )
+        response = self.client.get(reverse("jobs:jobs"), data={"q": "manager"})
         self.assertContains(response, "manager")
