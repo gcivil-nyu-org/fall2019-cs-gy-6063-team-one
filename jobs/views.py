@@ -30,10 +30,20 @@ def dummy_jobs(request):
 class JobsView(ListView):
     model = Job
     paginate_by = 10
-    ordering = ["-posting_date"]
     context_object_name = "jobs"
     template_name = "jobs/jobs.html"
-    queryset = Job.objects.all()
+
+    def get_queryset(self):
+        try:
+            a = self.request.GET.get('q')
+        except KeyError:
+            a = None
+        if a:
+            queryset = Job.objects.filter(Q(business_title__icontains=a)| Q(work_location__icontains=a) |
+                                          Q(agency__icontains=a)).order_by("-posting_date")
+        else:
+            queryset = Job.objects.all().order_by("-posting_date")
+        return queryset
 
 
 class JobAdvancedSearch(FilterView):
@@ -41,21 +51,7 @@ class JobAdvancedSearch(FilterView):
     template_name = "jobs/job_search.html"
     paginate_by = 10
 
-
-def basic_search(request):
-    template = "jobs/jobs.html"
-    query = request.GET.get("q")
-
-    # Check if the job title, job description or job location match the user query
-    results = Job.objects.filter(
-        Q(business_title__icontains=query)
-        | Q(job_description__icontains=query)
-        | Q(work_location__icontains=query)
-    )
-
-    return render(request, template, {"results": results})
-
-    """
+"""
     job_list = Job.objects.all().order_by("-posting_date")
     job_filter = JobFilter(request.GET, queryset=job_list)
     return render(request, "jobs/jobs.html", {"filter": job_filter})

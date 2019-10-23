@@ -1,6 +1,7 @@
 {% extends "uplyft/base.html" %}
 {% load static %}
 {% load crispy_forms_tags %}
+{% load my_templatetags %}
 {% load humanize %}
 
 {% block content %}
@@ -15,12 +16,10 @@ body{
     <h1 class="text-white mb-4">Job Listings</h1>
 </div>
 
-
 <div class="container">
   <div class="row">
     <div class="col-md-10 col-lg-8 mx-auto text-center">
-        <form class="form-inline d-flex" method="GET" action="{% url 'jobs:results'%}">
-            {% csrf_token %}
+        <form class="form-inline d-flex" method="GET" action="{% url 'jobs:jobs' %}">
             {{ form|crispy }}
             <input type="text" name="q" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" value="{{request.GET.q}}" placeholder="Search jobs"/>
             <button type="submit" class="btn btn-primary mx-auto">Search </button>
@@ -60,23 +59,24 @@ body{
  <div id="container" style="display:inline-block;text-align:left">
 {% if is_paginated %}
     {% if page_obj.has_previous %}
-        <a class="btn btn-primary" href="?page=1"> First </a>
-        <a class="btn btn-primary" href="?page={{ page_obj.previous_page_number }}"> Previous </a>
+        <a class="btn btn-primary" href="?{% query_transform request page=1 %}"> First </a>
+        <a class="btn btn-primary" href="?{% query_transform request page=page_obj.previous_page_number %}"> Previous </a>
     {% endif %}
 
     {% for num in page_obj.paginator.page_range %}
         {% if page_obj.number == num %}
-            <a class="btn btn-light" href="?page={{num}}"> {{ num }} </a>
+            <a class="btn btn-light" href="?{% query_transform request page=num %}"> {{ num }} </a>
         {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-            <a class="btn btn-primary" href="?page={{num}}"> {{ num }} </a>
+            <a class="btn btn-primary" href="?{% query_transform request page=num %}"> {{ num }} </a>
         {% endif %}
     {% endfor %}
 
     {% if page_obj.has_next %}
-        <a class="btn btn-primary" href="?page={{page_obj.next_page_number}}"> Next </a>
-        <a class="btn btn-primary" href="?page={{ page_obj.paginator.num_pages }}"> Last </a>
+        <a class="btn btn-primary" href="?{% query_transform request page=page_obj.next_page_number %}"> Next </a>
+        <a class="btn btn-primary" href="?{% query_transform request page=page_obj.paginator.num_pages %}"> Last </a>
     {% endif %}
 {% endif %}
  </div>
 </div>
+
 {% endblock %}
