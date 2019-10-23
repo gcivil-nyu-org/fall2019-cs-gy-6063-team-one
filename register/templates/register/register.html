@@ -6,23 +6,24 @@
 <div class="col-md-6 col-lg-6 mx-auto">
     <div class="login">
         {% if messages %}
-            <ul>
-                {% for message in messages %}
-                <li class="text-white mb-5">{{ message }}</li>
-                {% endfor %}
-            </ul>
+        <ul>
+            {% for message in messages %}
+            <li class="text-white mb-5">{{ message }}</li>
+            {% endfor %}
+        </ul>
         {% endif %}
     </div>
-	<h1 class="text-white mb-5">Create Account </h1>
+    <h1 class="text-white mb-5">Create Account </h1>
 
-	<form class="reg_form" action="{% url 'register:register' %}" method="post">
-		{% csrf_token %} <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
-		{{ form|crispy }}
+    <form class="reg_form" action="{% url 'register:register' %}" method="post">
+        {% csrf_token %}
+        <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
+        {{ form|crispy }}
 
         <input type="submit" name="Register" value="Submit"/>
 
 
-	</form>
+    </form>
 </div>
 
 {% endblock %}
