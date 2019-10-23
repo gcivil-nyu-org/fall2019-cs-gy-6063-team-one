@@ -1,0 +1,4 @@
+[run]
+omit =
+    # omit anything in home, which is Travis's virtual environment
+    /home/*
