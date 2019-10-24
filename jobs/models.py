@@ -38,5 +38,3 @@ class Job(models.Model):
 
     def __ne__(self, other):
         return self.job_id != other.job_id
-
-
