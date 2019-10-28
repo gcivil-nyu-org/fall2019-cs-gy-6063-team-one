@@ -55,4 +55,5 @@ urlpatterns = [
         ),
         name="password_reset_complete",
     ),
+    path("apply/", include("apply.urls")),
 ]

@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "candidate_login.apps.CandidateLoginConfig",
     "employer_login.apps.EmployerLoginConfig",
     "jobs.apps.JobsConfig",
+    "apply.apps.ApplyConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
