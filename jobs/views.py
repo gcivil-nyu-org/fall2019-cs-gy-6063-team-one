@@ -54,7 +54,7 @@ class JobAdvancedSearch(FilterView):
     filterset_class = JobFilter
     template_name = "jobs/job_search.html"
     paginate_by = 10
-    ordering = ['-posting_date']
+    ordering = ["-posting_date"]
 
 
 class JobDetailView(DetailView):
