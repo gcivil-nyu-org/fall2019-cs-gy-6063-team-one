@@ -2,7 +2,6 @@ import csv
 from datetime import datetime
 from django.contrib import messages
 import logging
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from django.db.models import Q
 from django.views.generic.list import ListView
@@ -10,22 +9,6 @@ from django_filters.views import FilterView
 from django.views.generic.detail import DetailView
 from .models import Job
 from .filters import JobFilter
-
-
-def dummy_jobs(request):
-    numbers_list = range(1, 1000)
-
-    page = request.GET.get("page", 1)
-
-    paginator = Paginator(numbers_list, 20)
-    try:
-        numbers = paginator.page(page)
-    except PageNotAnInteger:
-        numbers = paginator.page(1)
-    except EmptyPage:
-        numbers = paginator.page(paginator.num_pages)
-
-    return render(request, "jobs/dummy_jobs.html", {"numbers": numbers})
 
 
 class JobsView(ListView):
@@ -54,6 +37,7 @@ class JobAdvancedSearch(FilterView):
     filterset_class = JobFilter
     template_name = "jobs/job_search.html"
     paginate_by = 10
+    ordering = ["-posting_date"]
 
 
 class JobDetailView(DetailView):
