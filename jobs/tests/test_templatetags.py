@@ -15,7 +15,7 @@ class TagTests(TestCase):
         t = self.engine.from_string("{% load my_templatetags %}" + template)
         self.assertEqual(t.render(Context(context)), output)
 
-    def test_query_transform_tag(self):
+    def test_query_transform(self):
         template = "{% for item in search %}{{item}}{% endfor %}"
         context = {"search": ["manager"]}
         output = "manager"
