@@ -2,7 +2,6 @@ import csv
 from datetime import datetime
 from django.contrib import messages
 import logging
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.shortcuts import render
 from django.db.models import Q
 from django.views.generic.list import ListView
@@ -10,6 +9,7 @@ from django_filters.views import FilterView
 from django.views.generic.detail import DetailView
 from .models import Job
 from .filters import JobFilter
+
 
 class JobsView(ListView):
     model = Job
