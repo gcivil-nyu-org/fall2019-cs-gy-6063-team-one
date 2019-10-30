@@ -7,7 +7,7 @@ from django.contrib.auth import get_user_model
 class JobApplicationForm(ModelForm):
     class Meta:
         model = Application
-        exclude = "job_id", "job", "app_id", "candidate", "submit_date", "status"
+        exclude = "job_id", "job", "application_id", "candidate", "submit_date", "status"
 
     def clean_active_application_already_exists(self):
         job_id = self.cleaned_data["job_id"]
