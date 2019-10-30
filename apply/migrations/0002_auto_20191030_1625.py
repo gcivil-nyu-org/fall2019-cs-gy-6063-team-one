@@ -11,19 +11,23 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('apply', '0001_initial'),
-        ('jobs', '0001_initial'),
+        ("apply", "0001_initial"),
+        ("jobs", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='application',
-            name='candidate',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="application",
+            name="candidate",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
-            model_name='application',
-            name='job',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='jobs.Job'),
+            model_name="application",
+            name="job",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="jobs.Job"
+            ),
         ),
     ]

@@ -8,16 +8,25 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Application',
+            name="Application",
             fields=[
-                ('application_id', models.IntegerField(primary_key=True, serialize=False)),
-                ('submit_date', models.DateField(default=datetime.datetime.now)),
-                ('status', models.CharField(choices=[('ACTIVE', 'ACTIVE'), ('INACTIVE', 'INACTIVE')], default='ACTIVE', max_length=10)),
+                (
+                    "application_id",
+                    models.IntegerField(primary_key=True, serialize=False),
+                ),
+                ("submit_date", models.DateField(default=datetime.datetime.now)),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[("ACTIVE", "ACTIVE"), ("INACTIVE", "INACTIVE")],
+                        default="ACTIVE",
+                        max_length=10,
+                    ),
+                ),
             ],
-        ),
+        )
     ]
