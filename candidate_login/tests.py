@@ -1,5 +1,6 @@
 from django.test import TestCase, Client
 from django.contrib.auth import authenticate
+from django.urls import reverse
 
 from uplyft.models import CustomUser
 from candidate_login.views import CandidateLoginView
@@ -81,4 +82,5 @@ class PostLoginWithStandardAuthTestCase(TestCase):
 
     def test_user_access_user_profile(self):
         response = self.client.get("/candidate_login/success/")
-        self.assertEqual(response.status_code, 200)
+        self.assertRedirects(response, reverse("jobs:jobs"),
+                             fetch_redirect_response=False)

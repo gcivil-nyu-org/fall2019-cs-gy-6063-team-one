@@ -113,7 +113,8 @@ class CandidateRegisterViewTests(TestCase):
 
     def test_good_POST_redirects_to_login_success(self):
         response = self.good_POST()
-        self.assertRedirects(response, reverse("candidate_login:candidate_login"))
+        self.assertRedirects(response, reverse("candidate_login:candidate_login"),
+                             fetch_redirect_response=False)
 
     def test_good_POST_success_message_added_to_context_of_login_success_page(self):
         response = self.client.post(
