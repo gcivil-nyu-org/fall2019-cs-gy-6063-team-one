@@ -12,18 +12,39 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('jobs', '0001_initial'),
+        ("jobs", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Application',
+            name="Application",
             fields=[
-                ('application_id', models.IntegerField(primary_key=True, serialize=False)),
-                ('submit_date', models.DateField(default=datetime.datetime.now)),
-                ('status', models.CharField(choices=[('ACTIVE', 'ACTIVE'), ('INACTIVE', 'INACTIVE')], default='ACTIVE', max_length=10)),
-                ('candidate', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('job', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='jobs.Job')),
+                (
+                    "application_id",
+                    models.IntegerField(primary_key=True, serialize=False),
+                ),
+                ("submit_date", models.DateField(default=datetime.datetime.now)),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[("ACTIVE", "ACTIVE"), ("INACTIVE", "INACTIVE")],
+                        default="ACTIVE",
+                        max_length=10,
+                    ),
+                ),
+                (
+                    "candidate",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "job",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="jobs.Job"
+                    ),
+                ),
             ],
-        ),
+        )
     ]
