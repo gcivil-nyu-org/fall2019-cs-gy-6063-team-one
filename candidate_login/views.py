@@ -15,13 +15,6 @@ def set_session(sender, user, request, **kwargs):
 
 user_logged_in.connect(set_session)
 
-@receiver(user_logged_in)
-def set_session(sender, user, request, **kwargs):
-    request.session["email"] = user.email
-
-
-user_logged_in.connect(set_session)
-
 
 class CandidateLoginView(auth_views.LoginView):
     redirect_authenticated_user = True

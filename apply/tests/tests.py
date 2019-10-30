@@ -10,13 +10,15 @@ from tests.tests import valid_data, invalid_data
 from uplyft.models import CustomUser
 from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login
-
+from selenium import webdriver
 
 class ApplyViewTests(TestCase):
     def login(self):
         return authenticate(email=valid_data["email"], password=valid_data["password"])
 
     def setUp(self):
+        browser = webdriver.Firefox()
+        browser.get('http://localhost:8000')
         get_user_model().objects.create(
             first_name=valid_data["first_name"],
             last_name=valid_data["last_name"],
@@ -60,22 +62,11 @@ class ApplyViewTests(TestCase):
             process_date=datetime.date(2019, 10, 15),
         )
 
-    def test_view_is_not_directly_accessible_by_GET(self):
-        response = self.client.get(reverse("apply:apply"))
-        self.assertNotEqual(response.status_code, 200)
+    def tearDown(self):
+        self.browser.quit()
 
-    def test_view_is_not_directly_accessible_by_POST(self):
-        response = self.client.post(reverse("apply:apply"), data={"job_id": 1})
-        self.assertNotEqual(response.status_code, 200)
 
-    def test_login_required_fail(self):
-        response = self.client.get("/jobs/1")
-        self.assertNotEquals(response.status_code, 200)
 
-    def test_login_required_pass(self):
-        user = self.login()
-        response = self.client.get("/jobs/1")
-        self.assertEquals(response.status_code, 200)
 
 
 
