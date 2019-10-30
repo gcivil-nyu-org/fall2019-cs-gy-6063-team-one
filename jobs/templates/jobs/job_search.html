@@ -61,23 +61,25 @@ body{
     <div class="row">
         <div class="col-md-9 mt-3 center mx-auto">
             {% for job in object_list %}
-            <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">{{ job.business_title }}</h5>
-                    <span> <small> {{ job.posting_date}} </small> </span>
-                    <p class="card-text text-muted h6">{{ job.agency }}
-                    {% if job.salary_frequency == "Annual" %}
-                        <span class="salary_info"> ${{ job.salary_start|floatformat:"0"|intcomma }} - {{ job.salary_end|floatformat:"0"|intcomma }} Annually</span>
-                    {% else %}
-                        <span class="salary_info"> ${{ job.salary_start|floatformat:2 }} - {{ job.salary_end|floatformat:2 }} {{ job.salary_frequency }}</span>
-                    {% endif %}
-                    </p>
-                    <hr class="h-bar">
-                    <p class="card-text"><small>{{job.job_description|truncatechars:325 }}</small></p>
-                    <p class="card-text"> <i class="fas fa-map-marked-alt text-primary mb-2"></i> {{job.work_location}}
-                    </p>
+            <a href="{% url 'jobs:job_detail' job.job_id %}">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ job.business_title }}</h5>
+                        <span> <small> {{ job.posting_date}} </small> </span>
+                        <p class="card-text text-muted h6">{{ job.agency }}
+                        {% if job.salary_frequency == "Annual" %}
+                            <span class="salary_info"> ${{ job.salary_start|floatformat:"0"|intcomma }} - {{ job.salary_end|floatformat:"0"|intcomma }} Annually</span>
+                        {% else %}
+                            <span class="salary_info"> ${{ job.salary_start|floatformat:2 }} - {{ job.salary_end|floatformat:2 }} {{ job.salary_frequency }}</span>
+                        {% endif %}
+                        </p>
+                        <hr class="h-bar">
+                        <p class="card-text"><small>{{job.job_description|truncatechars:325 }}</small></p>
+                        <p class="card-text"> <i class="fas fa-map-marked-alt text-primary mb-2"></i> {{job.work_location}}
+                        </p>
+                    </div>
                 </div>
-            </div>
+            </a>
             {% endfor %}
         </div>
 
