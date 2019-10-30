@@ -1,15 +1,10 @@
 from django.test import TestCase
-from django.urls import reverse
 from decimal import Decimal
-from django.utils.html import escape
 import datetime
-from apply.forms import JobApplicationForm
-from apply.models import Application
 from jobs.models import Job
-from tests.tests import valid_data, invalid_data
-from uplyft.models import CustomUser
+from tests.tests import valid_data
 from django.contrib.auth import get_user_model
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate
 from selenium import webdriver
 
 
@@ -49,14 +44,17 @@ class ApplyViewTests(TestCase):
                          primary objective for the Account Manager is to help \
                          agencies increase the number and dollar value of \
                          contracts awarded to M/WBE at various contract levels.",
-            min_qualifications="1.\tA baccalaureate degree from an accredited college ",
+            min_qualifications="1.\tA baccalaureate degree from an accredited \
+            college ",
             preferred_skills="Excellent interpersonal and organizational skills.",
-            additional_info="Salary range for this position is: $42,405 - $45,000 per year",
+            additional_info="Salary range for this position is: $42,405 - $45,000\
+             per year",
             to_apply="",
             hours_info="",
             secondary_work_location="",
             recruitment_contact="",
-            residency_requirement="New York City residency is generally required within 90 days of appointment.",
+            residency_requirement="New York City residency is generally required \
+            within 90 days of appointment.",
             posting_date=datetime.date(2011, 6, 24),
             post_until=None,
             posting_updated=datetime.date(2011, 6, 24),

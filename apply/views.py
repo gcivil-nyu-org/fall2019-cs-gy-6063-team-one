@@ -1,12 +1,10 @@
 from django.http import HttpResponseRedirect
-from django.shortcuts import render
 from django.urls import reverse
 from django.contrib import messages
 from jobs.models import Job
 from .forms import JobApplicationForm
 from .models import Application
 from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
 
 
 def apply(request):
