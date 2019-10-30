@@ -11,19 +11,45 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('jobs', '0001_initial'),
+        ("jobs", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Application',
+            name="Application",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('submit_date', models.DateField(default=datetime.datetime.now)),
-                ('status', models.CharField(choices=[('ACTIVE', 'ACTIVE'), ('INACTIVE', 'INACTIVE')], default='ACTIVE', max_length=10)),
-                ('candidate', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('job', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='jobs.Job')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("submit_date", models.DateField(default=datetime.datetime.now)),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[("ACTIVE", "ACTIVE"), ("INACTIVE", "INACTIVE")],
+                        default="ACTIVE",
+                        max_length=10,
+                    ),
+                ),
+                (
+                    "candidate",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "job",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="jobs.Job"
+                    ),
+                ),
             ],
-        ),
+        )
     ]
