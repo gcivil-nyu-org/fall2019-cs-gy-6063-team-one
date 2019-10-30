@@ -20,6 +20,6 @@ def apply(request):
             application = Application(job=job, candidate=user)
             application.save()
             messages.success(request, "Application submitted")
-        return HttpResponseRedirect(reverse("jobs:job_detail", kwargs={"pk":job_id}))
+        return HttpResponseRedirect(reverse("jobs:job_detail", kwargs={"pk": job_id}))
     else:
         return HttpResponseRedirect(reverse("uplyft:index"))

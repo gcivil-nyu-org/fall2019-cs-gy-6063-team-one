@@ -9,9 +9,11 @@ from .forms import CandidateLoginForm
 from django.contrib.auth.signals import user_logged_in
 from django.dispatch import receiver
 
+
 @receiver(user_logged_in)
 def set_session(sender, user, request, **kwargs):
-    request.session['email'] = user.email
+    request.session["email"] = user.email
+
 
 user_logged_in.connect(set_session)
 

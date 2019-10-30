@@ -13,12 +13,5 @@ class Application(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     candidate = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     submit_date = models.DateField(null=False, default=datetime.now)
-    STATUS_CHOICES = [
-        (ACTIVE, "ACTIVE"),
-        (INACTIVE, "INACTIVE"),
-    ]
-    status = models.CharField(
-        max_length=10,
-        choices=STATUS_CHOICES,
-        default=ACTIVE,
-    )
+    STATUS_CHOICES = [(ACTIVE, "ACTIVE"), (INACTIVE, "INACTIVE")]
+    status = models.CharField(max_length=10, choices=STATUS_CHOICES, default=ACTIVE)

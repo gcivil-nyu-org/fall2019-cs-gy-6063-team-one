@@ -11,19 +11,42 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('jobs', '0002_auto_20191020_1744'),
+        ("jobs", "0002_auto_20191020_1744"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Application',
+            name="Application",
             fields=[
-                ('app_id', models.IntegerField(primary_key=True, serialize=False)),
-                ('submit_date', models.DateField(default=datetime.datetime.now)),
-                ('status', models.CharField(choices=[('SUBMITTED', 'Submitted'), ('REVIEWED', 'Reviewed'), ('INCOMPLETE', 'Incomplete'), ('WITHDRAWN', 'Withdrawn')], default='SUBMITTED', max_length=10)),
-                ('email', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL)),
-                ('job_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='jobs.Job')),
+                ("app_id", models.IntegerField(primary_key=True, serialize=False)),
+                ("submit_date", models.DateField(default=datetime.datetime.now)),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("SUBMITTED", "Submitted"),
+                            ("REVIEWED", "Reviewed"),
+                            ("INCOMPLETE", "Incomplete"),
+                            ("WITHDRAWN", "Withdrawn"),
+                        ],
+                        default="SUBMITTED",
+                        max_length=10,
+                    ),
+                ),
+                (
+                    "email",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to=settings.AUTH_USER_MODEL,
+                    ),
+                ),
+                (
+                    "job_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE, to="jobs.Job"
+                    ),
+                ),
             ],
-        ),
+        )
     ]

@@ -12,13 +12,14 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth import authenticate, login
 from selenium import webdriver
 
+
 class ApplyViewTests(TestCase):
     def login(self):
         return authenticate(email=valid_data["email"], password=valid_data["password"])
 
     def setUp(self):
         browser = webdriver.Firefox()
-        browser.get('http://localhost:8000')
+        browser.get("http://localhost:8000")
         get_user_model().objects.create(
             first_name=valid_data["first_name"],
             last_name=valid_data["last_name"],
@@ -35,8 +36,8 @@ class ApplyViewTests(TestCase):
             level="1",
             job_category="",
             ft_pt_indicator="",
-            salary_start=Decimal('42405.0000000000'),
-            salary_end=Decimal('65485.0000000000'),
+            salary_start=Decimal("42405.0000000000"),
+            salary_end=Decimal("65485.0000000000"),
             salary_frequency="Annual",
             work_location="110 William St. N Y",
             division="Strategy & Analytics",
@@ -64,10 +65,3 @@ class ApplyViewTests(TestCase):
 
     def tearDown(self):
         self.browser.quit()
-
-
-
-
-
-
-
