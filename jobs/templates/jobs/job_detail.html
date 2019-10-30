@@ -3,18 +3,28 @@
 
 {% block content %}
 
+
+
+
 <div class="container">
 
+    <div>
+        {% if messages %}
+            <ul>
+                {% for message in messages %}
+                <li class="text-white mb-5">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
    <div class="col-md-12 mb-3 mb-md-0">
       <div class="card py-4 h-100">
         <div class="card-body text-center">
           <h4 class="text-uppercase m-0"> {{ job.business_title }} </h4>
           <hr class="my-4">
           <div class="small text-black-50"> {{ job.work_location }} | {{ job.division }} </div>
-            <p> {{ job.agency}} </p>
+            <p> {{ job.agency }} </p>
         </div>
-      
-    
 
     <ul>
         <li>#{{ job.job_id }}</li>
@@ -33,6 +43,16 @@
         <li>: {{ job. }}</li>
     
     </ul>
+
+          {% if open_applications %}
+            <div> Application submitted </div>
+          {% else %}
+            <form class="apply_form" action="{% url 'apply:apply' %}" method="post">
+		{% csrf_token %} <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
+              <input type="hidden" name="job_id" value="{{ job.job_id }}"/>
+                <input type="submit" name="apply" value="Apply"/>
+            </form>
+          {% endif %}
 </div>
 </div>
   </div>

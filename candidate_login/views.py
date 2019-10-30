@@ -1,11 +1,11 @@
 from django.contrib.auth import views as auth_views
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.signals import user_logged_in
-from django.dispatch import receiver
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from .forms import CandidateLoginForm
+from django.contrib.auth.signals import user_logged_in
+from django.dispatch import receiver
 
 
 @receiver(user_logged_in)

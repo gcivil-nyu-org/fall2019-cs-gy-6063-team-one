@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "crispy_forms",
     "uplyft.apps.UplyftConfig",
     "register.apps.RegisterConfig",
+    "apply.apps.ApplyConfig",
     "candidate_login.apps.CandidateLoginConfig",
     "employer_login.apps.EmployerLoginConfig",
     "jobs.apps.JobsConfig",
