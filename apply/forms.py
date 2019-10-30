@@ -15,5 +15,3 @@ class JobApplicationForm(ModelForm):
         active_application_exists = Application.objects.filter(job=job, candidate=user, status="ACTIVE")
         if active_application_exists.count() > 0:
             raise ValidationError("Candidate has already submitted an ACTIVE application for this job.")
-
-
