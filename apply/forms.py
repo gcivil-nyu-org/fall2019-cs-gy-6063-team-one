@@ -10,7 +10,7 @@ class JobApplicationForm(ModelForm):
         exclude = (
             "job_id",
             "job",
-            "application_id",
+            "id",
             "candidate",
             "submit_date",
             "status",
