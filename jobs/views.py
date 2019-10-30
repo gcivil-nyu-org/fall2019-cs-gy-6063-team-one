@@ -1,17 +1,20 @@
 import csv
-from datetime import datetime
-from django.contrib import messages
 import logging
-from django.shortcuts import render
+from datetime import datetime
+
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.shortcuts import render
+from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django_filters.views import FilterView
-from django.views.generic.detail import DetailView
-from .models import Job
+
 from .filters import JobFilter
+from .models import Job
 
 
-class JobsView(ListView):
+class JobsView(LoginRequiredMixin, ListView):
     model = Job
     paginate_by = 10
     context_object_name = "jobs"
@@ -33,14 +36,14 @@ class JobsView(ListView):
         return queryset
 
 
-class JobAdvancedSearch(FilterView):
+class JobAdvancedSearch(LoginRequiredMixin, FilterView):
     filterset_class = JobFilter
     template_name = "jobs/job_search.html"
     paginate_by = 10
     ordering = ["-posting_date"]
 
 
-class JobDetailView(DetailView):
+class JobDetailView(LoginRequiredMixin, DetailView):
     model = Job
     template_name = "jobs/job_detail.html"
 
