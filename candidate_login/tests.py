@@ -82,5 +82,6 @@ class PostLoginWithStandardAuthTestCase(TestCase):
 
     def test_user_access_user_profile(self):
         response = self.client.get("/candidate_login/success/")
-        self.assertRedirects(response, reverse("jobs:jobs"),
-                             fetch_redirect_response=False)
+        self.assertRedirects(
+            response, reverse("jobs:jobs"), fetch_redirect_response=False
+        )
