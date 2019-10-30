@@ -1,5 +1,6 @@
 {% extends "uplyft/base.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block content %}
 
@@ -26,22 +27,13 @@
             <p> {{ job.agency }} </p>
         </div>
 
-    <ul>
-        <li>#{{ job.job_id }}</li>
-        <li>category: {{ job.job_category }}</li>
-        <li>civil service title: {{ job.civil_service_title }}</li>
-        <li>agency: {{ job.agency }}</li>
-        <li>divsion: {{ job.division }}</li>
-        <li>location: {{ job.work_location }}</li>
-        <li>posting type: {{ job.posting_type }}</li>
-        <li>posting date: {{ job.posting_date }}</li>
-        <li>description: {{ job.job_description }}</li>
-        <li>minimum qualification: {{ job.min_qualifications }}</li>
-        <li>preferred skills: {{ job.preferred_skills }}</li>
-        <li>more info: {{ job.additional_info }}</li>
-        <li>residency requirement: {{ job.residency_requirement }}</li>
-        <li>: {{ job. }}</li>
-    
+    <ul class="list-group list-group-flush border-0">
+        <li class="list-group-item border-0"><b>Posted:</b> {{ job.posting_date }}</li>
+        <hr class="dropdown-divider">
+        <li class ="list-group-item border-0"> <b>Description: </b> {{ job.job_description }} <br/><br></li>
+        <li class ="list-group-item border-0"> <b> Minimum Qualifications: </b> {{ job.min_qualifications }} <br/><br></li>
+        <li class ="list-group-item border-0"><b>Preferred Skills:</b> {{ job.preferred_skills }}</li>
+
     </ul>
 
           {% if open_applications %}
