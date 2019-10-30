@@ -1,36 +1,20 @@
 import csv
-from datetime import datetime
-from django.contrib import messages
 import logging
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.shortcuts import render
+from datetime import datetime
+
+from django.contrib import messages
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.shortcuts import render
+from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django_filters.views import FilterView
-from django.views.generic.detail import DetailView
-from .models import Job
-from apply.models import Application
+
 from .filters import JobFilter
-from django.contrib.auth import get_user_model
+from .models import Job
 
 
-def dummy_jobs(request):
-    numbers_list = range(1, 1000)
-
-    page = request.GET.get("page", 1)
-
-    paginator = Paginator(numbers_list, 20)
-    try:
-        numbers = paginator.page(page)
-    except PageNotAnInteger:
-        numbers = paginator.page(1)
-    except EmptyPage:
-        numbers = paginator.page(paginator.num_pages)
-
-    return render(request, "jobs/dummy_jobs.html", {"numbers": numbers})
-
-
-class JobsView(ListView):
+class JobsView(LoginRequiredMixin, ListView):
     model = Job
     paginate_by = 10
     context_object_name = "jobs"
@@ -52,27 +36,16 @@ class JobsView(ListView):
         return queryset
 
 
-class JobAdvancedSearch(FilterView):
+class JobAdvancedSearch(LoginRequiredMixin, FilterView):
     filterset_class = JobFilter
     template_name = "jobs/job_search.html"
     paginate_by = 10
+    ordering = ["-posting_date"]
 
 
-class JobDetailView(DetailView):
+class JobDetailView(LoginRequiredMixin, DetailView):
     model = Job
     template_name = "jobs/job_detail.html"
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        email = self.request.session["email"]
-        job = Job.objects.get(pk=self.kwargs.get('pk'))
-        user = get_user_model().objects.get(email=email)
-        context['open_applications'] = Application.objects.filter(candidate=user, job=job, status="ACTIVE")
-        if context['open_applications'].count() > 0:
-            context['has_open_application'] = True
-        else:
-            context['has_open_application'] = False
-        return context
 
 
 logger = logging.getLogger(__name__)

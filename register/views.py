@@ -7,6 +7,8 @@ from .forms import CandidateRegistrationForm
 
 
 def register(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("uplyft:index"))
     if request.method == "POST":
         form = CandidateRegistrationForm(request.POST)
         if form.is_valid():

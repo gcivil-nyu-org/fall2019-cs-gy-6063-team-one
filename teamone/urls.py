@@ -16,10 +16,9 @@ Including another URL conf
 from django.contrib import admin
 from django.urls import include, path
 from candidate_login.views import login_success
-from django.contrib.auth import views as auth_views
 
 urlpatterns = [
-    path("uplyft/", include("uplyft.urls")),
+    path("", include("uplyft.urls")),
     path("admin/", admin.site.urls),
     path("register/", include("register.urls")),
     path("jobs/", include("jobs.urls")),
@@ -27,6 +26,7 @@ urlpatterns = [
     path("employer_login/", include("employer_login.urls")),
     path("accounts/", include("allauth.urls")),
     path("accounts/google/login/callback/success/", login_success),
+<<<<<<< HEAD
     path(
         "password-reset/",
         auth_views.PasswordResetView.as_view(
@@ -56,4 +56,7 @@ urlpatterns = [
         name="password_reset_complete",
     ),
     path("apply/", include("apply.urls")),
+=======
+    path("password_reset/", include("password_reset.urls")),
+>>>>>>> 762bbf20cd9d15cd7d64929f2d78ca6a69f22255
 ]

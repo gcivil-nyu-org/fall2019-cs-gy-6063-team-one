@@ -32,3 +32,9 @@ class Job(models.Model):
     post_until = models.DateField(blank=True, null=True)
     posting_updated = models.DateField(blank=True, null=True)
     process_date = models.DateField(blank=True, null=True)
+
+    def __eq__(self, other):
+        return self.job_id == other.job_id
+
+    def __ne__(self, other):
+        return self.job_id != other.job_id

@@ -1,0 +1,12 @@
+{% extends "uplyft/base.html" %}
+{% block content %}
+    {% if messages %}
+        <div class="col-md-6 col-lg-6 mx-auto">
+            <span class="text-white mb-5"> You have been successfully logged out.</span>
+            <a href="{% url 'uplyft:index' %}">
+                <span class="text-white mb-5"> Click here to go to the homepage</span>
+            </a>
+        </div>
+    {% endif %}
+
+{% endblock %}
