@@ -5,15 +5,15 @@ from .models import Application
 class JobApplicationForm(ModelForm):
     class Meta:
         model = Application
-        exclude = 'job_id', 'app_id', 'candidate', 'submit_date', 'status'
+        exclude = "job_id", "job", 'app_id', 'candidate', 'submit_date', 'status'
 
-    """
-    def clean_job_id(self):
+    def clean_active_application_already_exists(self):
         job_id = self.cleaned_data["job_id"]
-        candidate = self.cleaned_data["candidate"]
+        email = request.session["email"]
+        user = get_user_model().objects.get(email=email)
+        job = Job.objects.get(pk=job_id)
+        active_application_exists = Application.objects.filter(job=job, candidate=user, status="ACTIVE")
+        if active_application_exists.count() > 0:
+            raise ValidationError("Candidate has already submitted an ACTIVE application for this job.")
 
-        applications_already_open = Application.objects.filter(email=candidate, job_id=job_id)
-        if applications_already_open.count() > 0:
-            raise ValidationError("Application already exists")
-        return job_id
-    """
+
