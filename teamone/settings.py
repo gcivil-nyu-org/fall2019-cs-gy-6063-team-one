@@ -28,9 +28,11 @@ DEBUG = True
 ALLOWED_HOSTS = ["uplyft.herokuapp.com", "localhost", "127.0.0.1", "testserver"]
 
 # Creating a custom user model
+LOGIN_URL = "/candidate_login/"
 AUTH_USER_MODEL = "uplyft.CustomUser"
-LOGIN_REDIRECT_URL = "success/"
-LOGOUT_REDIRECT_URL = "/uplyft/"
+# This should be the dashboard
+LOGIN_REDIRECT_URL = "uplyft:index"
+LOGOUT_REDIRECT_URL = ""
 
 # Application definition
 INSTALLED_APPS = [
@@ -156,3 +158,6 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "uplyft1234@gmail.com"
 EMAIL_HOST_PASSWORD = "mwwymvtlbxnluvqx"
 DEFAULT_FROM_EMAIL = "Uplyft Team <noreply@uplyft.com>"
+
+# 5 minutes will be the session time
+SESSION_COOKIE_AGE = 5 * 60  #
