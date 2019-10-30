@@ -54,6 +54,7 @@ class JobDetailView(LoginRequiredMixin, DetailView):
         email = self.request.session["email"]
         job = Job.objects.get(pk=self.kwargs.get("pk"))
         user = get_user_model().objects.get(email=email)
+        context['messages'] = None
         context["open_applications"] = Application.objects.filter(
             candidate=user, job=job, status="ACTIVE"
         )
