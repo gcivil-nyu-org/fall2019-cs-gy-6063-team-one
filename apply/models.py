@@ -107,7 +107,7 @@ class Application(models.Model):
     state = mailing.USStateField()
     phone = PhoneField()
     email = models.EmailField()
-    porfolio_website = models.URLField(help_text="Maximum 200 characters")
+    portfolio_website = models.URLField(help_text="Maximum 200 characters")
     # Cover Letter
     cover_letter = models.TextField(max_length=10000)
     # Resume chunks
