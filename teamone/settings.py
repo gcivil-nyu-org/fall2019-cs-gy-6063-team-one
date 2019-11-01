@@ -162,3 +162,8 @@ DEFAULT_FROM_EMAIL = "Uplyft Team <noreply@uplyft.com>"
 
 # 5 minutes will be the session time
 SESSION_COOKIE_AGE = 5 * 60  #
+
+#Google authentication Client-ID and Secret key
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = '458803488859-vf1pli732quc9m9n0nbpbggehj5gomrf.apps.googleusercontent.com'
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = 'M1y9_Z-jNwqArncabT7_zZWV'
+SOCIAL_AUTH_URL_NAMESPACE = 'social'
