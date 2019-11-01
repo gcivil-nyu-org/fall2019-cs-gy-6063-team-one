@@ -33,7 +33,7 @@ body{
     <div class="row">
         <div class="col-md-9 mt-3 center mx-auto">
             {% for job in jobs %}
-            <a href="{% url 'jobs:job_detail' job.job_id %}">
+            <a href="{% url 'jobs:job_detail' job.id %}">
               <div class="card mb-4">
                 <div class="card-body">
                     <h5 class="card-title">{{ job.business_title }}</h5>
