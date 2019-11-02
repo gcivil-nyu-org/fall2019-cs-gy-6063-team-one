@@ -19,7 +19,6 @@ def candidate_register(request):
             first_name = form.cleaned_data.get("first_name")
             last_name = form.cleaned_data.get("last_name")
             user.is_candidate = True
-            user.is_employer = False
             user.save()
             profile = CandidateProfile(
                 first_name=first_name, last_name=last_name, email=email
@@ -46,7 +45,6 @@ def employer_register(request):
             email = form.cleaned_data.get("email")
             password = form.cleaned_data.get("password1")
             department = form.cleaned_data.get("department")
-            user.is_employer = True
             user.is_candidate = False
             user.save()
             employer = Employer(user=user, department=department)

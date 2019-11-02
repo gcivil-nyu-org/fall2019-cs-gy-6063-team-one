@@ -25,7 +25,7 @@ class EmployerLoginForm(AuthenticationForm):
                 self.error_messages["inactive"], code="inactive"
             )
 
-        if not user.is_employer:
+        if user.is_candidate:
             raise forms.ValidationError(
                 "You must be an employer to login this way. Are you a Candidate?"
             )
