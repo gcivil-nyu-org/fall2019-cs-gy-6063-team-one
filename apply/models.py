@@ -7,8 +7,8 @@ MAX_EMAIL_LENGTH = 60
 
 
 class Application(models.Model):
-    job = models.ForeignKey(Job, on_delete=models.CASCADE)
-    candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
+    job = models.OneToOneField(Job, on_delete=models.CASCADE, null=True)
+    candidate = models.OneToOneField(Candidate, on_delete=models.CASCADE, null=True)
     submit_date = models.DateField(null=False, default=datetime.now)
     STATUS_APPLIED = "AP"
     STATUS_ACCEPTED = "AC"
@@ -21,4 +21,4 @@ class Application(models.Model):
     status = models.CharField(
         max_length=2, choices=STATUS_CHOICES, default=STATUS_APPLIED
     )
-    candidate_profile = models.OneToOneField(CandidateProfile, on_delete=models.CASCADE)
+    candidate_profile = models.OneToOneField(CandidateProfile, on_delete=models.CASCADE, null=True)
