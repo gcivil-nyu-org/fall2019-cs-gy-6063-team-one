@@ -117,24 +117,34 @@ class CandidateProfile(models.Model):
             ),
         ),
     ]
-    first_name = models.CharField(max_length=30)
-    last_name = models.CharField(max_length=30)
-    gender = models.CharField(max_length=1, choices=DEMOGRAPHIC_CHOICES[0][1])
-    ethnicity = models.CharField(max_length=2, choices=DEMOGRAPHIC_CHOICES[1][1])
-    race = models.CharField(max_length=7, choices=DEMOGRAPHIC_CHOICES[2][1])
-    health_conditions = models.CharField(
-        max_length=8, choices=DEMOGRAPHIC_CHOICES[3][1]
+    first_name = models.CharField(max_length=30, blank=True, null=True)
+    last_name = models.CharField(max_length=30, blank=True, null=True)
+    gender = models.CharField(
+        max_length=1, choices=DEMOGRAPHIC_CHOICES[0][1], blank=True, null=True
     )
-    veteran = models.CharField(max_length=8, choices=DEMOGRAPHIC_CHOICES[4][1])
-    address_line = models.CharField(max_length=100)
-    zip_code = mailing.USZipCodeField()
-    state = mailing.USStateField()
-    phone = PhoneField()
-    email = models.EmailField()
-    portfolio_website = models.URLField(help_text="Maximum 200 characters")
+    ethnicity = models.CharField(
+        max_length=2, choices=DEMOGRAPHIC_CHOICES[1][1], blank=True, null=True
+    )
+    race = models.CharField(
+        max_length=7, choices=DEMOGRAPHIC_CHOICES[2][1], blank=True, null=True
+    )
+    health_conditions = models.CharField(
+        max_length=8, choices=DEMOGRAPHIC_CHOICES[3][1], blank=True, null=True
+    )
+    veteran = models.CharField(
+        max_length=8, choices=DEMOGRAPHIC_CHOICES[4][1], blank=True, null=True
+    )
+    address_line = models.CharField(max_length=100, blank=True, null=True)
+    zip_code = mailing.USZipCodeField(blank=True, null=True)
+    state = mailing.USStateField(blank=True, null=True)
+    phone = PhoneField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
+    portfolio_website = models.URLField(
+        help_text="Maximum 200 characters", blank=True, null=True
+    )
     # Cover Letter
-    cover_letter = models.TextField(max_length=10000)
+    cover_letter = models.TextField(max_length=10000, blank=True, null=True)
     # Resume chunks
-    experiences = models.TextField(max_length=10000)
-    education = models.TextField(max_length=10000)
-    additional_info = models.TextField(max_length=10000, blank=True)
+    experiences = models.TextField(max_length=10000, blank=True, null=True)
+    education = models.TextField(max_length=10000, blank=True, null=True)
+    additional_info = models.TextField(max_length=10000, blank=True, null=True)
