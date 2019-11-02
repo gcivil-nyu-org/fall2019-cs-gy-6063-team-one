@@ -5,10 +5,10 @@ from jobs.models import Job
 from .forms import JobApplicationForm
 from .models import Application
 from django.contrib.auth import get_user_model
-from django.contrib.auth.decorators import login_required
+from uplyft.decorators import candidate_login_required
 
 
-@login_required
+@candidate_login_required
 def apply(request):
     if request.method == "POST":
         form = JobApplicationForm(request.POST)

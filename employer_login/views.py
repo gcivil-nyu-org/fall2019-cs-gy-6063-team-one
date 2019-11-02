@@ -1,11 +1,15 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import LoginView, LogoutView
 from .forms import EmployerLoginForm
+from uplyft.decorators import employer_login_required
+from django.contrib.auth import login
+from django.urls import reverse
 
 
-class EmployerLoginView(auth_views.LoginView):
+class EmployerLoginView(LoginView):
+    redirect_authenticated_user = True
     template_name = "employer_login/employer_login.html"
     authentication_form = EmployerLoginForm
 

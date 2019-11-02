@@ -3,6 +3,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.utils.translation import ugettext_lazy as _
 from phone_field import PhoneField
 from localflavor.us import models as mailing
+from jobs.models import Department
 
 
 class CustomUserManager(BaseUserManager):
@@ -37,6 +38,8 @@ class CustomUserManager(BaseUserManager):
 class CustomUser(AbstractUser):
     username = None
     email = models.EmailField(_("email address"), unique=True)
+    is_candidate = models.BooleanField(default=False)
+    is_employer = models.BooleanField(default=False)
 
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = []
@@ -148,3 +151,33 @@ class CandidateProfile(models.Model):
     experiences = models.TextField(max_length=10000, blank=True, null=True)
     education = models.TextField(max_length=10000, blank=True, null=True)
     additional_info = models.TextField(max_length=10000, blank=True, null=True)
+
+    def __eq__(self, other):
+        return self.id == other.id
+
+    def __ne__(self, other):
+        return self.id != other.id
+
+
+class Candidate(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=False)
+    candidate_profile = models.OneToOneField(CandidateProfile, on_delete=models.CASCADE, null=False)
+
+    def __eq__(self, other):
+        return self.id == other.id
+
+    def __ne__(self, other):
+        return self.id != other.id
+
+
+class Employer(models.Model):
+    user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=False)
+    department = models.OneToOneField(Department, on_delete=models.CASCADE, null=False)
+
+    def __eq__(self, other):
+        return self.id == other.id
+
+    def __ne__(self, other):
+        return self.id != other.id
+
+
