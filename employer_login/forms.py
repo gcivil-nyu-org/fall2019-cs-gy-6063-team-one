@@ -22,8 +22,7 @@ class EmployerLoginForm(AuthenticationForm):
         """
         if not user.is_active:
             raise forms.ValidationError(
-                self.error_messages['inactive'],
-                code='inactive',
+                self.error_messages["inactive"], code="inactive"
             )
 
         if not user.is_employer:

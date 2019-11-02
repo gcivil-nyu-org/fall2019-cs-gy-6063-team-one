@@ -2,6 +2,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import get_user_model
 from django import forms
 
+
 class CandidateLoginForm(AuthenticationForm):
     class Meta:
         model = get_user_model()
@@ -21,18 +22,10 @@ class CandidateLoginForm(AuthenticationForm):
         """
         if not user.is_active:
             raise forms.ValidationError(
-                self.error_messages['inactive'],
-                code='inactive',
+                self.error_messages["inactive"], code="inactive"
             )
 
         if not user.is_candidate:
             raise forms.ValidationError(
                 "You must be a candidate to login this way. Are you an Employer?"
             )
-
-
-
-
-
-
-

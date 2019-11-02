@@ -161,7 +161,9 @@ class CandidateProfile(models.Model):
 
 class Candidate(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=False)
-    candidate_profile = models.OneToOneField(CandidateProfile, on_delete=models.CASCADE, null=False)
+    candidate_profile = models.OneToOneField(
+        CandidateProfile, on_delete=models.CASCADE, null=False
+    )
 
     def __eq__(self, other):
         return self.id == other.id
@@ -179,5 +181,3 @@ class Employer(models.Model):
 
     def __ne__(self, other):
         return self.id != other.id
-
-

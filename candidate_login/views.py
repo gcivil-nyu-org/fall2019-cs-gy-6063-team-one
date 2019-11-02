@@ -1,14 +1,10 @@
-from django.contrib.auth import views as auth_views
 from django.contrib.auth.views import LoginView, LogoutView
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from .forms import CandidateLoginForm
 from django.contrib.auth.signals import user_logged_in
 from django.dispatch import receiver
 from uplyft.decorators import candidate_login_required
-from django.contrib.auth import login
-from django.contrib.auth.forms import AuthenticationForm
 
 
 @receiver(user_logged_in)
@@ -25,14 +21,12 @@ class CandidateLoginView(LoginView):
     authentication_form = CandidateLoginForm
 
 
-@candidate_login_required()
+@candidate_login_required
 def login_success(request):
     return HttpResponseRedirect(reverse("jobs:jobs"))
 
 
+@candidate_login_required()
 class CandidateLogoutView(LogoutView):
     next_page = "uplyft:index"
     template_name = "candidate_login/candidate_logout.html"
-
-
-

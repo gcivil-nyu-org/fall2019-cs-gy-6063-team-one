@@ -21,7 +21,9 @@ def candidate_register(request):
             user.is_candidate = True
             user.is_employer = False
             user.save()
-            profile = CandidateProfile(first_name=first_name, last_name=last_name, email=email)
+            profile = CandidateProfile(
+                first_name=first_name, last_name=last_name, email=email
+            )
             profile.save()
             candidate = Candidate(user=user, candidate_profile=profile)
             candidate.save()
