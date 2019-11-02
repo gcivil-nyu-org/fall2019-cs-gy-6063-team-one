@@ -13,6 +13,8 @@ logger = logging.getLogger(__name__)
 def create_departments():
     departments = set()
     for index, row in jobs_csv.iterrows():
+        # The department name is stored in the second column of the dataset, so
+        # get the second column for the current row and add to the set
         departments.add(row[1])
     for department in departments:
         save_department(department)
@@ -47,6 +49,7 @@ def create_jobs():
 
 
 def save_job(row):
+    # The department name is stored in the second column of the dataset, get 2nd column
     # row[1] contains the agency/department name
     department_name = row[1]
     department = Department.objects.get(name=department_name)
