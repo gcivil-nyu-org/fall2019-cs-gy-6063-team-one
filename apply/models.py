@@ -22,4 +22,4 @@ class Application(models.Model):
     status = models.CharField(
         max_length=2, choices=STATUS_CHOICES, default=STATUS_APPLIED
     )
-    candidate_profile = models.ForeignKey(CandidateProfile, on_delete=models.CASCADE)
+    candidate_profile = models.OneToOneField(CandidateProfile, on_delete=models.CASCADE)
