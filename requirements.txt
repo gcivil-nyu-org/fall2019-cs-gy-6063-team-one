@@ -18,3 +18,4 @@ django-widget-tweaks==1.4.5
 selenium==3.141.0
 pandas==0.25.3
 numpy==1.17.3
+django-phone-field==1.8.0
