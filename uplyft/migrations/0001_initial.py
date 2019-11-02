@@ -12,10 +12,7 @@ import uplyft.models
 class Migration(migrations.Migration):
     initial = True
 
-    dependencies = [
-        ("jobs", "0001_initial"),
-        ("auth", "0011_update_proxy_permissions"),
-    ]
+    dependencies = [("jobs", "0001_initial"), ("auth", "0011_update_proxy_permissions")]
 
     operations = [
         migrations.CreateModel(
@@ -119,7 +116,7 @@ class Migration(migrations.Migration):
                 "verbose_name_plural": "users",
                 "abstract": False,
             },
-            managers=[("objects", uplyft.models.CustomUserManager()),],
+            managers=[("objects", uplyft.models.CustomUserManager())],
         ),
         migrations.CreateModel(
             name="CandidateProfile",
