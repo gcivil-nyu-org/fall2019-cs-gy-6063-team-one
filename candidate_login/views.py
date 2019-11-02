@@ -4,7 +4,6 @@ from django.urls import reverse
 from .forms import CandidateLoginForm
 from django.contrib.auth.signals import user_logged_in
 from django.dispatch import receiver
-from uplyft.decorators import candidate_login_required
 
 
 @receiver(user_logged_in)
@@ -21,12 +20,10 @@ class CandidateLoginView(LoginView):
     authentication_form = CandidateLoginForm
 
 
-@candidate_login_required
 def login_success(request):
     return HttpResponseRedirect(reverse("jobs:jobs"))
 
 
-@candidate_login_required()
 class CandidateLogoutView(LogoutView):
     next_page = "uplyft:index"
     template_name = "candidate_login/candidate_logout.html"
