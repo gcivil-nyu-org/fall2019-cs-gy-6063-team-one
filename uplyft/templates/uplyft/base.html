@@ -43,7 +43,7 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
-            {% if not user.is_authenticated %}
+                {% if not user.is_authenticated %}
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger"
                        href="{% url 'candidate_login:candidate_login' %}">Candidate</a>
@@ -52,18 +52,18 @@
                     <a class="nav-link js-scroll-trigger"
                        href="{% url 'employer_login:employer_login' %}">Employer</a>
                 </li>
-            {% endif %}
+                {% endif %}
                 {% if user.is_authenticated %}
 
                 <li class="nav-item">
                     <a class="nav-link js-scroll-trigger"
                        href="{% url 'jobs:jobs' %}">Jobs</a>
                 </li>
-                    <li class="nav-item">
-                        <a class="nav-link js-scroll-trigger"
-                           href="{% url 'candidate_login:candidate_logout' %}">Log
-                            out</a>
-                    </li>
+                <li class="nav-item">
+                    <a class="nav-link js-scroll-trigger"
+                       href="{% url 'candidate_login:candidate_logout' %}">Log
+                        out</a>
+                </li>
                 {% endif %}
             </ul>
         </div>

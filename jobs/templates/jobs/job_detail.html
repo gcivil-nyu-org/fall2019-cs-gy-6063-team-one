@@ -5,48 +5,48 @@
 {% block content %}
 
 
-
-
 <div class="container">
 
     <div>
         {% if messages %}
-            <ul>
-                {% for message in messages %}
-                <li class="text-white mb-5">{{ message }}</li>
-                {% endfor %}
-            </ul>
+        <ul>
+            {% for message in messages %}
+            <li class="text-white mb-5">{{ message }}</li>
+            {% endfor %}
+        </ul>
         {% endif %}
     </div>
-   <div class="col-md-12 mb-3 mb-md-0">
-      <div class="card py-4 h-100">
-        <div class="card-body text-center">
-          <h4 class="text-uppercase m-0"> {{ job.business_title }} </h4>
-          <hr class="my-4">
-          <div class="small text-black-50"> {{ job.work_location }} | {{ job.division }} </div>
-            <p> {{ job.agency }} </p>
-        </div>
+    <div class="col-md-12 mb-3 mb-md-0">
+        <div class="card py-4 h-100">
+            <div class="card-body text-center">
+                <h4 class="text-uppercase m-0"> {{ job.business_title }} </h4>
+                <hr class="my-4">
+                <div class="small text-black-50"> {{ job.work_location }} | {{ job.division }}</div>
+                <p> {{ job.agency }} </p>
+            </div>
 
-    <ul class="list-group list-group-flush border-0">
-        <li class="list-group-item border-0"><b>Posted:</b> {{ job.posting_date }}</li>
-        <hr class="dropdown-divider">
-        <li class ="list-group-item border-0"> <b>Description: </b> {{ job.job_description }} <br/><br></li>
-        <li class ="list-group-item border-0"> <b> Minimum Qualifications: </b> {{ job.min_qualifications }} <br/><br></li>
-        <li class ="list-group-item border-0"><b>Preferred Skills:</b> {{ job.preferred_skills }}</li>
+            <ul class="list-group list-group-flush border-0">
+                <li class="list-group-item border-0"><b>Posted:</b> {{ job.posting_date }}</li>
+                <hr class="dropdown-divider">
+                <li class="list-group-item border-0"><b>Description: </b> {{ job.job_description }} <br/><br></li>
+                <li class="list-group-item border-0"><b> Minimum Qualifications: </b> {{ job.min_qualifications }} <br/><br>
+                </li>
+                <li class="list-group-item border-0"><b>Preferred Skills:</b> {{ job.preferred_skills }}</li>
 
-    </ul>
+            </ul>
 
-          {% if open_applications %}
-            <div> Application submitted </div>
-          {% else %}
+            {% if open_applications %}
+            <div> Application submitted</div>
+            {% else %}
             <form class="apply_form" action="{% url 'apply:apply' %}" method="post">
-		{% csrf_token %} <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
-              <input type="hidden" name="jobs_pk_id" value="{{ job.id }}"/>
+                {% csrf_token %}
+                <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
+                <input type="hidden" name="jobs_pk_id" value="{{ job.id }}"/>
                 <input type="submit" name="apply" value="Apply"/>
             </form>
-          {% endif %}
+            {% endif %}
+        </div>
+    </div>
 </div>
-</div>
-  </div>
 
 {% endblock %}

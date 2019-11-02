@@ -1,10 +1,12 @@
+import datetime
+from decimal import Decimal
+
 from django.db.models.query import QuerySet
 from django.test import TestCase
 from django.urls import reverse
+
 from jobs.models import Job, Department
 from jobs.views import JobsView
-from decimal import Decimal
-import datetime
 
 
 class JobsViewTest(TestCase):

@@ -4,7 +4,7 @@
 {% load crispy_forms_tags %}
 
 <div class="col-md-6 col-lg-6 mx-auto">
-    <div class="apply">
+    <div class="login">
         {% if messages %}
         <ul>
             {% for message in messages %}
@@ -13,13 +13,16 @@
         </ul>
         {% endif %}
     </div>
-    <h1 class="text-white mb-5">Apply </h1>
+    <h1 class="text-white mb-5">Create Account </h1>
 
-    <form class="apply_form" action="{% url 'apply:apply' %}" method="post">
+    <form class="reg_form" action="{% url 'register:candidate_register' %}" method="post">
         {% csrf_token %}
         <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
         {{ form|crispy }}
-        <input type="submit" name="apply" value="Apply"/>
+
+        <input type="submit" name="Register" value="Submit"/>
+
+
     </form>
 </div>
 

@@ -6,6 +6,9 @@ MAX_CHARS = 12000
 class Department(models.Model):
     name = models.CharField(max_length=MAX_CHARS, unique=True)
 
+    def __str__(self):
+        return self.name
+
 
 class Job(models.Model):
     job_id = models.IntegerField()
