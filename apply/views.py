@@ -1,11 +1,12 @@
+from django.contrib import messages
+from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.contrib import messages
+
 from jobs.models import Job
+from uplyft.decorators import candidate_login_required
 from .forms import JobApplicationForm
 from .models import Application
-from django.contrib.auth import get_user_model
-from uplyft.decorators import candidate_login_required
 
 
 @candidate_login_required

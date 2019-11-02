@@ -1,7 +1,8 @@
-from django.forms import ModelForm, ValidationError
-from .models import Application
-from jobs.models import Job
 from django.contrib.auth import get_user_model
+from django.forms import ModelForm, ValidationError
+
+from jobs.models import Job
+from .models import Application
 
 
 class JobApplicationForm(ModelForm):

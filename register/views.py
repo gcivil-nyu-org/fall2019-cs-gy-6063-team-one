@@ -1,10 +1,11 @@
+from django.contrib import messages
+from django.contrib.auth import authenticate, login
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
-from django.contrib import messages
-from django.contrib.auth import authenticate, login
-from .forms import CandidateRegistrationForm, EmployerRegistrationForm
+
 from uplyft.models import Candidate, CandidateProfile, Employer
+from .forms import CandidateRegistrationForm, EmployerRegistrationForm
 
 
 def candidate_register(request):

@@ -1,5 +1,7 @@
-from django.db import models
 from datetime import datetime
+
+from django.db import models
+
 from jobs.models import Job
 from uplyft.models import CandidateProfile, Candidate
 
@@ -21,4 +23,6 @@ class Application(models.Model):
     status = models.CharField(
         max_length=2, choices=STATUS_CHOICES, default=STATUS_APPLIED
     )
-    candidate_profile = models.OneToOneField(CandidateProfile, on_delete=models.CASCADE, null=True)
+    candidate_profile = models.OneToOneField(
+        CandidateProfile, on_delete=models.CASCADE, null=True
+    )

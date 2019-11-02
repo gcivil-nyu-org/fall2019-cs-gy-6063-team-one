@@ -1,9 +1,10 @@
+from django.contrib.auth.signals import user_logged_in
 from django.contrib.auth.views import LoginView, LogoutView
+from django.dispatch import receiver
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+
 from .forms import CandidateLoginForm
-from django.contrib.auth.signals import user_logged_in
-from django.dispatch import receiver
 
 
 @receiver(user_logged_in)

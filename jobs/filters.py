@@ -1,5 +1,6 @@
-from .models import Job
 import django_filters
+
+from .models import Job
 
 
 class JobFilter(django_filters.FilterSet):
