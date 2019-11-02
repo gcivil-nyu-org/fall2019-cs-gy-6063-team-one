@@ -10,7 +10,7 @@ from uplyft.models import CustomUser
 class CandidateRegisterViewTests(TestCase):
     def good_POST(self):
         return self.client.post(
-            reverse("register:register"),
+            reverse("register:candidate_register"),
             data={
                 "first_name": valid_data["first_name"],
                 "last_name": valid_data["last_name"],
@@ -22,7 +22,7 @@ class CandidateRegisterViewTests(TestCase):
 
     def bad_POST_first_name(self):
         return self.client.post(
-            reverse("register:register"),
+            reverse("register:candidate_register"),
             data={
                 "first_name": invalid_data["first_name"],
                 "last_name": valid_data["last_name"],
@@ -34,7 +34,7 @@ class CandidateRegisterViewTests(TestCase):
 
     def bad_POST_last_name(self):
         return self.client.post(
-            reverse("register:register"),
+            reverse("register:candidate_register"),
             data={
                 "first_name": valid_data["first_name"],
                 "last_name": invalid_data["last_name"],
@@ -46,7 +46,7 @@ class CandidateRegisterViewTests(TestCase):
 
     def bad_POST_email(self):
         return self.client.post(
-            reverse("register:register"),
+            reverse("register:candidate_register"),
             data={
                 "first_name": valid_data["first_name"],
                 "last_name": valid_data["last_name"],
@@ -58,7 +58,7 @@ class CandidateRegisterViewTests(TestCase):
 
     def bad_POST_password_incorrect(self):
         return self.client.post(
-            reverse("register:register"),
+            reverse("register:candidate_register"),
             data={
                 "first_name": valid_data["first_name"],
                 "last_name": valid_data["last_name"],
@@ -70,7 +70,7 @@ class CandidateRegisterViewTests(TestCase):
 
     def bad_POST_password_mismatch(self):
         return self.client.post(
-            reverse("register:register"),
+            reverse("register:candidate_register"),
             data={
                 "first_name": valid_data["first_name"],
                 "last_name": valid_data["last_name"],
@@ -81,21 +81,21 @@ class CandidateRegisterViewTests(TestCase):
         )
 
     def test_view_url_exists_at_desired_location(self):
-        response = self.client.get("/register/")
+        response = self.client.get("/register/candidate_register")
         self.assertEqual(response.status_code, 200)
 
     def test_view_url_is_accessible_by_name(self):
-        response = self.client.get(reverse("register:register"))
+        response = self.client.get(reverse("register:candidate_register"))
         self.assertEqual(response.status_code, 200)
 
     def test_view_uses_correct_template(self):
-        response = self.client.get(reverse("register:register"))
+        response = self.client.get(reverse("register:candidate_register"))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "uplyft/base.html")
-        self.assertTemplateUsed(response, "register/register.html")
+        self.assertTemplateUsed(response, "register/candidate_register.html")
 
     def test_form_passed_in_context(self):
-        response = self.client.get(reverse("register:register"))
+        response = self.client.get(reverse("register:candidate_register"))
         self.assertTrue("form" in response.context)
         self.assertIsInstance(response.context["form"], CandidateRegistrationForm)
 
@@ -121,7 +121,7 @@ class CandidateRegisterViewTests(TestCase):
 
     def test_good_POST_success_message_added_to_context_of_login_success_page(self):
         response = self.client.post(
-            reverse("register:register"),
+            reverse("register:candidate_register"),
             data={
                 "first_name": valid_data["first_name"],
                 "last_name": valid_data["last_name"],
@@ -215,27 +215,27 @@ class CandidateRegisterViewTests(TestCase):
     def test_bad_POST_first_name_correct_template_returned(self):
         response = self.bad_POST_first_name()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "register/register.html")
+        self.assertTemplateUsed(response, "register/candidate_register.html")
 
     def test_bad_POST_last_name_correct_template_returned(self):
         response = self.bad_POST_last_name()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "register/register.html")
+        self.assertTemplateUsed(response, "register/candidate_register.html")
 
     def test_bad_POST_email_correct_template_returned(self):
         response = self.bad_POST_email()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "register/register.html")
+        self.assertTemplateUsed(response, "register/candidate_register.html")
 
     def test_bad_POST_password_numeric_correct_template_returned(self):
         response = self.bad_POST_password_incorrect()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "register/register.html")
+        self.assertTemplateUsed(response, "register/candidate_register.html")
 
     def test_bad_POST_password_mismatch_correct_template_returned(self):
         response = self.bad_POST_password_mismatch()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "register/register.html")
+        self.assertTemplateUsed(response, "register/candidate_register.html")
 
     def test_bad_POST_email_taken_correct_template_returned(self):
         CustomUser.objects.create_user(
@@ -246,4 +246,4 @@ class CandidateRegisterViewTests(TestCase):
         )
         response = self.good_POST()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "register/register.html")
+        self.assertTemplateUsed(response, "register/candidate_register.html")
