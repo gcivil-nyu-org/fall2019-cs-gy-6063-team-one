@@ -13,6 +13,7 @@ from apply.models import Application
 from jobs.helper import jobs_helper
 from .filters import JobFilter
 from .models import Job
+from uplyft.models import Candidate
 
 logger = logging.getLogger(__name__)
 
@@ -56,9 +57,17 @@ class JobDetailView(LoginRequiredMixin, DetailView):
         job = Job.objects.get(id=self.kwargs.get("pk"))
         user = get_user_model().objects.get(email=email)
         context["messages"] = None
-        context["open_applications"] = Application.objects.filter(
-            candidate=user, job=job, status="ACTIVE"
-        )
+
+        if user.is_candidate:
+            context["candidate_viewing"] = True
+            candidate = Candidate.objects.get(user=user)
+            context["open_applications"] = Application.objects.filter(
+                candidate=candidate, job=job, status="ACTIVE"
+            )
+        else:
+            context["candidate_viewing"] = False
+            context["open_applications"] = Application.objects.none()
+
         if context["open_applications"].count() > 0:
             context["has_open_application"] = True
         else:
