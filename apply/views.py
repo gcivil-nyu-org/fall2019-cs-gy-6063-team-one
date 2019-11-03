@@ -4,6 +4,7 @@ from django.http import HttpResponseRedirect
 from django.urls import reverse
 
 from jobs.models import Job
+
 # from uplyft.decorators import candidate_login_required
 from .forms import JobApplicationForm
 from .models import Application

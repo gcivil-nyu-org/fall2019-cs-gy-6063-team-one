@@ -9,7 +9,14 @@ from uplyft.models import Candidate
 class JobApplicationForm(ModelForm):
     class Meta:
         model = Application
-        exclude = ("job", "id", "candidate", "candidate_profile", "submit_date", "status")
+        exclude = (
+            "job",
+            "id",
+            "candidate",
+            "candidate_profile",
+            "submit_date",
+            "status",
+        )
 
     def clean_active_application_already_exists(self):
         jobs_pk_id = self.cleaned_data["jobs_pk_id"]
