@@ -21,12 +21,15 @@ class CandidateLoginView(LoginView):
     template_name = "candidate_login/candidate_login.html"
     authentication_form = CandidateLoginForm
 
+# Ensure a candidate is logged in before they can view their dashboard or profile
+
 
 @candidate_login_required
 def user_dashboard(request):
     return render(request, "candidate_login/dashboard.html")
 
 
+@candidate_login_required
 def candidate_profile(request):
     return render(request, "candidate_login/profile.html")
 
