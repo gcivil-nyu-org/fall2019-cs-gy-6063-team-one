@@ -21,6 +21,7 @@ class CandidateLoginView(LoginView):
     template_name = "candidate_login/candidate_login.html"
     authentication_form = CandidateLoginForm
 
+
 # Ensure a candidate is logged in before they can view their dashboard or profile
 
 
