@@ -4,7 +4,7 @@ from django.dispatch import receiver
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render
-
+from uplyft.decorators import candidate_login_required
 from .forms import CandidateLoginForm
 
 
@@ -22,8 +22,13 @@ class CandidateLoginView(LoginView):
     authentication_form = CandidateLoginForm
 
 
+@candidate_login_required
 def user_dashboard(request):
     return render(request, "candidate_login/dashboard.html")
+
+
+def candidate_profile(request):
+    return render(request, "candidate_login/profile.html")
 
 
 def login_success(request):
