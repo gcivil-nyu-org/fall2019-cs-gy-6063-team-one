@@ -165,7 +165,7 @@ class CandidateProfile(models.Model):
 
 class Candidate(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=False)
-    candidate_profile = models.OneToOneField(
+    candidate_profile = models.ForeignKey(
         CandidateProfile, on_delete=models.CASCADE, null=False
     )
 

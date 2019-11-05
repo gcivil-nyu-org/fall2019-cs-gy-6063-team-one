@@ -47,7 +47,6 @@ def handle_employer(request):
     employer = Employer.objects.get(user=request.user)
     try:
         jobs = Job.objects.filter(department=employer.department)
-        print(jobs)
     except Job.DoesNotExist:
         jobs = None
     accepted_count = 0
@@ -61,13 +60,13 @@ def handle_employer(request):
         if employer_applications:
             accepted_count = employer_applications.filter(
                 status=Application.STATUS_ACCEPTED
-            )
+            ).count()
             rejected_count = employer_applications.filter(
                 status=Application.STATUS_REJECTED
-            )
+            ).count()
             pending_count = employer_applications.filter(
                 status=Application.STATUS_APPLIED
-            )
+            ).count()
     context = {
         "accepted_count": accepted_count,
         "rejected_count": rejected_count,
