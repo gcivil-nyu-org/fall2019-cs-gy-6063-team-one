@@ -15,7 +15,8 @@
 
 <div class="col-md-6 col-lg-10">
 
-    <h1> {{request.user.first_name|title}}, Welcome to Your Dashboard!</h1>
+    <!-- Greet the user by name, make sure the first letter of their name is capitalized with "|title" -->
+    <h1> {{user.first_name|title}}, welcome to your Dashboard!</h1>
 </div>
 
 </body>

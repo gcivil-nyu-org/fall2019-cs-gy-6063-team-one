@@ -3,9 +3,12 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.dispatch import receiver
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+
 from uplyft.decorators import candidate_login_required
-from .forms import CandidateLoginForm
+from .forms import CandidateLoginForm, CandidateProfileForm
+from uplyft.models import Candidate
+from django.contrib import messages
 
 
 @receiver(user_logged_in)
@@ -25,14 +28,26 @@ class CandidateLoginView(LoginView):
 # Ensure a candidate is logged in before they can view their dashboard or profile
 
 
-@candidate_login_required
-def user_dashboard(request):
+def candidate_dashboard(request):
     return render(request, "candidate_login/dashboard.html")
 
 
 @candidate_login_required
-def candidate_profile(request):
-    return render(request, "candidate_login/profile.html")
+def update_candidate_profile(request):
+    candidate = Candidate.objects.get(user=request.user)
+    if request.method == "POST":
+        profile_form = CandidateProfileForm(request.POST, instance=candidate)
+        if profile_form.is_valid():
+            profile_form.save()
+            messages.success(request, 'Your profile was successfully updated')
+            return redirect('candidate_login:candidate_profile')
+        else:
+            messages.error(request, 'Please correct the error below.')
+    else:
+        profile_form = CandidateProfileForm(instance=candidate)
+        return render(request, 'candidate_login/profile.html', {
+            'profile_form': profile_form,
+            'candidate': candidate})
 
 
 def login_success(request):
