@@ -39,15 +39,17 @@ def update_candidate_profile(request):
         profile_form = CandidateProfileForm(request.POST, instance=candidate)
         if profile_form.is_valid():
             profile_form.save()
-            messages.success(request, 'Your profile was successfully updated')
-            return redirect('candidate_login:candidate_profile')
+            messages.success(request, "Your profile was successfully updated")
+            return redirect("candidate_login:candidate_profile")
         else:
-            messages.error(request, 'Please correct the error below.')
+            messages.error(request, "Please correct the error below.")
     else:
         profile_form = CandidateProfileForm(instance=candidate)
-        return render(request, 'candidate_login/profile.html', {
-            'profile_form': profile_form,
-            'candidate': candidate})
+        return render(
+            request,
+            "candidate_login/profile.html",
+            {"profile_form": profile_form, "candidate": candidate},
+        )
 
 
 def login_success(request):
