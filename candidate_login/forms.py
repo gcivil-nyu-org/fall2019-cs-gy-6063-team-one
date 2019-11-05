@@ -56,10 +56,10 @@ class CandidateProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         candidate = kwargs.pop("instance")
         super(CandidateProfileForm, self).__init__(*args, **kwargs)
-
-        """Initialize the form so it contains the 
-            information the user has already provided"""
-        
+        """
+        Initialize the form so it contains the
+        information the user has already provided
+        """
         # Make sure the first letter of the user's first and last name are capitalize
         self.fields["first_name"].initial = (
             candidate.candidate_profile.first_name[:1].upper()
