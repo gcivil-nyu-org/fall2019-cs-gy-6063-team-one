@@ -153,9 +153,13 @@ class CandidateProfile(models.Model):
     additional_info = models.TextField(max_length=10000, blank=True, null=True)
 
     def __eq__(self, other):
+        if not other:
+            return False
         return self.id == other.id
 
     def __ne__(self, other):
+        if not other:
+            return False
         return self.id != other.id
 
 
@@ -166,9 +170,13 @@ class Candidate(models.Model):
     )
 
     def __eq__(self, other):
+        if not other:
+            return False
         return self.id == other.id
 
     def __ne__(self, other):
+        if not other:
+            return False
         return self.id != other.id
 
 
