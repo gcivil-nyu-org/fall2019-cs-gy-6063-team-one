@@ -9,25 +9,33 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('uplyft', '0001_initial'),
-        ('jobs', '0001_initial'),
-        ('apply', '0001_initial'),
+        ("uplyft", "0001_initial"),
+        ("jobs", "0001_initial"),
+        ("apply", "0001_initial"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='application',
-            name='candidate',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='uplyft.Candidate'),
+            model_name="application",
+            name="candidate",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="uplyft.Candidate"
+            ),
         ),
         migrations.AddField(
-            model_name='application',
-            name='candidate_profile',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='uplyft.CandidateProfile'),
+            model_name="application",
+            name="candidate_profile",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="uplyft.CandidateProfile",
+            ),
         ),
         migrations.AddField(
-            model_name='application',
-            name='job',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='jobs.Job'),
+            model_name="application",
+            name="job",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="jobs.Job"
+            ),
         ),
     ]

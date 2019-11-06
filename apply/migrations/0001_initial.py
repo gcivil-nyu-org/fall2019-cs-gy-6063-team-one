@@ -8,16 +8,34 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Application',
+            name="Application",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('submit_date', models.DateField(default=datetime.datetime.now)),
-                ('status', models.CharField(choices=[('AP', 'Applied'), ('AC', 'Accepted'), ('RE', 'Rejected')], default='AP', max_length=2)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("submit_date", models.DateField(default=datetime.datetime.now)),
+                (
+                    "status",
+                    models.CharField(
+                        choices=[
+                            ("AP", "Applied"),
+                            ("AC", "Accepted"),
+                            ("RE", "Rejected"),
+                        ],
+                        default="AP",
+                        max_length=2,
+                    ),
+                ),
             ],
-        ),
+        )
     ]
