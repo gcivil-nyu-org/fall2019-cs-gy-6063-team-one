@@ -3,7 +3,6 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.dispatch import receiver
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-from django.shortcuts import render
 from .forms import CandidateLoginForm
 
 
