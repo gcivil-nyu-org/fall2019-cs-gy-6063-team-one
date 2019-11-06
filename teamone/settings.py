@@ -32,7 +32,7 @@ ALLOWED_HOSTS = ["uplyft.herokuapp.com", "localhost", "127.0.0.1", "testserver"]
 LOGIN_URL = "/candidate_login/"
 AUTH_USER_MODEL = "uplyft.CustomUser"
 # This should be the dashboard
-LOGIN_REDIRECT_URL = "candidate_login:user_dashboard"
+LOGIN_REDIRECT_URL = ""
 LOGOUT_REDIRECT_URL = ""
 
 # Application definition

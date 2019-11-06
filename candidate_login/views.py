@@ -21,12 +21,8 @@ class CandidateLoginView(LoginView):
     authentication_form = CandidateLoginForm
 
 
-def candidate_dashboard(request):
-    return render(request, "candidate_login/dashboard.html")
-
-
 def login_success(request):
-    return HttpResponseRedirect(reverse("candidate_login:user_dashboard"))
+    return HttpResponseRedirect(reverse("candidate_login:success"))
 
 
 class CandidateLogoutView(LogoutView):
