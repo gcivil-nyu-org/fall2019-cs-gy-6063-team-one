@@ -3,6 +3,7 @@ import logging
 from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.decorators import login_required
 from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
@@ -10,6 +11,7 @@ from django.views.generic.list import ListView
 from django_filters.views import FilterView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
+
 
 from apply.models import Application
 from jobs.helper import jobs_helper
