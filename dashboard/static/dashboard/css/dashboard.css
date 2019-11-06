@@ -65,3 +65,22 @@
     padding: 20px;
     width: 1000em;
 }
+
+.application-border{
+    border-width: 3px;
+    margin: 1em;
+}
+
+.application-border.RE{
+    border-color:#8C3D3B;
+}
+
+.application-border.AC{
+    border-color:#296245;
+}
+.application-border.PE{
+    border-color:#2D3B5E;
+}
+.application-border.AP{
+    border-color:#2D3B5E;
+}

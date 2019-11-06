@@ -5,7 +5,19 @@
 {% load humanize %}
 
 {% block applications_list %}
-        <h1 class="text-white mb-4">Application Listing</h1>
+    <a href="{% url 'dashboard:dashboard' %}">
+        <button class="btn btn-primary mx-auto">Dashboard</button>
+    </a>
+    <a href="{% url 'dashboard:dashboard' 'ap' %}">
+        <button class="btn btn-primary mx-auto">Pending</button>
+    </a>
+    <a href="{% url 'dashboard:dashboard' 're' %}">
+        <button class="btn btn-primary mx-auto">Rejected</button>
+    </a>
+    <a href="{% url 'dashboard:dashboard' 'ac' %}">
+        <button class="btn btn-primary mx-auto">Accepted</button>
+    </a>
+    <h1 class="text-white mb-4">Application Listing</h1>
 
     <div class="container dashboard-container">
         <div class="row">
@@ -19,7 +31,9 @@
                     <button type="submit" class="btn btn-primary mx-auto">Search
                     </button>
                 </form>
-                <a href="{% url 'dashboard:dashboard' application_type%}"><button class="float-right btn btn-primary mx-auto">Clear</button></a>
+                <a href="{% url 'dashboard:dashboard' application_type %}">
+                    <button class="float-right btn btn-primary mx-auto">Clear</button>
+                </a>
             </div>
         </div>
     </div>
@@ -30,13 +44,15 @@
             <div class="col-md-9 mt-3 center mx-auto text-left">
                 {% for application in applications %}
                     {#{% Insert URl for Application details here %}#}
-{#                    <a href="{% url '' application.id %}">#}
-                        <div class="card mb-4">
-                            <div class="card-body">
-                            <h5 class="card-title">{{ application.id }}</h5>
-                                <h5 class="card-title align-content-center">{{ application.job.business_title }}</h5>
-                                <span> <small> {{ application.submit_date }} </small> </span>
-                                <p class="card-text text-muted h6">
+                    {#                    <a href="{% url '' application.id %}">#}
+                    <div class="card application-border {{ application.status }}">
+                        <div class="card-body">
+                            <h5 class="card-title">Application
+                                Number: {{ application.id }}</h5><br>
+                        <h5 class="card-title">Job ID: {{ application.job.job_id }}</h5><br>
+                            <h5 class="card-title align-content-center">{{ application.job.business_title }}</h5>
+                            <span> <small> {{ application.submit_date }} </small> </span>
+                            <p class="card-text text-muted h6">
                                     <span class="status {{ application.status }}">
                                         {% if application.status == "RE" %}
                                             REJECTED
@@ -46,14 +62,24 @@
                                             PENDING
                                         {% endif %}
                                      </span>
-                                </p>
-                                <hr class="h-bar">
+                            </p>
+                            <hr class="h-bar">
+                            <p class="card-text">
+                                {{ application.candidate_profile.first_name.capitalize }} {{ application.candidate_profile.last_name.capitalize }}
+                            </p>
+                            <p class="card-text">
+                                <small>
+                                    Email: {{ application.candidate_profile.email }}</small>
+                            </p>
+                            {% if  application.candidate_profile.phone %}
                                 <p class="card-text">
-                                    <small>{{ application.candidate_profile.first_name }} {{ application.candidate_profile.last_name }}</small>
+                                    <small>
+                                        Phone: {{ application.candidate_profile.phone }}</small>
                                 </p>
-                            </div>
+                            {% endif %}
                         </div>
-{#                    </a>#}
+                    </div>
+                    {#                    </a>#}
                 {% endfor %}
             </div>
 

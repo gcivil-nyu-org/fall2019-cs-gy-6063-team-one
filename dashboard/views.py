@@ -8,7 +8,7 @@ from apply.models import Application
 from jobs.models import Job
 from uplyft.models import Candidate, Employer
 
-ALL = "All"
+ALL = "ALL"
 
 
 @login_required
@@ -85,6 +85,7 @@ class ApplicationList(LoginRequiredMixin, ListView):
     def get_queryset(self):
         if self.request.user.is_active:
             app_status = self.kwargs['app_status']
+            app_status = app_status.upper()
             if app_status not in [Application.STATUS_ACCEPTED,
                                   Application.STATUS_REJECTED,
                                   Application.STATUS_APPLIED, ALL]:
