@@ -21,7 +21,7 @@ class CandidateLoginView(LoginView):
 
 
 def login_success(request):
-    return HttpResponseRedirect(reverse("candidate_login:success"))
+    return HttpResponseRedirect(reverse("uplyft:index"))
 
 
 class CandidateLogoutView(LogoutView):
