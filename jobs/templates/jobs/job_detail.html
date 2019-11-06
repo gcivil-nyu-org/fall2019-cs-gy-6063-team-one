@@ -64,9 +64,9 @@
 
                         <li class="list-group-item border-0"> <b>Work location</b> </li>
                         <li class="list-group-item border-0"> {{job.work_location}}
-                            {% if job.secondary_work_location != None %}
+                            {% if job.secondary_work_location != "nan" %}
                             <br>
-                            Secondary location: {{ job.secondary_work_location }}
+                            <b>Secondary location:</b> {{ job.secondary_work_location }}
                             {% endif %} </li>
 
                         <li class="list-group-item border-0"><b>Additional Information</b> </li>
@@ -77,8 +77,10 @@
                 <div class="job-description-misc-attributes">
                     <ul class="list-group list-group-flush border-0">
 
+                        {% if job.recruitment_contact != "nan" %}
                         <li class="list-group-item border-0"> <b>Contact</b> <br> 
                             {{ job.recruitment_contact }} </li>
+                        {% endif %}
 
                         <li class="list-group-item border-0"> <b>Seniority Level</b> <br> 
                             {{ job.level }} </li>
@@ -95,11 +97,16 @@
                         <li class="list-group-item border-0"> <b>Salary</b> <br> 
                             ${{ job.salary_start }} – ${{ job.salary_end }}, {{ job.salary_frequency }} </li>
 
+                        {% if job.hours_info != "nan" %}
                         <li class="list-group-item border-0"> <b>Hours</b> <br> 
                             {{ job.hours_info }} </li>
+                        {% endif %}
 
                         <li class="list-group-item border-0"> <b>Employment Type</b> <br> 
-                            {{ job.ft_pt_indicator }}, {{ job.posting_type }} </li>
+                            {% if job.ft_pt_indicator == "F" %}
+                            Full time, 
+                            {% endif %}
+                            {{ job.posting_type }} </li>
 
                         <li class="list-group-item border-0 small text-black-50"> JOB ID #{{ job.job_id }} </li>
 
