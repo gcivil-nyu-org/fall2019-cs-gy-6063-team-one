@@ -43,16 +43,16 @@
         <div class="row">
             <div class="col-md-9 mt-3 center mx-auto text-left">
                 {% for application in applications %}
-                    {#{% Insert URl for Application details here %}#}
-                    {#                    <a href="{% url '' application.id %}">#}
-                    <div class="card application-border {{ application.status }}">
-                        <div class="card-body">
-                            <h5 class="card-title">Application
-                                Number: {{ application.id }}</h5><br>
-                        <h5 class="card-title">Job ID: {{ application.job.job_id }}</h5><br>
-                            <h5 class="card-title align-content-center">{{ application.job.business_title }}</h5>
-                            <span> <small> {{ application.submit_date }} </small> </span>
-                            <p class="card-text text-muted h6">
+                    <a href="{% url 'applications:application_details' application.id %}">
+                        <div class="card application-border {{ application.status }}">
+                            <div class="card-body">
+                                <h5 class="card-title">Application
+                                    Number: {{ application.id }}</h5><br>
+                                <h5 class="card-title">Job
+                                    ID: {{ application.job.job_id }}</h5><br>
+                                <h5 class="card-title align-content-center">{{ application.job.business_title }}</h5>
+                                <span> <small> {{ application.submit_date }} </small> </span>
+                                <p class="card-text text-muted h6">
                                     <span class="status {{ application.status }}">
                                         {% if application.status == "RE" %}
                                             REJECTED
@@ -62,24 +62,24 @@
                                             PENDING
                                         {% endif %}
                                      </span>
-                            </p>
-                            <hr class="h-bar">
-                            <p class="card-text">
-                                {{ application.candidate_profile.first_name.capitalize }} {{ application.candidate_profile.last_name.capitalize }}
-                            </p>
-                            <p class="card-text">
-                                <small>
-                                    Email: {{ application.candidate_profile.email }}</small>
-                            </p>
-                            {% if  application.candidate_profile.phone %}
+                                </p>
+                                <hr class="h-bar">
+                                <p class="card-text">
+                                    {{ application.candidate_profile.first_name.capitalize }} {{ application.candidate_profile.last_name.capitalize }}
+                                </p>
                                 <p class="card-text">
                                     <small>
-                                        Phone: {{ application.candidate_profile.phone }}</small>
+                                        Email: {{ application.candidate_profile.email }}</small>
                                 </p>
-                            {% endif %}
+                                {% if  application.candidate_profile.phone %}
+                                    <p class="card-text">
+                                        <small>
+                                            Phone: {{ application.candidate_profile.phone }}</small>
+                                    </p>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
-                    {#                    </a>#}
+                    </a>
                 {% endfor %}
             </div>
 
