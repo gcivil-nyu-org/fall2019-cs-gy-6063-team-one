@@ -32,11 +32,11 @@
                 <li class="list-group-item border-0"><b>Last Name:</b> {{ application.candidate.candidate_profile.last_name }} </li>
                 <li class="list-group-item border-0"><b>Email:</b> {{ application.candidate.candidate_profile.email }} </li>
                 <li class="list-group-item border-0"><b>Phone:</b> {{ application.candidate.candidate_profile.phone }} </li>
-                <li class="list-group-item border-0"><b>Gender:</b> {{ application.candidate.candidate_profile.gender }} </li>
-                <li class="list-group-item border-0"><b>Ethnicity:</b> {{ application.candidate.candidate_profile.ethnicity }} </li>
-                <li class="list-group-item border-0"><b>Race:</b> {{ application.candidate.candidate_profile.race }} </li>
-                <li class="list-group-item border-0"><b>Health Conditions:</b> {{ application.candidate.candidate_profile.health_conditions }} </li>
-                <li class="list-group-item border-0"><b>Veteran Status:</b> {{ application.candidate.candidate_profile.veteran }} </li>
+                <li class="list-group-item border-0"><b>Gender:</b> {{ application.candidate.candidate_profile.get_gender_display }} </li>
+                <li class="list-group-item border-0"><b>Ethnicity:</b> {{ application.candidate.candidate_profile.get_ethnicity_display }} </li>
+                <li class="list-group-item border-0"><b>Race:</b> {{ application.candidate.candidate_profile.get_race_display }} </li>
+                <li class="list-group-item border-0"><b>Health Conditions:</b> {{ application.candidate.candidate_profile.get_health_conditions_display }} </li>
+                <li class="list-group-item border-0"><b>Veteran Status:</b> {{ application.candidate.candidate_profile.get_veteran_display }} </li>
                 <li class="list-group-item border-0"><b>Address:</b> {{ application.candidate.candidate_profile.address_line }}, {{ application.candidate.candidate_profile.state }} </li>
                 <hr class="dropdown-divider">
                 <li class="list-group-item border-0"><b>Portfolio Website:</b> {{ application.candidate.candidate_profile.portfolio_website }} </li>
@@ -47,6 +47,8 @@
                 <hr class="dropdown-divider">
 
                 {% if employer_viewing %}
+
+                {% if application.status == application.STATUS_APPLIED %}
                 <form class="application_detail_form" action="{% url 'applications:application_details' application.id %}" method="post">
                     {% csrf_token %}
                     <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
@@ -60,6 +62,10 @@
                     </button>
 
                 </form>
+                {% else %}
+                <li class="list-group-item border-0"><b>Application Status:</b> {{ application.get_status_display }} </li>
+                {% endif %}
+
                 {% endif %}
 
             </ul>

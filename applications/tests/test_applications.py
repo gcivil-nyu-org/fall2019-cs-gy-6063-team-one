@@ -182,13 +182,21 @@ class ApplicationDetailsViewTests(TestCase):
         )
         self.assertContains(response, self.candidate.candidate_profile.first_name)
         self.assertContains(response, self.candidate.candidate_profile.last_name)
-        self.assertContains(response, self.candidate.candidate_profile.gender)
-        self.assertContains(response, self.candidate.candidate_profile.ethnicity)
-        self.assertContains(response, self.candidate.candidate_profile.race)
         self.assertContains(
-            response, self.candidate.candidate_profile.health_conditions
+            response, self.candidate.candidate_profile.get_gender_display()
         )
-        self.assertContains(response, self.candidate.candidate_profile.veteran)
+        self.assertContains(
+            response, self.candidate.candidate_profile.get_ethnicity_display()
+        )
+        self.assertContains(
+            response, self.candidate.candidate_profile.get_race_display()
+        )
+        self.assertContains(
+            response, self.candidate.candidate_profile.get_health_conditions_display()
+        )
+        self.assertContains(
+            response, self.candidate.candidate_profile.get_veteran_display()
+        )
         self.assertContains(response, self.candidate.candidate_profile.address_line)
         self.assertContains(response, self.candidate.candidate_profile.zip_code)
         self.assertContains(response, self.candidate.candidate_profile.state)
@@ -208,13 +216,21 @@ class ApplicationDetailsViewTests(TestCase):
         )
         self.assertContains(response, self.candidate.candidate_profile.first_name)
         self.assertContains(response, self.candidate.candidate_profile.last_name)
-        self.assertContains(response, self.candidate.candidate_profile.gender)
-        self.assertContains(response, self.candidate.candidate_profile.ethnicity)
-        self.assertContains(response, self.candidate.candidate_profile.race)
         self.assertContains(
-            response, self.candidate.candidate_profile.health_conditions
+            response, self.candidate.candidate_profile.get_gender_display()
         )
-        self.assertContains(response, self.candidate.candidate_profile.veteran)
+        self.assertContains(
+            response, self.candidate.candidate_profile.get_ethnicity_display()
+        )
+        self.assertContains(
+            response, self.candidate.candidate_profile.get_race_display()
+        )
+        self.assertContains(
+            response, self.candidate.candidate_profile.get_health_conditions_display()
+        )
+        self.assertContains(
+            response, self.candidate.candidate_profile.get_veteran_display()
+        )
         self.assertContains(response, self.candidate.candidate_profile.address_line)
         self.assertContains(response, self.candidate.candidate_profile.zip_code)
         self.assertContains(response, self.candidate.candidate_profile.state)
