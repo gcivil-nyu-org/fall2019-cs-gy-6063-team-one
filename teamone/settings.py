@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "register.apps.RegisterConfig",
     "apply.apps.ApplyConfig",
     "candidate_login.apps.CandidateLoginConfig",
+    "candidate_profile.apps.CandidateProfileConfig",
     "employer_login.apps.EmployerLoginConfig",
     "jobs.apps.JobsConfig",
     "password_reset.apps.PasswordResetConfig",

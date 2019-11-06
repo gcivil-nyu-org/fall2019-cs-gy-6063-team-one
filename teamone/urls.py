@@ -24,6 +24,7 @@ urlpatterns = [
     path("register/", include("register.urls")),
     path("jobs/", include("jobs.urls")),
     path("candidate_login/", include("candidate_login.urls")),
+    path("candidate_profile/", include("candidate_profile.urls")),
     path("employer_login/", include("employer_login.urls")),
     path("accounts/", include("allauth.urls")),
     path("accounts/google/login/callback/success/", login_success),
