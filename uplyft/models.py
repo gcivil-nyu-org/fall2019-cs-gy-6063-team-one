@@ -182,7 +182,7 @@ class Candidate(models.Model):
 
 class Employer(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=False)
-    department = models.OneToOneField(Department, on_delete=models.CASCADE, null=False)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, null=False)
 
     def __eq__(self, other):
         return self.id == other.id
