@@ -16,4 +16,6 @@ python-coveralls==2.9.3
 django-filter==2.2.0
 django-widget-tweaks==1.4.5
 selenium==3.141.0
-
+pandas==0.25.3
+numpy==1.17.3
+django-phone-field==1.8.0

@@ -3,10 +3,16 @@ from django.db import models
 MAX_CHARS = 12000
 
 
-# Create your models here.
+class Department(models.Model):
+    name = models.CharField(max_length=MAX_CHARS, unique=True)
+
+    def __str__(self):
+        return self.name
+
+
 class Job(models.Model):
-    job_id = models.IntegerField(primary_key=True)
-    agency = models.CharField(max_length=MAX_CHARS)
+    job_id = models.IntegerField()
+    department = models.ForeignKey(Department, on_delete=models.CASCADE)
     posting_type = models.CharField(max_length=MAX_CHARS)
     business_title = models.CharField(max_length=MAX_CHARS)
     civil_service_title = models.CharField(max_length=MAX_CHARS)
@@ -34,7 +40,11 @@ class Job(models.Model):
     process_date = models.DateField(blank=True, null=True)
 
     def __eq__(self, other):
-        return self.job_id == other.job_id
+        if not other:
+            return False
+        return self.id == other.id
 
     def __ne__(self, other):
-        return self.job_id != other.job_id
+        if not other:
+            return False
+        return self.id != other.id

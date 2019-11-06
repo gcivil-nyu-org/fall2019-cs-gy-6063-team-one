@@ -1,19 +1,25 @@
+import datetime
+from decimal import Decimal
+
 from django.db.models.query import QuerySet
 from django.test import TestCase
 from django.urls import reverse
-from jobs.models import Job
+
+from jobs.models import Job, Department
 from jobs.views import JobsView
-from decimal import Decimal
-import datetime
 
 
 class JobsViewTest(TestCase):
     q = ""
 
+    def create_department(self):
+        return Department.objects.create(name="department")
+
     def create_job(self):
+        department = self.create_department()
         job = Job(
             job_id="87990",
-            agency="DEPARTMENT OF BUSINESS SERV.",
+            department=department,
             posting_type="Internal",
             business_title="Account Manager",
             civil_service_title="'CONTRACT REVIEWER (OFFICE OF L",

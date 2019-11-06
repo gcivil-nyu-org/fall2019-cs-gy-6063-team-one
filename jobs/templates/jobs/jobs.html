@@ -10,6 +10,7 @@
 body{
     background-attachment: fixed !important;
 }
+
 </style>
 
 <div class="col-lg-8 mx-auto text-center">
@@ -17,15 +18,16 @@ body{
 </div>
 
 <div class="container">
-  <div class="row">
-    <div class="col-md-10 col-lg-8 mx-auto text-center">
-        <form class="form-inline d-flex" method="GET" action="{% url 'jobs:jobs' %}">
-            {{ form|crispy }}
-            <input type="text" name="q" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0" value="{{request.GET.q}}" placeholder="Search jobs"/>
-            <button type="submit" class="btn btn-primary mx-auto">Search </button>
-        </form>
+    <div class="row">
+        <div class="col-md-10 col-lg-8 mx-auto text-center">
+            <form class="form-inline d-flex" method="GET" action="{% url 'jobs:jobs' %}">
+                {{ form|crispy }}
+                <input type="text" name="q" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0"
+                       value="{{request.GET.q}}" placeholder="Search jobs"/>
+                <button type="submit" class="btn btn-primary mx-auto">Search</button>
+            </form>
+        </div>
     </div>
-  </div>
 </div>
 
 
@@ -33,24 +35,25 @@ body{
     <div class="row">
         <div class="col-md-9 mt-3 center mx-auto">
             {% for job in jobs %}
-            <a href="{% url 'jobs:job_detail' job.job_id %}">
-              <div class="card mb-4">
-                <div class="card-body">
-                    <h5 class="card-title">{{ job.business_title }}</h5>
-                    <span> <small> {{ job.posting_date}} </small> </span>
-                    <p class="card-text text-muted h6">{{ job.agency }}
-                    {% if job.salary_frequency == "Annual" %}
-                        <span class="salary_info"> ${{ job.salary_start|floatformat:"0"|intcomma }} - {{ job.salary_end|floatformat:"0"|intcomma }} Annually</span>
-                    {% else %}
-                        <span class="salary_info"> ${{ job.salary_start|floatformat:2 }} - {{ job.salary_end|floatformat:2 }} {{ job.salary_frequency }}</span>
-                    {% endif %}
-                    </p>
-                    <hr class="h-bar">
-                    <p class="card-text"><small>{{job.job_description|truncatechars:325 }}</small></p>
-                    <p class="card-text"> <i class="fas fa-map-marked-alt text-primary mb-2"></i> {{job.work_location}}
-                    </p>
+            <a href="{% url 'jobs:job_detail' job.id %}">
+                <div class="card mb-4">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ job.business_title }}</h5>
+                        <span> <small> {{ job.posting_date}} </small> </span>
+                        <p class="card-text text-muted h6">{{ job.agency }}
+                            {% if job.salary_frequency == "Annual" %}
+                            <span class="salary_info"> ${{ job.salary_start|floatformat:"0"|intcomma }} - {{ job.salary_end|floatformat:"0"|intcomma }} Annually</span>
+                            {% else %}
+                            <span class="salary_info"> ${{ job.salary_start|floatformat:2 }} - {{ job.salary_end|floatformat:2 }} {{ job.salary_frequency }}</span>
+                            {% endif %}
+                        </p>
+                        <hr class="h-bar">
+                        <p class="card-text"><small>{{job.job_description|truncatechars:325 }}</small></p>
+                        <p class="card-text"><i class="fas fa-map-marked-alt text-primary mb-2"></i>
+                            {{job.work_location}}
+                        </p>
+                    </div>
                 </div>
-            </div>
             </a>
             {% endfor %}
         </div>
@@ -59,27 +62,28 @@ body{
 </div>
 
 <div id="wrapper" style="text-align:center">
- <div id="container" style="display:inline-block;text-align:left">
-{% if is_paginated %}
-    {% if page_obj.has_previous %}
+    <div id="container" style="display:inline-block;text-align:left">
+        {% if is_paginated %}
+        {% if page_obj.has_previous %}
         <a class="btn btn-primary" href="?{% query_transform request page=1 %}"> First </a>
-        <a class="btn btn-primary" href="?{% query_transform request page=page_obj.previous_page_number %}"> Previous </a>
-    {% endif %}
-
-    {% for num in page_obj.paginator.page_range %}
-        {% if page_obj.number == num %}
-            <a class="btn btn-light" href="?{% query_transform request page=num %}"> {{ num }} </a>
-        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-            <a class="btn btn-primary" href="?{% query_transform request page=num %}"> {{ num }} </a>
+        <a class="btn btn-primary" href="?{% query_transform request page=page_obj.previous_page_number %}">
+            Previous </a>
         {% endif %}
-    {% endfor %}
 
-    {% if page_obj.has_next %}
+        {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+        <a class="btn btn-light" href="?{% query_transform request page=num %}"> {{ num }} </a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+        <a class="btn btn-primary" href="?{% query_transform request page=num %}"> {{ num }} </a>
+        {% endif %}
+        {% endfor %}
+
+        {% if page_obj.has_next %}
         <a class="btn btn-primary" href="?{% query_transform request page=page_obj.next_page_number %}"> Next </a>
         <a class="btn btn-primary" href="?{% query_transform request page=page_obj.paginator.num_pages %}"> Last </a>
-    {% endif %}
-{% endif %}
- </div>
+        {% endif %}
+        {% endif %}
+    </div>
 </div>
 
 {% endblock %}
