@@ -82,7 +82,7 @@
                             {{ job.recruitment_contact }} </li>
                         {% endif %}
 
-                        <li class="list-group-item border-0"> <b>Seniority Level</b> <br> 
+                        <li class="list-group-item border-0"> <b>Seniority Level or <br> Experience Level</b> <br> 
                             {{ job.level }} </li>
 
                         <li class="list-group-item border-0"> <b>Civil Service Title</b> <br> 
@@ -92,7 +92,7 @@
                             {{ job.job_category }} </li>
 
                         <li class="list-group-item border-0"> <b>Salary</b> <br> 
-                            ${{ job.salary_start }} – ${{ job.salary_end }}, {{ job.salary_frequency }} </li>
+                            ${{ job.salary_start|floatformat:"-2"|intcomma }} – ${{ job.salary_end|floatformat:"-2"|intcomma }}, {{ job.salary_frequency }} </li>
 
                         {% if job.hours_info != "nan" %}
                         <li class="list-group-item border-0"> <b>Hours</b> <br> 
@@ -101,7 +101,7 @@
 
                         <li class="list-group-item border-0"> <b>Employment Type</b> <br> 
                             {% if job.ft_pt_indicator == "F" %}
-                            Full time, 
+                            Full Time, 
                             {% endif %}
                             {{ job.posting_type }} </li>
 
