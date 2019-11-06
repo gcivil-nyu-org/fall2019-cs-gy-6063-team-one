@@ -67,10 +67,9 @@ def populate_profile(sociallogin, user, **kwargs):
     if sociallogin.account.provider == 'google':
         user.is_candidate = True
         user.save()
-        #user_data = user.socialaccount_set.filter(provider='google')[0].extra_data
-        first_name = user.first_name               #user_data['first_name']
-        last_name =  user.last_name                               #user_data['last_name']
-        email = user.email                                    #user_data['email-address']
+        first_name = user.first_name
+        last_name =  user.last_name
+        email = user.email
         profile = CandidateProfile(
             first_name=first_name, last_name=last_name, email=email
         )
