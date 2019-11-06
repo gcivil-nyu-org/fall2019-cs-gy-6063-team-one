@@ -6,5 +6,5 @@ app_name = "dashboard"
 
 urlpatterns = [
     path("", dashboard, name="dashboard"),
-    path("<str:app_status>", ApplicationList.as_view(), name="dashboard")
+    path("<str:app_status>", ApplicationList.as_view(), name="dashboard"),
 ]

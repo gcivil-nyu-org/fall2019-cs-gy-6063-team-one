@@ -28,7 +28,7 @@ class ApplicationList(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        app_status = self.kwargs['app_status']
+        app_status = self.kwargs["app_status"]
         context["application_type"] = app_status
         return context
 
@@ -36,13 +36,14 @@ class ApplicationList(LoginRequiredMixin, ListView):
         candidate = Candidate.objects.filter(user=self.request.user)
         try:
             candidate_applications = Application.objects.filter(
-                candidate=candidate[0]).order_by("-submit_date")
+                candidate=candidate[0]
+            ).order_by("-submit_date")
         except Application.DoesNotExist:
             return []
         if app_status and app_status != ALL:
             candidate_applications = candidate_applications.filter(
-                status=app_status).order_by(
-                "-submit_date")
+                status=app_status
+            ).order_by("-submit_date")
         try:
             query = self.request.GET.get("q")
         except KeyError:
@@ -63,13 +64,14 @@ class ApplicationList(LoginRequiredMixin, ListView):
             return []
         try:
             employer_applications = Application.objects.filter(job__in=jobs).order_by(
-                "-submit_date")
+                "-submit_date"
+            )
         except Application.DoesNotExist:
             return []
         if app_status and app_status != ALL:
             employer_applications = employer_applications.filter(
-                status=app_status).order_by(
-                "-submit_date")
+                status=app_status
+            ).order_by("-submit_date")
         try:
             query = self.request.GET.get("q")
         except KeyError:
@@ -84,11 +86,14 @@ class ApplicationList(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         if self.request.user.is_active:
-            app_status = self.kwargs['app_status']
+            app_status = self.kwargs["app_status"]
             app_status = app_status.upper()
-            if app_status not in [Application.STATUS_ACCEPTED,
-                                  Application.STATUS_REJECTED,
-                                  Application.STATUS_APPLIED, ALL]:
+            if app_status not in [
+                Application.STATUS_ACCEPTED,
+                Application.STATUS_REJECTED,
+                Application.STATUS_APPLIED,
+                ALL,
+            ]:
                 app_status = None
             if self.request.user.is_candidate:
                 return self.get_candidate_applications(app_status)
