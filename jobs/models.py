@@ -51,5 +51,5 @@ class Job(models.Model):
 
 
 class SavedJobs(models.Model):
-    job_id = models.ForeignKey(Job, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
     user = models.ForeignKey("uplyft.CustomUser", on_delete=models.CASCADE)
