@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "employer_login.apps.EmployerLoginConfig",
     "jobs.apps.JobsConfig",
     "password_reset.apps.PasswordResetConfig",
+    "dashboard.apps.DashboardConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

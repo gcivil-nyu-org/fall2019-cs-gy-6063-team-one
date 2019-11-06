@@ -153,28 +153,36 @@ class CandidateProfile(models.Model):
     additional_info = models.TextField(max_length=10000, blank=True, null=True)
 
     def __eq__(self, other):
+        if not other:
+            return False
         return self.id == other.id
 
     def __ne__(self, other):
+        if not other:
+            return False
         return self.id != other.id
 
 
 class Candidate(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=False)
-    candidate_profile = models.OneToOneField(
+    candidate_profile = models.ForeignKey(
         CandidateProfile, on_delete=models.CASCADE, null=False
     )
 
     def __eq__(self, other):
+        if not other:
+            return False
         return self.id == other.id
 
     def __ne__(self, other):
+        if not other:
+            return False
         return self.id != other.id
 
 
 class Employer(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=False)
-    department = models.OneToOneField(Department, on_delete=models.CASCADE, null=False)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, null=False)
 
     def __eq__(self, other):
         return self.id == other.id
