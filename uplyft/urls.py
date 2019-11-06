@@ -1,6 +1,6 @@
 from django.urls import path
 
-from .views import IndexView
+from .views import index
 
 app_name = "uplyft"
-urlpatterns = [path("", IndexView.as_view(), name="index")]
+urlpatterns = [path("", index, name="index")]

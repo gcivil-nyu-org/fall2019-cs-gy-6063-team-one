@@ -30,4 +30,5 @@ urlpatterns = [
     path("accounts/google/login/callback/success/", login_success),
     path("password_reset/", include("password_reset.urls")),
     path("apply/", include("apply.urls")),
+    path("dashboard", include("dashboard.urls")),
 ]
