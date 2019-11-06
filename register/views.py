@@ -64,11 +64,11 @@ def employer_register(request):
 
 @receiver(user_signed_up)
 def populate_profile(sociallogin, user, **kwargs):
-    if sociallogin.account.provider == 'google':
+    if sociallogin.account.provider == "google":
         user.is_candidate = True
         user.save()
         first_name = user.first_name
-        last_name =  user.last_name
+        last_name = user.last_name
         email = user.email
         profile = CandidateProfile(
             first_name=first_name, last_name=last_name, email=email
@@ -76,6 +76,3 @@ def populate_profile(sociallogin, user, **kwargs):
         profile.save()
         candidate = Candidate(user=user, candidate_profile=profile)
         candidate.save()
-
-
-
