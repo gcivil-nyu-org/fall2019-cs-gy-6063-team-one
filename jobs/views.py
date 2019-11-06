@@ -33,7 +33,7 @@ class JobsView(LoginRequiredMixin, ListView):
             queryset = Job.objects.filter(
                 Q(business_title__icontains=a)
                 | Q(work_location__icontains=a)
-                | Q(agency__icontains=a)
+                | Q(department__name__icontains=a)
             ).order_by("-posting_date")
         else:
             queryset = Job.objects.all().order_by("-posting_date")

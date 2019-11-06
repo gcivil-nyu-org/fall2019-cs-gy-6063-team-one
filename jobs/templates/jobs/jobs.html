@@ -40,7 +40,7 @@ body{
                     <div class="card-body">
                         <h5 class="card-title">{{ job.business_title }}</h5>
                         <span> <small> {{ job.posting_date}} </small> </span>
-                        <p class="card-text text-muted h6">{{ job.agency }}
+                        <p class="card-text text-muted h6">{{ job.department.name }}
                             {% if job.salary_frequency == "Annual" %}
                             <span class="salary_info"> ${{ job.salary_start|floatformat:"0"|intcomma }} - {{ job.salary_end|floatformat:"0"|intcomma }} Annually</span>
                             {% else %}
