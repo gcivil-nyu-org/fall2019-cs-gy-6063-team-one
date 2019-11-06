@@ -48,3 +48,8 @@ class Job(models.Model):
         if not other:
             return False
         return self.id != other.id
+
+
+class SavedJobs(models.Model):
+    job_id = models.ForeignKey(Job, on_delete=models.CASCADE)
+    user = models.ForeignKey("uplyft.CustomUser", on_delete=models.CASCADE)
