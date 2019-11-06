@@ -55,4 +55,4 @@ class SavedJobs(models.Model):
     user = models.ForeignKey("uplyft.CustomUser", on_delete=models.CASCADE)
 
     class Meta:
-        unique_together = ('job', 'user')
+        unique_together = ("job", "user")
