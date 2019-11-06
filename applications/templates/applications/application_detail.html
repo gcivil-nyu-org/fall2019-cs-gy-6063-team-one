@@ -1,0 +1,41 @@
+{% extends "uplyft/base.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block content %}
+
+{{ form.errors }}
+{{ form.non_field_errors }}
+
+{% if employer_viewing %}
+
+<div>{{ job.business_title }}</div>
+<div>{{ application.candidate.candidate_profile.first_name }}</div>
+<div>{{ application.candidate.candidate_profile.last_name }}</div>
+<div>{{ application.candidate.candidate_profile.gender }}</div>
+<div>{{ application.candidate.candidate_profile.ethnicity }}</div>
+<div>{{ application.candidate.candidate_profile.race }}</div>
+<div>{{ application.candidate.candidate_profile.health_conditions }}</div>
+<div>{{ application.candidate.candidate_profile.veteran }}</div>
+<div>{{ application.candidate.candidate_profile.address_line }}</div>
+<div>{{ application.candidate.candidate_profile.zip_code }}</div>
+<div>{{ application.candidate.candidate_profile.state }}</div>
+<div>{{ application.candidate.candidate_profile.phone }}</div>
+<div>{{ application.candidate.candidate_profile.email }}</div>
+<div>{{ application.candidate.candidate_profile.portfolio_website }}</div>
+<div>{{ application.candidate.candidate_profile.cover_letter }}</div>
+<div>{{ application.candidate.candidate_profile.experiences }}</div>
+<div>{{ application.candidate.candidate_profile.education }}</div>
+<div>{{ application.candidate.candidate_profile.additional_info }}</div>
+
+<form class="application_detail_form" action="{% url 'applications:application_details' application.id %}" method="post">
+    {% csrf_token %}
+    <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
+    <input type="submit" name="accept_button" value="Accept"/>
+    <input type="submit" name="reject_button" value="Reject"/>
+    <input type="hidden" name="application_id" value="{{ application.id }}"/>
+</form>
+
+{% endif %}
+
+{% endblock %}

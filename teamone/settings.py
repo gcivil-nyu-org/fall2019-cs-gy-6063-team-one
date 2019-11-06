@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     "uplyft.apps.UplyftConfig",
     "register.apps.RegisterConfig",
     "apply.apps.ApplyConfig",
+    "applications.apps.ApplicationsConfig",
     "candidate_login.apps.CandidateLoginConfig",
     "employer_login.apps.EmployerLoginConfig",
     "jobs.apps.JobsConfig",
