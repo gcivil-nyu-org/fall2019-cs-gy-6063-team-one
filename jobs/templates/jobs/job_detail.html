@@ -57,7 +57,11 @@
                         <li class="list-group-item border-0"> {{ job.min_qualifications }} </li>
 
                         <li class="list-group-item border-0"> <b>Preferred Skills</b> </li>
+                        {% if job.preferred_skills != "nan" %}
                         <li class="list-group-item border-0"> {{ job.preferred_skills }} </li>
+                        {% else %}
+                        <li class="list-group-item border-0 text-black-50"> Not specified. </li>
+                        {% endif %}
 
                         <li class="list-group-item border-0"> <b>Residency Requirement</b> </li>
                         <li class="list-group-item border-0"> {{ job.residency_requirement }} </li>
@@ -70,7 +74,11 @@
                             {% endif %} </li>
 
                         <li class="list-group-item border-0"><b>Additional Information</b> </li>
+                        {% if job.preferred_skills != "nan" %}
                         <li class="list-group-item border-0"> {{ job.additional_info }} </li>
+                        {% else %}
+                        <li class="list-group-item border-0 text-black-50"> Not specified. </li>
+                        {% endif %}
 
                     </ul>
                 </div>
