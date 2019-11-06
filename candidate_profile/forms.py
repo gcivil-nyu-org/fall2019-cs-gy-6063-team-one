@@ -12,6 +12,7 @@ class CandidateProfileForm(forms.ModelForm):
             "zip_code",
             "state",
             "email",
+            "phone",
             "portfolio_website",
             "education",
             "experiences",
@@ -43,6 +44,7 @@ class CandidateProfileForm(forms.ModelForm):
         self.fields["zip_code"].initial = candidate.candidate_profile.zip_code
         self.fields["state"].initial = candidate.candidate_profile.state
         self.fields["email"].initial = candidate.candidate_profile.email
+        self.fields["phone"].initial = candidate.candidate_profile.phone
         self.fields[
             "portfolio_website"
         ].initial = candidate.candidate_profile.portfolio_website
