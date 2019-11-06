@@ -241,6 +241,15 @@ a:focus, a:hover {
     color: #3c6360;
 }
 
+a.white {
+    color: #ffffff;
+}
+
+a.white:focus, a.white:hover {
+    text-decoration: none;
+    color: #3c6360;
+}
+
 .bg-black {
     background-color: #161616 !important;
 }
@@ -274,4 +283,23 @@ footer {
 
 .salary_info {
     float:right;
+}
+
+.status {
+    float: right;
+}
+
+.status.RE{
+background-color: #8C3D3B;
+    color: #FFF;
+}
+
+.status.AC{
+background-color: #296245;
+    color: #FFF;
+}
+
+.status.AP{
+    background-color: #2D3B5E;
+    color: #FFF;
 }

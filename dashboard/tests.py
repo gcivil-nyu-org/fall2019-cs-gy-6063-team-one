@@ -105,17 +105,17 @@ class DashboardViewTests(TestCase):
         )
 
     def test_view_url_redirects_if_no_login(self):
-        response = self.client.get("/dashboard")
+        response = self.client.get("/dashboard/")
         self.assertEqual(response.status_code, 302)
 
     def test_view_url_exists_at_desired_location_candidate(self):
         self.login_candidate()
-        response = self.client.get("/dashboard")
+        response = self.client.get("/dashboard/")
         self.assertEqual(response.status_code, 200)
 
     def test_view_url_exists_at_desired_location_employer(self):
         self.login_employer()
-        response = self.client.get("/dashboard")
+        response = self.client.get("/dashboard/")
         self.assertEqual(response.status_code, 200)
 
     def test_view_url_is_accessible_by_name_candidate(self):
