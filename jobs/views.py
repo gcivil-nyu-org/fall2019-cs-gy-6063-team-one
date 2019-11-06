@@ -95,6 +95,7 @@ def load_jobs(request):
         return render(request, "jobs/jobs_import.html")
 
 
+@login_required
 def save_job(request, pk):
     job = Job.objects.get(pk=pk)
     user = request.user
