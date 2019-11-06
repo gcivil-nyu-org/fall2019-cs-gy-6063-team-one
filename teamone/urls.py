@@ -27,5 +27,5 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     path("password_reset/", include("password_reset.urls")),
     path("apply/", include("apply.urls")),
-    path("dashboard", include("dashboard.urls")),
+    path("dashboard/", include("dashboard.urls")),
 ]
