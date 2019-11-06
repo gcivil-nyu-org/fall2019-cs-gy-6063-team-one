@@ -4,13 +4,6 @@
 {% load crispy_forms_tags %}
 
 <div class="col-md-6 col-lg-6 mx-auto">
-    {% if messages %}
-    <ul>
-        {% for message in messages %}
-        <li class="text-white mb-5">{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
     <h1 class="text-white mb-5">Load Data into DB </h1>
     <form class="reg_form" action="{% url 'jobs:load_jobs' %}" method="post">
         {% csrf_token %}
