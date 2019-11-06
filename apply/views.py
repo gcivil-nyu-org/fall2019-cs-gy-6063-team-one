@@ -2,16 +2,16 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.http import HttpResponseRedirect
 from django.urls import reverse
-
+from django.contrib.auth.decorators import login_required
 from jobs.models import Job
 
-# from uplyft.decorators import candidate_login_required
+
 from .forms import JobApplicationForm
 from .models import Application
 from uplyft.models import Candidate
 
 
-# @candidate_login_required
+@login_required()
 def apply(request):
     if request.method == "POST":
         form = JobApplicationForm(request.POST)
