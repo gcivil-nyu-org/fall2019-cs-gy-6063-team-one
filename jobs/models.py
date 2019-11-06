@@ -40,7 +40,11 @@ class Job(models.Model):
     process_date = models.DateField(blank=True, null=True)
 
     def __eq__(self, other):
+        if not other:
+            return False
         return self.id == other.id
 
     def __ne__(self, other):
+        if not other:
+            return False
         return self.id != other.id

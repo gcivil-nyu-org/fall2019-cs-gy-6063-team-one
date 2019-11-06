@@ -1,5 +1,11 @@
-from django.views.generic import TemplateView
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+from django.urls import reverse
 
 
-class IndexView(TemplateView):
-    template_name = "uplyft/index.html"
+def index(request):
+    if request.user.is_authenticated:
+        return HttpResponseRedirect(reverse("dashboard:dashboard"))
+
+    else:
+        return render(request, "uplyft/index.html")
