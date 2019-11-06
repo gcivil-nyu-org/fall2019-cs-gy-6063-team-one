@@ -13,33 +13,43 @@
         <div class="card py-4 h-100">
             <div class="card-body">
 
+                <div style="font-size: 1.5em;"> <b> {{ job.business_title }} </b> </div>
+
                 <div class="job-description-flex">
                     <div class="job-summary-left">
-                        <div style="font-size: 1.5em;"> <b> {{ job.business_title }} </b> </div>
                         <div class="text-black-50"> {{ job.division }} • {{ job.department }}</div>
                         <div class="text-black-50"> {{ job.work_location }} </div>
                         <div class="text-black-50"> Posted on {{ job.posting_date }} </div>
                     </div>
-                    <div class="job-primary-action-block">
 
-                        <form class="job-primary-action" method="post">
-                                           {% csrf_token %}
-                            <input type="hidden" name="jobs_pk_id" value="{{ job.id }}" />
-                            <input class="btn-primary" type="submit" name="save" value="Save" />
-
-                        </form>
-
-                        <form class="job-primary-action" action="{% url 'apply:apply' %}" method="post">
-                                           {% csrf_token %}
-                            <input type="hidden" name="jobs_pk_id" value="{{ job.id }}" />
-                            {% if open_applications %}
-                            <input disabled class="btn-primary" type="submit" name="apply" value="Applied" />
-                            <a class="small" href="">View application</a>
-                            {% else %}
-                            <input class="btn-primary" type="submit" name="apply" value="Apply" />
+                    <div class="job-primary-action-block-wrapper">
+                        
+                        {% if has_open_application %}
+                            <div>
+                                <a class="small" href="">View application</a>
+                            </div>
                             {% endif %}
-                        </form>
 
+                        <div class="job-primary-action-block">
+
+                            <form class="job-primary-action" method="post">
+                                            {% csrf_token %}
+                                <input type="hidden" name="jobs_pk_id" value="{{ job.id }}" />
+                                <input class="btn-primary" type="submit" name="save" value="Save" />
+
+                            </form>
+
+                            <form class="job-primary-action" action="{% url 'apply:apply' %}" method="post">
+                                            {% csrf_token %}
+                                <input type="hidden" name="jobs_pk_id" value="{{ job.id }}" />
+                                {% if has_open_application %}
+                                <input disabled class="btn-primary" type="submit" name="apply" value="Applied" />
+                                {% else %}
+                                <input class="btn-primary" type="submit" name="apply" value="Apply" />
+                                {% endif %}
+                            </form>
+
+                        </div>
                     </div>
                 </div>
             </div>
