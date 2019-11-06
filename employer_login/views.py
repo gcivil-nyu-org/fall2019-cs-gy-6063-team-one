@@ -1,11 +1,13 @@
-from django.shortcuts import render
-from django.http import HttpResponseRedirect
 from django.contrib import messages
-from django.contrib.auth import views as auth_views
+from django.contrib.auth.views import LoginView, LogoutView
+from django.http import HttpResponseRedirect
+from django.shortcuts import render
+
 from .forms import EmployerLoginForm
 
 
-class EmployerLoginView(auth_views.LoginView):
+class EmployerLoginView(LoginView):
+    redirect_authenticated_user = True
     template_name = "employer_login/employer_login.html"
     authentication_form = EmployerLoginForm
 
@@ -19,3 +21,8 @@ def login_success(request):
     else:
         HttpResponseRedirect("employer_login:employer_login")
     return render(request, "employer_login/employer_login_success.html")
+
+
+class EmployerLogoutView(LogoutView):
+    next_page = "uplyft:index"
+    template_name = "employer_login/employer_logout.html"

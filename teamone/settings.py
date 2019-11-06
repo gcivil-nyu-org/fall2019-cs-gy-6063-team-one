@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
+
 import django_heroku
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
@@ -45,6 +46,7 @@ INSTALLED_APPS = [
     "employer_login.apps.EmployerLoginConfig",
     "jobs.apps.JobsConfig",
     "password_reset.apps.PasswordResetConfig",
+    "dashboard.apps.DashboardConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
@@ -159,6 +161,3 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "uplyft1234@gmail.com"
 EMAIL_HOST_PASSWORD = "mwwymvtlbxnluvqx"
 DEFAULT_FROM_EMAIL = "Uplyft Team <noreply@uplyft.com>"
-
-# 5 minutes will be the session time
-SESSION_COOKIE_AGE = 5 * 60  #

@@ -1,0 +1,50 @@
+{% extends "dashboard/dashboard.html" %}
+{% load static %}
+{% block candidate_dashboard %}
+    <h1 class="text-white mb-4">Dashboard</h1>
+    <div class="container dashboard-container">
+        <div class="row">
+            <div class="col-md-3 col-lg-4">
+                <div class="card-dashboard hidden">
+                </div>
+            </div>
+            <div class="col-md-5 col-lg-4">
+                <div class="card-dashboard primary">
+                    <span class="dashboard-numbers">{{ pending_count }}&rarr;</span>
+                    <span class="dashboard-name">Pending Applications</span>
+                </div>
+            </div>
+            <div class="col-md-3 col-lg-4">
+                <div class="card-dashboard hidden">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="container dashboard-container">
+        <div class="row">
+            <div class="col-md-1 col-lg-2">
+                <div class="card-dashboard hidden">
+                </div>
+            </div>
+            <div class="col-md-5 col-lg-4">
+                <div class="card-dashboard success">
+                    <span class="dashboard-numbers">{{ accepted_count }}&rarr;</span>
+                    <span class="dashboard-name">Accepted Applications</span>
+                </div>
+            </div>
+            <div class="col-md-5 col-lg-4">
+                <div class="card-dashboard danger">
+                    <span class="dashboard-numbers">{{  rejected_count }}&rarr;</span>
+                    <span class="dashboard-name">Rejected Applications</span>
+                </div>
+            </div>
+            <div class="col-md-1 col-lg-2">
+                <div class="card-dashboard hidden">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
