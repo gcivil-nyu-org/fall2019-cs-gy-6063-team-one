@@ -4,11 +4,12 @@ from django.dispatch import receiver
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 from django.shortcuts import render, redirect
-
+from django.utils.translation import gettext as _
 from uplyft.decorators import candidate_login_required
 from .forms import CandidateLoginForm, CandidateProfileForm
 from uplyft.models import Candidate
 from django.contrib import messages
+from django.db import transaction
 
 
 @receiver(user_logged_in)
@@ -33,16 +34,19 @@ def candidate_dashboard(request):
 
 
 @candidate_login_required
+@transaction.atomic
 def update_candidate_profile(request):
     candidate = Candidate.objects.get(user=request.user)
     if request.method == "POST":
         profile_form = CandidateProfileForm(request.POST, instance=candidate)
         if profile_form.is_valid():
-            profile_form.save()
-            messages.success(request, "Your profile was successfully updated")
+            updated_profile = profile_form.save()
+            candidate.candidate_profile = updated_profile
+            candidate.save()
+            messages.success(request, _("Your profile was successfully updated"))
             return redirect("candidate_login:candidate_profile")
         else:
-            messages.error(request, "Please correct the error below.")
+            messages.error(request, _("Please correct the error below."))
     else:
         profile_form = CandidateProfileForm(instance=candidate)
         return render(
