@@ -39,10 +39,12 @@ LOGOUT_REDIRECT_URL = ""
 INSTALLED_APPS = [
     "localflavor",
     "crispy_forms",
+    "phone_field",
     "uplyft.apps.UplyftConfig",
     "register.apps.RegisterConfig",
     "apply.apps.ApplyConfig",
     "candidate_login.apps.CandidateLoginConfig",
+    "candidate_profile.apps.CandidateProfileConfig",
     "employer_login.apps.EmployerLoginConfig",
     "jobs.apps.JobsConfig",
     "password_reset.apps.PasswordResetConfig",
