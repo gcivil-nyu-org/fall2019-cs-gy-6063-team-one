@@ -32,10 +32,14 @@
 
                         <div class="job-primary-action-block">
 
-                            <form class="job-primary-action" method="post">
+                            <form class="job-primary-action" action="{% url 'jobs:save_job' job.id %}" method="post">
                                             {% csrf_token %}
                                 <input type="hidden" name="jobs_pk_id" value="{{ job.id }}" />
-                                <input class="btn-primary" type="submit" name="save" value="Save" />
+                                {% if saved_this_job == False %}
+                                <input class="btn-primary btn-save" type="submit" name="save" value="Save" />
+                                {% else %}
+                                <input class="btn-primary btn-save" type="submit" name="unsave" value="Saved" />
+                                {% endif %}
 
                             </form>
 

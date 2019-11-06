@@ -8,11 +8,13 @@ from django.shortcuts import render
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django_filters.views import FilterView
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 from apply.models import Application
 from jobs.helper import jobs_helper
 from .filters import JobFilter
-from .models import Job
+from .models import Job, SavedJobs
 from uplyft.models import Candidate
 
 logger = logging.getLogger(__name__)
@@ -64,6 +66,10 @@ class JobDetailView(LoginRequiredMixin, DetailView):
             context["open_applications"] = Application.objects.filter(
                 candidate=candidate, job=job
             )
+            context["saved_this_job"] = (
+                SavedJobs.objects.filter(user=user, job=job).count() > 0
+            )
+
         else:
             context["candidate_viewing"] = False
             context["open_applications"] = Application.objects.none()
@@ -87,3 +93,19 @@ def load_jobs(request):
         return render(request, "jobs/jobs_import.html")
     else:
         return render(request, "jobs/jobs_import.html")
+
+
+def save_job(request, pk):
+        job = Job.objects.get(pk=pk)
+        user = request.user
+        records = SavedJobs.objects.filter(user=user, job=job)
+        print(request)
+        if records.count() == 0:
+            bookmark = SavedJobs(user=user, job=job)
+            bookmark.save()
+        else:
+            records.delete()
+            
+        return HttpResponseRedirect(
+            reverse("jobs:job_detail", kwargs={"pk": pk})
+        )
