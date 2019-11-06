@@ -61,7 +61,7 @@ def employer_register(request):
         form = EmployerRegistrationForm()
     return render(request, "register/employer_register.html", {"form": form})
 
-
+# Adding user to CandidateProfile and Candidate when login with gmail
 @receiver(user_signed_up)
 def populate_profile(sociallogin, user, **kwargs):
     if sociallogin.account.provider == "google":
