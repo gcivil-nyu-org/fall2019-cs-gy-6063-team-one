@@ -38,7 +38,14 @@
             {% if open_applications %}
             <div> Application submitted</div>
             {% else %}
-            <a href="{% url 'apply:apply' job.id %}" class="btn btn-primary"> Apply </a>
+            <table>
+                <tr>
+                    <td>
+                        <a href="{% url 'apply:apply' job.id %}" class="btn btn-primary"> Apply </a>
+                    </td>
+
+                </tr>
+            </table>
             {% endif %}
         </div>
     </div>
