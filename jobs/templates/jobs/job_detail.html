@@ -38,12 +38,7 @@
             {% if open_applications %}
             <div> Application submitted</div>
             {% else %}
-            <form class="apply_form" action="{% url 'apply:apply' %}" method="post">
-                {% csrf_token %}
-                <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
-                <input type="hidden" name="jobs_pk_id" value="{{ job.id }}"/>
-                <input type="submit" name="apply" value="Apply"/>
-            </form>
+            <a href="{% url 'apply:apply' job.id %}" class="btn btn-primary"> Apply </a>
             {% endif %}
         </div>
     </div>

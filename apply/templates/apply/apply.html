@@ -13,14 +13,7 @@
         </ul>
         {% endif %}
     </div>
-    <h1 class="text-white mb-5">Apply </h1>
-
-    <form class="apply_form" action="{% url 'apply:apply' %}" method="post">
-        {% csrf_token %}
-        <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
-        {{ form|crispy }}
-        <input type="submit" name="apply" value="Apply"/>
-    </form>
+    <h1 class="text-white mb-5"> Apply </h1>
 </div>
 
 {% endblock %}
