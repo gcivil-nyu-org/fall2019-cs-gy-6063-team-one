@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     "uplyft.apps.UplyftConfig",
     "register.apps.RegisterConfig",
     "apply.apps.ApplyConfig",
+    "applications.apps.ApplicationsConfig",
     "candidate_login.apps.CandidateLoginConfig",
     "candidate_profile.apps.CandidateProfileConfig",
     "employer_login.apps.EmployerLoginConfig",
@@ -150,6 +151,7 @@ STATIC_URL = "/static/"
 if "HOME" in os.environ and "/app" in os.environ["HOME"]:
     django_heroku.settings(locals())
 
+# Email settings
 ACCOUNT_AUTHENTICATION_METHOD = "email"
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
@@ -163,3 +165,9 @@ EMAIL_USE_TLS = True
 EMAIL_HOST_USER = "uplyft1234@gmail.com"
 EMAIL_HOST_PASSWORD = "mwwymvtlbxnluvqx"
 DEFAULT_FROM_EMAIL = "Uplyft Team <noreply@uplyft.com>"
+
+# Google authentication Client-ID and Secret key
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = (
+    "458803488859-vf1pli732quc9m9n0nbpbggehj5gomrf.apps.googleusercontent.com"
+)
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "M1y9_Z-jNwqArncabT7_zZWV"

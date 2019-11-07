@@ -1,0 +1,122 @@
+{% extends "dashboard/dashboard.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load my_templatetags %}
+{% load humanize %}
+
+{% block applications_list %}
+    <a href="{% url 'dashboard:dashboard' %}">
+        <button class="btn btn-primary mx-auto">Dashboard</button>
+    </a>
+    <a href="{% url 'dashboard:dashboard' 'ap' %}">
+        <button class="btn btn-primary mx-auto">Pending</button>
+    </a>
+    <a href="{% url 'dashboard:dashboard' 're' %}">
+        <button class="btn btn-primary mx-auto">Rejected</button>
+    </a>
+    <a href="{% url 'dashboard:dashboard' 'ac' %}">
+        <button class="btn btn-primary mx-auto">Accepted</button>
+    </a>
+    <h1 class="text-white mb-4">Application Listing</h1>
+
+    <div class="container dashboard-container">
+        <div class="row">
+            <div class="col-md-10 col-lg-8 mx-auto text-center">
+                <form class="form-inline d-flex" method="GET"
+                      action="{% url 'dashboard:dashboard' application_type %}">
+                    {{ form|crispy }}
+                    <input type="text" name="q"
+                           class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0"
+                           value="{{ request.GET.q }}" placeholder="Search jobs"/>
+                    <button type="submit" class="btn btn-primary mx-auto">Search
+                    </button>
+                </form>
+                <a href="{% url 'dashboard:dashboard' application_type %}">
+                    <button class="float-right btn btn-primary mx-auto">Clear</button>
+                </a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="container dashboard-container">
+        <div class="row">
+            <div class="col-md-9 mt-3 center mx-auto text-left">
+                {% for application in applications %}
+                    <a href="{% url 'applications:application_details' application.id %}">
+                        <div class="card application-border {{ application.status }}">
+                            <div class="card-body">
+                                <h5 class="card-title">Application
+                                    Number: {{ application.id }}</h5><br>
+                                <h5 class="card-title">Job
+                                    ID: {{ application.job.job_id }}</h5><br>
+                                <h5 class="card-title align-content-center">{{ application.job.business_title }}</h5>
+                                <span> <small> {{ application.submit_date }} </small> </span>
+                                <p class="card-text text-muted h6">
+                                    <span class="status {{ application.status }}">
+                                        {% if application.status == "RE" %}
+                                            REJECTED
+                                        {% elif application.status == "AC" %}
+                                            ACCEPTED
+                                        {% elif application.status == "AP" %}
+                                            PENDING
+                                        {% endif %}
+                                     </span>
+                                </p>
+                                <hr class="h-bar">
+                                <p class="card-text">
+                                    {{ application.candidate.candidate_profile.first_name.capitalize }} {{ application.candidate.candidate_profile.last_name.capitalize }}
+                                </p>
+                                <p class="card-text">
+                                    <small>
+                                        Email: {{ application.candidate.candidate_profile.email }}</small>
+                                </p>
+                                {% if  application.candidate_profile.phone %}
+                                    <p class="card-text">
+                                        <small>
+                                            Phone: {{ application.candidate.candidate_profile.phone }}</small>
+                                    </p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            </div>
+
+        </div>
+    </div>
+
+    <div id="wrapper" style="text-align:center">
+        <div id="container" style="display:inline-block;text-align:left">
+            {% if is_paginated %}
+                {% if page_obj.has_previous %}
+                    <a class="btn btn-primary"
+                       href="?{% query_transform request page=1 %}"> First </a>
+                    <a class="btn btn-primary"
+                       href="?{% query_transform request page=page_obj.previous_page_number %}">
+                        Previous </a>
+                {% endif %}
+
+                {% for num in page_obj.paginator.page_range %}
+                    {% if page_obj.number == num %}
+                        <a class="btn btn-light"
+                           href="?{% query_transform request page=num %}"> {{ num }} </a>
+                    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                        <a class="btn btn-primary"
+                           href="?{% query_transform request page=num %}"> {{ num }} </a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if page_obj.has_next %}
+                    <a class="btn btn-primary"
+                       href="?{% query_transform request page=page_obj.next_page_number %}">
+                        Next </a>
+                    <a class="btn btn-primary"
+                       href="?{% query_transform request page=page_obj.paginator.num_pages %}">
+                        Last </a>
+                {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
