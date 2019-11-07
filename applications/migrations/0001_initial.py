@@ -8,17 +8,35 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-        ('uplyft', '0001_initial'),
-    ]
+    dependencies = [("uplyft", "0001_initial")]
 
     operations = [
         migrations.CreateModel(
-            name='ActiveApplication',
+            name="ActiveApplication",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('candidate', models.OneToOneField(on_delete=django.db.models.deletion.CASCADE, to='uplyft.Candidate')),
-                ('candidate_profile', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='uplyft.CandidateProfile')),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                (
+                    "candidate",
+                    models.OneToOneField(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="uplyft.Candidate",
+                    ),
+                ),
+                (
+                    "candidate_profile",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        to="uplyft.CandidateProfile",
+                    ),
+                ),
             ],
-        ),
+        )
     ]
