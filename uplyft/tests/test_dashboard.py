@@ -6,7 +6,7 @@ from django.test import TestCase
 from django.urls import reverse
 
 from uplyft.tests.resources import create_department, create_employer, \
-    create_candidate, create_job, create_application, valid_users
+    create_candidate, create_job, create_application, user_data
 
 
 class DashboardViewTests(TestCase):
@@ -19,13 +19,14 @@ class DashboardViewTests(TestCase):
 
     def login_candidate(self):
         self.client.login(
-            email=valid_users.candidate1.email,
-            password=valid_users.candidate1.password
+            email=user_data["valid"]["user1"]["email"],
+            password=user_data["valid"]["user1"]["password"],
         )
 
     def login_employer(self):
         self.client.login(
-            email=valid_users.employer1.email, password=valid_users.employer1.password
+            email=user_data["valid"]["user2"]["email"],
+            password=user_data["valid"]["user2"]["password"],
         )
 
     def test_view_url_stays_if_no_login(self):
