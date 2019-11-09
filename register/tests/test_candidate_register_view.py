@@ -3,82 +3,42 @@ from django.urls import reverse
 from django.utils.html import escape
 
 from register.forms import CandidateRegistrationForm
-from tests.tests import valid_data, invalid_data
 from uplyft.models import CustomUser
 
+from uplyft.tests.resources import POST_to_view, user_data_valid, \
+    user_data_invalid, candidate_valid, candidate_invalid_email, \
+    candidate_invalid_first_name, \
+    candidate_invalid_last_name, candidate_invalid_password1, \
+    candidate_invalid_password2, candidate_invalid_password_mismatch
 
 class CandidateRegisterViewTests(TestCase):
+
     def good_POST(self):
-        return self.client.post(
-            reverse("register:candidate_register"),
-            data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
-            },
-        )
+        return POST_to_view(self, "register:candidate_register",
+                            candidate_valid)
 
     def bad_POST_first_name(self):
-        return self.client.post(
-            reverse("register:candidate_register"),
-            data={
-                "first_name": invalid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
-            },
-        )
+        return POST_to_view(self, view="register:candidate_register",
+                            data=candidate_invalid_first_name)
 
     def bad_POST_last_name(self):
-        return self.client.post(
-            reverse("register:candidate_register"),
-            data={
-                "first_name": valid_data["first_name"],
-                "last_name": invalid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
-            },
-        )
+        return POST_to_view(self, view="register:candidate_register",
+                            data=candidate_invalid_last_name)
 
     def bad_POST_email(self):
-        return self.client.post(
-            reverse("register:candidate_register"),
-            data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": invalid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
-            },
-        )
+        return POST_to_view(self, view="register:candidate_register",
+                            data=candidate_invalid_email)
 
-    def bad_POST_password_incorrect(self):
-        return self.client.post(
-            reverse("register:candidate_register"),
-            data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": invalid_data["password"],
-                "password2": invalid_data["password"],
-            },
-        )
+    def bad_POST_password1_invalid(self):
+        return POST_to_view(self, view="register:candidate_register",
+                                data=candidate_invalid_password1)
+
+    def bad_POST_password2_invalid(self):
+        return POST_to_view(self, view="register:candidate_register", data=candidate_invalid_password2)
 
     def bad_POST_password_mismatch(self):
-        return self.client.post(
-            reverse("register:candidate_register"),
-            data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": invalid_data["password"],
-            },
-        )
+        return POST_to_view(self, view="register:candidate_register",
+                                data=candidate_invalid_password2)
 
     def test_view_url_exists_at_desired_location(self):
         response = self.client.get("/register/candidate_register")
@@ -122,13 +82,7 @@ class CandidateRegisterViewTests(TestCase):
     def test_good_POST_success_message_added_to_context_of_login_success_page(self):
         response = self.client.post(
             reverse("register:candidate_register"),
-            data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
-            },
+            data=valid_candidate_data,
             follow=True,
         )
         messages = list(response.context["messages"])
