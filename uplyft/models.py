@@ -189,3 +189,16 @@ class Employer(models.Model):
 
     def __ne__(self, other):
         return self.id != other.id
+
+
+class ActiveProfile(models.Model):
+    # This is effectively the same as having a foreign key with unique=True
+    # To ensure each ActiveProfile belongs to only one candidate
+    # and also that each candidate can have only one Active Profile
+    candidate = models.OneToOneField(Candidate, on_delete=models.CASCADE)
+    candidate_profile = models.ForeignKey(CandidateProfile, on_delete=models.CASCADE)
+
+    def __str__(self):
+        string = "User ID: " + str(self.candidate.user_id)
+        string += "; Candidate ID: " + str(self.candidate.id)
+        string += "; Profile ID: " + str(self.candidate_profile.id)

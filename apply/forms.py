@@ -1,12 +1,16 @@
 from django.contrib.auth import get_user_model
-from django.forms import ModelForm, ValidationError
+from django.forms import ModelForm, BooleanField
 
 from jobs.models import Job
 from .models import Application
-from uplyft.models import CandidateProfile
+from uplyft.models import Candidate, CandidateProfile
 
 
 class ApplicationForm(ModelForm):
+
+    # Check box for whether the user wants to push changes to their profile
+    update_profile = BooleanField(initial=False, required=False)
+
     class Meta:
         model = CandidateProfile
         fields = (
@@ -26,6 +30,7 @@ class ApplicationForm(ModelForm):
             "race",
             "health_conditions",
             "veteran",
+            "update_profile"
         )
 
     def __init__(self, *args, **kwargs):
@@ -63,6 +68,19 @@ class ApplicationForm(ModelForm):
         ].initial = candidate.candidate_profile.health_conditions
         self.fields["veteran"].initial = candidate.candidate_profile.veteran
 
+    def clean_active_application_already_exists(self):
+        jobs_pk_id = self.cleaned_data["jobs_pk_id"]
+        email = self.request.session["email"]
+        user = get_user_model().objects.get(email=email)
+        candidate = Candidate.objects.get(user=user)
+        job = Job.objects.get(pk=jobs_pk_id)
+        active_application_exists = Application.objects.filter(
+            job=job, candidate=candidate, status="ACTIVE"
+        )
+        if active_application_exists.count() > 0:
+            raise ValidationError(
+                "Candidate has already submitted an ACTIVE application for this job."
+            )
 #
 # class JobApplicationForm(ModelForm):
 #     class Meta:
