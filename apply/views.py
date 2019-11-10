@@ -23,6 +23,7 @@ def apply(request, pk):
             # Get the active profile from the active application
             active_app = ActiveProfile.objects.get(candidate=candidate)
             active_prof = active_app.candidate_profile
+            print(active_prof.first_name)
 
             # If the user says to save their changes
             if application.cleaned_data.get('update_profile'):
@@ -84,7 +85,7 @@ def apply(request, pk):
                     )
                 app_obj.save()
             messages.success(request, "Application submitted")
-            return redirect("jobs:jobs")
+            return redirect("dashboard:dashboard")
         else:
             messages.error(request, _("Please correct the error below."))
     else:
