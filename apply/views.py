@@ -24,7 +24,7 @@ def apply(request, pk):
             active_app = ActiveProfile.objects.get(candidate=candidate)
             active_prof = active_app.candidate_profile
 
-            # If the user says to save their changes
+            # If the user says to update their profile
             if application.cleaned_data.get('update_profile'):
 
                 # If user only checked the box, but didn't change any other fields
@@ -77,7 +77,7 @@ def apply(request, pk):
 
                     candidate.save()
 
-            # If the user doesn't want to save their changes
+            # If the user doesn't want to update their profile
             else:
                 # There are no changes - submit the app with the active profile
                 if not application.changed_data:
