@@ -1,13 +1,12 @@
 from django.contrib.auth import get_user_model
+from django.core.exceptions import ValidationError
 from django.forms import ModelForm, BooleanField
-
 from jobs.models import Job
 from .models import Application
 from uplyft.models import Candidate, CandidateProfile
 
 
 class ApplicationForm(ModelForm):
-
     # Check box for whether the user wants to push changes to their profile
     update_profile = BooleanField(initial=False, required=False)
 
@@ -40,14 +39,28 @@ class ApplicationForm(ModelForm):
         Initialize the form so it contains the
         information the user has already provided
         """
+
+        # Set some of the fields to be required
+        self.fields["first_name"].required = True
+        self.fields["last_name"].required = True
+        self.fields["address_line"].required = True
+        self.fields["zip_code"].required = True
+        self.fields["state"].required = True
+        self.fields["email"].required = True
+
+        self.fields["phone"].required = True
+        self.fields["education"].required = True
+        self.fields["experiences"].required = True
+        self.fields["cover_letter"].required = True
+
         # Make sure the first letter of the user's first and last name are capitalize
         self.fields["first_name"].initial = (
-            candidate.candidate_profile.first_name[:1].upper()
-            + candidate.candidate_profile.first_name[1:]
+                candidate.candidate_profile.first_name[:1].upper()
+                + candidate.candidate_profile.first_name[1:]
         )
         self.fields["last_name"].initial = (
-            candidate.candidate_profile.last_name[:1].upper()
-            + candidate.candidate_profile.last_name[1:]
+                candidate.candidate_profile.last_name[:1].upper()
+                + candidate.candidate_profile.last_name[1:]
         )
         self.fields["address_line"].initial = candidate.candidate_profile.address_line
         self.fields["zip_code"].initial = candidate.candidate_profile.zip_code

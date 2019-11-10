@@ -13,16 +13,20 @@ from uplyft.models import Candidate, ActiveProfile
 
 def apply(request, pk):
     candidate = Candidate.objects.get(user=request.user)
+
     if request.method == "POST":
         application = ApplicationForm(request.POST, instance=candidate)
         job = Job.objects.get(pk=pk)
+
         if application.is_valid():
+
             # Get the active profile from the active application
             active_app = ActiveProfile.objects.get(candidate=candidate)
             active_prof = active_app.candidate_profile
+
             # If the user says to save their changes
-            print(application.changed_data)
             if application.cleaned_data.get('update_profile'):
+
                 # If user only checked the box, but didn't change any other fields
                 if application.changed_data == [
                     "update_profile"
@@ -32,11 +36,14 @@ def apply(request, pk):
                         job=job, candidate=candidate, candidate_profile=active_prof
                     )
                     app_obj.save()
+
                 else:  # If they changed fields besides the check box
+
                     # Check if any other applications use the active profile
                     prof_in_use = False
                     if Application.objects.filter(candidate_profile=active_prof).count() > 0:
                         prof_in_use = True
+
                     if prof_in_use:
                         # Create a new profile, make it the active one, include it in the application
                         new_prof = application.save()
@@ -49,6 +56,7 @@ def apply(request, pk):
                             candidate_profile=active_app.candidate_profile,
                         )
                         app_obj.save()
+
                     else:
                         # If not the profile isn't used anywhere else, make the changes to the active profile
                         updated_prof = application.save()
@@ -76,7 +84,7 @@ def apply(request, pk):
                     )
                 app_obj.save()
             messages.success(request, "Application submitted")
-            return redirect("candidate_profile:profile")
+            return redirect("jobs:jobs")
         else:
             messages.error(request, _("Please correct the error below."))
     else:
