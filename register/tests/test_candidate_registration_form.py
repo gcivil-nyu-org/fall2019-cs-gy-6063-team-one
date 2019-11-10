@@ -2,19 +2,10 @@ from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from register.forms import CandidateRegistrationForm
-from tests.tests import valid_data, invalid_data
+from uplyft.tests.resources import test_user_data
 
 
 class CandidateRegistrationFormTests(TestCase):
-    valid_first_name = "Alex"
-    valid_last_name = "Rodriguez"
-    valid_email = "username@nyc.gov"
-    valid_password = "'LKlk#fvdf94@78!9"
-    non_alpha_first_name = "..."
-    non_alpha_last_name = "123&&^"
-    invalid_email = "response@edu"
-    invalid_password = "103348494"
-
     def test_first_name_field_label(self):
         form = CandidateRegistrationForm()
         self.assertTrue(form.fields["first_name"].label == "First Name")
@@ -28,25 +19,17 @@ class CandidateRegistrationFormTests(TestCase):
         self.assertTrue(form.fields["email"].label == "Email")
 
     def test_everything_correct(self):
-        form = CandidateRegistrationForm(
-            data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
-            }
-        )
+        form = CandidateRegistrationForm(data=test_user_data["candidate"])
         self.assertTrue(form.is_valid())
 
     def test_first_name_missing(self):
         form = CandidateRegistrationForm(
             data={
                 "first_name": "",
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
+                "last_name": test_user_data["candidate"]["last_name"],
+                "email": test_user_data["candidate"]["email"],
+                "password1": test_user_data["candidate"]["password"],
+                "password2": test_user_data["candidate"]["password"],
             }
         )
         self.assertFalse(form.is_valid())
@@ -54,11 +37,11 @@ class CandidateRegistrationFormTests(TestCase):
     def test_last_name_missing(self):
         form = CandidateRegistrationForm(
             data={
-                "first_name": valid_data["first_name"],
+                "first_name": test_user_data["candidate"]["first_name"],
                 "last_name": "",
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
+                "email": test_user_data["candidate"]["email"],
+                "password1": test_user_data["candidate"]["password"],
+                "password2": test_user_data["candidate"]["password"],
             }
         )
         self.assertFalse(form.is_valid())
@@ -66,11 +49,11 @@ class CandidateRegistrationFormTests(TestCase):
     def test_email_missing(self):
         form = CandidateRegistrationForm(
             data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
+                "first_name": test_user_data["candidate"]["first_name"],
+                "last_name": test_user_data["candidate"]["last_name"],
                 "email": "",
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
+                "password1": test_user_data["candidate"]["password"],
+                "password2": test_user_data["candidate"]["password"],
             }
         )
         self.assertFalse(form.is_valid())
@@ -78,11 +61,11 @@ class CandidateRegistrationFormTests(TestCase):
     def test_password1_missing(self):
         form = CandidateRegistrationForm(
             data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
+                "first_name": test_user_data["candidate"]["first_name"],
+                "last_name": test_user_data["candidate"]["last_name"],
+                "email": test_user_data["candidate"]["email"],
                 "password1": "",
-                "password2": valid_data["password"],
+                "password2": test_user_data["candidate"]["password"],
             }
         )
         self.assertFalse(form.is_valid())
@@ -90,10 +73,10 @@ class CandidateRegistrationFormTests(TestCase):
     def test_password2_missing(self):
         form = CandidateRegistrationForm(
             data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
+                "first_name": test_user_data["candidate"]["first_name"],
+                "last_name": test_user_data["candidate"]["last_name"],
+                "email": test_user_data["candidate"]["email"],
+                "password1": test_user_data["candidate"]["password"],
                 "password2": "",
             }
         )
@@ -102,11 +85,11 @@ class CandidateRegistrationFormTests(TestCase):
     def test_password2_mismatch(self):
         form = CandidateRegistrationForm(
             data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": invalid_data["password"],
+                "first_name": test_user_data["candidate"]["first_name"],
+                "last_name": test_user_data["candidate"]["last_name"],
+                "email": test_user_data["candidate"]["email"],
+                "password1": test_user_data["candidate"]["password"],
+                "password2": test_user_data["employer"]["password"],
             }
         )
         self.assertFalse(form.is_valid())
@@ -114,11 +97,11 @@ class CandidateRegistrationFormTests(TestCase):
     def test_first_name_invalid(self):
         form = CandidateRegistrationForm(
             data={
-                "first_name": invalid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
+                "first_name": test_user_data["invalid_user_details"]["first_name"],
+                "last_name": test_user_data["candidate"]["last_name"],
+                "email": test_user_data["candidate"]["email"],
+                "password1": test_user_data["candidate"]["password"],
+                "password2": test_user_data["candidate"]["password"],
             }
         )
         self.assertFalse(form.is_valid())
@@ -126,11 +109,11 @@ class CandidateRegistrationFormTests(TestCase):
     def test_last_name_invalid(self):
         form = CandidateRegistrationForm(
             data={
-                "first_name": valid_data["first_name"],
-                "last_name": invalid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
+                "first_name": test_user_data["candidate"]["first_name"],
+                "last_name": test_user_data["invalid_user_details"]["last_name"],
+                "email": test_user_data["candidate"]["email"],
+                "password1": test_user_data["candidate"]["password"],
+                "password2": test_user_data["candidate"]["password"],
             }
         )
         self.assertFalse(form.is_valid())
@@ -138,29 +121,29 @@ class CandidateRegistrationFormTests(TestCase):
     def test_email_invalid(self):
         form = CandidateRegistrationForm(
             data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": invalid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
+                "first_name": test_user_data["candidate"]["first_name"],
+                "last_name": test_user_data["candidate"]["last_name"],
+                "email": test_user_data["invalid_user_details"]["email"],
+                "password1": test_user_data["candidate"]["password"],
+                "password2": test_user_data["candidate"]["password"],
             }
         )
         self.assertFalse(form.is_valid())
 
     def test_email_taken(self):
         get_user_model().objects.create(
-            first_name=valid_data["first_name"],
-            last_name=valid_data["last_name"],
-            email=valid_data["email"],
-            password=valid_data["password"],
+            first_name=test_user_data["candidate"]["first_name"],
+            last_name=test_user_data["candidate"]["last_name"],
+            email=test_user_data["candidate"]["email"],
+            password=test_user_data["candidate"]["password"],
         )
         form = CandidateRegistrationForm(
             data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
+                "first_name": test_user_data["candidate"]["first_name"],
+                "last_name": test_user_data["candidate"]["last_name"],
+                "email": test_user_data["candidate"]["email"],
+                "password1": test_user_data["candidate"]["password"],
+                "password2": test_user_data["candidate"]["password"],
             }
         )
         self.assertFalse(form.is_valid())
