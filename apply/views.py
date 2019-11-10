@@ -23,7 +23,6 @@ def apply(request, pk):
             # Get the active profile from the active application
             active_app = ActiveProfile.objects.get(candidate=candidate)
             active_prof = active_app.candidate_profile
-            print(active_prof.first_name)
 
             # If the user says to save their changes
             if application.cleaned_data.get('update_profile'):
@@ -96,22 +95,3 @@ def apply(request, pk):
             "apply/apply.html",
             {"application": application, "job": job, "candidate": candidate},
         )
-
-    # if request.method == "POST":
-    #     pass
-    #     # form = JobApplicationForm(request.POST)
-    #     # jobs_pk_id = request.POST.get("jobs_pk_id")
-    #     # email = request.session["email"]
-    #     # if form.is_valid():
-    #     #     user = get_user_model().objects.get(email=email)
-    #     #     candidate = Candidate.objects.get(user=user)
-    #     #     job = Job.objects.get(pk=jobs_pk_id)
-    #     #     application = Application(job=job, candidate=candidate)
-    #     #     application.save()
-    #     #     messages.success(request, "Application submitted")
-    #     # return HttpResponseRedirect(
-    #     #     reverse("jobs:job_detail", kwargs={"pk": jobs_pk_id})
-    #     # )
-    # else:
-    #     # email = request.session["email"]
-    #     # user = get_user_model().objects.get(email=email)
