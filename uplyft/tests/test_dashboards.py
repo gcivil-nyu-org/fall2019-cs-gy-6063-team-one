@@ -16,7 +16,7 @@ class DashboardViewTests(TestCase):
         self.department = create_department(test_user_data["department"])
         self.employer = create_employer(self.department, test_user_data["employer"])
         self.candidate = create_candidate(test_user_data["candidate"])
-        self.job = create_job(self.department, test_user_data["job_details"])
+        self.job = create_job(self.department, test_user_data["job_details"][0])
         self.app = create_application(self.job, self.candidate)
 
     def login_candidate(self):
