@@ -12,6 +12,9 @@ class JobsModelTest(TestCase):
         self.job1 = Job.objects.create(**job_details[0])
         self.job2 = Job.objects.create(**job_details[1])
 
+    def test_eq_compare_to_null(self):
+        self.assertFalse(self.job1 == None)
+
     def test__eq__compares_on_id_not_equal(self):
         self.assertFalse(self.job1 == self.job2)
 
