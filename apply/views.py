@@ -69,6 +69,9 @@ def apply(request, pk):
                         )
                         app_obj.save()
 
+                    candidate.candidate_profile = updated_prof
+                    candidate.save()
+
             # If the user doesn't want to save their changes
             else:
                 # There are no changes - submit the app with the active profile
