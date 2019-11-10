@@ -11,7 +11,7 @@ from uplyft.tests.resources import (
 )
 
 
-class ApplicationDetailsViewTests(TestCase):
+class ApplicationDetailViewTests(TestCase):
     def login_candidate(self):
         self.client.login(
             email=test_user_data["candidate"]["email"],
