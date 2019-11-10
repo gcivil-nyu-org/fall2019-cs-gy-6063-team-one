@@ -20,7 +20,7 @@ def apply(request, pk):
 
         if application.is_valid():
 
-            # Get the active profile from the active application
+            # Get the candidate's active profile
             active_app = ActiveProfile.objects.get(candidate=candidate)
             active_prof = active_app.candidate_profile
 
@@ -57,8 +57,11 @@ def apply(request, pk):
                         )
                         app_obj.save()
 
+                        # Make this profile the user's base profile
+                        candidate.candidate_profile = new_prof
+
                     else:
-                        # If not the profile isn't used anywhere else, make the changes to the active profile
+                        # If the profile isn't used anywhere else, make the changes to the active profile
                         updated_prof = application.save()
                         active_app.candidate_profile = updated_prof
                         active_app.save()
@@ -69,7 +72,9 @@ def apply(request, pk):
                         )
                         app_obj.save()
 
-                    candidate.candidate_profile = updated_prof
+                        # Make this profile the user's base profile
+                        candidate.candidate_profile = updated_prof
+
                     candidate.save()
 
             # If the user doesn't want to save their changes
