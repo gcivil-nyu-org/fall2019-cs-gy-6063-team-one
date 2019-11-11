@@ -22,6 +22,8 @@ class CandidateProfileFunctionalTests(LiveServerTestCase):
         self.candidate_login()
         self.browser.get(self.live_server_url + reverse("dashboard:dashboard"))
         profile_link = self.browser.find_element_by_name("candidate_profile_link")
+        self.browser.execute_script("return arguments[0].scrollIntoView();",
+                                    profile_link)
         profile_link.click()
 
     def setUp(self):
