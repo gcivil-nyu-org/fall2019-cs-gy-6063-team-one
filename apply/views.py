@@ -17,8 +17,8 @@ def apply(request, pk):
         if application.is_valid():
 
             # Get the candidate's active profile
-            active_app = ActiveProfile.objects.get(candidate=candidate)
-            active_prof = active_app.candidate_profile
+            active_prof = ActiveProfile.objects.get(candidate=candidate)
+            candidate_prof = active_prof.candidate_profile
 
             # If the user says to update their profile
             if application.cleaned_data.get("update_profile"):
@@ -29,7 +29,7 @@ def apply(request, pk):
                 ]:  # No actual changes to any fields
                     # Load the active profile into the current application and submit
                     app_obj = Application(
-                        job=job, candidate=candidate, candidate_profile=active_prof
+                        job=job, candidate=candidate, candidate_profile=candidate_prof
                     )
                     app_obj.save()
 
@@ -39,7 +39,7 @@ def apply(request, pk):
                     prof_in_use = False
                     if (
                         Application.objects.filter(
-                            candidate_profile=active_prof
+                            candidate_profile=candidate_prof
                         ).count()
                         > 0
                     ):
@@ -49,13 +49,13 @@ def apply(request, pk):
                         # Create a new profile, make it the active one, include it
                         # in the application
                         new_prof = application.save()
-                        active_app.candidate_profile = new_prof
-                        active_app.save()
+                        active_prof.candidate_profile = new_prof
+                        active_prof.save()
 
                         app_obj = Application(
                             job=job,
                             candidate=candidate,
-                            candidate_profile=active_app.candidate_profile,
+                            candidate_profile=active_prof.candidate_profile,
                         )
                         app_obj.save()
 
@@ -63,8 +63,8 @@ def apply(request, pk):
                         # If the profile isn't used anywhere else, make the changes
                         # to the active profile
                         updated_prof = application.save()
-                        active_app.candidate_profile = updated_prof
-                        active_app.save()
+                        active_prof.candidate_profile = updated_prof
+                        active_prof.save()
 
                         # Submit the application using the active profile
                         app_obj = Application(
@@ -77,7 +77,7 @@ def apply(request, pk):
                 # There are no changes - submit the app with the active profile
                 if not application.changed_data:
                     app_obj = Application(
-                        job=job, candidate=candidate, candidate_profile=active_prof
+                        job=job, candidate=candidate, candidate_profile=candidate_prof
                     )
                 # The user made changes - submit the application with the new profile
                 else:
