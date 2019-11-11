@@ -47,7 +47,6 @@ class ProcessApplication(SingleObjectMixin, FormView):
         return super().post(request, *args, **kwargs)
 
     def get_success_url(self):
-        print(self.get_object().pk)
         return reverse(
             "applications:application_details", kwargs={"pk": self.get_object().pk}
         )
