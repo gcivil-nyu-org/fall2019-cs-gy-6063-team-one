@@ -26,23 +26,23 @@
                 <hr class="my-4">
             </div>
 
-            <ul id="application_details" class="list-group list-group-flush border-0">
-                <li class="list-group-item border-0"><b>First Name:</b> {{ application.candidate.candidate_profile.first_name }}</li>
-                <li class="list-group-item border-0"><b>Last Name:</b> {{ application.candidate.candidate_profile.last_name }} </li>
-                <li class="list-group-item border-0"><b>Email:</b> {{ application.candidate.candidate_profile.email }} </li>
-                <li class="list-group-item border-0"><b>Phone:</b> {{ application.candidate.candidate_profile.phone }} </li>
-                <li class="list-group-item border-0"><b>Gender:</b> {{ application.candidate.candidate_profile.get_gender_display }} </li>
-                <li class="list-group-item border-0"><b>Ethnicity:</b> {{ application.candidate.candidate_profile.get_ethnicity_display }} </li>
-                <li class="list-group-item border-0"><b>Race:</b> {{ application.candidate.candidate_profile.get_race_display }} </li>
-                <li class="list-group-item border-0"><b>Health Conditions:</b> {{ application.candidate.candidate_profile.get_health_conditions_display }} </li>
-                <li class="list-group-item border-0"><b>Veteran Status:</b> {{ application.candidate.candidate_profile.get_veteran_display }} </li>
-                <li class="list-group-item border-0"><b>Address:</b> {{ application.candidate.candidate_profile.address_line }}, {{ application.candidate.candidate_profile.state }} </li>
+            <ul class="list-group list-group-flush border-0">
+
+                <li class="list-group-item border-0"><b>First Name:</b> {{ application.candidate_profile.first_name }}</li>
+                <li class="list-group-item border-0"><b>Last Name:</b> {{ application.candidate_profile.last_name }} </li>
+                <li class="list-group-item border-0"><b>Email:</b> {{ application.candidate_profile.email }} </li>
+                <li class="list-group-item border-0"><b>Phone:</b> {{ application.candidate_profile.phone }} </li>
+                <li class="list-group-item border-0"><b>Gender:</b> {{ application.candidate_profile.get_gender_display }} </li>
+                <li class="list-group-item border-0"><b>Ethnicity:</b> {{ application.candidate_profile.get_ethnicity_display }} </li>
+                <li class="list-group-item border-0"><b>Race:</b> {{ application.candidate_profile.get_race_display }} </li>
+                <li class="list-group-item border-0"><b>Health Conditions:</b> {{ application.candidate_profile.get_health_conditions_display }} </li>
+                <li class="list-group-item border-0"><b>Veteran Status:</b> {{ application.candidate_profile.get_veteran_display }} </li>
+                <li class="list-group-item border-0"><b>Address:</b> {{ application.candidate_profile.address_line }}, {{ application.candidate_profile.state }} </li>
                 <hr class="dropdown-divider">
-                <li class="list-group-item border-0"><b>Portfolio Website:</b> {{ application.candidate.candidate_profile.portfolio_website }} </li>
-                <li class="list-group-item border-0"><b>Cover Letter:</b> {{ application.candidate.candidate_profile.cover_letter }} </li>
-                <li class="list-group-item border-0"><b>Work Experience:</b> {{ application.candidate.candidate_profile.experiences }} </li>
-                <li class="list-group-item border-0"><b>Education:</b> {{ application.candidate.candidate_profile.education }} </li>
-                <li class="list-group-item border-0"><b>Additional Info:</b> {{ application.candidate.candidate_profile.additional_info }} </li>
+                <li class="list-group-item border-0"><b>Portfolio Website:</b> {{ application.candidate_profile.portfolio_website }} </li>
+                <li class="list-group-item border-0"><b>Cover Letter:</b> {{ application.candidate_profile.cover_letter }} </li>
+                <li class="list-group-item border-0"><b>Work Experience:</b> {{ application.candidate_profile.experiences }} </li>
+                <li class="list-group-item border-0"><b>Education:</b> {{ application.candidate_profile.education }} </li>
                 <hr class="dropdown-divider">
 
                 {% if employer_viewing %}
