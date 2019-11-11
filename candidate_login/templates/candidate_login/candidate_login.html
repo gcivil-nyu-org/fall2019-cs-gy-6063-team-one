@@ -22,7 +22,7 @@
             <tr>
                 <td></td>
                 <td><input type="submit" name="submit" value="Login"/>
-                    <a href="{% url 'register:candidate_register' %}">
+                    <a name="candidate_register_link" href="{% url 'register:candidate_register' %}">
                         <input type="button" value="Register"/>
                     </a>
                     <a href="{% provider_login_url 'google' %}">

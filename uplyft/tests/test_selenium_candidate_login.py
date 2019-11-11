@@ -21,10 +21,8 @@ class CandidateLoginFunctionalTests(StaticLiveServerTestCase):
         candidate_login_link = self.browser.find_element_by_name(
             "candidate_login_link")
         candidate_login_link.click()
-        email_input = self.browser.find_element_by_name("username")
-        email_input.send_keys(test_user_data["candidate"]["email"])
-        password_input = self.browser.find_element_by_name("password")
-        password_input.send_keys(test_user_data["candidate"]["password"])
+        self.browser.find_element_by_name("username").send_keys(test_user_data["candidate"]["email"])
+        self.browser.find_element_by_name("password").send_keys(test_user_data["candidate"]["password"])
         submit = self.browser.find_element_by_name("submit")
         submit.click()
         dashboard_title = self.browser.find_element_by_tag_name("h1")
