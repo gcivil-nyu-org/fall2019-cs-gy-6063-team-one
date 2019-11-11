@@ -1,8 +1,4 @@
 from django.contrib import messages
-from django.contrib.auth import get_user_model
-from django.http import HttpResponseRedirect
-from django.urls import reverse
-from django.contrib.auth.decorators import login_required
 from jobs.models import Job
 from django.utils.translation import gettext as _
 from django.shortcuts import render, redirect
@@ -25,7 +21,7 @@ def apply(request, pk):
             active_prof = active_app.candidate_profile
 
             # If the user says to update their profile
-            if application.cleaned_data.get('update_profile'):
+            if application.cleaned_data.get("update_profile"):
 
                 # If user only checked the box, but didn't change any other fields
                 if application.changed_data == [
@@ -41,7 +37,12 @@ def apply(request, pk):
 
                     # Check if any other applications use the active profile
                     prof_in_use = False
-                    if Application.objects.filter(candidate_profile=active_prof).count() > 0:
+                    if (
+                        Application.objects.filter(
+                            candidate_profile=active_prof
+                        ).count()
+                        > 0
+                    ):
                         prof_in_use = True
 
                     if prof_in_use:

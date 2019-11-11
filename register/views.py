@@ -30,7 +30,9 @@ def candidate_register(request):
             profile.save()
             candidate = Candidate(user=user, candidate_profile=profile)
             candidate.save()
-            active_profile = ActiveProfile(candidate=candidate, candidate_profile=profile)
+            active_profile = ActiveProfile(
+                candidate=candidate, candidate_profile=profile
+            )
             active_profile.save()
             user = authenticate(email=email, password=password)
             login(request, user)

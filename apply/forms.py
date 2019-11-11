@@ -1,8 +1,4 @@
-from django.contrib.auth import get_user_model
-from django.core.exceptions import ValidationError
 from django.forms import ModelForm, BooleanField
-from jobs.models import Job
-from .models import Application
 from uplyft.models import Candidate, CandidateProfile, ActiveProfile
 
 
@@ -29,7 +25,7 @@ class ApplicationForm(ModelForm):
             "race",
             "health_conditions",
             "veteran",
-            "update_profile"
+            "update_profile",
         )
 
     def __init__(self, *args, **kwargs):
@@ -56,12 +52,12 @@ class ApplicationForm(ModelForm):
 
         # Make sure the first letter of the user's first and last name are capitalize
         self.fields["first_name"].initial = (
-                active_prof.candidate_profile.first_name[:1].upper()
-                + active_prof.candidate_profile.first_name[1:]
+            active_prof.candidate_profile.first_name[:1].upper()
+            + active_prof.candidate_profile.first_name[1:]
         )
         self.fields["last_name"].initial = (
-                active_prof.candidate_profile.last_name[:1].upper()
-                + active_prof.candidate_profile.last_name[1:]
+            active_prof.candidate_profile.last_name[:1].upper()
+            + active_prof.candidate_profile.last_name[1:]
         )
         self.fields["address_line"].initial = active_prof.candidate_profile.address_line
         self.fields["zip_code"].initial = active_prof.candidate_profile.zip_code
