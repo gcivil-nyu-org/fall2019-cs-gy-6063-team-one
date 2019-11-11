@@ -46,7 +46,8 @@ def apply(request, pk):
                         prof_in_use = True
 
                     if prof_in_use:
-                        # Create a new profile, make it the active one, include it in the application
+                        # Create a new profile, make it the active one, include it
+                        # in the application
                         new_prof = application.save()
                         active_app.candidate_profile = new_prof
                         active_app.save()
@@ -59,7 +60,8 @@ def apply(request, pk):
                         app_obj.save()
 
                     else:
-                        # If the profile isn't used anywhere else, make the changes to the active profile
+                        # If the profile isn't used anywhere else, make the changes
+                        # to the active profile
                         updated_prof = application.save()
                         active_app.candidate_profile = updated_prof
                         active_app.save()
