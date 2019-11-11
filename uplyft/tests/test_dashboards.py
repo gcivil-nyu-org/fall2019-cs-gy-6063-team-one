@@ -5,9 +5,10 @@ from uplyft.tests.resources import (
     test_user_data,
     create_job,
     create_application,
-    create_candidate,
+    create_candidate_with_active_profile,
     create_department,
     create_employer,
+    create_profile,
 )
 
 
@@ -15,9 +16,12 @@ class DashboardViewTests(TestCase):
     def setUp(self):
         self.department = create_department(test_user_data["department"])
         self.employer = create_employer(self.department, test_user_data["employer"])
-        self.candidate = create_candidate(test_user_data["candidate"])
+        self.candidate = create_candidate_with_active_profile(
+            test_user_data["candidate"]
+        )
         self.job = create_job(self.department, test_user_data["job_details"][0])
-        self.app = create_application(self.job, self.candidate)
+        self.profile = create_profile(test_user_data["candidate"]["profile"])
+        self.app = create_application(self.job, self.candidate, self.profile)
 
     def login_candidate(self):
         self.client.login(
