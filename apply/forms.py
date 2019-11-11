@@ -1,5 +1,5 @@
 from django.forms import ModelForm, BooleanField
-from uplyft.models import Candidate, CandidateProfile, ActiveProfile
+from uplyft.models import CandidateProfile, ActiveProfile
 
 
 class ApplicationForm(ModelForm):
