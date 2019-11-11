@@ -28,7 +28,7 @@ class CandidateProfileFunctionalTests(LiveServerTestCase):
         action = ActionChains(self.browser)
         action.move_to_element(profile_link)
         action.click().perform()
-        profile_link.click()
+        # profile_link.click()
 
     def setUp(self):
         self.candidate = create_candidate_with_active_profile(
