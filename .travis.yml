@@ -26,7 +26,7 @@ before_script:
 script:
   - black --check .
   - flake8 .
-  - coverage run --source=candidate_profile,candidate_login,employer_login,jobs,register,uplyft,apply,applications,dashboard manage.py test uplyft.tests.test_dashboards --parallel
+  - coverage run --source=candidate_profile,candidate_login,employer_login,jobs,register,uplyft,apply,applications,dashboard manage.py test uplyft.tests.test_selenium_candidate_login --parallel
   - cat geckodriver.log
 
 after_script:
