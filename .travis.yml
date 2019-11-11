@@ -19,7 +19,7 @@ before_script:
 script:
   - black --check .
   - flake8 .
-  - coverage run --source=candidate_login,employer_login,jobs,register,teamone,uplyft,apply,applications,dashboard manage.py test
+  - coverage run --source=candidate_profile,candidate_login,employer_login,jobs,register,uplyft,apply,applications,dashboard manage.py test
 
 after_script:
   - coveralls
