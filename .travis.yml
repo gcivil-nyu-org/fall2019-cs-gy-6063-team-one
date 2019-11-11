@@ -7,9 +7,9 @@ addons:
   firefox: latest
 
 before_install:
-  - wget https://github.com/mozilla/geckodriver/releases/download/v0.11.1/geckodriver-v0.11.1-linux64.tar.gz
+  - wget https://github.com/mozilla/geckodriver/releases/download/v0.26.0/geckodriver-v0.26.0-linux64.tar.gz
   - mkdir geckodriver
-  - tar -xzf geckodriver-v0.11.1-linux64.tar.gz -C geckodriver
+  - tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver
   - export PATH=$PATH:$PWD/geckodriver
 
 install:
@@ -22,7 +22,7 @@ before_script:
 script:
   - black --check .
   - flake8 .
-  - coverage run --source=candidate_profile,candidate_login,employer_login,jobs,register,uplyft,apply,applications,dashboard manage.py test uplyft.tests.test_selenium_candidate_profile
+  - coverage run --source=candidate_profile,candidate_login,employer_login,jobs,register,uplyft,apply,applications,dashboard manage.py test uplyft.tests.test_selenium_login
   - cat geckodriver.log
 
 after_script:
