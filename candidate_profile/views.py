@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext as _
 from uplyft.decorators import candidate_login_required
-from uplyft.models import Candidate
+from uplyft.models import Candidate, ActiveProfile
 from django.contrib import messages
 from .forms import CandidateProfileForm
 from django.db import transaction
@@ -11,12 +11,14 @@ from django.db import transaction
 @transaction.atomic
 def update_candidate_profile(request):
     candidate = Candidate.objects.get(user=request.user)
+    active_profile = ActiveProfile.objects.get(candidate=candidate)
+
     if request.method == "POST":
         profile_form = CandidateProfileForm(request.POST, instance=candidate)
         if profile_form.is_valid():
             updated_profile = profile_form.save()
-            candidate.candidate_profile = updated_profile
-            candidate.save()
+            active_profile.candidate_profile = updated_profile
+            active_profile.save()
             messages.success(request, _("Your profile was successfully updated"))
             return redirect("candidate_profile:profile")
         else:

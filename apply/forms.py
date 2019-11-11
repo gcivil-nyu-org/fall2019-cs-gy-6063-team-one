@@ -3,7 +3,7 @@ from django.core.exceptions import ValidationError
 from django.forms import ModelForm, BooleanField
 from jobs.models import Job
 from .models import Application
-from uplyft.models import Candidate, CandidateProfile
+from uplyft.models import Candidate, CandidateProfile, ActiveProfile
 
 
 class ApplicationForm(ModelForm):
@@ -34,6 +34,7 @@ class ApplicationForm(ModelForm):
 
     def __init__(self, *args, **kwargs):
         candidate = kwargs.pop("instance")
+        active_prof = ActiveProfile.objects.get(candidate=candidate)
         super(ApplicationForm, self).__init__(*args, **kwargs)
         """
         Initialize the form so it contains the
@@ -55,31 +56,31 @@ class ApplicationForm(ModelForm):
 
         # Make sure the first letter of the user's first and last name are capitalize
         self.fields["first_name"].initial = (
-                candidate.candidate_profile.first_name[:1].upper()
-                + candidate.candidate_profile.first_name[1:]
+                active_prof.candidate_profile.first_name[:1].upper()
+                + active_prof.candidate_profile.first_name[1:]
         )
         self.fields["last_name"].initial = (
-                candidate.candidate_profile.last_name[:1].upper()
-                + candidate.candidate_profile.last_name[1:]
+                active_prof.candidate_profile.last_name[:1].upper()
+                + active_prof.candidate_profile.last_name[1:]
         )
-        self.fields["address_line"].initial = candidate.candidate_profile.address_line
-        self.fields["zip_code"].initial = candidate.candidate_profile.zip_code
-        self.fields["state"].initial = candidate.candidate_profile.state
-        self.fields["email"].initial = candidate.candidate_profile.email
-        self.fields["phone"].initial = candidate.candidate_profile.phone
+        self.fields["address_line"].initial = active_prof.candidate_profile.address_line
+        self.fields["zip_code"].initial = active_prof.candidate_profile.zip_code
+        self.fields["state"].initial = active_prof.candidate_profile.state
+        self.fields["email"].initial = active_prof.candidate_profile.email
+        self.fields["phone"].initial = active_prof.candidate_profile.phone
         self.fields[
             "portfolio_website"
-        ].initial = candidate.candidate_profile.portfolio_website
-        self.fields["education"].initial = candidate.candidate_profile.education
-        self.fields["experiences"].initial = candidate.candidate_profile.experiences
-        self.fields["cover_letter"].initial = candidate.candidate_profile.cover_letter
-        self.fields["gender"].initial = candidate.candidate_profile.gender
-        self.fields["ethnicity"].initial = candidate.candidate_profile.ethnicity
-        self.fields["race"].initial = candidate.candidate_profile.race
+        ].initial = active_prof.candidate_profile.portfolio_website
+        self.fields["education"].initial = active_prof.candidate_profile.education
+        self.fields["experiences"].initial = active_prof.candidate_profile.experiences
+        self.fields["cover_letter"].initial = active_prof.candidate_profile.cover_letter
+        self.fields["gender"].initial = active_prof.candidate_profile.gender
+        self.fields["ethnicity"].initial = active_prof.candidate_profile.ethnicity
+        self.fields["race"].initial = active_prof.candidate_profile.race
         self.fields[
             "health_conditions"
-        ].initial = candidate.candidate_profile.health_conditions
-        self.fields["veteran"].initial = candidate.candidate_profile.veteran
+        ].initial = active_prof.candidate_profile.health_conditions
+        self.fields["veteran"].initial = active_prof.candidate_profile.veteran
 
     # def clean_active_application_already_exists(self):
     #     jobs_pk_id = self.cleaned_data["jobs_pk_id"]

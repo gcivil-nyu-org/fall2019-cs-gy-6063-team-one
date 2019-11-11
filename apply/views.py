@@ -57,9 +57,6 @@ def apply(request, pk):
                         )
                         app_obj.save()
 
-                        # Make this profile the user's base profile
-                        candidate.candidate_profile = new_prof
-
                     else:
                         # If the profile isn't used anywhere else, make the changes to the active profile
                         updated_prof = application.save()
@@ -71,11 +68,6 @@ def apply(request, pk):
                             job=job, candidate=candidate, candidate_profile=updated_prof
                         )
                         app_obj.save()
-
-                        # Make this profile the user's base profile
-                        candidate.candidate_profile = updated_prof
-
-                    candidate.save()
 
             # If the user doesn't want to update their profile
             else:
