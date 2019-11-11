@@ -1,6 +1,7 @@
 from django.urls import reverse
 from django.contrib.staticfiles.testing import LiveServerTestCase
 from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
 from uplyft.tests.resources import create_candidate_with_active_profile, test_user_data
 
 
@@ -22,8 +23,11 @@ class CandidateProfileFunctionalTests(LiveServerTestCase):
         self.candidate_login()
         self.browser.get(self.live_server_url + reverse("dashboard:dashboard"))
         profile_link = self.browser.find_element_by_name("candidate_profile_link")
-        self.browser.execute_script("return arguments[0].scrollIntoView();",
-                                    profile_link)
+        # self.browser.execute_script("return arguments[0].scrollIntoView();",
+        # profile_link)
+        action = ActionChains(self.browser)
+        action.move_to_element(profile_link)
+        action.click().perform()
         profile_link.click()
 
     def setUp(self):
