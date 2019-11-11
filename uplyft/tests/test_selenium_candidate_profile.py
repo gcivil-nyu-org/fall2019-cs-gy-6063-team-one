@@ -52,6 +52,7 @@ class CandidateProfileFunctionalTests(LiveServerTestCase):
             test_user_data["candidate"]["profile"]["address_line"],
         )
 
+    """
     def test_candidate_profile_update_first_name(self):
         self.go_to_candidate_profile()
         first_name_before = self.browser.find_element_by_name("first_name")
@@ -296,3 +297,4 @@ class CandidateProfileFunctionalTests(LiveServerTestCase):
         profile_link.click()
         profile_title = self.browser.find_element_by_tag_name("h1")
         self.assertEquals(profile_title.text, "Your Profile")
+    """
