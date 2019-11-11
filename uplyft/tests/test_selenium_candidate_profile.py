@@ -1,7 +1,6 @@
 from django.urls import reverse
 from django.contrib.staticfiles.testing import LiveServerTestCase
 from selenium import webdriver
-from selenium.webdriver.common.action_chains import ActionChains
 from uplyft.tests.resources import create_candidate_with_active_profile, test_user_data
 
 
@@ -21,16 +20,7 @@ class CandidateProfileFunctionalTests(LiveServerTestCase):
 
     def go_to_candidate_profile(self):
         self.candidate_login()
-        self.browser.get(
-            self.live_server_url + '/candidate_profile/'
-        )
-        # profile_link = self.browser.find_element_by_name("candidate_profile_link")
-        # self.browser.execute_script("return arguments[0].scrollIntoView();",
-        # profile_link)
-        # action = ActionChains(self.browser)
-        # action.move_to_element(profile_link)
-        # action.click().perform()
-        # profile_link.click()
+        self.browser.get(self.live_server_url + "/candidate_profile/")
 
     def setUp(self):
         self.candidate = create_candidate_with_active_profile(
@@ -60,7 +50,6 @@ class CandidateProfileFunctionalTests(LiveServerTestCase):
             test_user_data["candidate"]["profile"]["address_line"],
         )
 
-    """
     def test_candidate_profile_update_first_name(self):
         self.go_to_candidate_profile()
         first_name_before = self.browser.find_element_by_name("first_name")
@@ -305,4 +294,3 @@ class CandidateProfileFunctionalTests(LiveServerTestCase):
         profile_link.click()
         profile_title = self.browser.find_element_by_tag_name("h1")
         self.assertEquals(profile_title.text, "Your Profile")
-    """
