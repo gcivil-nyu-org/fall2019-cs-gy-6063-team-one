@@ -6,7 +6,8 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse
 
-from uplyft.models import Candidate, CandidateProfile, Employer
+
+from uplyft.models import Candidate, CandidateProfile, Employer, ActiveProfile
 from .forms import CandidateRegistrationForm, EmployerRegistrationForm
 
 
@@ -29,6 +30,10 @@ def candidate_register(request):
             profile.save()
             candidate = Candidate(user=user, candidate_profile=profile)
             candidate.save()
+            active_profile = ActiveProfile(
+                candidate=candidate, candidate_profile=profile
+            )
+            active_profile.save()
             user = authenticate(email=email, password=password)
             login(request, user)
             messages.success(request, "Account created successfully")
@@ -77,3 +82,5 @@ def populate_profile(sociallogin, user, **kwargs):
         profile.save()
         candidate = Candidate(user=user, candidate_profile=profile)
         candidate.save()
+        active_profile = ActiveProfile(candidate=candidate, candidate_profile=profile)
+        active_profile.save()

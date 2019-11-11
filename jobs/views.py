@@ -62,8 +62,8 @@ class JobDetailView(LoginRequiredMixin, DetailView):
             context["candidate_viewing"] = True
             candidate = Candidate.objects.get(user=user)
             context["open_applications"] = Application.objects.filter(
-                candidate=candidate, job=job, status="ACTIVE"
-            )
+                candidate=candidate, job=job, status="AP"
+            ) | Application.objects.filter(candidate=candidate, job=job, status="AC")
         else:
             context["candidate_viewing"] = False
             context["open_applications"] = Application.objects.none()
