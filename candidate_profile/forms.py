@@ -27,7 +27,6 @@ class CandidateProfileForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         candidate = kwargs.pop("instance")
         active_prof = ActiveProfile.objects.get(candidate=candidate)
-        # print(active_prof.candidate_profile.first_name)
         super(CandidateProfileForm, self).__init__(*args, **kwargs)
         """
         Initialize the form so it contains the
