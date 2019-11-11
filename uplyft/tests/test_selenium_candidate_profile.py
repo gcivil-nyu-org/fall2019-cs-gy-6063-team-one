@@ -22,7 +22,7 @@ class CandidateProfileFunctionalTests(LiveServerTestCase):
     def go_to_candidate_profile(self):
         self.candidate_login()
         self.browser.get(
-            self.live_server_url + reverse("candidate_profile:candidate_profile")
+            self.live_server_url + '/candidate_profile/'
         )
         # profile_link = self.browser.find_element_by_name("candidate_profile_link")
         # self.browser.execute_script("return arguments[0].scrollIntoView();",
