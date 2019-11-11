@@ -3,6 +3,7 @@ from django.contrib.staticfiles.testing import LiveServerTestCase
 from selenium import webdriver
 from uplyft.tests.resources import create_candidate_with_active_profile, test_user_data
 
+
 class CandidateProfileFunctionalTests(LiveServerTestCase):
     def candidate_login(self):
         self.browser.get(
