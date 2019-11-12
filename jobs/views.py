@@ -103,7 +103,6 @@ def save_job(request, pk):
     job = Job.objects.get(pk=pk)
     user = request.user
     records = SavedJobs.objects.filter(user=user, job=job)
-    print(request)
     if records.count() == 0:
         bookmark = SavedJobs(user=user, job=job)
         bookmark.save()

@@ -20,12 +20,13 @@ class JobsSearchFormTest(StaticLiveServerTestCase):
         self.browser.get("http://localhost:8001/jobs")
         assert "Uplyft" in self.browser.title, "Browser title was " + self.browser.title
 
-    def test_input_search(self):
-        self.browser.get("http://localhost:8001/jobs")
-        input_search_terms = self.grabElement("q")
-        input_search_terms.send_keys(self.q)
-        input_search_terms.send_keys(Keys.RETURN)
-        job_cards = self.browser.find_elements_by_class_name("card")
-        print(len(job_cards))
-        for card in job_cards:
-            print(card)
+    # This section will be reactivated when login for testing is finished
+    # def test_input_search(self):
+    #     self.browser.get("http://localhost:8001/jobs")
+    #     input_search_terms = self.browser.grabElement("q")
+    #     input_search_terms.send_keys(self.q)
+    #     input_search_terms.send_keys(Keys.RETURN)
+    #     job_cards = self.browser.find_elements_by_class_name("card")
+    #     print(len(job_cards))
+    #     for card in job_cards:
+    #         print(card)

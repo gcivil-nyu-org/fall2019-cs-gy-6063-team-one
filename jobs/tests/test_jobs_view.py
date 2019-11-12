@@ -5,12 +5,37 @@ from django.db.models.query import QuerySet
 from django.test import TestCase
 from django.urls import reverse
 
-from jobs.models import Job, Department
+from jobs.models import Job, Department, SavedJobs
 from jobs.views import JobsView
 
+from uplyft.tests.resources import (create_department,
+    create_job,
+    create_application,
+    create_candidate_with_active_profile,
+    create_employer,
+    test_user_data,
+    create_profile)
 
-class JobsViewTest(TestCase):
+
+class JobsViewSideCandidateTest(TestCase):
     q = ""
+
+    def login_candidate(self):
+        self.client.login(
+            email=test_user_data["candidate"]["email"],
+            password=test_user_data["candidate"]["password"],
+        )
+
+    def setUp(self):
+        self.candidate = create_candidate_with_active_profile(
+            test_user_data["candidate"]
+        )
+        self.department = create_department(test_user_data["department"])
+        self.employer = create_employer(self.department, test_user_data["employer"])
+        self.job = create_job(self.department, test_user_data["job_details"][0])
+        self.profile = create_profile(test_user_data["candidate"]["profile"])
+        self.app = create_application(self.job, self.candidate, self.profile)
+        self.login_candidate()
 
     def create_department(self):
         return Department.objects.create(name="department")
@@ -112,3 +137,17 @@ class JobsViewTest(TestCase):
         response = self.client.get(reverse("jobs:jobs"), data={"q": self.q})
         correct_queryset = Job.objects.all().order_by("-posting_date")
         self.assertListEqual(list(correct_queryset), list(response.context["jobs"]))
+
+    def test_candidate_save_unsave_job(self):
+        response = self.client.get(reverse("jobs:save_job",  kwargs={"pk": self.job.id}))
+        record = SavedJobs.objects.filter(user=self.candidate.user, job=self.job)
+        self.assertEqual(record.count(), 1)
+        response = self.client.get(reverse("jobs:save_job",  kwargs={"pk": self.job.id}))
+        record = SavedJobs.objects.filter(user=self.candidate.user, job=self.job)
+        self.assertEqual(record.count(), 0)
+        response = self.client.get(reverse("jobs:save_job",  kwargs={"pk": self.job.id}))
+        record = SavedJobs.objects.filter(user=self.candidate.user, job=self.job)
+        self.assertEqual(record.count(), 1)
+        response = self.client.get(reverse("jobs:save_job",  kwargs={"pk": self.job.id}))
+        record = SavedJobs.objects.filter(user=self.candidate.user, job=self.job)
+        self.assertEqual(record.count(), 0)
