@@ -141,22 +141,18 @@ class JobsViewSideCandidateTest(TestCase):
         self.assertListEqual(list(correct_queryset), list(response.context["jobs"]))
 
     def test_candidate_save_unsave_job(self):
-        response = self.client.get(reverse("jobs:save_job", kwargs={"pk": self.job.id}))
+        _ = self.client.get(reverse("jobs:save_job", kwargs={"pk": self.job.id}))
         record = SavedJobs.objects.filter(user=self.candidate.user, job=self.job)
-        self.assertEqual(response.status_code, 200)
         self.assertEqual(record.count(), 1)
 
-        response = self.client.get(reverse("jobs:save_job", kwargs={"pk": self.job.id}))
+        _ = self.client.get(reverse("jobs:save_job", kwargs={"pk": self.job.id}))
         record = SavedJobs.objects.filter(user=self.candidate.user, job=self.job)
-        self.assertEqual(response.status_code, 200)
         self.assertEqual(record.count(), 0)
 
-        response = self.client.get(reverse("jobs:save_job", kwargs={"pk": self.job.id}))
+        _ = self.client.get(reverse("jobs:save_job", kwargs={"pk": self.job.id}))
         record = SavedJobs.objects.filter(user=self.candidate.user, job=self.job)
-        self.assertEqual(response.status_code, 200)
         self.assertEqual(record.count(), 1)
 
-        response = self.client.get(reverse("jobs:save_job", kwargs={"pk": self.job.id}))
+        _ = self.client.get(reverse("jobs:save_job", kwargs={"pk": self.job.id}))
         record = SavedJobs.objects.filter(user=self.candidate.user, job=self.job)
-        self.assertEqual(response.status_code, 200)
         self.assertEqual(record.count(), 0)
