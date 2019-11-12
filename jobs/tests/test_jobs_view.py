@@ -8,13 +8,15 @@ from django.urls import reverse
 from jobs.models import Job, Department, SavedJobs
 from jobs.views import JobsView
 
-from uplyft.tests.resources import (create_department,
+from uplyft.tests.resources import (
+    create_department,
     create_job,
     create_application,
     create_candidate_with_active_profile,
     create_employer,
     test_user_data,
-    create_profile)
+    create_profile,
+)
 
 
 class JobsViewSideCandidateTest(TestCase):
@@ -139,15 +141,22 @@ class JobsViewSideCandidateTest(TestCase):
         self.assertListEqual(list(correct_queryset), list(response.context["jobs"]))
 
     def test_candidate_save_unsave_job(self):
-        response = self.client.get(reverse("jobs:save_job",  kwargs={"pk": self.job.id}))
+        response = self.client.get(reverse("jobs:save_job", kwargs={"pk": self.job.id}))
         record = SavedJobs.objects.filter(user=self.candidate.user, job=self.job)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(record.count(), 1)
-        response = self.client.get(reverse("jobs:save_job",  kwargs={"pk": self.job.id}))
+
+        response = self.client.get(reverse("jobs:save_job", kwargs={"pk": self.job.id}))
         record = SavedJobs.objects.filter(user=self.candidate.user, job=self.job)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(record.count(), 0)
-        response = self.client.get(reverse("jobs:save_job",  kwargs={"pk": self.job.id}))
+
+        response = self.client.get(reverse("jobs:save_job", kwargs={"pk": self.job.id}))
         record = SavedJobs.objects.filter(user=self.candidate.user, job=self.job)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(record.count(), 1)
-        response = self.client.get(reverse("jobs:save_job",  kwargs={"pk": self.job.id}))
+
+        response = self.client.get(reverse("jobs:save_job", kwargs={"pk": self.job.id}))
         record = SavedJobs.objects.filter(user=self.candidate.user, job=self.job)
+        self.assertEqual(response.status_code, 200)
         self.assertEqual(record.count(), 0)
