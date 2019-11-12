@@ -26,7 +26,7 @@ body{
         <form class="reg_form" method="post">
           {% csrf_token %}
             {{ profile_form|crispy }}
-              <button type="submit" class="btn btn-primary">Save Changes</button>
+              <button name="submit" type="submit" class="btn btn-primary">Save Changes</button>
         </form>
 </div>
 

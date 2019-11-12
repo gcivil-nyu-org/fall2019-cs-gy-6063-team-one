@@ -14,15 +14,14 @@
         {% endif %}
     </div>
     <h1 class="text-white mb-5">Create Account </h1>
-
+</div>
+<div class="col-md-6 col-lg-6 mx-auto">
     <form class="reg_form" action="{% url 'register:candidate_register' %}" method="post">
         {% csrf_token %}
         <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
         {{ form|crispy }}
 
-        <input type="submit" name="Register" value="Submit"/>
-
-
+        <input type="submit" name="submit" value="Submit"/>
     </form>
 </div>
 
