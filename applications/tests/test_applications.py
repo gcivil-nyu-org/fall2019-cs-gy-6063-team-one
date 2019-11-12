@@ -5,9 +5,10 @@ from uplyft.tests.resources import (
     create_department,
     create_job,
     create_application,
-    create_candidate,
+    create_candidate_with_active_profile,
     create_employer,
     test_user_data,
+    create_profile,
 )
 
 
@@ -25,11 +26,14 @@ class ApplicationDetailsViewTests(TestCase):
         )
 
     def setUp(self):
+        self.candidate = create_candidate_with_active_profile(
+            test_user_data["candidate"]
+        )
         self.department = create_department(test_user_data["department"])
         self.employer = create_employer(self.department, test_user_data["employer"])
-        self.candidate = create_candidate(test_user_data["candidate"])
         self.job = create_job(self.department, test_user_data["job_details"][0])
-        self.app = create_application(self.job, self.candidate)
+        self.profile = create_profile(test_user_data["candidate"]["profile"])
+        self.app = create_application(self.job, self.candidate, self.profile)
 
     def test_view_url_is_accessible_by_name_candidate(self):
         self.login_candidate()
@@ -79,58 +83,208 @@ class ApplicationDetailsViewTests(TestCase):
         self.assertTrue("form" in response.context)
         self.assertEquals(response.context["form"], None)
 
-    def test_GET_displays_application_details_candidate(self):
+    def test_GET_displays_first_name_to_candidate(self):
         self.login_candidate()
         response = self.client.get(
             reverse("applications:application_details", kwargs={"pk": self.app.id})
         )
+        self.assertContains(response, self.app.candidate_profile.first_name)
 
-        expected = [
-            self.candidate.candidate_profile.first_name,
-            self.candidate.candidate_profile.last_name,
-            self.candidate.candidate_profile.get_gender_display(),
-            self.candidate.candidate_profile.get_ethnicity_display(),
-            self.candidate.candidate_profile.get_race_display(),
-            self.candidate.candidate_profile.get_health_conditions_display(),
-            self.candidate.candidate_profile.get_veteran_display(),
-            self.candidate.candidate_profile.address_line,
-            self.candidate.candidate_profile.zip_code,
-            self.candidate.candidate_profile.state,
-            self.candidate.candidate_profile.phone,
-            self.candidate.candidate_profile.email,
-            self.candidate.candidate_profile.portfolio_website,
-            self.candidate.candidate_profile.cover_letter,
-            self.candidate.candidate_profile.experiences,
-            self.candidate.candidate_profile.additional_info,
-        ]
+    def test_GET_displays_last_name_to_candidate(self):
+        self.login_candidate()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.last_name)
 
-        for item in expected:
-            self.assertContains(response, item)
+    def test_GET_displays_gender_to_candidate(self):
+        self.login_candidate()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.get_gender_display())
 
-    def test_GET_displays_application_details_employer(self):
+    def test_GET_displays_ethnicity_to_candidate(self):
+        self.login_candidate()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(
+            response, self.app.candidate_profile.get_ethnicity_display()
+        )
+
+    def test_GET_displays_race_to_candidate(self):
+        self.login_candidate()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.get_race_display())
+
+    def test_GET_displays_health_conditions_to_candidate(self):
+        self.login_candidate()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(
+            response, self.app.candidate_profile.get_health_conditions_display()
+        )
+
+    def test_GET_displays_veteran_to_candidate(self):
+        self.login_candidate()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.get_veteran_display())
+
+    def test_GET_displays_address_to_candidate(self):
+        self.login_candidate()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.address_line)
+
+    def test_GET_displays_state_to_candidate(self):
+        self.login_candidate()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.state)
+
+    def test_GET_displays_phone_to_candidate(self):
+        self.login_candidate()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        # Had to hard code until I figure out how to retrieve the data in this format
+        self.assertContains(response, "(201) 834-7135")
+
+    def test_GET_displays_email_to_candidate(self):
+        self.login_candidate()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.email)
+
+    def test_GET_displays_portfolio_website_to_candidate(self):
+        self.login_candidate()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.portfolio_website)
+
+    def test_GET_displays_cover_letter_to_candidate(self):
+        self.login_candidate()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.cover_letter)
+
+    def test_GET_displays_experiences_to_candidate(self):
+        self.login_candidate()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.experiences)
+
+    def test_GET_displays_first_name_to_employer(self):
         self.login_employer()
         response = self.client.get(
             reverse("applications:application_details", kwargs={"pk": self.app.id})
         )
+        self.assertContains(response, self.app.candidate_profile.first_name)
 
-        expected = [
-            self.candidate.candidate_profile.first_name,
-            self.candidate.candidate_profile.last_name,
-            self.candidate.candidate_profile.get_gender_display(),
-            self.candidate.candidate_profile.get_ethnicity_display(),
-            self.candidate.candidate_profile.get_race_display(),
-            self.candidate.candidate_profile.get_health_conditions_display(),
-            self.candidate.candidate_profile.get_veteran_display(),
-            self.candidate.candidate_profile.address_line,
-            self.candidate.candidate_profile.zip_code,
-            self.candidate.candidate_profile.state,
-            self.candidate.candidate_profile.phone,
-            self.candidate.candidate_profile.email,
-            self.candidate.candidate_profile.portfolio_website,
-            self.candidate.candidate_profile.cover_letter,
-            self.candidate.candidate_profile.experiences,
-            self.candidate.candidate_profile.additional_info,
-        ]
+    def test_GET_displays_last_name_to_employer(self):
+        self.login_employer()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.last_name)
 
-        for item in expected:
-            self.assertContains(response, item)
+    def test_GET_displays_gender_to_employer(self):
+        self.login_employer()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.get_gender_display())
+
+    def test_GET_displays_ethnicity_to_employer(self):
+        self.login_employer()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(
+            response, self.app.candidate_profile.get_ethnicity_display()
+        )
+
+    def test_GET_displays_race_to_employer(self):
+        self.login_employer()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.get_race_display())
+
+    def test_GET_displays_health_conditions_to_employer(self):
+        self.login_employer()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(
+            response, self.app.candidate_profile.get_health_conditions_display()
+        )
+
+    def test_GET_displays_veteran_to_employer(self):
+        self.login_employer()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.get_veteran_display())
+
+    def test_GET_displays_address_to_employer(self):
+        self.login_employer()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.address_line)
+
+    def test_GET_displays_state_to_employer(self):
+        self.login_employer()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.state)
+
+    def test_GET_displays_phone_to_employer(self):
+        self.login_employer()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        # Had to hard code until I figure out how to retrieve the data in this format
+        self.assertContains(response, "(201) 834-7135")
+
+    def test_GET_displays_email_to_employer(self):
+        self.login_employer()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.email)
+
+    def test_GET_displays_portfolio_website_to_employer(self):
+        self.login_employer()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.portfolio_website)
+
+    def test_GET_displays_cover_letter_to_employer(self):
+        self.login_employer()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.cover_letter)
+
+    def test_GET_displays_experiences_to_employer(self):
+        self.login_employer()
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, self.app.candidate_profile.experiences)

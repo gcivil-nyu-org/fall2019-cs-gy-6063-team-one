@@ -52,7 +52,7 @@ class ProcessApplication(SingleObjectMixin, FormView):
         )
 
 
-class ProcessApplicationView(View):
+class ProcessApplicationView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
         view = ApplicationDetailView.as_view()
         return view(request, *args, **kwargs)

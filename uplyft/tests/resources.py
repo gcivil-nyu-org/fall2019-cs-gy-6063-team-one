@@ -1,7 +1,7 @@
 from uplyft.models import CustomUser
 from jobs.models import Job, Department
 from apply.models import Application
-from uplyft.models import Candidate, Employer, CandidateProfile
+from uplyft.models import Candidate, Employer, CandidateProfile, ActiveProfile
 import datetime
 from decimal import Decimal
 
@@ -17,20 +17,53 @@ test_user_data = {
             "first_name": "Jane",
             "last_name": "Jameson",
             "email": "jane@example.com",
-            "gender": "X",
+            "gender": "F",
+            "gender_display": "Female",
             "ethnicity": "OT",
+            "ethnicity_display": "Not Hispanic or Latino",
             "race": "ASIAN",
+            "race_display": "Asian",
             "health_conditions": "POSITIVE",
+            "health_conditions_display": "One or more health conditions",
             "veteran": "POSITIVE",
+            "veteran_display": "Veteran",
             "address_line": "123 Main Street, Hoboken",
             "zip_code": "07030",
             "state": "NJ",
+            "state_display": "New Jersey",
             "phone": "2018347135",
             "portfolio_website": "https://janejameson.com",
             "cover_letter": "Please hire me, I need this job",
             "experiences": "Nada",
             "education": "Self-taught",
             "additional_info": "Good listener",
+        },
+        "new_profile": {
+            "first_name": "Jaime",
+            "last_name": "Jaimeson",
+            "email": "jane1@example.com",
+            "gender": "X",
+            "gender_display": "Non Binary",
+            "ethnicity": "HL",
+            "ethnicity_display": "Hispanic or Latino",
+            "race": "WHITE",
+            "race_display": "White",
+            "health_conditions": "NEGATIVE",
+            "health_conditions_display": "None listed apply",
+            "veteran": "NEGATIVE",
+            "veteran_display": "Not veteran",
+            "address_line": "1620 Manhattan Ave, Union City",
+            "zip_code": "07087",
+            "state": "NY",
+            "state_display": "New York",
+            "phone": "2013348135",
+            "portfolio_website": "https://janeTjameson.com",
+            "cover_letter": "Please hire me, I need this job. "
+            "Since I wrote the original cover "
+            "letter, nothing has changed...",
+            "experiences": "Less than nada",
+            "education": "Teach me?",
+            "additional_info": "Good at art",
         },
     },
     "employer": {
@@ -124,22 +157,6 @@ def create_employer(department, user_data):
     return Employer.objects.create(user=cu, department=department)
 
 
-def create_candidate(user_data):
-    cu = CustomUser.objects.create_user(
-        email=user_data["email"],
-        password=user_data["password"],
-        first_name=user_data["first_name"],
-        last_name=user_data["last_name"],
-        is_candidate=True,
-    )
-    profile = CandidateProfile.objects.create(
-        email=user_data["email"],
-        first_name=user_data["first_name"],
-        last_name=user_data["last_name"],
-    )
-    return Candidate.objects.create(user=cu, candidate_profile=profile)
-
-
 def create_job(department, job_details):
     return Job.objects.create(
         job_id=job_details["job_id"],
@@ -172,5 +189,61 @@ def create_job(department, job_details):
     )
 
 
-def create_application(job, candidate):
-    return Application.objects.create(job=job, candidate=candidate)
+def create_candidate_with_active_profile(user_data):
+    custom_user = CustomUser.objects.create_user(
+        email=user_data["email"],
+        password=user_data["password"],
+        first_name=user_data["first_name"],
+        last_name=user_data["last_name"],
+        is_candidate=True,
+    )
+    profile = CandidateProfile.objects.create(
+        email=user_data["email"],
+        first_name=user_data["first_name"],
+        last_name=user_data["last_name"],
+        gender=user_data["profile"]["gender"],
+        ethnicity=user_data["profile"]["ethnicity"],
+        race=user_data["profile"]["race"],
+        health_conditions=user_data["profile"]["health_conditions"],
+        veteran=user_data["profile"]["veteran"],
+        address_line=user_data["profile"]["address_line"],
+        zip_code=user_data["profile"]["zip_code"],
+        state=user_data["profile"]["state"],
+        phone=user_data["profile"]["phone"],
+        portfolio_website=user_data["profile"]["portfolio_website"],
+        cover_letter=user_data["profile"]["cover_letter"],
+        experiences=user_data["profile"]["experiences"],
+        education=user_data["profile"]["education"],
+        additional_info=user_data["profile"]["additional_info"],
+    )
+    candidate = Candidate.objects.create(user=custom_user, candidate_profile=profile)
+    ActiveProfile.objects.create(candidate=candidate, candidate_profile=profile)
+    return candidate
+
+
+def create_profile(user_data):
+    return CandidateProfile.objects.create(
+        email=user_data["email"],
+        first_name=user_data["first_name"],
+        last_name=user_data["last_name"],
+        gender=user_data["gender"],
+        ethnicity=user_data["ethnicity"],
+        race=user_data["race"],
+        health_conditions=user_data["health_conditions"],
+        veteran=user_data["veteran"],
+        address_line=user_data["address_line"],
+        zip_code=user_data["zip_code"],
+        state=user_data["state"],
+        phone=user_data["phone"],
+        portfolio_website=user_data["portfolio_website"],
+        cover_letter=user_data["cover_letter"],
+        experiences=user_data["experiences"],
+        education=user_data["education"],
+        additional_info=user_data["additional_info"],
+    )
+
+
+def create_application(job, candidate, profile):
+    return Application.objects.create(
+        job=job, candidate=candidate, candidate_profile=profile
+    )

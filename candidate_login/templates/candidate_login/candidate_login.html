@@ -16,10 +16,10 @@
 
     <h1 class="">Login to Uplyft</h1>
     <div>
-        First time on Uplyft? <a href="{% url 'register:candidate_register' %}"><b>Join now</b></a> Or <a href="{% provider_login_url 'google' %}">Login with Google </a>
+        First time on Uplyft? <a name="candidate_register_link" href="{% url 'register:candidate_register' %}"><b>Join now</b></a> Or <a href="{% provider_login_url 'google' %}">Login with Google </a>
     </div>
     <br>
-    <form class="reg_form" action="{% url 'candidate_login:candidate_login' %}" method="post">
+    <form name="candidate_login_form" class="reg_form" action="{% url 'candidate_login:candidate_login' %}" method="post">
         {% csrf_token %}
         {{ form|crispy }}
         <div class="single-line-link">

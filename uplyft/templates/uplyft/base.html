@@ -57,7 +57,7 @@
                     {% if user.is_candidate %}
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger"
-                               href="{% url 'candidate_profile:profile' %}">
+                               name="candidate_profile_link" href="{% url 'candidate_profile:profile' %}">
                                 My Profile </a>
                         </li>
                     {% endif %}
