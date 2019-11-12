@@ -86,6 +86,7 @@ def apply(request, pk):
                         job=job, candidate=candidate, candidate_profile=new_prof
                     )
                 app_obj.save()
+            messages.success(request, "Application submitted")
             return redirect("dashboard:dashboard")
         else:
             messages.error(request, _("Please correct the error below."))
