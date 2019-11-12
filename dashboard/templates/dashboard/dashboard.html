@@ -3,7 +3,11 @@
 {% block dashboard_content %}
     <link rel="stylesheet" type="text/css"
           href="{% static "dashboard/css/dashboard.css" %}">
-
+    {% if messages %}
+            {% for message in messages %}
+            <div class="text-white mb-5">{{ message }}</div>
+            {% endfor %}
+    {% endif %}
     {% block employer_dashboard %}
     {% endblock %}
     {% block candidate_dashboard %}
