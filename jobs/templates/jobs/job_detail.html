@@ -7,56 +7,134 @@
 
 <div class="container">
 
-    <div>
-        {% if messages %}
-        <ul>
-            {% for message in messages %}
-            <li class="text-white mb-5">{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-    </div>
+    <link rel="stylesheet" type="text/css" href="{% static "jobs/css/job_detail.css" %}">
+
     <div class="col-md-12 mb-3 mb-md-0">
         <div class="card py-4 h-100">
-            <div class="card-body text-center">
-                <h4 class="text-uppercase m-0"> {{ job.business_title }} </h4>
-                <hr class="my-4">
-                <div class="small text-black-50"> {{ job.work_location }} | {{ job.division }}</div>
-                <p> {{ job.department.name }} </p>
+            <div class="card-body">
+
+                <h5 class="card-title"> <b> {{ job.business_title }} </b> </h5>
+
+                <div class="job-description-flex">
+                    <div class="job-summary-left">
+                        <div class="text-black-50"> {{ job.division }} • {{ job.department }}</div>
+                        <div class="text-black-50"> {{ job.work_location }} </div>
+                        <div class="text-black-50"> Posted on {{ job.posting_date }} </div>
+                    </div>
+
+                    <div class="job-primary-action-block-wrapper">
+                        
+                        {% if has_open_application %}
+                            <div>
+                                <a class="small" href="{% url 'applications:application_details' application_id %}">View application</a>
+                            </div>
+                            {% endif %}
+
+                        <div class="job-primary-action-block">
+
+                            <form class="job-primary-action" action="{% url 'jobs:save_job' job.id %}" method="post">
+                                            {% csrf_token %}
+                                <input type="hidden" name="jobs_pk_id" value="{{ job.id }}" />
+                                {% if saved_this_job == False %}
+                                <input class="btn btn-primary btn-save" type="submit" name="save" value="Save" />
+                                {% else %}
+                                <input class="btn btn-primary btn-save" type="submit" name="unsave" value="Saved" />
+                                {% endif %}
+
+                            </form>
+
+                            <form class="job-primary-action" action="{% url 'apply:apply' job.id%}" method="get">
+                                {% if has_open_application %}
+                                <input disabled class="btn btn-primary" type="submit" name="apply" value="Applied" />
+                                {% else %}
+                                <input class="btn btn-primary" type="submit" name="apply" value="Apply" />
+                                {% endif %}
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
             </div>
 
-            <ul class="list-group list-group-flush border-0">
-                <li class="list-group-item border-0"><b>Posted:</b> {{ job.posting_date }}</li>
-                <hr class="dropdown-divider">
-                <li class="list-group-item border-0"><b>Description: </b> {{ job.job_description }} <br/><br></li>
-                <li class="list-group-item border-0"><b> Minimum Qualifications: </b> {{ job.min_qualifications }} <br/><br>
-                </li>
-                <li class="list-group-item border-0"><b>Preferred Skills:</b> {{ job.preferred_skills }}</li>
+            <hr class="my-4">
 
-            </ul>
+            <div class="job-description-flex">
+                <div class="job-description-main-content">
+                    <ul class="list-group list-group-flush border-0">
 
-            {% if open_applications %}
-            <table>
-                <tr>
-                    <td>
-                        <!-- Let the user see the application they submitted for this job-->
-                        <a href="" class="btn btn-primary"> Application Submitted </a>
-                    </td>
+                        <li class="list-group-item border-0"> <b>Description</b> </li>
+                        <li class="list-group-item border-0"> {{ job.job_description }} </li>
 
-                </tr>
-            </table>
-            {% else %}
-            <table>
-                <tr>
-                    <td>
-                        <a href="{% url 'apply:apply' job.id %}" class="btn btn-primary"> Apply </a>
-                    </td>
+                        <li class="list-group-item border-0"> <b>Minimum Qualifications</b> </li>
+                        <li class="list-group-item border-0"> {{ job.min_qualifications }} </li>
 
-                </tr>
-            </table>
-            {% endif %}
+                        <li class="list-group-item border-0"> <b>Preferred Skills</b> </li>
+                        {% if job.preferred_skills != "nan" %}
+                        <li class="list-group-item border-0"> {{ job.preferred_skills }} </li>
+                        {% else %}
+                        <li class="list-group-item border-0 text-black-50"> Not specified. </li>
+                        {% endif %}
+
+                        <li class="list-group-item border-0"> <b>Residency Requirement</b> </li>
+                        <li class="list-group-item border-0"> {{ job.residency_requirement }} </li>
+
+                        <li class="list-group-item border-0"> <b>Work location</b> </li>
+                        <li class="list-group-item border-0"> {{job.work_location}}
+                            {% if job.secondary_work_location != "nan" %}
+                            <br>
+                            <b>Secondary location:</b> {{ job.secondary_work_location }}
+                            {% endif %} </li>
+
+                        <li class="list-group-item border-0"><b>Additional Information</b> </li>
+                        {% if job.preferred_skills != "nan" %}
+                        <li class="list-group-item border-0"> {{ job.additional_info }} </li>
+                        {% else %}
+                        <li class="list-group-item border-0 text-black-50"> Not specified. </li>
+                        {% endif %}
+
+                    </ul>
+                </div>
+                <div class="job-description-misc-attributes">
+                    <ul class="list-group list-group-flush border-0">
+
+                        {% if job.recruitment_contact != "nan" %}
+                        <li class="list-group-item border-0"> <b>Contact</b> <br> 
+                            {{ job.recruitment_contact }} </li>
+                        {% endif %}
+
+                        <li class="list-group-item border-0"> <b>Seniority Level or <br> Experience Level</b> <br> 
+                            {{ job.level }} </li>
+
+                        <li class="list-group-item border-0"> <b>Civil Service Title</b> <br> 
+                            {{ job.civil_service_title }} </li>
+
+                        <li class="list-group-item border-0"> <b>Industry or <br> Job Functions</b> <br> 
+                            {{ job.job_category }} </li>
+
+                        <li class="list-group-item border-0"> <b>Salary</b> <br> 
+                            ${{ job.salary_start|floatformat:"-2"|intcomma }} – ${{ job.salary_end|floatformat:"-2"|intcomma }}, {{ job.salary_frequency }} </li>
+
+                        {% if job.hours_info != "nan" %}
+                        <li class="list-group-item border-0"> <b>Hours</b> <br> 
+                            {{ job.hours_info }} </li>
+                        {% endif %}
+
+                        <li class="list-group-item border-0"> <b>Employment Type</b> <br> 
+                            {% if job.ft_pt_indicator == "F" %}
+                            Full Time, 
+                            {% endif %}
+                            {{ job.posting_type }} </li>
+
+                        <li class="list-group-item border-0 small text-black-50"> JOB ID #{{ job.job_id }} </li>
+
+                    </ul>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
+
+
 
 {% endblock %}

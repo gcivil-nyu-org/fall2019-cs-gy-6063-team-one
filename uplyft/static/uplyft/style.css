@@ -6,10 +6,7 @@ html {
 
 body {
     padding: 10rem 0;
-    background: linear-gradient(
-            rgba(100, 100, 100, 0.3),
-            rgba(100, 100, 100, 0.3)
-    ), url("images/background.jpg");
+    background: url("images/background.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: scroll;
@@ -22,7 +19,7 @@ body {
   display:none;
 }*/
 .reg_form small {
-    color: #fff !important;
+    /* color: #fff; */
     font-style: oblique;
 }
 
@@ -31,23 +28,25 @@ body {
 }
 
 .reg_form label {
-    color: #fff;
+    color: black;
 }
 
-.reg_form input[type="text"], .reg_form input[type="email"], .reg_form input[type="password"] {
-    box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+.reg_form input {
+    box-shadow: 0 0.1875rem 0.1875rem 0 #64a19d8f;
     padding: 1.25rem 1rem;
-    height: 3em;
-    font-family: 'Varela Round';
     font-size: 80%;
-    /*text-transform: uppercase;*/
     letter-spacing: 0.15rem;
-    border: 0;
+    border-color: #64a19d;
+    border-width: 1px;
+}
+
+.reg_form .single-line-link {
+    margin-bottom: 2em;
 }
 
 .reg_form input[type="submit"] {
     background-color: #64a19d;
-    box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1);
     padding: 1.25rem 2rem;
     font-family: 'Varela Round';
     font-size: 80%;
@@ -55,11 +54,12 @@ body {
     letter-spacing: .15rem;
     border: 0;
     color: white;
+    width: 100%;
 }
 
 .reg_form input[type="button"] {
     background-color: #64a19d;
-    box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1) !important;
+    box-shadow: 0 0.1875rem 0.1875rem 0 rgba(0, 0, 0, 0.1);
     padding: 1.25rem 2rem;
     font-family: 'Varela Round';
     font-size: 80%;
@@ -81,17 +81,17 @@ body {
 
 #mainNav {
     min-height: 56px;
-    background: linear-gradient(
-            rgba(50, 50, 50, 0.6),
-            rgba(50, 50, 50, 0.6)
-    );
+    background: rgba(255, 255, 255, 0.4);
+    -webkit-backdrop-filter: blur(10px);
+    -moz-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 #mainNav .navbar-toggler {
     font-size: 80%;
     padding: 0.75rem;
     color: #64a19d;
-    border: 1px solid #64a19d;
+    border: 3px solid #64a19d;
 }
 
 #mainNav .navbar-toggler:focus {
@@ -99,7 +99,7 @@ body {
 }
 
 #mainNav .navbar-brand {
-    color: #161616;
+    color: rgba(0, 0, 0, 0.5);
     font-weight: 700;
     padding: .9rem 0;
 }
@@ -120,19 +120,18 @@ body {
         padding-top: 0;
         padding-bottom: 0;
         border-bottom: none;
-        background-color: transparent;
         transition: background-color 0.3s ease-in-out;
     }
 
     #mainNav .navbar-brand {
         padding: .5rem 0;
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(0, 0, 0, 0.5);
     }
 
     #mainNav .nav-link {
         transition: none;
         padding: 2rem 1.5rem;
-        color: rgba(255, 255, 255, 0.5);
+        color: rgba(0, 0, 0, 0.5);
     }
 
     #mainNav .nav-link:hover {
@@ -227,6 +226,13 @@ body {
     background-color: #467370 !important;
 }
 
+.btn-light {
+    border-color: #64a19d;
+    border-style: solid;
+    border-width: 3px;
+    box-sizing: border-box;
+}
+
 body {
     font-family: 'Nunito';
     letter-spacing: 0.0625em;
@@ -278,10 +284,6 @@ footer {
 }
 
 .card-body span{
-    float:right;
-}
-
-.salary_info {
     float:right;
 }
 
