@@ -68,7 +68,8 @@ class JobDetailView(LoginRequiredMixin, DetailView):
             context["open_applications"] = Application.objects.filter(
                 candidate=candidate, job=job
             )
-            context["application_id"] = context["open_applications"][0].id
+            if context["open_applications"].count() > 0:
+                context["application_id"] = context["open_applications"][0].id
             context["saved_this_job"] = (
                 SavedJobs.objects.filter(user=user, job=job).count() > 0
             )
