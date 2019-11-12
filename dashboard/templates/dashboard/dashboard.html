@@ -5,7 +5,7 @@
           href="{% static "dashboard/css/dashboard.css" %}">
     {% if messages %}
             {% for message in messages %}
-            <div class="text-white mb-5">{{ message }}</div>
+            <div class="container card py-4 alert alert-primary" role="alert">{{ message }}</div>
             {% endfor %}
     {% endif %}
     {% block employer_dashboard %}

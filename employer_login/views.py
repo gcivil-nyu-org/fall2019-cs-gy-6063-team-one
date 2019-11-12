@@ -14,13 +14,10 @@ class EmployerLoginView(LoginView):
 
 def login_success(request):
     if request.user.is_authenticated:
-        name = request.user.first_name
-        if name == "" or name is None:
-            name = request.user.username
-        messages.success(request, "Hi, " + name + "!")
+        return render(request, "employer_login/employer_login_success.html")
     else:
-        HttpResponseRedirect("employer_login:employer_login")
-    return render(request, "employer_login/employer_login_success.html")
+        return HttpResponseRedirect("employer_login:employer_login")
+
 
 
 class EmployerLogoutView(LogoutView):

@@ -21,7 +21,7 @@ body{
 <body>
 {% if messages %}
     {% for message in messages %}
-            <div class="text-white mb-5">{{ message }}</div>
+            <div class="container card py-4 alert alert-primary" role="alert">{{ message }}</div>
     {% endfor %}
 {% endif %}
 <div class="container card py-4">
