@@ -1,4 +1,3 @@
-from django.contrib import messages
 from django.contrib.auth.views import LoginView, LogoutView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
@@ -17,7 +16,6 @@ def login_success(request):
         return render(request, "employer_login/employer_login_success.html")
     else:
         return HttpResponseRedirect("employer_login:employer_login")
-
 
 
 class EmployerLogoutView(LogoutView):
