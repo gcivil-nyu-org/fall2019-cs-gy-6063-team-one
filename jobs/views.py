@@ -1,7 +1,6 @@
 import logging
 
 from django.contrib import messages
-from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -42,16 +41,15 @@ class JobsView(LoginRequiredMixin, ListView):
         else:
             queryset = Job.objects.all().order_by("-posting_date")
         return queryset
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        applications = Application.objects.filter(candidate=Candidate.objects.get(user=self.request.user))
         candidate = Candidate.objects.get(user=self.request.user)
-        context["jobs_applied"] = list(Application.objects.filter(candidate=candidate).values_list("job", flat=True))
-        # for job in self.queryset.objects:
-        #     flag = Application.objects.filter(candidate=candidate, job=job).count() > 0
-        #     context["application_indicator"].append(flag)
-        # context["applications_in_this_page"] = Application.objects.filter(candidate=Candidate.objects.get(user=self.request.user)).in_bulk(self.queryset, field_name="job").order_by("job__posting_date")
+        context["jobs_applied"] = list(
+            Application.objects.filter(candidate=candidate).values_list(
+                "job", flat=True
+            )
+        )
         return context
 
 
