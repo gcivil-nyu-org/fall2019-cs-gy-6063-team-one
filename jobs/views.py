@@ -1,7 +1,6 @@
 import logging
 
 from django.contrib import messages
-from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
 from django.db.models import Q
@@ -43,6 +42,16 @@ class JobsView(LoginRequiredMixin, ListView):
             queryset = Job.objects.all().order_by("-posting_date")
         return queryset
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        candidate = Candidate.objects.get(user=self.request.user)
+        context["jobs_applied"] = list(
+            Application.objects.filter(candidate=candidate).values_list(
+                "job", flat=True
+            )
+        )
+        return context
+
 
 class JobAdvancedSearch(LoginRequiredMixin, FilterView):
     filterset_class = JobFilter
@@ -57,9 +66,8 @@ class JobDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        email = self.request.session["email"]
         job = Job.objects.get(id=self.kwargs.get("pk"))
-        user = get_user_model().objects.get(email=email)
+        user = self.request.user
         context["messages"] = None
 
         if user.is_candidate:
@@ -68,7 +76,8 @@ class JobDetailView(LoginRequiredMixin, DetailView):
             context["open_applications"] = Application.objects.filter(
                 candidate=candidate, job=job
             )
-            context["application_id"] = context["open_applications"][0].id
+            if context["open_applications"].count() > 0:
+                context["application_id"] = context["open_applications"][0].id
             context["saved_this_job"] = (
                 SavedJobs.objects.filter(user=user, job=job).count() > 0
             )

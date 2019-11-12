@@ -50,7 +50,11 @@ body{
                                 <div > ${{ job.salary_start|floatformat:2 }} - {{ job.salary_end|floatformat:2 }} {{ job.salary_frequency }}</div>
                                 {% endif %}
                                 <div> {{ job.posting_date}} </div>
-                                <div class="text-primary"><i class="fas fa-clipboard-check"></i> Applied</div>
+                                {% if job.id in jobs_applied %}
+                                <div class="">Applied <i class="fas fa-clipboard-check"></i></div>
+                                {% else %}
+                                <div class="text-primary"><i class=""></i> Apply now</div>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
