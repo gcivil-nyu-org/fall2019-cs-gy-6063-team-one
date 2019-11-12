@@ -13,7 +13,7 @@
         <div class="card py-4 h-100">
             <div class="card-body">
 
-                <div style="font-size: 1.5em;"> <b> {{ job.business_title }} </b> </div>
+                <h5 class="card-title"> <b> {{ job.business_title }} </b> </h5>
 
                 <div class="job-description-flex">
                     <div class="job-summary-left">
@@ -36,9 +36,9 @@
                                             {% csrf_token %}
                                 <input type="hidden" name="jobs_pk_id" value="{{ job.id }}" />
                                 {% if saved_this_job == False %}
-                                <input class="btn-primary btn-save" type="submit" name="save" value="Save" />
+                                <input class="btn btn-primary btn-save" type="submit" name="save" value="Save" />
                                 {% else %}
-                                <input class="btn-primary btn-save" type="submit" name="unsave" value="Saved" />
+                                <input class="btn btn-primary btn-save" type="submit" name="unsave" value="Saved" />
                                 {% endif %}
 
                             </form>
@@ -47,9 +47,9 @@
                                             {% csrf_token %}
                                 <input type="hidden" name="jobs_pk_id" value="{{ job.id }}" />
                                 {% if has_open_application %}
-                                <input disabled class="btn-primary" type="submit" name="apply" value="Applied" />
+                                <input disabled class="btn btn-primary" type="submit" name="apply" value="Applied" />
                                 {% else %}
-                                <input class="btn-primary" type="submit" name="apply" value="Apply" />
+                                <input class="btn btn-primary" type="submit" name="apply" value="Apply" />
                                 {% endif %}
                             </form>
 
