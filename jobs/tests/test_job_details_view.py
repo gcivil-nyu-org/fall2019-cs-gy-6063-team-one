@@ -30,17 +30,23 @@ class JobDetailViewTests(TestCase):
 
     def test_view_url_accessible_by_name_and_pk(self):
         self.login_candidate()
-        response = self.client.get(reverse("jobs:jobs"), kwargs={"pk": self.job.id})
+        response = self.client.get(
+            reverse("jobs:job_detail", kwargs={"pk": self.job.id})
+        )
         self.assertEqual(response.status_code, 200)
 
     def test_view_uses_correct_template(self):
         self.login_candidate()
-        response = self.client.get(reverse("jobs:jobs"), kwargs={"pk": self.job.id})
+        response = self.client.get(
+            reverse("jobs:job_detail", kwargs={"pk": self.job.id})
+        )
         self.assertTemplateUsed(response, "uplyft/base.html")
-        self.assertTemplateUsed(response, "jobs/jobs.html")
+        self.assertTemplateUsed(response, "jobs/job_detail.html")
 
     def test_view_returns_job_details(self):
         self.login_candidate()
-        response = self.client.get(reverse("jobs:jobs"), kwargs={"pk": self.job.id})
+        response = self.client.get(
+            reverse("jobs:job_detail", kwargs={"pk": self.job.id})
+        )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.job.business_title)
