@@ -50,3 +50,11 @@ class JobDetailViewTests(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, self.job.business_title)
+
+    def test_view_returns_job_context(self):
+        self.login_candidate()
+        response = self.client.get(
+            reverse("jobs:job_detail", kwargs={"pk": self.job.id})
+        )
+        self.assertEqual(response.status_code, 200)
+        print(response.context)
