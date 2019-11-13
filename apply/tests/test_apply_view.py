@@ -99,7 +99,7 @@ class ApplicationViewTests(TestCase):
                 "first_name": test_user_data["candidate"]["profile"]["first_name"],
                 "last_name": test_user_data["candidate"]["profile"]["last_name"],
                 "email": test_user_data["candidate"]["profile"]["email"],
-            }
+            },
         )
         self.assertEquals(response.status_code, 200)
         self.assertEqual(Application.objects.all().count(), 0)
