@@ -189,6 +189,16 @@ def create_job(department, job_details):
     )
 
 
+def create_user(user_data, is_candidate):
+    return CustomUser.objects.create_user(
+        email=user_data["email"],
+        password=user_data["password"],
+        first_name=user_data["first_name"],
+        last_name=user_data["last_name"],
+        is_candidate=is_candidate,
+    )
+
+
 def create_candidate_with_active_profile(user_data):
     custom_user = CustomUser.objects.create_user(
         email=user_data["email"],
