@@ -80,135 +80,170 @@ class CandidateProfileFormTests(TestCase):
         self.assertTrue(form.is_valid())
 
     def only_required_fields_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "first_name": test_user_data["candidate"]["new_profile"]["first_name"], "last_name":
-                test_user_data["candidate"]["new_profile"]["last_name"], "email":
-                test_user_data["candidate"]["new_profile"]["email"]
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={
+                "first_name": test_user_data["candidate"]["new_profile"]["first_name"],
+                "last_name": test_user_data["candidate"]["new_profile"]["last_name"],
+                "email": test_user_data["candidate"]["new_profile"]["email"],
+            },
+        )
         self.assertTrue(form.is_valid())
 
     def test_only_first_name_form_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "first_name": test_user_data["candidate"]["new_profile"]["first_name"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={
+                "first_name": test_user_data["candidate"]["new_profile"]["first_name"]
+            },
+        )
         self.assertFalse(form.is_valid())
 
     def test_only_last_name_form_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "last_name": test_user_data["candidate"]["new_profile"]["last_name"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={"last_name": test_user_data["candidate"]["new_profile"]["last_name"]},
+        )
         self.assertFalse(form.is_valid())
 
     def test_only_address_line_form_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "address_line":
-            test_user_data["candidate"]["new_profile"]["address_line"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={
+                "address_line": test_user_data["candidate"]["new_profile"][
+                    "address_line"
+                ]
+            },
+        )
         self.assertFalse(form.is_valid())
 
     def test_only_zip_code_form_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "zip_code": test_user_data["candidate"]["new_profile"]["zip_code"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={"zip_code": test_user_data["candidate"]["new_profile"]["zip_code"]},
+        )
         self.assertFalse(form.is_valid())
 
     def test_only_state_form_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "state": test_user_data["candidate"]["new_profile"]["state"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={"state": test_user_data["candidate"]["new_profile"]["state"]},
+        )
         self.assertFalse(form.is_valid())
 
     def test_only_email_form_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "email": test_user_data["candidate"]["new_profile"]["email"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={"email": test_user_data["candidate"]["new_profile"]["email"]},
+        )
         self.assertFalse(form.is_valid())
 
     def test_only_phone_form_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "phone": test_user_data["candidate"]["new_profile"]["phone"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={"phone": test_user_data["candidate"]["new_profile"]["phone"]},
+        )
         self.assertFalse(form.is_valid())
 
     def test_only_portfolio_website_form_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "portfolio_website":
-            test_user_data["candidate"]["new_profile"]["portfolio_website"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={
+                "portfolio_website": test_user_data["candidate"]["new_profile"][
+                    "portfolio_website"
+                ]
+            },
+        )
         self.assertFalse(form.is_valid())
 
     def test_only_education_form_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "education": test_user_data["candidate"]["new_profile"][
-                "education"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={"education": test_user_data["candidate"]["new_profile"]["education"]},
+        )
         self.assertFalse(form.is_valid())
 
     def test_only_experiences_form_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "experiences": test_user_data["candidate"]["new_profile"][
-                "experiences"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={
+                "experiences": test_user_data["candidate"]["new_profile"]["experiences"]
+            },
+        )
         self.assertFalse(form.is_valid())
 
     def test_only_cover_letter_form_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "cover_letter": test_user_data["candidate"]["new_profile"][
-                "cover_letter"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={
+                "cover_letter": test_user_data["candidate"]["new_profile"][
+                    "cover_letter"
+                ]
+            },
+        )
         self.assertFalse(form.is_valid())
 
     def test_only_gender_form_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "gender": test_user_data["candidate"]["new_profile"][
-                "gender"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={"gender": test_user_data["candidate"]["new_profile"]["gender"]},
+        )
         self.assertFalse(form.is_valid())
 
     def test_only_ethnicity_form_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "ethnicity": test_user_data["candidate"]["new_profile"][
-                "ethnicity"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={"ethnicity": test_user_data["candidate"]["new_profile"]["ethnicity"]},
+        )
         self.assertFalse(form.is_valid())
 
     def test_only_race_form_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "race": test_user_data["candidate"]["new_profile"][
-                "race"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={"race": test_user_data["candidate"]["new_profile"]["race"]},
+        )
         self.assertFalse(form.is_valid())
 
     def test_only_health_conditions_form_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "health_conditions": test_user_data["candidate"]["new_profile"][
-                "health_conditions"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={
+                "health_conditions": test_user_data["candidate"]["new_profile"][
+                    "health_conditions"
+                ]
+            },
+        )
         self.assertFalse(form.is_valid())
 
     def test_only_veteran_form_still_valid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "veteran": test_user_data["candidate"]["new_profile"][
-                "veteran"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={"veteran": test_user_data["candidate"]["new_profile"]["veteran"]},
+        )
         self.assertFalse(form.is_valid())
 
     # Submit only the required fields but use an invalid first name
     # form should not be valid
     def test_first_name_invalid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "first_name": test_user_data["invalid_user_details"]["first_name"],
-            "last_name": test_user_data["candidate"]["new_profile"]["last_name"],
-            "email": test_user_data["candidate"]["new_profile"]["email"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={
+                "first_name": test_user_data["invalid_user_details"]["first_name"],
+                "last_name": test_user_data["candidate"]["new_profile"]["last_name"],
+                "email": test_user_data["candidate"]["new_profile"]["email"],
+            },
+        )
         self.assertFalse(form.is_valid())
 
     # Submit only the required fields but use an invalid last name
     # form should not be valid
     def test_last_name_invalid(self):
-        form = CandidateProfileForm(instance=self.candidate, data={
-            "first_name": test_user_data["candidate"]["new_profile"]["first_name"],
-            "last_name": test_user_data["invalid_user_details"]["last_name"],
-            "email": test_user_data["candidate"]["new_profile"]["email"],
-        })
+        form = CandidateProfileForm(
+            instance=self.candidate,
+            data={
+                "first_name": test_user_data["candidate"]["new_profile"]["first_name"],
+                "last_name": test_user_data["invalid_user_details"]["last_name"],
+                "email": test_user_data["candidate"]["new_profile"]["email"],
+            },
+        )
         self.assertFalse(form.is_valid())
