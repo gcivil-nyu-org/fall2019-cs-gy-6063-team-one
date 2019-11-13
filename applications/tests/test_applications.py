@@ -156,7 +156,7 @@ class ApplicationDetailsViewTests(TestCase):
             reverse("applications:application_details", kwargs={"pk": self.app.id})
         )
         # Had to hard code until I figure out how to retrieve the data in this format
-        self.assertContains(response, "(201) 834-7135")
+        self.assertContains(response, self.app.candidate_profile.phone)
 
     def test_GET_displays_email_to_candidate(self):
         self.login_candidate()
@@ -259,7 +259,7 @@ class ApplicationDetailsViewTests(TestCase):
             reverse("applications:application_details", kwargs={"pk": self.app.id})
         )
         # Had to hard code until I figure out how to retrieve the data in this format
-        self.assertContains(response, "(201) 834-7135")
+        self.assertContains(response, self.app.candidate_profile.phone)
 
     def test_GET_displays_email_to_employer(self):
         self.login_employer()
