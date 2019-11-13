@@ -25,13 +25,13 @@ class DashboardViewTests(TestCase):
     def login_candidate(self):
         self.client.login(
             email=test_user_data["candidate"]["email"],
-            password=test_user_data["candidate"]["password"]
+            password=test_user_data["candidate"]["password"],
         )
 
     def login_employer(self):
         self.client.login(
             email=test_user_data["employer"]["email"],
-            password=test_user_data["employer"]["password"]
+            password=test_user_data["employer"]["password"],
         )
 
     def test_view_url_redirects_if_no_login(self):
@@ -86,7 +86,7 @@ class DashboardViewTests(TestCase):
         self.login_employer()
         response = self.client.get(
             reverse("dashboard:dashboard", kwargs={"app_status": "ap"}),
-            data={"q": f'{self.profile.first_name}'},
+            data={"q": f"{self.profile.first_name}"},
         )
         self.assertContains(response, self.profile.first_name)
         self.assertContains(response, self.profile.last_name)
@@ -98,7 +98,7 @@ class DashboardViewTests(TestCase):
         self.login_employer()
         response = self.client.get(
             reverse("dashboard:dashboard", kwargs={"app_status": "ap"}),
-            data={"q": f'{self.profile.last_name}'},
+            data={"q": f"{self.profile.last_name}"},
         )
         self.assertContains(response, self.profile.first_name)
         self.assertContains(response, self.profile.last_name)
@@ -110,7 +110,7 @@ class DashboardViewTests(TestCase):
         self.login_employer()
         response = self.client.get(
             reverse("dashboard:dashboard", kwargs={"app_status": "ap"}),
-            data={"q": f'{self.job.business_title}'},
+            data={"q": f"{self.job.business_title}"},
         )
         self.assertContains(response, self.profile.first_name)
         self.assertContains(response, self.profile.last_name)
