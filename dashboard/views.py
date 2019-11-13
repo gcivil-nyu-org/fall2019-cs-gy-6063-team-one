@@ -78,7 +78,7 @@ class ApplicationList(LoginRequiredMixin, ListView):
             query = None
         if query:
             employer_applications = employer_applications.filter(
-                Q(job__job_id=query)
+                Q(job__business_title__contains=query)
                 | Q(candidate_profile__first_name__contains=query)
                 | Q(candidate_profile__last_name__contains=query)
             ).order_by("-submit_date")

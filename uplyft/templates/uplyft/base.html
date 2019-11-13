@@ -44,30 +44,33 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav ml-auto">
                 {% if not user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger"
-                       href="{% url 'candidate_login:candidate_login' %}">Candidate</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger"
-                       href="{% url 'employer_login:employer_login' %}">Employer</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger"
+                           href="{% url 'candidate_login:candidate_login' %}">Candidate</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger"
+                           href="{% url 'employer_login:employer_login' %}">Employer</a>
+                    </li>
                 {% endif %}
                 {% if user.is_authenticated %}
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger"
-                       href="{% url 'candidate_profile:profile' %}"> Profile </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger"
-                       href="{% url 'jobs:jobs' %}">Jobs</a>
-                </li>
+                    {% if user.is_candidate %}
+                        <li class="nav-item">
+                            <a class="nav-link js-scroll-trigger"
+                               name="candidate_profile_link" href="{% url 'candidate_profile:profile' %}">
+                                My Profile </a>
+                        </li>
+                    {% endif %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger"
+                           href="{% url 'jobs:jobs' %}">Jobs</a>
+                    </li>
 
-                <li class="nav-item">
-                    <a class="nav-link js-scroll-trigger"
-                       href="{% url 'candidate_login:candidate_logout' %}">Log
-                        out</a>
-                </li>
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger"
+                           href="{% url 'candidate_login:candidate_logout' %}">Log
+                            out</a>
+                    </li>
                 {% endif %}
             </ul>
         </div>

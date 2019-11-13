@@ -3,6 +3,12 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+<style>
+body{
+    background-attachment: fixed !important;
+}
+</style>
+
 <div class="col-md-6 col-lg-6 mx-auto">
     <div class="apply">
         {% if messages %}
@@ -13,13 +19,28 @@
         </ul>
         {% endif %}
     </div>
-    <h1 class="text-white mb-5">Apply </h1>
+    <h1 class="text-white mb-5"> Apply </h1>
 
-    <form class="apply_form" action="{% url 'apply:apply' %}" method="post">
-        {% csrf_token %}
-        <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
-        {{ form|crispy }}
-        <input type="submit" name="apply" value="Apply"/>
+    <div class="container">
+        <div class="row">
+                <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ job.business_title }}</h5>
+                            <p class="card-text text-muted h6"> # {{job.id }} | {{ job.department.name }} </p>
+                            <hr class="h-bar">
+                            <p class="card-text"><small>{{job.job_description|truncatechars:500 }}</small></p>
+                        </div>
+                </div>
+
+        </div>
+    </div>
+
+    <br>
+
+    <form class="reg_form" method="post">
+      {% csrf_token %}
+        {{ application|crispy }}
+          <button type="submit" class="btn btn-primary"> Submit Application</button>
     </form>
 </div>
 

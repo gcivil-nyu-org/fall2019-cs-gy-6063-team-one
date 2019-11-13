@@ -65,16 +65,16 @@
                                 </p>
                                 <hr class="h-bar">
                                 <p class="card-text">
-                                    {{ application.candidate.candidate_profile.first_name.capitalize }} {{ application.candidate.candidate_profile.last_name.capitalize }}
+                                    {{ application.candidate_profile.first_name.capitalize }} {{ application.candidate_profile.last_name.capitalize }}
                                 </p>
                                 <p class="card-text">
                                     <small>
-                                        Email: {{ application.candidate.candidate_profile.email }}</small>
+                                        Email: {{ application.candidate_profile.email }}</small>
                                 </p>
                                 {% if  application.candidate_profile.phone %}
                                     <p class="card-text">
                                         <small>
-                                            Phone: {{ application.candidate.candidate_profile.phone }}</small>
+                                            Phone: {{ application.candidate_profile.phone }}</small>
                                     </p>
                                 {% endif %}
                             </div>

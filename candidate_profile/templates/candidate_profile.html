@@ -16,17 +16,21 @@ body{
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title> Your Profile </title>
+    <title> My Profile </title>
 </head>
 <body>
-
-<div class="container">
-    <h1 class="text-white mb-2"> Your Profile </h1>
+{% if messages %}
+    {% for message in messages %}
+            <div class="container card py-4 alert alert-primary" role="alert">{{ message }}</div>
+    {% endfor %}
+{% endif %}
+<div class="container card py-4">
+    <h1 class=""> My Profile </h1>
     <hr class="my-4">
         <form class="reg_form" method="post">
           {% csrf_token %}
             {{ profile_form|crispy }}
-              <button type="submit" class="btn btn-primary">Save Changes</button>
+              <button name="submit" type="submit" class="btn btn-primary">Save Changes</button>
         </form>
 </div>
 

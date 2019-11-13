@@ -40,11 +40,17 @@ class Job(models.Model):
     process_date = models.DateField(blank=True, null=True)
 
     def __eq__(self, other):
-        if not other:
-            return False
-        return self.id == other.id
+        if isinstance(other, Job):
+            return self.id == other.id
+        return False
 
     def __ne__(self, other):
-        if not other:
-            return False
-        return self.id != other.id
+        return not self.__eq__(other)
+
+
+class SavedJobs(models.Model):
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    user = models.ForeignKey("uplyft.CustomUser", on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ("job", "user")

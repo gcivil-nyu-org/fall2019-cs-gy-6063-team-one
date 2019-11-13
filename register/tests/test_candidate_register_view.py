@@ -3,8 +3,8 @@ from django.urls import reverse
 from django.utils.html import escape
 
 from register.forms import CandidateRegistrationForm
-from tests.tests import valid_data, invalid_data
 from uplyft.models import CustomUser
+from uplyft.tests.resources import test_user_data
 
 
 class CandidateRegisterViewTests(TestCase):
@@ -12,11 +12,11 @@ class CandidateRegisterViewTests(TestCase):
         return self.client.post(
             reverse("register:candidate_register"),
             data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
+                "first_name": test_user_data["candidate"]["first_name"],
+                "last_name": test_user_data["candidate"]["last_name"],
+                "email": test_user_data["candidate"]["email"],
+                "password1": test_user_data["candidate"]["password"],
+                "password2": test_user_data["candidate"]["password"],
             },
         )
 
@@ -24,11 +24,11 @@ class CandidateRegisterViewTests(TestCase):
         return self.client.post(
             reverse("register:candidate_register"),
             data={
-                "first_name": invalid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
+                "first_name": test_user_data["invalid_user_details"]["first_name"],
+                "last_name": test_user_data["candidate"]["last_name"],
+                "email": test_user_data["candidate"]["email"],
+                "password1": test_user_data["candidate"]["password"],
+                "password2": test_user_data["candidate"]["password"],
             },
         )
 
@@ -36,11 +36,11 @@ class CandidateRegisterViewTests(TestCase):
         return self.client.post(
             reverse("register:candidate_register"),
             data={
-                "first_name": valid_data["first_name"],
-                "last_name": invalid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
+                "first_name": test_user_data["candidate"]["first_name"],
+                "last_name": test_user_data["invalid_user_details"]["last_name"],
+                "email": test_user_data["candidate"]["email"],
+                "password1": test_user_data["candidate"]["password"],
+                "password2": test_user_data["candidate"]["password"],
             },
         )
 
@@ -48,23 +48,23 @@ class CandidateRegisterViewTests(TestCase):
         return self.client.post(
             reverse("register:candidate_register"),
             data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": invalid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
+                "first_name": test_user_data["candidate"]["first_name"],
+                "last_name": test_user_data["candidate"]["last_name"],
+                "email": test_user_data["invalid_user_details"]["email"],
+                "password1": test_user_data["candidate"]["password"],
+                "password2": test_user_data["candidate"]["password"],
             },
         )
 
-    def bad_POST_password_incorrect(self):
+    def bad_POST_password_invalid(self):
         return self.client.post(
             reverse("register:candidate_register"),
             data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": invalid_data["password"],
-                "password2": invalid_data["password"],
+                "first_name": test_user_data["candidate"]["first_name"],
+                "last_name": test_user_data["candidate"]["last_name"],
+                "email": test_user_data["candidate"]["email"],
+                "password1": test_user_data["invalid_user_details"]["password"],
+                "password2": test_user_data["invalid_user_details"]["password"],
             },
         )
 
@@ -72,11 +72,11 @@ class CandidateRegisterViewTests(TestCase):
         return self.client.post(
             reverse("register:candidate_register"),
             data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": invalid_data["password"],
+                "first_name": test_user_data["candidate"]["first_name"],
+                "last_name": test_user_data["candidate"]["last_name"],
+                "email": test_user_data["candidate"]["email"],
+                "password1": test_user_data["candidate"]["password"],
+                "password2": test_user_data["employer"]["password"],
             },
         )
 
@@ -106,10 +106,16 @@ class CandidateRegisterViewTests(TestCase):
     def test_good_POST_creates_new_user_with_correct_details(self):
         self.good_POST()
         new_user = CustomUser.objects.first()
-        self.assertEqual(new_user.first_name, valid_data["first_name"].lower())
-        self.assertEqual(new_user.last_name, valid_data["last_name"].lower())
-        self.assertEqual(new_user.email, valid_data["email"].lower())
-        self.assertTrue(new_user.check_password(valid_data["password"]))
+        self.assertEqual(
+            new_user.first_name, test_user_data["candidate"]["first_name"].lower()
+        )
+        self.assertEqual(
+            new_user.last_name, test_user_data["candidate"]["last_name"].lower()
+        )
+        self.assertEqual(new_user.email, test_user_data["candidate"]["email"].lower())
+        self.assertTrue(
+            new_user.check_password(test_user_data["candidate"]["password"])
+        )
 
     def test_good_POST_redirects_to_login_success(self):
         response = self.good_POST()
@@ -123,11 +129,11 @@ class CandidateRegisterViewTests(TestCase):
         response = self.client.post(
             reverse("register:candidate_register"),
             data={
-                "first_name": valid_data["first_name"],
-                "last_name": valid_data["last_name"],
-                "email": valid_data["email"],
-                "password1": valid_data["password"],
-                "password2": valid_data["password"],
+                "first_name": test_user_data["candidate"]["first_name"],
+                "last_name": test_user_data["candidate"]["last_name"],
+                "email": test_user_data["candidate"]["email"],
+                "password1": test_user_data["candidate"]["password"],
+                "password2": test_user_data["candidate"]["password"],
             },
             follow=True,
         )
@@ -136,45 +142,49 @@ class CandidateRegisterViewTests(TestCase):
 
     def test_bad_POST_first_name_retains_form_data(self):
         response = self.bad_POST_first_name()
-        self.assertContains(response, invalid_data["first_name"])
-        self.assertContains(response, valid_data["last_name"])
-        self.assertContains(response, valid_data["email"])
+        self.assertContains(
+            response, test_user_data["invalid_user_details"]["first_name"]
+        )
+        self.assertContains(response, test_user_data["candidate"]["last_name"])
+        self.assertContains(response, test_user_data["candidate"]["email"])
 
     def test_bad_POST_last_name_retains_form_data(self):
         response = self.bad_POST_last_name()
-        self.assertContains(response, valid_data["first_name"])
-        self.assertContains(response, invalid_data["last_name"])
-        self.assertContains(response, valid_data["email"])
+        self.assertContains(response, test_user_data["candidate"]["first_name"])
+        self.assertContains(response, test_user_data["candidate"]["email"])
+        self.assertContains(
+            response, test_user_data["invalid_user_details"]["last_name"]
+        )
 
     def test_bad_POST_email_retains_form_data(self):
         response = self.bad_POST_email()
-        self.assertContains(response, valid_data["first_name"])
-        self.assertContains(response, valid_data["last_name"])
-        self.assertContains(response, invalid_data["email"])
+        self.assertContains(response, test_user_data["candidate"]["first_name"])
+        self.assertContains(response, test_user_data["candidate"]["last_name"])
+        self.assertContains(response, test_user_data["invalid_user_details"]["email"])
 
     def test_bad_POST_password_numeric_retains_form_data(self):
-        response = self.bad_POST_password_incorrect()
-        self.assertContains(response, valid_data["first_name"])
-        self.assertContains(response, valid_data["last_name"])
-        self.assertContains(response, valid_data["email"])
+        response = self.bad_POST_password_invalid()
+        self.assertContains(response, test_user_data["candidate"]["first_name"])
+        self.assertContains(response, test_user_data["candidate"]["last_name"])
+        self.assertContains(response, test_user_data["candidate"]["email"])
 
     def test_bad_POST_password_mismatch_retains_form_data(self):
         response = self.bad_POST_password_mismatch()
-        self.assertContains(response, valid_data["first_name"])
-        self.assertContains(response, valid_data["last_name"])
-        self.assertContains(response, valid_data["email"])
+        self.assertContains(response, test_user_data["candidate"]["first_name"])
+        self.assertContains(response, test_user_data["candidate"]["last_name"])
+        self.assertContains(response, test_user_data["candidate"]["email"])
 
     def test_bad_POST_email_taken_retains_form_data(self):
         CustomUser.objects.create_user(
-            first_name=valid_data["first_name"],
-            last_name=valid_data["last_name"],
-            email=valid_data["email"],
-            password=valid_data["password"],
+            first_name=test_user_data["candidate"]["first_name"],
+            last_name=test_user_data["candidate"]["last_name"],
+            email=test_user_data["candidate"]["email"],
+            password=test_user_data["candidate"]["password"],
         )
         response = self.good_POST()
-        self.assertContains(response, valid_data["first_name"])
-        self.assertContains(response, valid_data["last_name"])
-        self.assertContains(response, valid_data["email"])
+        self.assertContains(response, test_user_data["candidate"]["first_name"])
+        self.assertContains(response, test_user_data["candidate"]["last_name"])
+        self.assertContains(response, test_user_data["candidate"]["email"])
 
     def test_bad_POST_first_name_displays_error_message(self):
         response = self.bad_POST_first_name()
@@ -192,7 +202,7 @@ class CandidateRegisterViewTests(TestCase):
         self.assertContains(response, escape(expected_error))
 
     def test_bad_POST_password_numeric_displays_error_message(self):
-        response = self.bad_POST_password_incorrect()
+        response = self.bad_POST_password_invalid()
         expected_error = "This password is entirely numeric."
         self.assertContains(response, escape(expected_error))
 
@@ -203,10 +213,10 @@ class CandidateRegisterViewTests(TestCase):
 
     def test_bad_POST_email_taken_displays_error_message(self):
         CustomUser.objects.create_user(
-            first_name=valid_data["first_name"],
-            last_name=valid_data["last_name"],
-            email=valid_data["email"],
-            password=valid_data["password"],
+            first_name=test_user_data["candidate"]["first_name"],
+            last_name=test_user_data["candidate"]["last_name"],
+            email=test_user_data["candidate"]["email"],
+            password=test_user_data["candidate"]["password"],
         )
         response = self.good_POST()
         expected_error = "Email already exists"
@@ -215,7 +225,6 @@ class CandidateRegisterViewTests(TestCase):
     def test_bad_POST_first_name_correct_template_returned(self):
         response = self.bad_POST_first_name()
         self.assertEqual(response.status_code, 200)
-        self.assertTemplateUsed(response, "register/candidate_register.html")
 
     def test_bad_POST_last_name_correct_template_returned(self):
         response = self.bad_POST_last_name()
@@ -228,7 +237,7 @@ class CandidateRegisterViewTests(TestCase):
         self.assertTemplateUsed(response, "register/candidate_register.html")
 
     def test_bad_POST_password_numeric_correct_template_returned(self):
-        response = self.bad_POST_password_incorrect()
+        response = self.bad_POST_password_invalid()
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, "register/candidate_register.html")
 
@@ -239,10 +248,10 @@ class CandidateRegisterViewTests(TestCase):
 
     def test_bad_POST_email_taken_correct_template_returned(self):
         CustomUser.objects.create_user(
-            first_name=valid_data["first_name"],
-            last_name=valid_data["last_name"],
-            email=valid_data["email"],
-            password=valid_data["password"],
+            first_name=test_user_data["candidate"]["first_name"],
+            last_name=test_user_data["candidate"]["last_name"],
+            email=test_user_data["candidate"]["email"],
+            password=test_user_data["candidate"]["password"],
         )
         response = self.good_POST()
         self.assertEqual(response.status_code, 200)
