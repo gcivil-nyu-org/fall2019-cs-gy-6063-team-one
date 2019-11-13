@@ -79,17 +79,27 @@ class ApplicationViewTests(TestCase):
             },
             follow=True,
         )
-        self.assertRedirects(
-            response,
-            reverse("apply:apply", kwargs={"pk": self.job.id}),
-            status_code=302,
-        )
-        self.assertEqual(Application.objects.all().count(), 0)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(Application.objects.all().count(), 1)
 
-    # Fails with 302 error
-    # def test_good_post(self):
-    #    self.login_candidate()
-    #    response = self.client.post(reverse("apply:apply", kwargs={"pk": self.job.id}),
-    #        data=test_user_data["candidate"]["profile"],
-    #    )
-    #    self.assertEquals(response.status_code, 200)
+    def test_good_post(self):
+        self.login_candidate()
+        response = self.client.post(
+            reverse("apply:apply", kwargs={"pk": self.job.id}),
+            data=test_user_data["candidate"]["profile"],
+        )
+        self.assertEquals(response.status_code, 200)
+        self.assertEqual(Application.objects.all().count(), 1)
+
+    def test_good_POST_required_fields_only(self):
+        self.login_candidate()
+        response = self.client.post(
+            reverse("apply:apply", kwargs={"pk": self.job.id}),
+            data={
+                "first_name": test_user_data["candidate"]["profile"]["first_name"],
+                "last_name": test_user_data["candidate"]["profile"]["last_name"],
+                "email": test_user_data["candidate"]["profile"]["email"],
+            }
+        )
+        self.assertEquals(response.status_code, 200)
+        self.assertEqual(Application.objects.all().count(), 1)

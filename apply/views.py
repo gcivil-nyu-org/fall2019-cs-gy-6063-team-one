@@ -117,7 +117,12 @@ def apply(request, pk):
             return HttpResponseRedirect(reverse("dashboard:dashboard"))
         else:
             messages.error(request, _("Please correct the error below."))
-            return HttpResponseRedirect(reverse("apply:apply", kwargs={"pk": pk}))
+            return render(
+                request,
+                "apply/apply.html",
+                {"application": application, "job": job, "candidate": candidate},
+            )
+            # return HttpResponseRedirect(reverse("apply:apply", kwargs={"pk": pk}))
         # return HttpResponseRedirect(reverse("apply:apply", kwargs={"pk": pk}))
     else:
         application = ApplicationForm(default_data)
