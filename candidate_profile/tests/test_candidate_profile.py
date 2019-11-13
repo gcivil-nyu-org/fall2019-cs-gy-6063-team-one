@@ -192,13 +192,21 @@ class CandidateProfileFormTests(TestCase):
                 "veteran"],
         })
         self.assertFalse(form.is_valid())
-    #
-    # # Failing
-    # def test_first_name_invalid(self):
-    #     form = CandidateProfileForm(instance=self.candidate, data={
-    #         "first_name": test_user_data["invalid_user_details"]["first_name"],
-    #     })
-    #     self.assertFalse(form.is_valid())
-    #
-    # def test_last_name_invalid(self):
-    #     pass
+
+    # Submit only the required fields but use an invalid first name
+    # form should not be valid
+    def test_first_name_invalid(self):
+        form = CandidateProfileForm(instance=self.candidate, data={
+            "first_name": "...", "last_name": test_user_data["candidate"]["new_profile"]["last_name"],
+            "email": test_user_data["candidate"]["new_profile"]["email"],
+        })
+        self.assertFalse(form.is_valid())
+
+    # Submit only the required fields but use an invalid last name
+    # form should not be valid
+    def test_last_name_invalid(self):
+        form = CandidateProfileForm(instance=self.candidate, data={
+            "first_name": test_user_data["candidate"]["new_profile"]["first_name"], "last_name": "***()()",
+            "email": test_user_data["candidate"]["new_profile"]["email"],
+        })
+        self.assertFalse(form.is_valid())
