@@ -9,7 +9,7 @@ body{
 }
 </style>
 
-<div class="col-md-6 col-lg-6 mx-auto">
+<div class="col-md-6 col-lg-8 mx-auto">
     <div class="apply">
         {% if messages %}
         <ul>
@@ -19,29 +19,21 @@ body{
         </ul>
         {% endif %}
     </div>
-    <h1 class="text-white mb-5"> Apply </h1>
 
-    <div class="container">
-        <div class="row">
-                <div class="card">
-                        <div class="card-body">
-                            <h5 class="card-title">{{ job.business_title }}</h5>
-                            <p class="card-text text-muted h6"> # {{job.id }} | {{ job.department.name }} </p>
-                            <hr class="h-bar">
-                            <p class="card-text"><small>{{job.job_description|truncatechars:500 }}</small></p>
-                        </div>
-                </div>
+    <div class="container card py-4">
+        <h1 class="mb-5"> Apply </h1>
+            <h5 class="card-title">{{ job.business_title }}</h5>
+            <p class="card-text text-muted h6"> # {{job.id }} | {{ job.department.name }} </p>
+            <hr class="h-bar">
+            <p class="card-text"><small>{{job.job_description|truncatechars:500 }}</small></p>
+        <br>
 
-        </div>
+        <form class="reg_form" method="post">
+          {% csrf_token %}
+            {{ application|crispy }}
+              <button type="submit" class="btn btn-primary"> Submit Application</button>
+        </form>
     </div>
-
-    <br>
-
-    <form class="reg_form" method="post">
-      {% csrf_token %}
-        {{ application|crispy }}
-          <button type="submit" class="btn btn-primary"> Submit Application</button>
-    </form>
 </div>
 
 {% endblock %}
