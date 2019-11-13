@@ -9,6 +9,16 @@
 
     <link rel="stylesheet" type="text/css" href="{% static "jobs/css/job_detail.css" %}">
 
+<div class="col-lg-10 mx-auto">
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="{% url 'uplyft:index' %}">Dashboard</a></li>
+            <li class="breadcrumb-item"><a href="{% url 'jobs:jobs' %}">Jobs</a></li>
+            <li class="breadcrumb-item active">Jobs Details</li>
+        </ol>
+    </nav>
+</div>
+
     <div class="col-md-12 mb-3 mb-md-0">
         <div class="card py-4 h-100">
             <div class="card-body">
