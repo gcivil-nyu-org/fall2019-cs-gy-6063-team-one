@@ -305,3 +305,14 @@ background-color: #296245;
     background-color: #2D3B5E;
     color: #FFF;
 }
+
+.breadcrumb-item + .breadcrumb-item::before {
+  display: inline-block;
+  padding-right: 0.5rem;
+  color: #6c757d;
+  content: "|";
+}
+
+.breadcrumb {
+  background-color: #ffffff;
+}

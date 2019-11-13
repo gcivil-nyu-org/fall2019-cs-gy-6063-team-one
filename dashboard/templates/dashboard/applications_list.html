@@ -5,6 +5,7 @@
 {% load humanize %}
 
 {% block applications_list %}
+    <h1 class="text-white mb-4">Application Listing</h1>
     <a href="{% url 'dashboard:dashboard' %}">
         <button class="btn btn-primary mx-auto">Dashboard</button>
     </a>
@@ -17,7 +18,7 @@
     <a href="{% url 'dashboard:dashboard' 'ac' %}">
         <button class="btn btn-primary mx-auto">Accepted</button>
     </a>
-    <h1 class="text-white mb-4">Application Listing</h1>
+
 
     <div class="container dashboard-container">
         <div class="row">
