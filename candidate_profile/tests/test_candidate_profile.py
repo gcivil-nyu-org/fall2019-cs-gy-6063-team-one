@@ -77,9 +77,6 @@ class CandidateProfileFormTests(TestCase):
         form = CandidateProfileForm(
             instance=self.candidate, data=test_user_data["candidate"]["profile"]
         )
-        form.is_valid()
-        for key in form.cleaned_data:
-            print(form.cleaned_data[key])
         self.assertTrue(form.is_valid())
 
     # def test_only_first_name_form_still_valid(self):
