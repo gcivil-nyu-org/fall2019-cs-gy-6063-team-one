@@ -25,10 +25,7 @@ class LoginWithStandardAuthTestCase(TestCase):
             reverse("employer_login:employer_login"),
             data={"username": self.user.email, "password": self.user.password},
         )
-        print("self.user.email: " + self.user.email)
-        print("self.user.pw: " + self.user.password)
         self.assertEquals(response.status_code, 200)
-        print(response.content)
         self.assertContains(response, "Dashboard")
 
     def test_inactive_user_login(self):
@@ -39,7 +36,6 @@ class LoginWithStandardAuthTestCase(TestCase):
                 "password": self.inactive_user.password,
             },
         )
-        # print(response.content)
         self.assertNotEquals(response.status_code, 200)
 
     def test_user_authenticate_wrong_password(self):
