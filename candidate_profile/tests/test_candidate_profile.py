@@ -197,7 +197,8 @@ class CandidateProfileFormTests(TestCase):
     # form should not be valid
     def test_first_name_invalid(self):
         form = CandidateProfileForm(instance=self.candidate, data={
-            "first_name": "...", "last_name": test_user_data["candidate"]["new_profile"]["last_name"],
+            "first_name": test_user_data["invalid_user_details"]["first_name"],
+            "last_name": test_user_data["candidate"]["new_profile"]["last_name"],
             "email": test_user_data["candidate"]["new_profile"]["email"],
         })
         self.assertFalse(form.is_valid())
@@ -206,7 +207,8 @@ class CandidateProfileFormTests(TestCase):
     # form should not be valid
     def test_last_name_invalid(self):
         form = CandidateProfileForm(instance=self.candidate, data={
-            "first_name": test_user_data["candidate"]["new_profile"]["first_name"], "last_name": "***()()",
+            "first_name": test_user_data["candidate"]["new_profile"]["first_name"],
+            "last_name": test_user_data["invalid_user_details"]["last_name"],
             "email": test_user_data["candidate"]["new_profile"]["email"],
         })
         self.assertFalse(form.is_valid())
