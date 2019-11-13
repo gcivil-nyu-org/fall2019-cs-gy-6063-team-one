@@ -1,7 +1,9 @@
 from django.contrib import messages
 from jobs.models import Job
 from django.utils.translation import gettext as _
-from django.shortcuts import render, redirect
+from django.shortcuts import render
+
+# from django.shortcuts import redirect
 from .forms import ApplicationForm
 from .models import Application
 from uplyft.models import Candidate, ActiveProfile
@@ -116,7 +118,7 @@ def apply(request, pk):
         else:
             messages.error(request, _("Please correct the error below."))
             return HttpResponseRedirect(reverse("apply:apply", kwargs={"pk": pk}))
-        #return HttpResponseRedirect(reverse("apply:apply", kwargs={"pk": pk}))
+        # return HttpResponseRedirect(reverse("apply:apply", kwargs={"pk": pk}))
     else:
         application = ApplicationForm(default_data)
         job = Job.objects.get(pk=pk)
