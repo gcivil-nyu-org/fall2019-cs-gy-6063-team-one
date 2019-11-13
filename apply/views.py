@@ -112,6 +112,11 @@ def apply(request, pk):
             return redirect("dashboard:dashboard")
         else:
             messages.error(request, _("Please correct the error below."))
+            return render(
+                request,
+                "apply/apply.html",
+                {"application": application, "job": job, "candidate": candidate},
+            )
     else:
         application = ApplicationForm(default_data)
         job = Job.objects.get(pk=pk)

@@ -31,7 +31,7 @@ test_user_data = {
             "zip_code": "07030",
             "state": "NJ",
             "state_display": "New Jersey",
-            "phone": "2018347135",
+            "phone": "+12018347135",
             "portfolio_website": "https://janejameson.com",
             "cover_letter": "Please hire me, I need this job",
             "experiences": "Nada",
