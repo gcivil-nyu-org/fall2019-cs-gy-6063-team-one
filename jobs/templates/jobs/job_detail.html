@@ -43,6 +43,7 @@
 
                             </form>
 
+                            {% if user.is_candidate %}
                             <form class="job-primary-action" action="{% url 'apply:apply' job.id%}" method="get">
                                 {% if has_open_application %}
                                 <input disabled class="btn btn-primary" type="submit" name="apply" value="Applied" />
@@ -50,6 +51,7 @@
                                 <input class="btn btn-primary" type="submit" name="apply" value="Apply" />
                                 {% endif %}
                             </form>
+                            {% endif %}
 
                         </div>
                     </div>

@@ -44,12 +44,15 @@ class JobsView(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        candidate = Candidate.objects.get(user=self.request.user)
-        context["jobs_applied"] = list(
-            Application.objects.filter(candidate=candidate).values_list(
-                "job", flat=True
+        user = self.request.user
+        context["user"] = user
+        if user.is_candidate:
+            candidate = Candidate.objects.get(user=self.request.user)
+            context["jobs_applied"] = list(
+                Application.objects.filter(candidate=candidate).values_list(
+                    "job", flat=True
+                )
             )
-        )
         return context
 
 
@@ -68,6 +71,7 @@ class JobDetailView(LoginRequiredMixin, DetailView):
         context = super().get_context_data(**kwargs)
         job = Job.objects.get(id=self.kwargs.get("pk"))
         user = self.request.user
+        context["user"] = user
         context["messages"] = None
 
         if user.is_candidate:
