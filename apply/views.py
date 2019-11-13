@@ -5,6 +5,8 @@ from django.shortcuts import render, redirect
 from .forms import ApplicationForm
 from .models import Application
 from uplyft.models import Candidate, ActiveProfile
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 def apply(request, pk):
@@ -109,9 +111,12 @@ def apply(request, pk):
                     )
                 app_obj.save()
             messages.success(request, "Application submitted")
-            return redirect("dashboard:dashboard")
+            # return redirect("dashboard:dashboard")
+            return HttpResponseRedirect(reverse("dashboard:dashboard"))
         else:
             messages.error(request, _("Please correct the error below."))
+            return HttpResponseRedirect(reverse("apply:apply", kwargs={"pk": pk}))
+        #return HttpResponseRedirect(reverse("apply:apply", kwargs={"pk": pk}))
     else:
         application = ApplicationForm(default_data)
         job = Job.objects.get(pk=pk)
