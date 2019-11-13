@@ -57,20 +57,18 @@ class JobDetailView(LoginRequiredMixin, DetailView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        email = self.request.session["email"]
         job = Job.objects.get(id=self.kwargs.get("pk"))
-        user = get_user_model().objects.get(email=email)
         context["messages"] = None
 
-        if user.is_candidate:
+        if self.request.user.is_candidate:
             context["candidate_viewing"] = True
-            candidate = Candidate.objects.get(user=user)
+            candidate = Candidate.objects.get(user=self.request.user)
             context["open_applications"] = Application.objects.filter(
                 candidate=candidate, job=job
             )
             context["application_id"] = context["open_applications"][0].id
             context["saved_this_job"] = (
-                SavedJobs.objects.filter(user=user, job=job).count() > 0
+                SavedJobs.objects.filter(user=self.request.user, job=job).count() > 0
             )
 
         else:

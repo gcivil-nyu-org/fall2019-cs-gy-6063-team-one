@@ -6,14 +6,6 @@ from django.urls import reverse
 from .forms import CandidateLoginForm
 
 
-@receiver(user_logged_in)
-def set_session(sender, user, request, **kwargs):
-    request.session["email"] = user.email
-
-
-user_logged_in.connect(set_session)
-
-
 class CandidateLoginView(LoginView):
     redirect_authenticated_user = True
     template_name = "candidate_login/candidate_login.html"

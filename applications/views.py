@@ -18,9 +18,7 @@ class ApplicationDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["job"] = Job.objects.get(id=self.get_object().job_id)
-        email = self.request.session["email"]
-        current_user = get_user_model().objects.get(email=email)
-        if current_user.is_candidate:
+        if self.request.user.is_candidate:
             context["employer_viewing"] = False
             context["form"] = None
         else:
