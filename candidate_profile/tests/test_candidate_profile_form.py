@@ -76,7 +76,8 @@ class CandidateProfileFormTests(TestCase):
         self.assertTrue(form.fields["veteran"].label == "Veteran")
 
     def test_everything_correct(self):
-        form = CandidateProfileForm(instance=self.candidate, data=test_user_data["candidate"]["profile"])
+        form = CandidateProfileForm(instance=self.candidate,
+                                    data=test_user_data["candidate"]["profile"])
         self.assertTrue(form.is_valid())
 
     def test_only_first_name_form_still_valid(self):
@@ -176,13 +177,17 @@ class CandidateProfileFormTests(TestCase):
         })
         self.assertTrue(form.is_valid())
 
+    def test_nothing_passed_retains_user_data(self):
+        form = CandidateProfileForm(instance=self.candidate, data={})
+        self.assertTrue(form.is_valid())
+
     def test_only_veteran_form_still_valid(self):
         form = CandidateProfileForm(instance=self.candidate, data={
             "veteran": test_user_data["candidate"]["new_profile"][
                 "veteran"],
         })
         self.assertTrue(form.is_valid())
-
+    
     # Failing
     def test_first_name_invalid(self):
         form = CandidateProfileForm(instance=self.candidate, data={
