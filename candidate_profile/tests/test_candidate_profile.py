@@ -1,4 +1,3 @@
-from django.contrib.auth import get_user_model
 from django.test import TestCase
 from candidate_profile.forms import CandidateProfileForm
 from uplyft.tests.resources import test_user_data, create_candidate_with_active_profile
@@ -75,8 +74,9 @@ class CandidateProfileFormTests(TestCase):
         self.assertTrue(form.fields["veteran"].label == "Veteran")
 
     def test_everything_correct(self):
-        form = CandidateProfileForm(instance=self.candidate,
-                                    data=test_user_data["candidate"]["profile"])
+        form = CandidateProfileForm(
+            instance=self.candidate, data=test_user_data["candidate"]["profile"]
+        )
         self.assertTrue(form.is_valid())
 
     # def test_only_first_name_form_still_valid(self):
