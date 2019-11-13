@@ -3,7 +3,12 @@ from django.test import TestCase
 from django.urls import reverse
 
 from employer_login.forms import EmployerLoginForm
-from uplyft.tests.resources import test_user_data, create_employer, create_department
+from uplyft.tests.resources import (
+    test_user_data,
+    create_department,
+    create_user,
+    create_employer,
+)
 
 login_url = "/employer_login/"
 
@@ -13,13 +18,29 @@ class LoginWithStandardAuthTestCase(TestCase):
         self.department = create_department(test_user_data["department"])
         self.employer = create_employer(self.department, test_user_data["employer"])
         self.user = self.employer.user
+        self.inactive_user = create_user(test_user_data["candidate"], False, False)
 
     def test_employer_login(self):
         response = self.client.post(
             reverse("employer_login:employer_login"),
             data={"username": self.user.email, "password": self.user.password},
         )
+        print("self.user.email: " + self.user.email)
+        print("self.user.pw: " + self.user.password)
         self.assertEquals(response.status_code, 200)
+        print(response.content)
+        self.assertContains(response, "Dashboard")
+
+    def test_inactive_user_login(self):
+        response = self.client.post(
+            reverse("employer_login:employer_login"),
+            data={
+                "username": self.inactive_user.email,
+                "password": self.inactive_user.password,
+            },
+        )
+        # print(response.content)
+        self.assertNotEquals(response.status_code, 200)
 
     def test_user_authenticate_wrong_password(self):
         authenticated_user = authenticate(
