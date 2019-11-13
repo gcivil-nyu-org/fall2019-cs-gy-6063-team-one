@@ -156,7 +156,7 @@ class JobsViewSideCandidateTest(TestCase):
         _ = self.client.get(reverse("jobs:save_job", kwargs={"pk": self.job.id}))
         record = SavedJobs.objects.filter(user=self.candidate.user, job=self.job)
         self.assertEqual(record.count(), 0)
-    
+
     def test_view_return_load_jobs_page(self):
         self.login_candidate()
         response = self.client.get(reverse("jobs:load_jobs"))
