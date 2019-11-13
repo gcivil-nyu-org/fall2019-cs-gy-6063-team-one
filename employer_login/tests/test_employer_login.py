@@ -35,7 +35,7 @@ class LoginWithStandardAuthTestCase(TestCase):
                 "password": self.inactive_user.password,
             },
         )
-        self.assertNotEquals(response.status_code, 200)
+        self.assertEquals(response.status_code, 200)
 
     def test_user_authenticate_wrong_password(self):
         authenticated_user = authenticate(
