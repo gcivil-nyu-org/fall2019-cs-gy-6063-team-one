@@ -2,7 +2,7 @@ from django.contrib.auth.models import AbstractUser, BaseUserManager
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from localflavor.us import models as mailing
-from phone_field import PhoneField
+from phonenumber_field.modelfields import PhoneNumberField
 
 from jobs.models import Department
 
@@ -140,7 +140,7 @@ class CandidateProfile(models.Model):
     address_line = models.CharField(max_length=100, blank=True, null=True)
     zip_code = mailing.USZipCodeField(blank=True, null=True)
     state = mailing.USStateField(blank=True, null=True)
-    phone = PhoneField(blank=True, null=True)
+    phone = PhoneNumberField(blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
     portfolio_website = models.URLField(
         help_text="Maximum 200 characters", blank=True, null=True

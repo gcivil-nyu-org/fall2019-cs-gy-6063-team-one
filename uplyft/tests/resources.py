@@ -31,7 +31,7 @@ test_user_data = {
             "zip_code": "07030",
             "state": "NJ",
             "state_display": "New Jersey",
-            "phone": "2018347135",
+            "phone": "+12018347135",
             "portfolio_website": "https://janejameson.com",
             "cover_letter": "Please hire me, I need this job",
             "experiences": "Nada",
@@ -186,6 +186,17 @@ def create_job(department, job_details):
         post_until=job_details["post_until"],
         posting_updated=job_details["posting_updated"],
         process_date=job_details["process_date"],
+    )
+
+
+def create_user(user_data, is_candidate, is_active):
+    return CustomUser.objects.create_user(
+        email=user_data["email"],
+        password=user_data["password"],
+        first_name=user_data["first_name"],
+        last_name=user_data["last_name"],
+        is_candidate=is_candidate,
+        is_active=is_active,
     )
 
 

@@ -12,7 +12,7 @@ from uplyft.tests.resources import (
 )
 
 
-class DashboardViewTests(TestCase):
+class IndexViewTests(TestCase):
     def setUp(self):
         self.department = create_department(test_user_data["department"])
         self.employer = create_employer(self.department, test_user_data["employer"])
