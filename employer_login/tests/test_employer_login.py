@@ -26,7 +26,6 @@ class LoginWithStandardAuthTestCase(TestCase):
             data={"username": self.user.email, "password": self.user.password},
         )
         self.assertEquals(response.status_code, 200)
-        self.assertContains(response, "Dashboard")
 
     def test_inactive_user_login(self):
         response = self.client.post(
