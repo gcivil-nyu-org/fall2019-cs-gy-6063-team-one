@@ -13,9 +13,9 @@ def apply(request, pk):
 
     default_data = {
         "first_name": active_prof.candidate_profile.first_name[:1].upper()
-                      + active_prof.candidate_profile.first_name[1:],
+        + active_prof.candidate_profile.first_name[1:],
         "last_name": active_prof.candidate_profile.last_name[:1].upper()
-                     + active_prof.candidate_profile.last_name[1:],
+        + active_prof.candidate_profile.last_name[1:],
         "address_line": active_prof.candidate_profile.address_line,
         "zip_code": active_prof.candidate_profile.zip_code,
         "state": active_prof.candidate_profile.state,
@@ -30,7 +30,7 @@ def apply(request, pk):
         "race": active_prof.candidate_profile.race,
         "health_conditions": active_prof.candidate_profile.health_conditions,
         "veteran": active_prof.candidate_profile.veteran,
-        "update_profile": False
+        "update_profile": False,
     }
 
     if request.method == "POST":
