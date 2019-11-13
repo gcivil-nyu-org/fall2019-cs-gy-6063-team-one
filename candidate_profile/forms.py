@@ -23,3 +23,10 @@ class CandidateProfileForm(forms.ModelForm):
             "health_conditions",
             "veteran",
         )
+
+    # Make name and email always be mandatory
+    def __init__(self, *args, **kwargs):
+        super(CandidateProfileForm, self).__init__(*args, **kwargs)
+        self.fields["first_name"].required = True
+        self.fields["last_name"].required = True
+        self.fields["email"].required = True
