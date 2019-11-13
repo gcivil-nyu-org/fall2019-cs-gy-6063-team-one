@@ -93,7 +93,8 @@ class CandidateProfileFormTests(TestCase):
     #
     # def test_only_address_line_form_still_valid(self):
     #     form = CandidateProfileForm(instance=self.candidate, data={
-    #         "address_line": test_user_data["candidate"]["new_profile"]["address_line"],
+    #         "address_line":
+    #         test_user_data["candidate"]["new_profile"]["address_line"],
     #     })
     #     self.assertTrue(form.is_valid())
     #
@@ -123,7 +124,8 @@ class CandidateProfileFormTests(TestCase):
     #
     # def test_only_portfolio_website_form_still_valid(self):
     #     form = CandidateProfileForm(instance=self.candidate, data={
-    #         "portfolio_website": test_user_data["candidate"]["new_profile"]["portfolio_website"],
+    #         "portfolio_website":
+    #         test_user_data["candidate"]["new_profile"]["portfolio_website"],
     #     })
     #     self.assertTrue(form.is_valid())
     #
