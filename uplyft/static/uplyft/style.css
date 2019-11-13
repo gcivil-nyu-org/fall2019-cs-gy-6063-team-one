@@ -135,11 +135,11 @@ body {
     }
 
     #mainNav .nav-link:hover {
-        color: rgba(255, 255, 255, 0.75);
+        color: #64a19d8f;
     }
 
     #mainNav .nav-link:active {
-        color: white;
+        color: #3c6360;
     }
 
     #mainNav.navbar-shrink {
