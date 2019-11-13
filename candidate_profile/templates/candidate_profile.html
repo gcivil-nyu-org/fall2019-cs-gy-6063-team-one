@@ -19,7 +19,11 @@ body{
     <title> My Profile </title>
 </head>
 <body>
-
+{% if messages %}
+    {% for message in messages %}
+            <div class="container card py-4 alert alert-primary" role="alert">{{ message }}</div>
+    {% endfor %}
+{% endif %}
 <div class="container card py-4">
     <h1 class=""> My Profile </h1>
     <hr class="my-4">
