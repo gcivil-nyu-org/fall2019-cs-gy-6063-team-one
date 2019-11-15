@@ -8,6 +8,7 @@ from uplyft.tests.resources import (
     create_profile,
     create_department,
     create_employer,
+    create_application,
 )
 from apply.models import Application
 
@@ -88,7 +89,9 @@ class ApplicationViewTests(TestCase):
             reverse("apply:apply", kwargs={"pk": self.job.id}),
             data=test_user_data["candidate"]["profile"],
         )
-        self.assertRedirects(response, reverse("dashboard:dashboard"), status_code=302)
+        app = Application.objects.get(candidate=self.candidate)
+        pk = app.pk
+        self.assertRedirects(response, reverse("applications:application_details", kwargs={"pk": pk}), status_code=302)
         self.assertEqual(Application.objects.all().count(), 1)
 
     def test_good_POST_required_fields_only(self):
