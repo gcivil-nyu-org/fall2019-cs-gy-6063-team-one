@@ -109,7 +109,7 @@ def apply(request, pk):
                     )
                 app_obj.save()
             messages.success(request, "Application submitted")
-            return redirect("dashboard:dashboard")
+            return redirect("applications:application_details", pk=app_obj.pk)
         else:
             messages.error(request, _("Please correct the error below."))
             return render(
