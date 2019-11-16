@@ -39,7 +39,9 @@ class EmployerRegistrationForm(UserCreationForm):
     first_name = forms.CharField(label="First Name", max_length=60, required=True)
     last_name = forms.CharField(label="Last Name", max_length=60, required=True)
     email = forms.EmailField(label="Email", max_length=200, required=True)
-    department = forms.ModelChoiceField(queryset=Department.objects.all().order_by('name'))
+    department = forms.ModelChoiceField(
+        queryset=Department.objects.all().order_by("name")
+    )
 
     class Meta:
         model = get_user_model()
