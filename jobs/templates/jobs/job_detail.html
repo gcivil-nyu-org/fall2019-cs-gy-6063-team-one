@@ -17,7 +17,7 @@
 
                 <div class="job-description-flex">
                     <div class="job-summary-left">
-                        <div class="text-black-50"> {{ job.division }} • {{ job.department }}</div>
+                        <div class="text-black-50"> {{ job.division }} •  <a href="{% url 'department_details:department_detail' job.department.id %}">{{ job.department.name }}</a></div>
                         <div class="text-black-50"> {{ job.work_location }} </div>
                         <div class="text-black-50"> Posted on {{ job.posting_date }} </div>
                     </div>

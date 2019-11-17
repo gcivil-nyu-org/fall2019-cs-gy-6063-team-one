@@ -29,4 +29,5 @@ urlpatterns = [
     path("apply/", include("apply.urls")),
     path("dashboard/", include("dashboard.urls")),
     path("applications/", include("applications.urls")),
+    path("department_details/", include("department_details.urls")),
 ]
