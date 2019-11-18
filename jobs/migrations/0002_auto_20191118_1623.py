@@ -10,23 +10,26 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('jobs', '0001_initial'),
+        ("jobs", "0001_initial"),
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='savedjobs',
-            name='user',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL),
+            model_name="savedjobs",
+            name="user",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to=settings.AUTH_USER_MODEL
+            ),
         ),
         migrations.AddField(
-            model_name='job',
-            name='department',
-            field=models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='jobs.Department'),
+            model_name="job",
+            name="department",
+            field=models.ForeignKey(
+                on_delete=django.db.models.deletion.CASCADE, to="jobs.Department"
+            ),
         ),
         migrations.AlterUniqueTogether(
-            name='savedjobs',
-            unique_together={('job', 'user')},
+            name="savedjobs", unique_together={("job", "user")}
         ),
     ]

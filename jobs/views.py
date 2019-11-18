@@ -87,11 +87,9 @@ class JobDetailView(LoginRequiredMixin, DetailView):
             )
 
             # Get the applications that have been submitted for this job by other people
-            apps = Application.objects.filter(job=job).exclude(
-                candidate=candidate
-            )
+            apps = Application.objects.filter(job=job).exclude(candidate=candidate)
             # Count how many unique applicants there are across those applications
-            other_applicants = apps.values('candidate').distinct().count()
+            other_applicants = apps.values("candidate").distinct().count()
 
             # Pass the number of applications into context
             context["other_applicants"] = other_applicants
