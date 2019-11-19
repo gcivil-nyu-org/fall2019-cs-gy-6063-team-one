@@ -30,4 +30,5 @@ urlpatterns = [
     path("dashboard/", include("dashboard.urls")),
     path("applications/", include("applications.urls")),
     path("department_details/", include("department_details.urls")),
+    path("department_profile/", include("department_profile.urls")),
 ]

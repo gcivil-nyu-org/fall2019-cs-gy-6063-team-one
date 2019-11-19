@@ -25,6 +25,12 @@ class DepartmentDetailView(LoginRequiredMixin, DetailView):
         user = self.request.user
         context["user"] = user
         context["department"] = department
+
+        if department.department_profile is None:
+            context["contains_profile"] = False
+        else:
+            context["contains_profile"] = True
+
         context["messages"] = None
 
         jobs = Job.objects.filter(department=department).order_by("-posting_date")

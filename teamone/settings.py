@@ -51,6 +51,7 @@ INSTALLED_APPS = [
     "password_reset.apps.PasswordResetConfig",
     "dashboard.apps.DashboardConfig",
     "department_details.apps.DepartmentDetailsConfig",
+    "department_profile.apps.DepartmentProfileConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",

@@ -13,6 +13,30 @@
         <div class="card py-4 h-100">
             <div class="card-body">
                 <h5 class="card-title"> <b> {{ department.name }} </b> </h5>
+
+                {% if contains_profile %}
+                <hr class="my-4">
+
+                <div class="job-description-flex">
+                <div class="job-description-main-content">
+                    <ul class="list-group list-group-flush border-0">
+
+                        <li class="list-group-item border-0"> <b>Address</b> </li>
+                        <li class="list-group-item border-0"> {{ department.department_profile.address }} </li>
+
+                        <li class="list-group-item border-0"> <b>Description</b> </li>
+                        <li class="list-group-item border-0"> {{  department.department_profile.description }} </li>
+
+                        <li class="list-group-item border-0"> <b>Website</b> </li>
+                        <li class="list-group-item border-0"> {{ department.department_profile.website }} </li>
+
+                    </ul>
+                </div>
+                </div>
+                {% else %}
+                <p> DOESN'T </p>
+                {% endif %}
+
                 {% if jobs %}
                  <table>
                     <th>
