@@ -27,7 +27,7 @@ def update_department_profile(request):
     }
 
     if request.method == "POST":
-        profile_form = DepartmentProfileForm(request.POST)
+        profile_form = DepartmentProfileForm(request.POST, request.FILES)
         if profile_form.is_valid():
             updated_profile = profile_form.save()
             department.department_profile = updated_profile
