@@ -35,7 +35,7 @@ def update_department_profile(request):
             messages.success(request, _("Department profile was successfully updated"))
             return redirect(
                 reverse(
-                    "department_details:department_details",
+                    "department_details:department_detail",
                     kwargs={"pk": department.id},
                 )
             )
