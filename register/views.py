@@ -141,4 +141,3 @@ def activate_account(request, uidb64, token):
 def email_confirmation_sent(request):
     if request.method == "GET":
         return render(request, "register/confirmation_message.html")
-
