@@ -3,11 +3,6 @@
 {% block dashboard_content %}
     <link rel="stylesheet" type="text/css"
           href="{% static "dashboard/css/dashboard.css" %}">
-    {% if messages %}
-            {% for message in messages %}
-            <div class="container card py-4 alert alert-primary" role="alert">{{ message }}</div>
-            {% endfor %}
-    {% endif %}
     {% block employer_dashboard %}
     {% endblock %}
     {% block candidate_dashboard %}
