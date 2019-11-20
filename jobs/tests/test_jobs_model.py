@@ -1,11 +1,11 @@
 from django.test import TestCase
-from uplyft.tests.resources import test_user_data, create_department_with_profile
-from jobs.models import Job, Department
+from uplyft.tests.resources import test_user_data, create_department
+from jobs.models import Job
 
 
 class JobsModelTest(TestCase):
     def setUp(self):
-        self.department = create_department_with_profile(test_user_data["department"])
+        self.department = create_department(test_user_data["department"])
         job_details = test_user_data["job_details"]
         job_details[0]["department"] = self.department
         job_details[1]["department"] = self.department
@@ -35,8 +35,7 @@ class JobsModelTest(TestCase):
 
 class DepartmentModelTest(TestCase):
     def setUp(self):
-        self.department_details = test_user_data["department"]
-        self.department = Department.objects.create(**self.department_details)
+        self.department = create_department(test_user_data["department"])
 
     def test__str__returns_name(self):
-        self.assertTrue(self.department.__str__(), self.department_details["name"])
+        self.assertTrue(self.department.__str__(), test_user_data["department"]["name"])
