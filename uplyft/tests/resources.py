@@ -188,6 +188,8 @@ test_user_data = {
             "description": "We stop fires.",
             "website": "https://fires.com",
             "address": "113 Broadway, New York NY 10012",
+            "phone": "+12129471135",
+            "email": "firedept@nyu.gov",
         },
     },
     "department_with_no_profile": {
@@ -351,6 +353,8 @@ def create_department_with_profile(data):
         address=data["department_profile"]["address"],
         description=data["department_profile"]["description"],
         website=data["department_profile"]["website"],
+        phone=data["department_profile"]["phone"],
+        email=data["department_profile"]["email"],
     )
 
     return Department.objects.create(

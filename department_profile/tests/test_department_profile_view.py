@@ -11,10 +11,7 @@ from jobs.models import DepartmentProfile
 
 class DepartmentProfileViewTest(TestCase):
     def login(self, user_data):
-        self.client.login(
-            email=user_data["email"],
-            password=user_data["password"],
-        )
+        self.client.login(email=user_data["email"], password=user_data["password"])
 
     def setUp(self):
         self.department = create_department(

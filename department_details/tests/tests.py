@@ -190,8 +190,22 @@ class DepartmentDetailViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertContains(response, "Description")
-        self.assertContains(response, "Website")
-        self.assertContains(response, "Address")
+        self.assertContains(response, "Contact")
+
+    def test_context_displays_department_profile_details_if_exists(self):
+        self.login_employer()
+        response = self.client.get(
+            reverse(
+                "department_details:department_detail",
+                kwargs={"pk": self.department.id},
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, self.department.department_profile.website)
+        self.assertContains(response, self.department.department_profile.description)
+        self.assertContains(response, self.department.department_profile.address)
+        self.assertContains(response, self.department.department_profile.phone)
+        self.assertContains(response, self.department.department_profile.email)
 
     def test_context_hides_department_profile_details_labels_if_not_exists(self):
         self.login_employer()
@@ -206,5 +220,4 @@ class DepartmentDetailViewTest(TestCase):
         )
         self.assertEqual(response.status_code, 200)
         self.assertNotContains(response, "Description")
-        self.assertNotContains(response, "Website")
-        self.assertNotContains(response, "Address")
+        self.assertNotContains(response, "Contact")

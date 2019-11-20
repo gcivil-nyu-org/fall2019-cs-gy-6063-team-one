@@ -40,12 +40,13 @@ class DepartmentProfileForm(forms.ModelForm):
         website = (
             self.cleaned_data.get("website") if self.cleaned_data.get("website") else ""
         )
-        phone = (
-            self.cleaned_data.get("phone") if self.cleaned_data.get("phone") else ""
-        )
-        email = (
-            self.cleaned_data.get("email") if self.cleaned_data.get("email") else ""
-        )
-        if not address.strip() and not description.strip() and not website.strip()\
-                and not phone.strip() and not email.strip():
+        phone = self.cleaned_data.get("phone") if self.cleaned_data.get("phone") else ""
+        email = self.cleaned_data.get("email") if self.cleaned_data.get("email") else ""
+        if (
+            not address.strip()
+            and not description.strip()
+            and not website.strip()
+            and not phone.strip()
+            and not email.strip()
+        ):
             raise ValidationError("No changes requested yet - fill out the form!")
