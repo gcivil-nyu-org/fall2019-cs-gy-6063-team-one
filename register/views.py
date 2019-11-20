@@ -133,7 +133,10 @@ def activate_account(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        return HttpResponseRedirect(reverse("candidate_login:candidate_login"))
+        if user.is_candidate:
+            return HttpResponseRedirect(reverse("candidate_login:candidate_login"))
+        else:
+            return HttpResponseRedirect(reverse("employer_login:employer_login"))
     else:
         return render(request, "register/invalid_activation_link.html")
 
