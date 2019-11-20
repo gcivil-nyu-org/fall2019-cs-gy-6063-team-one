@@ -86,9 +86,12 @@ class DepartmentProfileViewTest(TestCase):
         response = self.client.post(
             reverse("department_profile:update_department_profile"),
             data={
-                "description": test_user_data["department"]["profile"]["description"],
-                "website": test_user_data["department"]["profile"]["website"],
-                "address": test_user_data["department"]["profile"]["address"],
+                "description":
+                    test_user_data["department"]["department_profile"]["description"],
+                "website":
+                    test_user_data["department"]["department_profile"]["website"],
+                "address":
+                    test_user_data["department"]["department_profile"]["address"],
             },
         )
         self.assertRedirects(
@@ -109,11 +112,13 @@ class DepartmentProfileViewTest(TestCase):
         self.assertEqual(updated_profile_details.status_code, 200)
         self.assertContains(
             updated_profile_details,
-            test_user_data["department"]["profile"]["description"],
+            test_user_data["department"]["department_profile"]["description"],
         )
         self.assertContains(
-            updated_profile_details, test_user_data["department"]["profile"]["website"]
+            updated_profile_details,
+            test_user_data["department"]["department_profile"]["website"]
         )
         self.assertContains(
-            updated_profile_details, test_user_data["department"]["profile"]["address"]
+            updated_profile_details,
+            test_user_data["department"]["department_profile"]["address"]
         )

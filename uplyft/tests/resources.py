@@ -184,13 +184,17 @@ test_user_data = {
     "department": {
         "id": 1,
         "name": "NYC Fire",
-        "profile": {
+        "department_profile": {
             "description": "We stop fires.",
             "website": "https://fires.com",
             "address": "113 Broadway, New York NY 10012",
         },
     },
-    "department_with_no_profile": {"id": 2, "name": "NYC Water", "profile": {}},
+    "department_with_no_profile": {
+        "id": 2,
+        "name": "NYC Water",
+        "department_profile": {}
+    },
     "job_details": [
         {
             "job_id": "87990",
@@ -344,9 +348,9 @@ def create_department(data):
 
 def create_department_with_profile(data):
     profile = DepartmentProfile.objects.create(
-        address=data["profile"]["address"],
-        description=data["profile"]["description"],
-        website=data["profile"]["website"],
+        address=data["department_profile"]["address"],
+        description=data["department_profile"]["description"],
+        website=data["department_profile"]["website"],
     )
 
     return Department.objects.create(
