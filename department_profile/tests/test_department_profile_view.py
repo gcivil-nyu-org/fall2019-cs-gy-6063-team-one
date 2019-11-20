@@ -10,16 +10,10 @@ from jobs.models import DepartmentProfile
 
 
 class DepartmentProfileViewTest(TestCase):
-    def login_employer(self):
+    def login(self, user_data):
         self.client.login(
-            email=test_user_data["employer"]["email"],
-            password=test_user_data["employer"]["password"],
-        )
-
-    def login_employer_with_department_profile(self):
-        self.client.login(
-            email=test_user_data["candidate"]["email"],
-            password=test_user_data["candidate"]["password"],
+            email=user_data["email"],
+            password=user_data["password"],
         )
 
     def setUp(self):
@@ -29,19 +23,19 @@ class DepartmentProfileViewTest(TestCase):
         self.employer = create_employer(self.department, test_user_data["employer"])
 
     def test_view_exists_at_desired_location(self):
-        self.login_employer()
+        self.login(test_user_data["employer"])
         response = self.client.get("/department_profile/")
         self.assertEqual(response.status_code, 200)
 
     def test_view_accessible_by_name(self):
-        self.login_employer()
+        self.login(test_user_data["employer"])
         response = self.client.get(
             reverse("department_profile:update_department_profile")
         )
         self.assertEqual(response.status_code, 200)
 
     def test_view_uses_correct_template(self):
-        self.login_employer()
+        self.login(test_user_data["employer"])
         response = self.client.get(
             reverse("department_profile:update_department_profile")
         )
@@ -49,7 +43,7 @@ class DepartmentProfileViewTest(TestCase):
         self.assertTemplateUsed(response, "department_profile/department_profile.html")
 
     def test_view_contains_form_labels(self):
-        self.login_employer()
+        self.login(test_user_data["employer"])
         response = self.client.get(
             reverse("department_profile:update_department_profile")
         )
@@ -64,7 +58,7 @@ class DepartmentProfileViewTest(TestCase):
         self.employer_with_department_profile = create_employer(
             self.department_with_profile, test_user_data["candidate"]
         )
-        self.login_employer_with_department_profile()
+        self.login(test_user_data["candidate"])
         response = self.client.get(
             reverse("department_profile:update_department_profile")
         )
@@ -82,7 +76,7 @@ class DepartmentProfileViewTest(TestCase):
         )
 
     def test_view_good_POST_displays_data_and_redirects_to_details_view_with_data(self):
-        self.login_employer()
+        self.login(test_user_data["employer"])
         response = self.client.post(
             reverse("department_profile:update_department_profile"),
             data={
