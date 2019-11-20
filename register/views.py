@@ -1,4 +1,5 @@
 from allauth.account.signals import user_signed_up
+from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 from django.dispatch import receiver
 from django.http import HttpResponseRedirect
@@ -61,6 +62,7 @@ def candidate_register(request):
             to_email = form.cleaned_data.get("email")
             email = EmailMessage(email_subject, message, to=[to_email])
             email.send()
+            messages.success(request, "Account created successfully")
             return HttpResponseRedirect(reverse("register:email_confirmation"))
     else:
         form = CandidateRegistrationForm()
