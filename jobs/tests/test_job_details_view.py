@@ -57,4 +57,3 @@ class JobDetailViewTests(TestCase):
             reverse("jobs:job_detail", kwargs={"pk": self.job.id})
         )
         self.assertEqual(response.status_code, 200)
-        print(response.context)
