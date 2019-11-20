@@ -63,7 +63,7 @@ def candidate_register(request):
             to_email = form.cleaned_data.get("email")
             email = EmailMessage(email_subject, message, to=[to_email])
             email.send()
-            return render(request, "register/confirmation_message.html")
+            return HttpResponseRedirect(reverse("register:email_confirmation"))
     else:
         form = CandidateRegistrationForm()
     return render(request, "register/candidate_register.html", {"form": form})
@@ -98,7 +98,7 @@ def employer_register(request):
             to_email = form.cleaned_data.get("email")
             email = EmailMessage(email_subject, message, to=[to_email])
             email.send()
-            return render(request, "register/confirmation_message.html")
+            return HttpResponseRedirect(reverse("register:email_confirmation"))
     else:
         form = EmployerRegistrationForm()
     return render(request, "register/employer_register.html", {"form": form})
@@ -123,7 +123,7 @@ def populate_profile(sociallogin, user, **kwargs):
         active_profile.save()
 
 
-# Activate the account after email confirmation and Login the user.
+# Activate the account after email confirmation.
 def activate_account(request, uidb64, token):
     try:
         uid = force_bytes(urlsafe_base64_decode(uidb64))
@@ -133,8 +133,11 @@ def activate_account(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        login(request, user, "django.contrib.auth.backends.ModelBackend")
-        messages.success(request, "Account created successfully")
-        return HttpResponseRedirect(reverse("uplyft:index"))
+        return HttpResponseRedirect(reverse("candidate_login:candidate_login"))
     else:
         return render(request, "register/invalid_activation_link.html")
+
+
+def email_confirmation_sent(request):
+    if request.method == "GET":
+        return render(request, "register/confirmation_message.html")

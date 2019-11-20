@@ -12,4 +12,5 @@ urlpatterns = [
         views.activate_account,
         name="activate",
     ),
+    path("email_confirmation",views.email_confirmation_sent, name="email_confirmation"),
 ]
