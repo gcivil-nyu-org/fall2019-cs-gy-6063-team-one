@@ -16,11 +16,19 @@ Develop:
 
 Follow the following steps to reset candidates/employers in the database:
 
-1. in the terminal:
+1. in the terminal, launch Django's Python REPL environment:
 
 ```% python3 manage.py shell```
 
-2. in python:
+2. in Python REPL:
+
+To create demo users, and skip for any existing demo user:
+
+```>>> from maintenance_worker import manage_demo_users; manage_demo_users.create_demo_employers()```
+or
+```>>> from maintenance_worker import manage_demo_users; manage_demo_users.create_demo_candidates()```
+
+To reset demo users, discarding any current user:
 
 ```>>> from maintenance_worker import manage_demo_users; manage_demo_users.reset_demo_employers()```
 or
