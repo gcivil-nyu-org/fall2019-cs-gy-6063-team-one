@@ -1,18 +1,13 @@
 from django.db import models
+import os
 
 MAX_CHARS = 12000
-
-
-def department_photo_directory_path(instance, filename):
-    # file will be uploaded to MEDIA_ROOT/<department.id>/<filename>
-    return "department_photos/{0}/{1}".format(instance.id, filename)
 
 
 class DepartmentProfile(models.Model):
     address = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(max_length=10000, blank=True, null=True)
     website = models.URLField(help_text="Maximum 200 characters", blank=True, null=True)
-    photo_upload = models.ImageField(upload_to=department_photo_directory_path)
 
 
 class Department(models.Model):

@@ -21,13 +21,10 @@ def update_department_profile(request):
         "website": department.department_profile.website
         if department.department_profile is not None
         else None,
-        "photo_upload": department.department_profile.photo_upload
-        if department.department_profile is not None
-        else None,
     }
 
     if request.method == "POST":
-        profile_form = DepartmentProfileForm(request.POST, request.FILES)
+        profile_form = DepartmentProfileForm(request.POST)
         if profile_form.is_valid():
             updated_profile = profile_form.save()
             department.department_profile = updated_profile
