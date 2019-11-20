@@ -27,3 +27,17 @@ or
 ```>>> from maintenance_worker import manage_demo_users; manage_demo_users.reset_demo_candidates()```
 
 3. check your database for the changes.
+
+### Jobs and Departments
+
+1. in the terminal:
+
+```% python3 manage.py shell```
+
+2. in python:
+
+```>>> from maintenance_worker import manage_jobs; manage_jobs.load_jobs()```
+
+3. check your database for the changes.
+
+*Limitation:* job loading script currently check duplicate records in `Department` table but not the `Job` table. Therefore, running this command multiple times may result in excessive records in the database.
