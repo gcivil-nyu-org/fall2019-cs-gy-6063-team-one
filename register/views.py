@@ -1,9 +1,7 @@
 from allauth.account.signals import user_signed_up
-from django.contrib import messages
-from django.contrib.auth import authenticate, login
 from django.contrib.sites.shortcuts import get_current_site
 from django.dispatch import receiver
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.template.loader import render_to_string
 from django.urls import reverse
