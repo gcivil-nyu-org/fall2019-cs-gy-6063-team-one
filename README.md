@@ -9,6 +9,8 @@ Develop:
 [![Build Status on Develop](https://travis-ci.com/gcivil-nyu-org/fall2019-cs-gy-6063-team-one.svg?token=amzqTtkAvZH6KRzygZox&branch=develop)](https://travis-ci.com/gcivil-nyu-org/fall2019-cs-gy-6063-team-one)
 [![Coverage Status on Develop](https://coveralls.io/repos/github/gcivil-nyu-org/fall2019-cs-gy-6063-team-one/badge.svg?branch=develop&service=github)](https://coveralls.io/github/gcivil-nyu-org/fall2019-cs-gy-6063-team-one?branch=develop&service=github)
 
+
+
 ## Maintenance
 
 
@@ -43,7 +45,7 @@ Follow the following steps to reset candidates/employers in the database:
 
         or
 
-        ```
+        ```python
         from maintenance_worker import manage_demo_users; manage_demo_users.reset_demo_candidates()
         ```
 
