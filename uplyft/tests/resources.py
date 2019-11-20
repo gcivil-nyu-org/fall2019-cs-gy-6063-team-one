@@ -193,7 +193,7 @@ test_user_data = {
     "department_with_no_profile": {
         "id": 2,
         "name": "NYC Water",
-        "department_profile": {}
+        "department_profile": {},
     },
     "job_details": [
         {

@@ -1,11 +1,11 @@
 from django.test import TestCase
-from uplyft.tests.resources import test_user_data, create_department
+from uplyft.tests.resources import test_user_data, create_department_with_profile
 from jobs.models import Job, Department
 
 
 class JobsModelTest(TestCase):
     def setUp(self):
-        self.department = create_department(test_user_data["department"])
+        self.department = create_department_with_profile(test_user_data["department"])
         job_details = test_user_data["job_details"]
         job_details[0]["department"] = self.department
         job_details[1]["department"] = self.department
