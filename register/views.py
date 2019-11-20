@@ -133,10 +133,7 @@ def activate_account(request, uidb64, token):
     if user is not None and account_activation_token.check_token(user, token):
         user.is_active = True
         user.save()
-        if user.is_candidate:
-            return HttpResponseRedirect(reverse("candidate_login:candidate_login"))
-        else:
-            return HttpResponseRedirect(reverse("employer_login:employer_login"))
+        return render(request, "register/activate_account_confirm.html")
     else:
         return render(request, "register/invalid_activation_link.html")
 
@@ -144,3 +141,4 @@ def activate_account(request, uidb64, token):
 def email_confirmation_sent(request):
     if request.method == "GET":
         return render(request, "register/confirmation_message.html")
+
