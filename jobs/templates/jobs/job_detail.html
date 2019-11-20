@@ -56,7 +56,25 @@
                         </div>
                     </div>
                 </div>
+
+                {% if user.is_candidate %}
+                    {% if other_applicants == 0 %} <!-- No one else has applied apps for this job -->
+                        {% if has_open_application %} <!-- You have applied for the job -->
+                            <div class="text-black-50"><i> You are the only applicant so far </i> </div>
+                        {% else %}
+                           <a href="{% url 'apply:apply' job.id%}">
+                                <div><i>Be the first to apply!</i></div>
+                            </a>
+                        {% endif %}
+                    {% elif other_applicants == 1 %} <!-- Only 1 application exists -->
+                        <div class="text-black-50"><i>{{ other_applicants }} other person has applied </i> </div>
+                    {% else %} <!-- Multiple applications exist -->
+                        <div class="text-black-50"><i>{{ other_applicants }} other people have applied </i> </div>
+                    {% endif %}
+                {% endif %}
             </div>
+
+
 
             <hr class="my-4">
 
