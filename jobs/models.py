@@ -1,5 +1,4 @@
 from django.db import models
-import os
 
 MAX_CHARS = 12000
 

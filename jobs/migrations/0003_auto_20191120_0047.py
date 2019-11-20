@@ -6,23 +6,41 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('jobs', '0002_auto_20191118_1623'),
-    ]
+    dependencies = [("jobs", "0002_auto_20191118_1623")]
 
     operations = [
         migrations.CreateModel(
-            name='DepartmentProfile',
+            name="DepartmentProfile",
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('address', models.CharField(blank=True, max_length=100, null=True)),
-                ('description', models.TextField(blank=True, max_length=10000, null=True)),
-                ('website', models.URLField(blank=True, help_text='Maximum 200 characters', null=True)),
+                (
+                    "id",
+                    models.AutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("address", models.CharField(blank=True, max_length=100, null=True)),
+                (
+                    "description",
+                    models.TextField(blank=True, max_length=10000, null=True),
+                ),
+                (
+                    "website",
+                    models.URLField(
+                        blank=True, help_text="Maximum 200 characters", null=True
+                    ),
+                ),
             ],
         ),
         migrations.AddField(
-            model_name='department',
-            name='department_profile',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.CASCADE, to='jobs.DepartmentProfile'),
+            model_name="department",
+            name="department_profile",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.CASCADE,
+                to="jobs.DepartmentProfile",
+            ),
         ),
     ]

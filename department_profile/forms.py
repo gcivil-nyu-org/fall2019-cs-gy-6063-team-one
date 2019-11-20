@@ -22,11 +22,19 @@ class DepartmentProfileForm(forms.ModelForm):
         description = self.cleaned_data.get("description")
         website = self.cleaned_data.get("website")
 
-        #if address is None and description is None and website is None:
-            #raise ValidationError("No changes requested - fill out the form!")
+        # if address is None and description is None and website is None:
+        # raise ValidationError("No changes requested - fill out the form!")
 
-        address = self.cleaned_data.get("address") if self.cleaned_data.get("address") else ""
-        description = self.cleaned_data.get("description") if self.cleaned_data.get("description") else ""
-        website = self.cleaned_data.get("website") if self.cleaned_data.get("website") else ""
+        address = (
+            self.cleaned_data.get("address") if self.cleaned_data.get("address") else ""
+        )
+        description = (
+            self.cleaned_data.get("description")
+            if self.cleaned_data.get("description")
+            else ""
+        )
+        website = (
+            self.cleaned_data.get("website") if self.cleaned_data.get("website") else ""
+        )
         if not address.strip() and not description.strip() and not website.strip():
             raise ValidationError("No changes requested yet - fill out the form!")

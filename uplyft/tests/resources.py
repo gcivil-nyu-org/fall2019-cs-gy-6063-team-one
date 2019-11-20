@@ -188,15 +188,9 @@ test_user_data = {
             "description": "We stop fires.",
             "website": "https://fires.com",
             "address": "113 Broadway, New York NY 10012",
-        }
+        },
     },
-    "department_with_no_profile": {
-        "id": 2,
-        "name": "NYC Water",
-        "profile": {
-
-        }
-    },
+    "department_with_no_profile": {"id": 2, "name": "NYC Water", "profile": {}},
     "job_details": [
         {
             "job_id": "87990",
@@ -345,10 +339,7 @@ def create_candidate_with_active_profile(user_data):
 
 
 def create_department(data):
-    return Department.objects.create(
-        id=data["id"],
-        name=data["name"],
-    )
+    return Department.objects.create(id=data["id"], name=data["name"])
 
 
 def create_department_with_profile(data):
@@ -359,9 +350,7 @@ def create_department_with_profile(data):
     )
 
     return Department.objects.create(
-        id=data["id"],
-        name=data["name"],
-        department_profile=profile,
+        id=data["id"], name=data["name"], department_profile=profile
     )
 
 

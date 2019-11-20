@@ -196,7 +196,8 @@ class DepartmentDetailViewTest(TestCase):
     def test_context_hides_department_profile_details_labels_if_not_exists(self):
         self.login_employer()
         self.department_with_no_profile = create_department(
-            test_user_data["department_with_no_profile"])
+            test_user_data["department_with_no_profile"]
+        )
         response = self.client.get(
             reverse(
                 "department_details:department_detail",
