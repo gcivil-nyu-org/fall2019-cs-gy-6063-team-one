@@ -7,3 +7,54 @@ th, td {
   border-bottom: 1px solid #ddd;
   text-align: left;
 }
+
+/* Styles for Job Detail page */
+
+.btn-primary:disabled {
+    background-color: gray;
+}
+
+.job-description-flex {
+    display: flex;
+}
+
+.job-summary-left {
+    width: 70%;
+}
+
+.job-primary-action-block-wrapper {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.job-primary-action-block {
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+}
+
+.job-description-main-content {
+    width: 70%;
+}
+.job-description-misc-attributes {
+    width: 30%;
+}
+
+.job-primary-action {
+    margin-left: 16px;
+}
+
+.job-description-misc-attribute-name {
+    color: gray;
+}
+
+.jobs_table {
+    padding: .75rem 1.25rem;
+}
+
+.application_count {
+   text-align: center;
+}

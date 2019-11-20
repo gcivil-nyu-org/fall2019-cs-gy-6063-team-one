@@ -4,7 +4,7 @@ from django.template.defaulttags import register
 
 from apply.models import Application
 from jobs.models import Department, Job
-
+from uplyft.models import Employer
 
 # Custom filter, needed to retrieve a dictionary item using its key from
 # within a django template (not possible using direct dot notation otherwise)
@@ -30,6 +30,13 @@ class DepartmentDetailView(LoginRequiredMixin, DetailView):
             context["contains_profile"] = False
         else:
             context["contains_profile"] = True
+
+        context["my_department"] = False
+        if not user.is_candidate and user.is_active:
+            employer = Employer.objects.get(user=user)
+            if employer:
+                if department.id == employer.department.id:
+                    context["my_department"] = True
 
         context["messages"] = None
 

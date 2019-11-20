@@ -5,44 +5,80 @@
 {% block content %}
 
 
-
 <div class="container">
+
     <link rel="stylesheet" type="text/css" href="{% static "department_details/css/department_detail.css" %}">
 
     <div class="col-md-12 mb-3 mb-md-0">
         <div class="card py-4 h-100">
             <div class="card-body">
+
                 <h5 class="card-title"> <b> {{ department.name }} </b> </h5>
 
-                {% if contains_profile %}
-                <hr class="my-4">
-
                 <div class="job-description-flex">
-                <div class="job-description-main-content">
-
-                    <ul class="list-group list-group-flush border-0">
-
-                        {% if department.department_profile.address %}
-                        <li class="list-group-item border-0"> <b>Address</b> </li>
-                        <li class="list-group-item border-0"> {{ department.department_profile.address }} </li>
+                    <div class="job-summary-left">
+                        {% if contains_profile %}
+                            {% if department.department_profile.address %}
+                            <div class="text-black-50"> {{ department.department_profile.address }} </div>
+                            {% endif %}
+                            {% if department.department_profile.website %}
+                            <div class="text-black-50"> <a href="{{ department.department_profile.website }}">{{ department.department_profile.website }}</a></div>
+                            {% endif %}
                         {% endif %}
+                    </div>
 
-                        {% if department.department_profile.description %}
+                    {% if my_department == True  %}
+                    <div class="job-primary-action-block-wrapper">
+                        <div class="job-primary-action-block">
+                            <form class="job-primary-action" action="{% url 'department_profile:update_department_profile' %}" method="get">
+                                <input class="btn btn-primary btn-save" type="submit" name="edit_profile" value="Edit" />
+                            </form>
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <hr class="my-4">
+
+            <div class="job-description-flex">
+                {% if contains_profile %}
+                {% if department.department_profile.description %}
+                <div class="job-description-main-content">
+                    <ul class="list-group list-group-flush border-0">
                         <li class="list-group-item border-0"> <b>Description</b> </li>
                         <li class="list-group-item border-0"> {{ department.department_profile.description }} </li>
-                        {% endif %}
+                    </ul>
+                </div>
+                {% endif %}
+                {% endif %}
 
-                        {% if department.department_profile.website %}
-                        <li class="list-group-item border-0"> <b>Website</b> </li>
-                        <li class="list-group-item border-0"> <a href="{{ department.department_profile.website }}">{{ department.department_profile.website }}</a> </li>
+                <div class="job-description-misc-attributes">
+                    <ul class="list-group list-group-flush border-0">
+                        {% if contains_profile %}
+                        {% if department.department_profile.phone or department.department_profile.email %}
+                        <li class="list-group-item border-0"> <b>Contact</b>
+                            {% if department.department_profile.phone %}
+                                <br>{{ department.department_profile.phone }}
+                            {% endif %}
+                            {% if department.department_profile.email %}
+                                <br> {{ department.department_profile.email }}
+                            {% endif %}
+                        </li>
+                        <li class="list-group-item border-0 small text-black-50"> DEPARTMENT ID #{{ department.id }} </li>
+                        {% endif %}
                         {% endif %}
                     </ul>
                 </div>
-                </div>
-                {% endif %}
 
-                {% if jobs %}
-                 <table>
+                <hr class="my-4">
+
+                </div>
+
+            <div class="jobs_table">
+                <div>
+                        {% if jobs %}
+                    <table>
                     <th>
                         <td>
                             Job ID
@@ -70,17 +106,20 @@
                             {{ job.posting_date|date:"m/d/y" }}
 
                         </td>
-                        <td>
+                        <td class="application_count">
                             {{ submitted_applications_data|get_item:job.id }}
                         </td>
                     </tr>
                 {% endfor %}
                  </table>
                 {% endif %}
+                    </div>
+
             </div>
         </div>
     </div>
 </div>
+
 
 
 {% endblock %}

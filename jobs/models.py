@@ -1,4 +1,5 @@
 from django.db import models
+from phonenumber_field.modelfields import PhoneNumberField
 
 MAX_CHARS = 12000
 
@@ -7,6 +8,8 @@ class DepartmentProfile(models.Model):
     address = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(max_length=10000, blank=True, null=True)
     website = models.URLField(help_text="Maximum 200 characters", blank=True, null=True)
+    phone = PhoneNumberField(blank=True, null=True)
+    email = models.EmailField(blank=True, null=True)
 
 
 class Department(models.Model):

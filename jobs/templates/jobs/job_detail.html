@@ -23,7 +23,6 @@
                     </div>
 
                     <div class="job-primary-action-block-wrapper">
-                        
                         {% if has_open_application %}
                             <div>
                                 <a class="small" href="{% url 'applications:application_details' application_id %}">View application</a>
@@ -31,7 +30,6 @@
                             {% endif %}
 
                         <div class="job-primary-action-block">
-
                             <form class="job-primary-action" action="{% url 'jobs:save_job' job.id %}" method="post">
                                             {% csrf_token %}
                                 <input type="hidden" name="jobs_pk_id" value="{{ job.id }}" />
