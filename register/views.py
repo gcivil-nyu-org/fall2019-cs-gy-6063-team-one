@@ -68,18 +68,26 @@ def employer_register(request):
         form = EmployerRegistrationForm(request.POST)
         if form.is_valid():
             user = form.save(commit=True)
-            email = form.cleaned_data.get("email")
-            password = form.cleaned_data.get("password1")
             department = form.cleaned_data.get("department")
             user.is_candidate = False
+            user.is_active = False
             user.save()
             employer = Employer(user=user, department=department)
             employer.save()
-            user = authenticate(email=email, password=password)
-            login(request, user)
-            messages.success(request, "Account created successfully")
-            return HttpResponseRedirect(reverse("employer_login:employer_login"))
 
+            # Send confirmation email to Employer
+            current_site = get_current_site(request)
+            email_subject = 'Activate Your Account'
+            message = render_to_string('register/activate_account.html', {
+                'user': user,
+                'domain': current_site.domain,
+                'uid': urlsafe_base64_encode(force_bytes(user.pk)),
+                'token': account_activation_token.make_token(user),
+            })
+            to_email = form.cleaned_data.get('email')
+            email = EmailMessage(email_subject, message, to=[to_email])
+            email.send()
+            return render(request, "register/confirmation_message.html")
     else:
         form = EmployerRegistrationForm()
     return render(request, "register/employer_register.html", {"form": form})
