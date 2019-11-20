@@ -46,7 +46,7 @@ def reset_one_demo_candidate(name_card):
     create_one_demo_candidates(name_card)
 
 
-def create_demo_dandidates():
+def create_demo_candidates():
     for name_card in demo_users.candidates:
         create_one_demo_candidates(name_card)
 
@@ -59,7 +59,7 @@ def reset_demo_candidates():
 # Manage demo candidate users
 
 
-def create_one_demo_employers(name_card):
+def create_one_demo_employer(name_card):
     user = CustomUser.objects.filter(email=name_card["email"])
     if user.count() > 0:
         return
@@ -72,7 +72,7 @@ def create_one_demo_employers(name_card):
 
     try:
         department = Department.objects.get(name=name_card["department_name"])
-    except:
+    except Department.DoesNotExist:
         department = Department.objects.get(id=name_card["department_id_backup"])
 
     employer = Employer(user=user, department=department)
@@ -86,12 +86,12 @@ def reset_one_demo_employer(name_card):
     if user.count() > 0:
         user.delete()
 
-    create_one_demo_employers(name_card)
+    create_one_demo_employer(name_card)
 
 
-def create_demo_dandidates():
+def create_demo_employers():
     for name_card in demo_users.employers:
-        create_one_demo_employers(name_card)
+        create_one_demo_employer(name_card)
 
 
 def reset_demo_employers():
