@@ -50,6 +50,8 @@ or
 
 ```>>> from maintenance_worker import manage_jobs; manage_jobs.load_jobs()```
 
+***Note:*** due to high volume of job postings in the vault, this command may take a few seconds to execute.
+
 3. check your database for the changes.
 
-*Limitation:* job loading script currently check duplicate records in `Department` table but not the `Job` table. Therefore, running this command multiple times may result in excessive records in the database.
+***Limitation:*** job loading script currently check duplicate records in `Department` table but not the `Job` table. Therefore, running this command multiple times may result in excessive records in the database.
