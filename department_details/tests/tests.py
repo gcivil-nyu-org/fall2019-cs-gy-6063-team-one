@@ -6,6 +6,7 @@ from uplyft.tests.resources import (
     create_application,
     create_candidate_with_active_profile,
     create_department,
+    create_department_with_profile,
     create_employer,
 )
 from jobs.models import Job
@@ -14,7 +15,7 @@ from apply.models import Application
 
 class DepartmentDetailViewTest(TestCase):
     def setUp(self):
-        self.department = create_department(test_user_data["department"])
+        self.department = create_department_with_profile(test_user_data["department"])
         self.employer = create_employer(self.department, test_user_data["employer"])
         self.candidate = create_candidate_with_active_profile(
             test_user_data["candidate"]
@@ -145,6 +146,7 @@ class DepartmentDetailViewTest(TestCase):
                 kwargs={"pk": self.department.id},
             )
         )
+        self.assertEqual(response.status_code, 200)
         self.assertTrue("submitted_applications_data" in response.context)
 
         apps_to_job1 = Application.objects.filter(job=self.job1).count()
@@ -165,6 +167,7 @@ class DepartmentDetailViewTest(TestCase):
                 kwargs={"pk": self.department.id},
             )
         )
+        self.assertEqual(response.status_code, 200)
         self.assertTrue("submitted_applications_data" in response.context)
 
         apps_to_job1 = Application.objects.filter(job=self.job1).count()
@@ -176,3 +179,31 @@ class DepartmentDetailViewTest(TestCase):
         self.assertEquals(
             response.context["submitted_applications_data"][self.job2.id], apps_to_job2
         )
+
+    def test_context_displays_department_profile_details_labels_if_exists(self):
+        self.login_employer()
+        response = self.client.get(
+            reverse(
+                "department_details:department_detail",
+                kwargs={"pk": self.department.id},
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Description")
+        self.assertContains(response, "Website")
+        self.assertContains(response, "Address")
+
+    def test_context_hides_department_profile_details_labels_if_not_exists(self):
+        self.login_employer()
+        self.department_with_no_profile = create_department(
+            test_user_data["department_with_no_profile"])
+        response = self.client.get(
+            reverse(
+                "department_details:department_detail",
+                kwargs={"pk": self.department_with_no_profile.id},
+            )
+        )
+        self.assertEqual(response.status_code, 200)
+        self.assertNotContains(response, "Description")
+        self.assertNotContains(response, "Website")
+        self.assertNotContains(response, "Address")

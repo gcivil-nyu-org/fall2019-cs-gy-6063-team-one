@@ -1,5 +1,5 @@
 from uplyft.models import CustomUser
-from jobs.models import Job, Department
+from jobs.models import Job, Department, DepartmentProfile
 from apply.models import Application
 from uplyft.models import Candidate, Employer, CandidateProfile, ActiveProfile
 import datetime
@@ -181,7 +181,22 @@ test_user_data = {
         "email": "response@edu",
         "password": "103348494",
     },
-    "department": {"id": 1, "name": "NYC Fire"},
+    "department": {
+        "id": 1,
+        "name": "NYC Fire",
+        "profile": {
+            "description": "We stop fires.",
+            "website": "https://fires.com",
+            "address": "113 Broadway, New York NY 10012",
+        }
+    },
+    "department_with_no_profile": {
+        "id": 2,
+        "name": "NYC Water",
+        "profile": {
+
+        }
+    },
     "job_details": [
         {
             "job_id": "87990",
@@ -241,10 +256,6 @@ test_user_data = {
         },
     ],
 }
-
-
-def create_department(department):
-    return Department.objects.create(id=department["id"], name=department["name"])
 
 
 def create_employer(department, user_data):
@@ -331,6 +342,27 @@ def create_candidate_with_active_profile(user_data):
     candidate = Candidate.objects.create(user=custom_user, candidate_profile=profile)
     ActiveProfile.objects.create(candidate=candidate, candidate_profile=profile)
     return candidate
+
+
+def create_department(data):
+    return Department.objects.create(
+        id=data["id"],
+        name=data["name"],
+    )
+
+
+def create_department_with_profile(data):
+    profile = DepartmentProfile.objects.create(
+        address=data["profile"]["address"],
+        description=data["profile"]["description"],
+        website=data["profile"]["website"],
+    )
+
+    return Department.objects.create(
+        id=data["id"],
+        name=data["name"],
+        department_profile=profile,
+    )
 
 
 def create_profile(user_data):

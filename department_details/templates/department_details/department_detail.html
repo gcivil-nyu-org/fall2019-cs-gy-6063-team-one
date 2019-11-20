@@ -19,22 +19,26 @@
 
                 <div class="job-description-flex">
                 <div class="job-description-main-content">
+
                     <ul class="list-group list-group-flush border-0">
 
+                        {% if department.department_profile.address %}
                         <li class="list-group-item border-0"> <b>Address</b> </li>
                         <li class="list-group-item border-0"> {{ department.department_profile.address }} </li>
+                        {% endif %}
 
+                        {% if department.department_profile.description %}
                         <li class="list-group-item border-0"> <b>Description</b> </li>
-                        <li class="list-group-item border-0"> {{  department.department_profile.description }} </li>
+                        <li class="list-group-item border-0"> {{ department.department_profile.description }} </li>
+                        {% endif %}
 
+                        {% if department.department_profile.website %}
                         <li class="list-group-item border-0"> <b>Website</b> </li>
-                        <li class="list-group-item border-0"> {{ department.department_profile.website }} </li>
-
+                        <li class="list-group-item border-0"> <a href="{{ department.department_profile.website }}">{{ department.department_profile.website }}</a> </li>
+                        {% endif %}
                     </ul>
                 </div>
                 </div>
-                {% else %}
-                <p> DOESN'T </p>
                 {% endif %}
 
                 {% if jobs %}
