@@ -17,36 +17,35 @@ Develop:
 Follow the following steps to reset candidates/employers in the database:
 
 1. in the terminal, launch Django's Python REPL environment:
-
-```
-% python3 manage.py shell
-```
+    ```shell
+    python3 manage.py shell
+    ```
 
 2. in Python REPL:
 
-To create demo users, and skip for any existing demo user:
+    1. To create demo users, and skip for any existing demo user:
+    
+        ```python
+        from maintenance_worker import manage_demo_users; manage_demo_users.create_demo_employers()
+        ```
+        
+        or
+        
+        ```python
+        from maintenance_worker import manage_demo_users; manage_demo_users.create_demo_candidates()
+        ```
+        
+    2. To reset demo users, discarding any current user:
+    
+        ```python
+        from maintenance_worker import manage_demo_users; manage_demo_users.reset_demo_employers()
+        ```
 
-```
->>> from maintenance_worker import manage_demo_users; manage_demo_users.create_demo_employers()
-```
+        or
 
-or
-
-```
->>> from maintenance_worker import manage_demo_users; manage_demo_users.create_demo_candidates()
-```
-
-To reset demo users, discarding any current user:
-
-```
->>> from maintenance_worker import manage_demo_users; manage_demo_users.reset_demo_employers()
-```
-
-or
-
-```
->>> from maintenance_worker import manage_demo_users; manage_demo_users.reset_demo_candidates()
-```
+        ```
+        from maintenance_worker import manage_demo_users; manage_demo_users.reset_demo_candidates()
+        ```
 
 3. check your database for the changes.
 
@@ -54,17 +53,17 @@ or
 
 1. in the terminal, launch Django's Python REPL environment:
 
-```
-% python3 manage.py shell
-```
+     ```shell
+    python3 manage.py shell
+    ```
 
 2. in Python REPL:
 
-```
->>> from maintenance_worker import manage_jobs; manage_jobs.load_jobs()
-```
+    ```python
+    from maintenance_worker import manage_jobs; manage_jobs.load_jobs()
+    ```
 
-***Note:*** due to high volume of job postings in the vault, this command may take a few seconds to execute.
+    ***Note:*** due to high volume of job postings in the vault, this command may take a few seconds to execute.
 
 3. check your database for the changes.
 
