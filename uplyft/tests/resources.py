@@ -1,5 +1,5 @@
 from uplyft.models import CustomUser
-from jobs.models import Job, Department
+from jobs.models import Job, Department, DepartmentProfile
 from apply.models import Application
 from uplyft.models import Candidate, Employer, CandidateProfile, ActiveProfile
 import datetime
@@ -66,6 +66,107 @@ test_user_data = {
             "additional_info": "Good at art",
         },
     },
+    "candidates": [
+        {
+            "first_name": "Jane",
+            "last_name": "Jameson",
+            "email": "jane9@example.com",
+            "password": "cN3KJXi4GxsCxZET",
+            "password1": "cN3KJXi4GxsCxZET",
+            "password2": "cN3KJXi4GxsCxZET",
+            "profile": {
+                "first_name": "Jane",
+                "last_name": "Jameson",
+                "email": "jane30@example.com",
+                "gender": "F",
+                "gender_display": "Female",
+                "ethnicity": "OT",
+                "ethnicity_display": "Not Hispanic or Latino",
+                "race": "ASIAN",
+                "race_display": "Asian",
+                "health_conditions": "POSITIVE",
+                "health_conditions_display": "One or more health conditions",
+                "veteran": "POSITIVE",
+                "veteran_display": "Veteran",
+                "address_line": "123 Main Street, Hoboken",
+                "zip_code": "07030",
+                "state": "NJ",
+                "state_display": "New Jersey",
+                "phone": "+12018347135",
+                "portfolio_website": "https://janejameson.com",
+                "cover_letter": "Please hire me, I need this job",
+                "experiences": "Nada",
+                "education": "Self-taught",
+                "additional_info": "Good listener",
+            },
+        },
+        {
+            "first_name": "Michael",
+            "last_name": "Scott",
+            "email": "ms@michael.com",
+            "password": "HappyBirthday2Me",
+            "password1": "HappyBirthday2Me",
+            "password2": "HappyBirthday2Me",
+            "profile": {
+                "first_name": "James",
+                "last_name": "Bond",
+                "email": "bond@edu.com",
+                "gender": "M",
+                "gender_display": "Male",
+                "ethnicity": "OT",
+                "ethnicity_display": "Not Hispanic or Latino",
+                "race": "ASIAN",
+                "race_display": "Asian",
+                "health_conditions": "POSITIVE",
+                "health_conditions_display": "One or more health conditions",
+                "veteran": "POSITIVE",
+                "veteran_display": "Veteran",
+                "address_line": "123 Main Street, Hoboken",
+                "zip_code": "07030",
+                "state": "NJ",
+                "state_display": "New Jersey",
+                "phone": "+12018347135",
+                "portfolio_website": "https://facebook.com",
+                "cover_letter": "Please hire me, I need this job",
+                "experiences": "Nada",
+                "education": "Self-taught",
+                "additional_info": "Good listener",
+            },
+        },
+        {
+            "first_name": "James",
+            "last_name": "Michael Michaels",
+            "email": "mms@michael.com",
+            "password": "HappyBirthday2You",
+            "password1": "HappyBirthday2You",
+            "password2": "HappyBirthday2You",
+            "profile": {
+                "first_name": "Jimmy",
+                "last_name": "The Tank",
+                "email": "tj@yahoo.edu.com",
+                "gender": "F",
+                "gender_display": "Female",
+                "ethnicity": "OT",
+                "ethnicity_display": "Not Hispanic or Latino",
+                "race": "ASIAN",
+                "race_display": "Asian",
+                "health_conditions": "POSITIVE",
+                "health_conditions_display": "One or more health conditions",
+                "veteran": "POSITIVE",
+                "veteran_display": "Veteran",
+                "address_line": "112 W. 14th Street #4D",
+                "zip_code": "10012",
+                "state": "NY",
+                "state_display": "New York",
+                "phone": "+12018347135",
+                "portfolio_website": "https://facebook2.com",
+                "cover_letter": "...",
+                "experiences": "Nope",
+                "education": "Don't need it",
+                "additional_info": "Special kind of guy",
+            },
+        },
+    ],
     "employer": {
         "first_name": "John",
         "last_name": "Johnson",
@@ -80,7 +181,22 @@ test_user_data = {
         "email": "response@edu",
         "password": "103348494",
     },
-    "department": {"id": 1, "name": "NYC Fire"},
+    "department": {
+        "id": 1,
+        "name": "NYC Fire",
+        "department_profile": {
+            "description": "We stop fires.",
+            "website": "https://fires.com",
+            "address": "113 Broadway, New York NY 10012",
+            "phone": "+12129471135",
+            "email": "firedept@nyu.gov",
+        },
+    },
+    "department_with_no_profile": {
+        "id": 2,
+        "name": "NYC Water",
+        "department_profile": {},
+    },
     "job_details": [
         {
             "job_id": "87990",
@@ -140,10 +256,6 @@ test_user_data = {
         },
     ],
 }
-
-
-def create_department(department):
-    return Department.objects.create(id=department["id"], name=department["name"])
 
 
 def create_employer(department, user_data):
@@ -230,6 +342,24 @@ def create_candidate_with_active_profile(user_data):
     candidate = Candidate.objects.create(user=custom_user, candidate_profile=profile)
     ActiveProfile.objects.create(candidate=candidate, candidate_profile=profile)
     return candidate
+
+
+def create_department(data):
+    return Department.objects.create(id=data["id"], name=data["name"])
+
+
+def create_department_with_profile(data):
+    profile = DepartmentProfile.objects.create(
+        address=data["department_profile"]["address"],
+        description=data["department_profile"]["description"],
+        website=data["department_profile"]["website"],
+        phone=data["department_profile"]["phone"],
+        email=data["department_profile"]["email"],
+    )
+
+    return Department.objects.create(
+        id=data["id"], name=data["name"], department_profile=profile
+    )
 
 
 def create_profile(user_data):

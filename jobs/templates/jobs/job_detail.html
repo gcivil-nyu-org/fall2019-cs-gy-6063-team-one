@@ -17,13 +17,12 @@
 
                 <div class="job-description-flex">
                     <div class="job-summary-left">
-                        <div class="text-black-50"> {{ job.division }} • {{ job.department }}</div>
+                        <div class="text-black-50"> {{ job.division }} •  <a href="{% url 'department_details:department_detail' job.department.id %}">{{ job.department.name }}</a></div>
                         <div class="text-black-50"> {{ job.work_location }} </div>
                         <div class="text-black-50"> Posted on {{ job.posting_date }} </div>
                     </div>
 
                     <div class="job-primary-action-block-wrapper">
-                        
                         {% if has_open_application %}
                             <div>
                                 <a class="small" href="{% url 'applications:application_details' application_id %}">View application</a>
@@ -31,7 +30,6 @@
                             {% endif %}
 
                         <div class="job-primary-action-block">
-
                             <form class="job-primary-action" action="{% url 'jobs:save_job' job.id %}" method="post">
                                             {% csrf_token %}
                                 <input type="hidden" name="jobs_pk_id" value="{{ job.id }}" />
@@ -56,7 +54,25 @@
                         </div>
                     </div>
                 </div>
+
+                {% if user.is_candidate %}
+                    {% if other_applicants == 0 %} <!-- No one else has applied apps for this job -->
+                        {% if has_open_application %} <!-- You have applied for the job -->
+                            <div class="text-black-50"><i> You are the only applicant so far </i> </div>
+                        {% else %}
+                           <a href="{% url 'apply:apply' job.id%}">
+                                <div><i>Be the first to apply!</i></div>
+                            </a>
+                        {% endif %}
+                    {% elif other_applicants == 1 %} <!-- Only 1 application exists -->
+                        <div class="text-black-50"><i>{{ other_applicants }} other person has applied </i> </div>
+                    {% else %} <!-- Multiple applications exist -->
+                        <div class="text-black-50"><i>{{ other_applicants }} other people have applied </i> </div>
+                    {% endif %}
+                {% endif %}
             </div>
+
+
 
             <hr class="my-4">
 

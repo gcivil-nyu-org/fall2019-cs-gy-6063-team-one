@@ -117,11 +117,11 @@ class CandidateRegisterViewTests(TestCase):
             new_user.check_password(test_user_data["candidate"]["password"])
         )
 
-    def test_good_POST_redirects_to_login_success(self):
+    def test_good_POST_redirects_to_email_confimation(self):
         response = self.good_POST()
         self.assertRedirects(
             response,
-            reverse("candidate_login:candidate_login"),
+            reverse("register:email_confirmation"),
             fetch_redirect_response=False,
         )
 
