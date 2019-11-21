@@ -27,6 +27,11 @@ class ApplicationForm(ModelForm):
             "update_profile",
         )
 
+        help_texts = {
+            "resume": 'Allowed file types: .pdf, .doc, .docx',
+            "cover_letter":'Allowed file types: .pdf, .doc, .docx',
+        }
+
     def __init__(self, *args, **kwargs):
         super(ApplicationForm, self).__init__(*args, **kwargs)
 
