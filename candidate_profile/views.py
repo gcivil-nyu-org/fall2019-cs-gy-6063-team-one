@@ -45,10 +45,15 @@ def update_candidate_profile(request):
             return redirect("candidate_profile:profile")
         else:
             messages.error(request, _("Please correct the error below."))
+            return render(
+                request,
+                "candidate_profile.html",
+                {"profile_form": profile_form, "candidate": candidate, "active_profile": active_profile},
+            )
     else:
         profile_form = CandidateProfileForm(default_data)
         return render(
             request,
             "candidate_profile.html",
-            {"profile_form": profile_form, "candidate": candidate},
+            {"profile_form": profile_form, "candidate": candidate, "active_profile": active_profile},
         )

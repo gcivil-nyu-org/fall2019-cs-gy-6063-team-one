@@ -3,6 +3,7 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from localflavor.us import models as mailing
 from phonenumber_field.modelfields import PhoneNumberField
+from django.core.validators import FileExtensionValidator
 
 from jobs.models import Department
 
@@ -146,9 +147,17 @@ class CandidateProfile(models.Model):
         help_text="Maximum 200 characters", blank=True, null=True
     )
     # Cover Letter
-    cover_letter = models.FileField(upload_to='documents/', null=True)
+    cover_letter = models.FileField(
+        upload_to="documents/",
+        null=True,
+        validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"])],
+    )
     # Resume chunks
-    resume = models.FileField(upload_to='documents/', null=True)
+    resume = models.FileField(
+        upload_to="documents/",
+        null=True,
+        validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"])],
+    )
     additional_info = models.TextField(max_length=10000, blank=True, null=True)
 
     def __eq__(self, other):

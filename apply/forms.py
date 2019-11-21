@@ -29,7 +29,7 @@ class ApplicationForm(ModelForm):
 
         help_texts = {
             "resume": 'Allowed file types: .pdf, .doc, .docx',
-            "cover_letter":'Allowed file types: .pdf, .doc, .docx',
+            "cover_letter": 'Allowed file types: .pdf, .doc, .docx',
         }
 
     def __init__(self, *args, **kwargs):
