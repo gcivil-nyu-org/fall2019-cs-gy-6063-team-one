@@ -17,8 +17,7 @@ class ApplicationForm(ModelForm):
             "email",
             "phone",
             "portfolio_website",
-            "education",
-            "experiences",
+            "resume",
             "cover_letter",
             "gender",
             "ethnicity",
@@ -40,9 +39,8 @@ class ApplicationForm(ModelForm):
         self.fields["email"].required = True
 
         self.fields["phone"].required = True
-        self.fields["education"].required = True
-        self.fields["experiences"].required = True
-        self.fields["cover_letter"].required = True
+        self.fields["resume"].required = True
+        self.fields["cover_letter"].required = False
 
     # def clean_active_application_already_exists(self):
     #     jobs_pk_id = self.cleaned_data["jobs_pk_id"]

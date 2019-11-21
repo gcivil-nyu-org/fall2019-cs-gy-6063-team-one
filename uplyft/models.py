@@ -146,10 +146,9 @@ class CandidateProfile(models.Model):
         help_text="Maximum 200 characters", blank=True, null=True
     )
     # Cover Letter
-    cover_letter = models.TextField(max_length=10000, blank=True, null=True)
+    cover_letter = models.FileField(upload_to='documents/', null=True)
     # Resume chunks
-    experiences = models.TextField(max_length=10000, blank=True, null=True)
-    education = models.TextField(max_length=10000, blank=True, null=True)
+    resume = models.FileField(upload_to='documents/', null=True)
     additional_info = models.TextField(max_length=10000, blank=True, null=True)
 
     def __eq__(self, other):

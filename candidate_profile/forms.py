@@ -14,8 +14,7 @@ class CandidateProfileForm(forms.ModelForm):
             "email",
             "phone",
             "portfolio_website",
-            "education",
-            "experiences",
+            "resume",
             "cover_letter",
             "gender",
             "ethnicity",
@@ -30,3 +29,5 @@ class CandidateProfileForm(forms.ModelForm):
         self.fields["first_name"].required = True
         self.fields["last_name"].required = True
         self.fields["email"].required = True
+        self.fields["resume"].required = False
+        self.fields["cover_letter"].required = False
