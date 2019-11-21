@@ -37,7 +37,7 @@ def update_candidate_profile(request):
     }
 
     if request.method == "POST":
-        profile_form = CandidateProfileForm(request.POST)
+        profile_form = CandidateProfileForm(request.POST, request.FILES)
         if profile_form.is_valid():
             updated_profile = profile_form.save()
             active_profile.candidate_profile = updated_profile

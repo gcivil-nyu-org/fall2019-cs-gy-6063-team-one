@@ -34,7 +34,7 @@ def apply(request, pk):
     }
 
     if request.method == "POST":
-        application = ApplicationForm(request.POST)
+        application = ApplicationForm(request.POST, request.FILES)
         job = Job.objects.get(pk=pk)
 
         if application.is_valid():
