@@ -5,27 +5,19 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('uplyft', '0001_initial'),
-    ]
+    dependencies = [("uplyft", "0001_initial")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='candidateprofile',
-            name='education',
-        ),
-        migrations.RemoveField(
-            model_name='candidateprofile',
-            name='experiences',
-        ),
+        migrations.RemoveField(model_name="candidateprofile", name="education"),
+        migrations.RemoveField(model_name="candidateprofile", name="experiences"),
         migrations.AddField(
-            model_name='candidateprofile',
-            name='resume',
-            field=models.FileField(null=True, upload_to='documents/'),
+            model_name="candidateprofile",
+            name="resume",
+            field=models.FileField(null=True, upload_to="documents/"),
         ),
         migrations.AlterField(
-            model_name='candidateprofile',
-            name='cover_letter',
-            field=models.FileField(null=True, upload_to='documents/'),
+            model_name="candidateprofile",
+            name="cover_letter",
+            field=models.FileField(null=True, upload_to="documents/"),
         ),
     ]

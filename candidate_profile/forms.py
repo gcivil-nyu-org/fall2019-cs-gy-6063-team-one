@@ -22,9 +22,7 @@ class CandidateProfileForm(forms.ModelForm):
             "veteran",
         )
 
-        help_texts = {
-            "resume": 'Allowed file types: .pdf, .doc, .docx',
-        }
+        help_texts = {"resume": "Allowed file types: .pdf, .doc, .docx"}
 
     # Make name and email always be mandatory
     def __init__(self, *args, **kwargs):

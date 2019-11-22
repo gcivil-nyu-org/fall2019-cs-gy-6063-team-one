@@ -28,13 +28,11 @@ class ApplicationForm(ModelForm):
         )
 
         help_texts = {
-            "resume": 'Allowed file types: .pdf, .doc, .docx',
-            "cover_letter": 'Allowed file types: .pdf, .doc, .docx',
+            "resume": "Allowed file types: .pdf, .doc, .docx",
+            "cover_letter": "Allowed file types: .pdf, .doc, .docx",
         }
 
-        widgets = {
-            "cover_letter": FileInput,
-        }
+        widgets = {"cover_letter": FileInput}
 
     def __init__(self, *args, **kwargs):
         super(ApplicationForm, self).__init__(*args, **kwargs)
@@ -50,7 +48,6 @@ class ApplicationForm(ModelForm):
         self.fields["phone"].required = True
         self.fields["resume"].required = True
         self.fields["cover_letter"].required = False
-
 
     # def clean_active_application_already_exists(self):
     #     jobs_pk_id = self.cleaned_data["jobs_pk_id"]

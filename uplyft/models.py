@@ -52,11 +52,11 @@ class CustomUser(AbstractUser):
 
 
 def candidate_resume_directory_path(instance, filename):
-    return 'resume_candidate_{0}/{1}'.format(instance.user.id, filename)
+    return "resume_candidate_{0}/{1}".format(instance.user.id, filename)
 
 
 def candidate_cover_letter_directory_path(instance, filename):
-    return 'cover_letter_candidate_{0}/{1}'.format(instance.user.id, filename)
+    return "cover_letter_candidate_{0}/{1}".format(instance.user.id, filename)
 
 
 class CandidateProfile(models.Model):

@@ -14,7 +14,9 @@ def update_candidate_profile(request):
     active_profile = ActiveProfile.objects.get(candidate=candidate)
 
     if request.method == "POST":
-        profile_form = CandidateProfileForm(request.POST, request.FILES, instance=active_profile.candidate_profile)
+        profile_form = CandidateProfileForm(
+            request.POST, request.FILES, instance=active_profile.candidate_profile
+        )
         if profile_form.is_valid():
             updated_profile = profile_form.save()
             active_profile.candidate_profile = updated_profile
@@ -26,12 +28,20 @@ def update_candidate_profile(request):
             return render(
                 request,
                 "candidate_profile.html",
-                {"profile_form": profile_form, "candidate": candidate, "active_profile": active_profile},
+                {
+                    "profile_form": profile_form,
+                    "candidate": candidate,
+                    "active_profile": active_profile,
+                },
             )
     else:
         profile_form = CandidateProfileForm(instance=active_profile.candidate_profile)
         return render(
             request,
             "candidate_profile.html",
-            {"profile_form": profile_form, "candidate": candidate, "active_profile": active_profile},
+            {
+                "profile_form": profile_form,
+                "candidate": candidate,
+                "active_profile": active_profile,
+            },
         )

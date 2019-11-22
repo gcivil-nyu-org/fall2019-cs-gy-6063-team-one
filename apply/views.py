@@ -19,7 +19,10 @@ def apply(request, pk):
             application = ApplicationForm(request.POST, file_data)
         elif "resume" not in request.FILES and "cover_letter" in request.FILES:
             # The candidate wants to use their existing resume (and a new cover letter)
-            file_data = {"resume": active_prof.candidate_profile.resume, "cover_letter": request.FILES["cover_letter"]}
+            file_data = {
+                "resume": active_prof.candidate_profile.resume,
+                "cover_letter": request.FILES["cover_letter"],
+            }
             application = ApplicationForm(request.POST, file_data)
         else:
             # The candidate provides either a new resume and a new cover letter (or just a new resume)

@@ -6,19 +6,33 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('uplyft', '0002_auto_20191121_1253'),
-    ]
+    dependencies = [("uplyft", "0002_auto_20191121_1253")]
 
     operations = [
         migrations.AlterField(
-            model_name='candidateprofile',
-            name='cover_letter',
-            field=models.FileField(null=True, upload_to='documents/', validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx'])]),
+            model_name="candidateprofile",
+            name="cover_letter",
+            field=models.FileField(
+                null=True,
+                upload_to="documents/",
+                validators=[
+                    django.core.validators.FileExtensionValidator(
+                        allowed_extensions=["pdf", "doc", "docx"]
+                    )
+                ],
+            ),
         ),
         migrations.AlterField(
-            model_name='candidateprofile',
-            name='resume',
-            field=models.FileField(null=True, upload_to='documents/', validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx'])]),
+            model_name="candidateprofile",
+            name="resume",
+            field=models.FileField(
+                null=True,
+                upload_to="documents/",
+                validators=[
+                    django.core.validators.FileExtensionValidator(
+                        allowed_extensions=["pdf", "doc", "docx"]
+                    )
+                ],
+            ),
         ),
     ]
