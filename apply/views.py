@@ -25,7 +25,8 @@ def apply(request, pk):
             }
             application = ApplicationForm(request.POST, file_data)
         else:
-            # The candidate provides either a new resume and a new cover letter (or just a new resume)
+            # The candidate provides either a new resume and a new
+            # cover letter (or just a new resume)
             application = ApplicationForm(request.POST, request.FILES)
         job = Job.objects.get(pk=pk)
 
