@@ -11,29 +11,19 @@ def apply(request, pk):
     candidate = Candidate.objects.get(user=request.user)
     active_prof = ActiveProfile.objects.get(candidate=candidate)
 
-    default_data = {
-        "first_name": active_prof.candidate_profile.first_name[:1].upper()
-        + active_prof.candidate_profile.first_name[1:],
-        "last_name": active_prof.candidate_profile.last_name[:1].upper()
-        + active_prof.candidate_profile.last_name[1:],
-        "address_line": active_prof.candidate_profile.address_line,
-        "zip_code": active_prof.candidate_profile.zip_code,
-        "state": active_prof.candidate_profile.state,
-        "email": active_prof.candidate_profile.email,
-        "phone": active_prof.candidate_profile.phone,
-        "portfolio_website": active_prof.candidate_profile.portfolio_website,
-        "resume": active_prof.candidate_profile.resume,
-        "cover_letter": active_prof.candidate_profile.cover_letter,
-        "gender": active_prof.candidate_profile.gender,
-        "ethnicity": active_prof.candidate_profile.ethnicity,
-        "race": active_prof.candidate_profile.race,
-        "health_conditions": active_prof.candidate_profile.health_conditions,
-        "veteran": active_prof.candidate_profile.veteran,
-        "update_profile": False,
-    }
-
+    # request.FILES is a dictionary that holds the files the candidate uploaded
     if request.method == "POST":
-        application = ApplicationForm(request.POST, request.FILES)
+        if request.FILES == {}:  # The candidate uploaded no files
+            # The candidate wants to use their existing resume (and no cover letter)
+            file_data = {"resume": active_prof.candidate_profile.resume}
+            application = ApplicationForm(request.POST, file_data)
+        elif "resume" not in request.FILES and "cover_letter" in request.FILES:
+            # The candidate wants to use their existing resume (and a new cover letter)
+            file_data = {"resume": active_prof.candidate_profile.resume, "cover_letter": request.FILES["cover_letter"]}
+            application = ApplicationForm(request.POST, file_data)
+        else:
+            # The candidate provides either a new resume and a new cover letter (or just a new resume)
+            application = ApplicationForm(request.POST, request.FILES)
         job = Job.objects.get(pk=pk)
 
         if application.is_valid():
@@ -110,6 +100,7 @@ def apply(request, pk):
             messages.success(request, "Application submitted")
             return redirect("applications:application_details", pk=app_obj.pk)
         else:
+            print(application.errors)
             messages.error(request, _("Please correct the error below."))
             return render(
                 request,
@@ -117,7 +108,7 @@ def apply(request, pk):
                 {"application": application, "job": job, "candidate": candidate},
             )
     else:
-        application = ApplicationForm(default_data)
+        application = ApplicationForm(instance=active_prof.candidate_profile)
         job = Job.objects.get(pk=pk)
         return render(
             request,

@@ -19,19 +19,22 @@ body{
     <title> My Profile </title>
 </head>
 <body>
-{% if messages %}
-    {% for message in messages %}
-            <div class="container card py-4 alert alert-primary" role="alert">{{ message }}</div>
-    {% endfor %}
-{% endif %}
-<div class="container card py-4">
-    <h1 class=""> My Profile </h1>
-    <hr class="my-4">
-        <form class="reg_form" method="post" enctype="multipart/form-data">
-          {% csrf_token %}
-            {{ profile_form|crispy }}
-              <button name="submit" type="submit" class="btn btn-primary">Save Changes</button>
-        </form>
+
+<div class="col-md-6 col-lg-7 mx-auto">
+    {% if messages %}
+        {% for message in messages %}
+                <div class="container card py-4 alert alert-primary" role="alert">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+    <div class="container card py-4">
+        <h1 class=""> My Profile </h1>
+        <hr class="my-4">
+            <form class="reg_form" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+                {{ profile_form|crispy }}
+                  <button name="submit" type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+    </div>
 </div>
 
 </body>

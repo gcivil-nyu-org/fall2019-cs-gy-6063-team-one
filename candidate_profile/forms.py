@@ -15,16 +15,15 @@ class CandidateProfileForm(forms.ModelForm):
             "phone",
             "portfolio_website",
             "resume",
-            "cover_letter",
             "gender",
             "ethnicity",
             "race",
             "health_conditions",
             "veteran",
         )
+
         help_texts = {
             "resume": 'Allowed file types: .pdf, .doc, .docx',
-            "cover_letter":'Allowed file types: .pdf, .doc, .docx',
         }
 
     # Make name and email always be mandatory
@@ -34,4 +33,3 @@ class CandidateProfileForm(forms.ModelForm):
         self.fields["last_name"].required = True
         self.fields["email"].required = True
         self.fields["resume"].required = False
-        self.fields["cover_letter"].required = False

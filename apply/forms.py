@@ -1,10 +1,10 @@
-from django.forms import ModelForm, BooleanField
+from django.forms import ModelForm, BooleanField, FileInput
 from uplyft.models import CandidateProfile
 
 
 class ApplicationForm(ModelForm):
     # Check box for whether the user wants to push changes to their profile
-    update_profile = BooleanField(required=False)
+    update_profile = BooleanField(required=False, initial=False)
 
     class Meta:
         model = CandidateProfile
@@ -32,6 +32,10 @@ class ApplicationForm(ModelForm):
             "cover_letter": 'Allowed file types: .pdf, .doc, .docx',
         }
 
+        widgets = {
+            "cover_letter": FileInput,
+        }
+
     def __init__(self, *args, **kwargs):
         super(ApplicationForm, self).__init__(*args, **kwargs)
 
@@ -46,6 +50,7 @@ class ApplicationForm(ModelForm):
         self.fields["phone"].required = True
         self.fields["resume"].required = True
         self.fields["cover_letter"].required = False
+
 
     # def clean_active_application_already_exists(self):
     #     jobs_pk_id = self.cleaned_data["jobs_pk_id"]

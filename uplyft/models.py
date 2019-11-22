@@ -51,6 +51,14 @@ class CustomUser(AbstractUser):
         return self.email
 
 
+def candidate_resume_directory_path(instance, filename):
+    return 'resume_candidate_{0}/{1}'.format(instance.user.id, filename)
+
+
+def candidate_cover_letter_directory_path(instance, filename):
+    return 'cover_letter_candidate_{0}/{1}'.format(instance.user.id, filename)
+
+
 class CandidateProfile(models.Model):
     # Demographic
     GENDER_CHOICE_FEMALE = "F"
@@ -148,14 +156,16 @@ class CandidateProfile(models.Model):
     )
     # Cover Letter
     cover_letter = models.FileField(
-        upload_to="documents/",
+        upload_to="candidate_cover_letter_directory_path",
         null=True,
+        blank=True,
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"])],
     )
     # Resume chunks
     resume = models.FileField(
-        upload_to="documents/",
+        upload_to="candidate_resume_directory_path",
         null=True,
+        blank=True,
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"])],
     )
     additional_info = models.TextField(max_length=10000, blank=True, null=True)
