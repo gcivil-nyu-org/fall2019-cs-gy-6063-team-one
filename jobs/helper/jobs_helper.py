@@ -28,6 +28,10 @@ def save_department(department):
 
 def create_jobs():
     for index, row in jobs_csv.iterrows():
+        if row[2] and row[2].lower() == "internal":
+            # Do not use internal job postings, as our website is open to general
+            # public.
+            continue
         for j, field in enumerate(row):
             # All columns after 22 are date fields, so if pandas reads it as NaN,
             # set to None
@@ -53,10 +57,11 @@ def save_job(row):
     # row[1] contains the agency/department name
     department_name = row[1]
     department = Department.objects.get(name=department_name)
-    job = Job(
-        job_id=row[0],
+
+    # Ensure no duplicates are entered
+    job, created = Job.objects.get_or_create(
+        id=row[0],
         department=department,
-        posting_type=row[2],
         business_title=row[3],
         civil_service_title=row[4],
         title_code_no=row[5],
@@ -82,4 +87,5 @@ def save_job(row):
         posting_updated=row[25],
         process_date=row[26],
     )
-    job.save()
+    if not created:
+        logger.info("Job :{}: already exists, not updating".format(row[0]))
