@@ -199,7 +199,7 @@ test_user_data = {
     },
     "job_details": [
         {
-            "id": "87990",
+            "id": 87990,
             "business_title": "Account Manager",
             "civil_service_title": "'CONTRACT REVIEWER (OFFICE OF L",
             "title_code_no": "40563",
@@ -226,7 +226,7 @@ test_user_data = {
             "process_date": datetime.date(2019, 10, 15),
         },
         {
-            "id": "87991",
+            "id": 87991,
             "business_title": "Account Auditor",
             "civil_service_title": "Account Auditor",
             "title_code_no": "28907",

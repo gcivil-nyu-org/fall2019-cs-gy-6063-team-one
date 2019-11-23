@@ -19,12 +19,12 @@ class JobsModelTest(TestCase):
         self.assertFalse(self.job1.__eq__(self.job2))
 
     def test__eq__compares_on_id_equal(self):
-        job1_retrieved_by_id = Job.objects.get(id=1)
-        self.assertTrue(self.job1.__eq__(job1_retrieved_by_id))
+        job1_retrieved_by_id = Job.objects.get(id=87990)
+        self.assertTrue(self.job1 == job1_retrieved_by_id)
 
     def test__ne__compares_on_id_equal(self):
-        job1_retrieved_by_id = Job.objects.get(id=1)
-        self.assertFalse(self.job1.__ne__(job1_retrieved_by_id))
+        job1_retrieved_by_id = Job.objects.get(id=87990)
+        self.assertFalse(self.job1 != job1_retrieved_by_id)
 
     def test__ne__compares_on_id_not_equal(self):
         self.assertTrue(self.job1.__ne__(self.job2))
