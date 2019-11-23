@@ -199,8 +199,7 @@ test_user_data = {
     },
     "job_details": [
         {
-            "job_id": "87990",
-            "posting_type": "Internal",
+            "id": 87990,
             "business_title": "Account Manager",
             "civil_service_title": "'CONTRACT REVIEWER (OFFICE OF L",
             "title_code_no": "40563",
@@ -227,8 +226,7 @@ test_user_data = {
             "process_date": datetime.date(2019, 10, 15),
         },
         {
-            "job_id": "87991",
-            "posting_type": "Internal",
+            "id": 87991,
             "business_title": "Account Auditor",
             "civil_service_title": "Account Auditor",
             "title_code_no": "28907",
@@ -271,9 +269,8 @@ def create_employer(department, user_data):
 
 def create_job(department, job_details):
     return Job.objects.create(
-        job_id=job_details["job_id"],
+        id=job_details["id"],
         department=department,
-        posting_type=job_details["posting_type"],
         business_title=job_details["business_title"],
         civil_service_title=job_details["civil_service_title"],
         title_code_no=job_details["title_code_no"],

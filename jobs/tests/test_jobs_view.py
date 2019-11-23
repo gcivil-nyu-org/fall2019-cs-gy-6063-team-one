@@ -45,9 +45,8 @@ class JobsViewSideCandidateTest(TestCase):
     def create_job(self):
         department = self.create_department()
         job = Job(
-            job_id="87990",
+            id="87990",
             department=department,
-            posting_type="Internal",
             business_title="Account Manager",
             civil_service_title="'CONTRACT REVIEWER (OFFICE OF L",
             title_code_no="40563",

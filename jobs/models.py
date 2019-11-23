@@ -23,9 +23,8 @@ class Department(models.Model):
 
 
 class Job(models.Model):
-    job_id = models.IntegerField()
+    id = models.IntegerField(primary_key=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    posting_type = models.CharField(max_length=MAX_CHARS)
     business_title = models.CharField(max_length=MAX_CHARS)
     civil_service_title = models.CharField(max_length=MAX_CHARS)
     title_code_no = models.CharField(max_length=MAX_CHARS)
