@@ -5,22 +5,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('jobs', '0003_auto_20191120_1540'),
-    ]
+    dependencies = [("jobs", "0003_auto_20191120_1540")]
 
     operations = [
-        migrations.RemoveField(
-            model_name='job',
-            name='job_id',
-        ),
-        migrations.RemoveField(
-            model_name='job',
-            name='posting_type',
-        ),
+        migrations.RemoveField(model_name="job", name="job_id"),
+        migrations.RemoveField(model_name="job", name="posting_type"),
         migrations.AlterField(
-            model_name='job',
-            name='id',
+            model_name="job",
+            name="id",
             field=models.IntegerField(primary_key=True, serialize=False),
         ),
     ]
