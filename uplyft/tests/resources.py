@@ -4,6 +4,8 @@ from apply.models import Application
 from uplyft.models import Candidate, Employer, CandidateProfile, ActiveProfile
 import datetime
 from decimal import Decimal
+from django.core.files.uploadedfile import SimpleUploadedFile
+
 
 test_user_data = {
     "candidate": {
@@ -33,9 +35,16 @@ test_user_data = {
             "state_display": "New Jersey",
             "phone": "+12018347135",
             "portfolio_website": "https://janejameson.com",
-            "cover_letter": "Please hire me, I need this job",
-            "experiences": "Nada",
-            "education": "Self-taught",
+            "resume": SimpleUploadedFile(
+                "test_resume.pdf",
+                open("media/tests/test_resume.pdf", "rb").read(),
+                content_type="application/pdf",
+            ),
+            "cover_letter": SimpleUploadedFile(
+                "test_cover_letter.pdf",
+                open("media/tests/test_cover_letter.pdf", "rb").read(),
+                content_type="application/pdf",
+            ),
             "additional_info": "Good listener",
         },
         "new_profile": {
@@ -58,11 +67,12 @@ test_user_data = {
             "state_display": "New York",
             "phone": "2013348135",
             "portfolio_website": "https://janeTjameson.com",
+            "resume": "",
             "cover_letter": "Please hire me, I need this job. "
             "Since I wrote the original cover "
             "letter, nothing has changed...",
-            "experiences": "Less than nada",
-            "education": "Teach me?",
+            # "experiences": "Less than nada",
+            # "education": "Teach me?",
             "additional_info": "Good at art",
         },
     },
@@ -95,8 +105,8 @@ test_user_data = {
                 "phone": "+12018347135",
                 "portfolio_website": "https://janejameson.com",
                 "cover_letter": "Please hire me, I need this job",
-                "experiences": "Nada",
-                "education": "Self-taught",
+                # "experiences": "Nada",
+                # "education": "Self-taught",
                 "additional_info": "Good listener",
             },
         },
@@ -128,8 +138,8 @@ test_user_data = {
                 "phone": "+12018347135",
                 "portfolio_website": "https://facebook.com",
                 "cover_letter": "Please hire me, I need this job",
-                "experiences": "Nada",
-                "education": "Self-taught",
+                # "experiences": "Nada",
+                # "education": "Self-taught",
                 "additional_info": "Good listener",
             },
         },
@@ -161,8 +171,8 @@ test_user_data = {
                 "phone": "+12018347135",
                 "portfolio_website": "https://facebook2.com",
                 "cover_letter": "...",
-                "experiences": "Nope",
-                "education": "Don't need it",
+                # "experiences": "Nope",
+                # "education": "Don't need it",
                 "additional_info": "Special kind of guy",
             },
         },
@@ -334,9 +344,8 @@ def create_candidate_with_active_profile(user_data):
         state=user_data["profile"]["state"],
         phone=user_data["profile"]["phone"],
         portfolio_website=user_data["profile"]["portfolio_website"],
+        resume=user_data["profile"]["resume"],
         cover_letter=user_data["profile"]["cover_letter"],
-        experiences=user_data["profile"]["experiences"],
-        education=user_data["profile"]["education"],
         additional_info=user_data["profile"]["additional_info"],
     )
     candidate = Candidate.objects.create(user=custom_user, candidate_profile=profile)
@@ -377,9 +386,8 @@ def create_profile(user_data):
         state=user_data["state"],
         phone=user_data["phone"],
         portfolio_website=user_data["portfolio_website"],
+        resume=user_data["resume"],
         cover_letter=user_data["cover_letter"],
-        experiences=user_data["experiences"],
-        education=user_data["education"],
         additional_info=user_data["additional_info"],
     )
 

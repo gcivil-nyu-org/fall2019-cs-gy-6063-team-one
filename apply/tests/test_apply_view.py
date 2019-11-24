@@ -65,8 +65,7 @@ class ApplicationViewTests(TestCase):
                 "portfolio_website": test_user_data["candidate"]["profile"][
                     "portfolio_website"
                 ],
-                "education": test_user_data["candidate"]["profile"]["education"],
-                "experiences": test_user_data["candidate"]["profile"]["experiences"],
+                "resume": test_user_data["candidate"]["profile"]["resume"],
                 "cover_letter": test_user_data["candidate"]["profile"]["cover_letter"],
                 "gender": test_user_data["candidate"]["profile"]["gender"],
                 "ethnicity": test_user_data["candidate"]["profile"]["ethnicity"],
@@ -88,6 +87,7 @@ class ApplicationViewTests(TestCase):
             reverse("apply:apply", kwargs={"pk": self.job.id}),
             data=test_user_data["candidate"]["profile"],
         )
+
         app = Application.objects.get(candidate=self.candidate)
         pk = app.pk
         self.assertRedirects(
