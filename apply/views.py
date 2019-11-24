@@ -104,7 +104,6 @@ def apply(request, pk):
             messages.success(request, "Application submitted")
             return redirect("applications:application_details", pk=app_obj.pk)
         else:
-            print(application.errors)
             messages.error(request, _("Please correct the error below."))
             return render(
                 request,
