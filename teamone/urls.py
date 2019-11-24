@@ -16,10 +16,10 @@ Including another URL conf
 from django.contrib import admin
 from django.urls import include, path
 
-handler400 = 'errors.views.bad_request'
-handler403 = 'errors.views.forbidden'
-handler404 = 'errors.views.not_found'
-handler500 = 'errors.views.internal_error'
+handler400 = "errors.views.bad_request"
+handler403 = "errors.views.forbidden"
+handler404 = "errors.views.not_found"
+handler500 = "errors.views.internal_error"
 
 urlpatterns = [
     path("", include("uplyft.urls")),
@@ -37,5 +37,4 @@ urlpatterns = [
     path("department_details/", include("department_details.urls")),
     path("department_profile/", include("department_profile.urls")),
     path("unauthorized/", include("errors.urls")),
-
 ]
