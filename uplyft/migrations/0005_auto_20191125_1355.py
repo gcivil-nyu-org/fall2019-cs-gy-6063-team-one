@@ -7,19 +7,35 @@ import uuid_upload_path.storage
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('uplyft', '0004_auto_20191124_1825'),
-    ]
+    dependencies = [("uplyft", "0004_auto_20191124_1825")]
 
     operations = [
         migrations.AlterField(
-            model_name='candidateprofile',
-            name='cover_letter',
-            field=models.FileField(blank=True, null=True, upload_to=uuid_upload_path.storage.upload_to, validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx'])]),
+            model_name="candidateprofile",
+            name="cover_letter",
+            field=models.FileField(
+                blank=True,
+                null=True,
+                upload_to=uuid_upload_path.storage.upload_to,
+                validators=[
+                    django.core.validators.FileExtensionValidator(
+                        allowed_extensions=["pdf", "doc", "docx"]
+                    )
+                ],
+            ),
         ),
         migrations.AlterField(
-            model_name='candidateprofile',
-            name='resume',
-            field=models.FileField(blank=True, null=True, upload_to=uuid_upload_path.storage.upload_to, validators=[django.core.validators.FileExtensionValidator(allowed_extensions=['pdf', 'doc', 'docx'])]),
+            model_name="candidateprofile",
+            name="resume",
+            field=models.FileField(
+                blank=True,
+                null=True,
+                upload_to=uuid_upload_path.storage.upload_to,
+                validators=[
+                    django.core.validators.FileExtensionValidator(
+                        allowed_extensions=["pdf", "doc", "docx"]
+                    )
+                ],
+            ),
         ),
     ]

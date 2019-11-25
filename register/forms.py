@@ -23,13 +23,19 @@ class CandidateRegistrationForm(UserCreationForm):
         return email
 
     def clean_first_name(self):
-        first_name = self.cleaned_data["first_name"][:1].upper() + self.cleaned_data["first_name"][1:]
+        first_name = (
+            self.cleaned_data["first_name"][:1].upper()
+            + self.cleaned_data["first_name"][1:]
+        )
         if not first_name.isalpha():
             raise ValidationError("First name should contain only letters (A-Z).")
         return first_name
 
     def clean_last_name(self):
-        last_name = self.cleaned_data["last_name"][:1].upper() + self.cleaned_data["last_name"][1:]
+        last_name = (
+            self.cleaned_data["last_name"][:1].upper()
+            + self.cleaned_data["last_name"][1:]
+        )
         if not last_name.isalpha():
             raise ValidationError("Last name should contain only letters (A-Z).")
         return last_name

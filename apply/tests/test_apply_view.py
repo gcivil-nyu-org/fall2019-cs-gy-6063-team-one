@@ -84,20 +84,21 @@ class ApplicationViewTests(TestCase):
 
     def test_good_post(self):
         self.login_candidate()
-        resume = SimpleUploadedFile("test_resume_0.pdf",
-                                    open("media/tests/test_resume_0.pdf", "rb").read(),
-                                    content_type="application/pdf",
-                                    )
-        cover_letter = SimpleUploadedFile("test_cover_letter_0.pdf",
-                                          open("media/tests/test_cover_letter_0.pdf", "rb").read(),
-                                          content_type="application/pdf",
-                                          )
+        resume = SimpleUploadedFile(
+            "test_resume_0.pdf",
+            open("media/tests/test_resume_0.pdf", "rb").read(),
+            content_type="application/pdf",
+        )
+        cover_letter = SimpleUploadedFile(
+            "test_cover_letter_0.pdf",
+            open("media/tests/test_cover_letter_0.pdf", "rb").read(),
+            content_type="application/pdf",
+        )
         data = test_user_data["candidate"]["profile"]
         data["resume"] = resume
         data["cover_letter"] = cover_letter
         response = self.client.post(
-            reverse("apply:apply", kwargs={"pk": self.job.id}),
-            data=data,
+            reverse("apply:apply", kwargs={"pk": self.job.id}), data=data
         )
         app = Application.objects.get(candidate=self.candidate)
         pk = app.pk
@@ -110,23 +111,23 @@ class ApplicationViewTests(TestCase):
 
     def test_good_POST_required_fields_only(self):
         self.login_candidate()
-        resume = SimpleUploadedFile("test_resume_0.pdf",
-                                    open("media/tests/test_resume_0.pdf", "rb").read(),
-                                    content_type="application/pdf",
-                                    )
+        resume = SimpleUploadedFile(
+            "test_resume_0.pdf",
+            open("media/tests/test_resume_0.pdf", "rb").read(),
+            content_type="application/pdf",
+        )
         data = {
-                "first_name": test_user_data["candidate"]["profile"]["first_name"],
-                "last_name": test_user_data["candidate"]["profile"]["last_name"],
-                "email": test_user_data["candidate"]["profile"]["email"],
-                "address_line": test_user_data["candidate"]["profile"]["address_line"],
-                "zip_code": test_user_data["candidate"]["profile"]["zip_code"],
-                "state": test_user_data["candidate"]["profile"]["state"],
-                "phone": test_user_data["candidate"]["profile"]["phone"],
-                "resume": resume,
-            }
+            "first_name": test_user_data["candidate"]["profile"]["first_name"],
+            "last_name": test_user_data["candidate"]["profile"]["last_name"],
+            "email": test_user_data["candidate"]["profile"]["email"],
+            "address_line": test_user_data["candidate"]["profile"]["address_line"],
+            "zip_code": test_user_data["candidate"]["profile"]["zip_code"],
+            "state": test_user_data["candidate"]["profile"]["state"],
+            "phone": test_user_data["candidate"]["profile"]["phone"],
+            "resume": resume,
+        }
         response = self.client.post(
-            reverse("apply:apply", kwargs={"pk": self.job.id}),
-            data=data,
+            reverse("apply:apply", kwargs={"pk": self.job.id}), data=data
         )
         self.assertEquals(response.status_code, 302)
         self.assertEqual(Application.objects.all().count(), 1)
