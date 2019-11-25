@@ -4,12 +4,12 @@
 {% load crispy_forms_tags %}
 
 <style>
-body{
-    background-attachment: fixed !important;
-}
+
 </style>
 
 <div class="col-md-6 col-lg-7 mx-auto">
+     <link rel="stylesheet" type="text/css" href="{% static "apply/css/apply.css" %}">
+
     <div class="apply">
         {% if messages %}
         <ul>
@@ -23,7 +23,7 @@ body{
     <div class="container card py-4">
         <h1 class="mb-5"> Apply </h1>
             <h5 class="card-title">{{ job.business_title }}</h5>
-            <p class="card-text text-muted h6"> # {{job.id }} | {{ job.department.name }} </p>
+            <p class="card-text text-muted h6"> # {{job.id }} | <a href="{% url 'department_details:department_detail' job.department.id %}">{{ job.department.name }}</a> </p>
             <hr class="h-bar">
             <p class="card-text"><small>{{job.job_description|truncatechars:500 }}</small></p>
         <br>
