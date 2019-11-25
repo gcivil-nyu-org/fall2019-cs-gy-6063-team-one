@@ -27,7 +27,7 @@ class DepartmentDetails(LoginRequiredMixin, ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        department_id = self.kwargs['pk']
+        department_id = self.kwargs["pk"]
         try:
             department = Department.objects.get(id=department_id)
         except Department.DoesNotExist:
@@ -55,9 +55,12 @@ class DepartmentDetails(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         if self.request.user.is_active:
-            department_id = self.kwargs['pk']
-            jobs = Job.objects.filter(department_id=department_id).annotate(
-                count=Count('application')).order_by('-count')
+            department_id = self.kwargs["pk"]
+            jobs = (
+                Job.objects.filter(department_id=department_id)
+                .annotate(count=Count("application"))
+                .order_by("-count")
+            )
             return jobs
         else:
             return None

@@ -12,7 +12,7 @@ from uplyft.tests.resources import (
 from jobs.models import Job
 from apply.models import Application
 
-date_format = '%b. %d, %Y'
+date_format = "%b. %d, %Y"
 
 
 def get_count_from_list(input_list, key):
@@ -161,12 +161,8 @@ class DepartmentDetailViewTest(TestCase):
 
         job1_count = get_count_from_list(response.context["jobs"], self.job1.id)
         job2_count = get_count_from_list(response.context["jobs"], self.job2.id)
-        self.assertEquals(
-            job1_count, apps_to_job1
-        )
-        self.assertEquals(
-            job2_count, apps_to_job2
-        )
+        self.assertEquals(job1_count, apps_to_job1)
+        self.assertEquals(job2_count, apps_to_job2)
 
     def test_context_has_count_of_submitted_applications_employer(self):
         self.login_employer()
@@ -181,14 +177,10 @@ class DepartmentDetailViewTest(TestCase):
         apps_to_job1 = Application.objects.filter(job=self.job1).count()
         apps_to_job2 = Application.objects.filter(job=self.job2).count()
 
-        job1_count = get_count_from_list(response.context["jobs"],self.job1.id)
+        job1_count = get_count_from_list(response.context["jobs"], self.job1.id)
         job2_count = get_count_from_list(response.context["jobs"], self.job2.id)
-        self.assertEquals(
-            job1_count, apps_to_job1
-        )
-        self.assertEquals(
-            job2_count, apps_to_job2
-        )
+        self.assertEquals(job1_count, apps_to_job1)
+        self.assertEquals(job2_count, apps_to_job2)
 
     def test_context_displays_department_profile_details_labels_if_exists(self):
         self.login_employer()
