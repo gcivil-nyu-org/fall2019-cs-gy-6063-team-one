@@ -49,7 +49,7 @@ def update_candidate_profile(request):
         else:
             messages.error(request, _("Please correct the error below."))
     else:
-        profile_form = CandidateProfileForm(default_data)
+        profile_form = CandidateProfileForm(initial=default_data)
         return render(
             request,
             "candidate_profile.html",
