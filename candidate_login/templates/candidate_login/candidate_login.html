@@ -5,13 +5,12 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+<link rel="stylesheet" type="text/css" href="{% static "candidate_login/css/candidate_login.css" %}">
+
+
 <div class="card py-4 col-md-6 col-lg-6 mx-auto">
 
-    <h1 class="">Login to Uplyft</h1>
-    <div>
-        First time on Uplyft? <a name="candidate_register_link" href="{% url 'register:candidate_register' %}"><b>Join now</b></a> Or <a href="{% provider_login_url 'google' %}">Login with Google </a>
-    </div>
-    <br>
+    <h1 class="">Candidate Login</h1>
     <form name="candidate_login_form" class="reg_form" action="{% url 'candidate_login:candidate_login' %}" method="post">
         {% csrf_token %}
         {{ form|crispy }}
@@ -22,8 +21,12 @@
             <input type="submit" name="submit" value="Login"/>
         </div>
     </form>
-    <div>
-        
+    <br>
+        <a href="{% provider_login_url 'google' %}"><img src="{% static 'candidate_login/images/btn_google_signin_dark_normal_web.png' %}"> </a>
+    <div id="id_register_link">
+        First time on Uplyft? <a name="candidate_register_link" href="{% url 'register:candidate_register' %}"><b>Register</b></a>
+        <br><br>
+        Employer? <a name="candidate_login_link" href="{% url 'employer_login:employer_login' %}"><b>Login here</b></a>
     </div>
 </div>
 
