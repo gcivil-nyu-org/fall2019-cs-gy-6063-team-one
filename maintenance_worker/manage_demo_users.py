@@ -24,7 +24,7 @@ def create_one_demo_candidates(name_card):
 
     profile = CandidateProfile(
         first_name=name_card["first_name"],
-        last_name=name_card["first_name"],
+        last_name=name_card["last_name"],
         email=name_card["email"],
     )
     profile.save()
