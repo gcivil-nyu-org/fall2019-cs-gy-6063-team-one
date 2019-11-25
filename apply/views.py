@@ -21,8 +21,9 @@ def apply(request, pk):
         "state": active_prof.candidate_profile.state,
         "email": active_prof.candidate_profile.email,
         "phone": active_prof.candidate_profile.phone,
-        "portfolio_website": active_prof.candidate_profile.portfolio_website if
-        active_prof.candidate_profile.portfolio_website else "http://",
+        "portfolio_website": active_prof.candidate_profile.portfolio_website
+        if active_prof.candidate_profile.portfolio_website
+        else "http://",
         "education": active_prof.candidate_profile.education,
         "experiences": active_prof.candidate_profile.experiences,
         "cover_letter": active_prof.candidate_profile.cover_letter,

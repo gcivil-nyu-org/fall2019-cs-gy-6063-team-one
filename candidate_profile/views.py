@@ -25,8 +25,9 @@ def update_candidate_profile(request):
         "state": active_profile.candidate_profile.state,
         "email": active_profile.candidate_profile.email,
         "phone": active_profile.candidate_profile.phone,
-        "portfolio_website": active_profile.candidate_profile.portfolio_website if
-        active_profile.candidate_profile.portfolio_website else "http://",
+        "portfolio_website": active_profile.candidate_profile.portfolio_website
+        if active_profile.candidate_profile.portfolio_website
+        else "http://",
         "education": active_profile.candidate_profile.education,
         "experiences": active_profile.candidate_profile.experiences,
         "cover_letter": active_profile.candidate_profile.cover_letter,
