@@ -1,12 +1,18 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 from jobs.models import Job
 from django.utils.translation import gettext as _
 from django.shortcuts import render, redirect
+
+from uplyft.decorators import candidate_login_required
 from .forms import ApplicationForm
 from .models import Application
 from uplyft.models import Candidate, ActiveProfile
 
 
+@login_required
+@candidate_login_required
 def apply(request, pk):
     candidate = Candidate.objects.get(user=request.user)
     active_prof = ActiveProfile.objects.get(candidate=candidate)
