@@ -1,0 +1,57 @@
+{% extends "uplyft/base.html" %}
+{% block content %}
+    <style>
+        body {
+            background-attachment: fixed !important;
+        }
+
+        .data {
+            background: white;
+        }
+
+    </style>
+    <div class="container data py-5 text-center">
+        <div class="row">
+            <div class="col-md-12">
+            {% if code %}
+            <h1><span style="color: red">&#9888;{{ code }}</span></h1>
+                {% if code == 403 %}
+                    <h3>Whoa! <label style="color: red">STOP</label> right there.</h3>
+                    <p>You do not have the right permissions to view this page</p>
+                    <a class="btn btn-danger" href="javascript:history.back()">Go
+                        Back</a>
+                    or
+                    <a class="btn btn-info" href="{% url 'uplyft:index' %}">Go Home</a>
+                {% elif code == 404 %}
+                    <h3>Oops! I'm afraid I couldn't find what you're looking for.</h3>
+                    You could either <a class="btn btn-danger"
+                                        href="javascript:history.back()">Go Back</a>
+                    or
+                    <a class="btn btn-info" href="{% url 'uplyft:index' %}">Go Home</a>
+                {% elif code == 400 %}
+                    <h3>Oops! I'm afraid I couldn't quite understand your request</h3>
+                    You could either <a class="btn btn-danger"
+                                        href="javascript:history.back()">Go Back</a>
+                    or
+                    <a class="btn btn-info" href="{% url 'uplyft:index' %}">Go Home</a>
+                {% elif code == 500 %}
+                    <h3>This is embarrassing. I messed up. But don't worry, this should
+                        be
+                        fixed soon.</h3>
+                    In the meantime, You could either <a class="btn btn-danger"
+                                                         href="javascript:history.back()">Go
+                    Back</a>
+                    or
+                    <a class="btn btn-info" href="{% url 'uplyft:index' %}">Go Home</a>
+                {% endif %}
+                {% else %}
+                <h3>Umm.. Not really sure what you're doing here.</h3>
+                    <a class="btn btn-danger" href="javascript:history.back()">Go
+                        Back</a>
+                    or
+                    <a class="btn btn-info" href="{% url 'uplyft:index' %}">Go Home</a>
+            {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

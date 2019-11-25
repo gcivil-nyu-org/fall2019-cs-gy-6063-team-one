@@ -136,14 +136,15 @@
                         <li class="list-group-item border-0"> <b>Hours</b> <br> 
                             {{ job.hours_info }} </li>
                         {% endif %}
-
-                        <li class="list-group-item border-0"> <b>Employment Type</b> <br> 
-                            {% if job.ft_pt_indicator == "F" %}
-                            Full Time, 
-                            {% endif %}
-                            {{ job.posting_type }} </li>
-
-                        <li class="list-group-item border-0 small text-black-50"> JOB ID #{{ job.job_id }} </li>
+                        {% if job.ft_pt_indicator %}
+                            <li class="list-group-item border-0"> <b>Employment Type</b> <br>
+                                {% if job.ft_pt_indicator == "F" %}
+                                    Full Time
+                                {% else  %}
+                                    Part Time
+                                {% endif %}</li>
+                        {% endif %}
+                        <li class="list-group-item border-0 small text-black-50"> JOB ID #{{ job.id }} </li>
 
                     </ul>
                 </div>
