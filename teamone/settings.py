@@ -29,7 +29,7 @@ DEBUG = True
 ALLOWED_HOSTS = ["uplyft.herokuapp.com", "localhost", "127.0.0.1", "testserver"]
 
 # Creating a custom user model
-LOGIN_URL = "/candidate_login/"
+LOGIN_URL = "/employer_login/"
 AUTH_USER_MODEL = "uplyft.CustomUser"
 # This should be the dashboard
 LOGIN_REDIRECT_URL = "uplyft:index"
@@ -44,9 +44,9 @@ INSTALLED_APPS = [
     "register.apps.RegisterConfig",
     "apply.apps.ApplyConfig",
     "applications.apps.ApplicationsConfig",
+    "employer_login.apps.EmployerLoginConfig",
     "candidate_login.apps.CandidateLoginConfig",
     "candidate_profile.apps.CandidateProfileConfig",
-    "employer_login.apps.EmployerLoginConfig",
     "jobs.apps.JobsConfig",
     "password_reset.apps.PasswordResetConfig",
     "dashboard.apps.DashboardConfig",
