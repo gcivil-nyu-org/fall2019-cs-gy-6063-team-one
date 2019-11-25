@@ -4,6 +4,7 @@ from django.utils.translation import ugettext_lazy as _
 from localflavor.us import models as mailing
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.validators import FileExtensionValidator
+from uuid_upload_path import upload_to
 
 from jobs.models import Department
 
@@ -49,14 +50,6 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
-
-
-def candidate_resume_directory_path(instance, filename):
-    return "resume_candidate_{0}/{1}".format(instance.id, filename)
-
-
-def candidate_cover_letter_directory_path(instance, filename):
-    return "cover_letter_candidate_{0}/{1}".format(instance.id, filename)
 
 
 class CandidateProfile(models.Model):
@@ -156,14 +149,14 @@ class CandidateProfile(models.Model):
     )
     # Cover Letter
     cover_letter = models.FileField(
-        upload_to=candidate_cover_letter_directory_path,
+        upload_to=upload_to,
         null=True,
         blank=True,
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"])],
     )
     # Resume chunks
     resume = models.FileField(
-        upload_to=candidate_resume_directory_path,
+        upload_to=upload_to,
         null=True,
         blank=True,
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"])],
