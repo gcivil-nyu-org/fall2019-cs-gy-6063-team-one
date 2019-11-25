@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from django.utils.translation import gettext as _
 from uplyft.decorators import candidate_login_required
@@ -6,7 +7,9 @@ from django.contrib import messages
 from .forms import CandidateProfileForm
 from django.db import transaction
 
+
 # Create your views here.
+@login_required
 @candidate_login_required
 @transaction.atomic
 def update_candidate_profile(request):
