@@ -52,11 +52,11 @@ class CustomUser(AbstractUser):
 
 
 def candidate_resume_directory_path(instance, filename):
-    return "resume_candidate_{0}/{1}".format(instance.user.id, filename)
+    return "resume_candidate_{0}/{1}".format(instance.id, filename)
 
 
 def candidate_cover_letter_directory_path(instance, filename):
-    return "cover_letter_candidate_{0}/{1}".format(instance.user.id, filename)
+    return "cover_letter_candidate_{0}/{1}".format(instance.id, filename)
 
 
 class CandidateProfile(models.Model):
@@ -156,14 +156,14 @@ class CandidateProfile(models.Model):
     )
     # Cover Letter
     cover_letter = models.FileField(
-        upload_to="candidate_cover_letter_directory_path",
+        upload_to=candidate_cover_letter_directory_path,
         null=True,
         blank=True,
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"])],
     )
     # Resume chunks
     resume = models.FileField(
-        upload_to="candidate_resume_directory_path",
+        upload_to=candidate_resume_directory_path,
         null=True,
         blank=True,
         validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"])],
