@@ -11,8 +11,6 @@
 <div class="card py-4 col-md-6 col-lg-6 mx-auto">
 
     <h1 class="">Candidate Login</h1>
-    <a href="{% provider_login_url 'google' %}">Login with Google </a>
-    <br>
     <form name="candidate_login_form" class="reg_form" action="{% url 'candidate_login:candidate_login' %}" method="post">
         {% csrf_token %}
         {{ form|crispy }}
@@ -23,6 +21,8 @@
             <input type="submit" name="submit" value="Login"/>
         </div>
     </form>
+    <br>
+        <a href="{% provider_login_url 'google' %}"><img src="{% static 'candidate_login/images/btn_google_signin_dark_normal_web.png' %}"> </a>
     <div id="id_register_link">
         First time on Uplyft? <a name="candidate_register_link" href="{% url 'register:candidate_register' %}"><b>Register</b></a>
         <br><br>
