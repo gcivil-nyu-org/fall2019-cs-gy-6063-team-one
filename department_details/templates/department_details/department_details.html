@@ -1,0 +1,144 @@
+{% extends "dashboard/dashboard.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load my_templatetags %}
+{% load humanize %}
+
+{% block applications_list %}
+    {% if department is None %}
+        <div style="background: #ffffffd9; padding: 20px">
+
+            The department you're looking for doesn't exist.
+            <a class="btn btn-danger" href="javascript:history.back()">Go Back</a>
+            or <a class="btn btn-info" href="{% url 'uplyft:index' %}">Go Home</a>
+
+        </div>
+    {% else %}
+        <div class="container" style="width: 1000px">
+            <div class="card" style="padding: 20px">
+                {% if my_department == True %}
+                    <div class="container" style="text-align: end !important;">
+                        <div class="job-primary-action-block">
+                            <form class="job-primary-action"
+                                  action="{% url 'department_profile:update_department_profile' %}"
+                                  method="get">
+                                <input class="btn btn-primary btn-save"
+                                       type="submit" name="edit_profile"
+                                       value="Edit Info"/>
+                            </form>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="card-body">
+                    <h2 class="card-title"><b> {{ department.name.title }} </b></h2>
+                    <div>
+                        <div>
+                            {% if contains_profile %}
+                                {% if department.id %}
+                                    <div class="text-black-50"> Dept #:
+                                        <b>{{ department.id }}</b></div>
+                                {% endif %}
+                                {% if department.department_profile.address %}
+                                    <div class="text-black-50"> {{ department.department_profile.address }} </div>
+                                {% endif %}
+                                {% if department.department_profile.website %}
+                                    <div class="text-black-50"><a
+                                            href="{{ department.department_profile.website }}">{{ department.department_profile.website }}</a>
+                                    </div>
+                                {% endif %}
+                                {% if department.department_profile.phone %}
+                                    <div class="text-black-50"> Phone:
+                                        <b>{{ department.department_profile.phone }}</b>
+                                    </div>
+                                {% endif %}
+                                {% if department.department_profile.email %}
+                                    <div class="text-black-50"> Email:
+                                        <b>{{ department.department_profile.email }}</b>
+                                    </div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <h3 class="mb-4">Jobs listed for {{ department.name.title }}</h3>
+
+                <div class="">
+                    <div class="col-md-9 mt-3 center mx-auto">
+                        {% for job in jobs %}
+                            <a href="{% url 'jobs:job_detail' job.id %}">
+                                <div class="card mt-3">
+                                    <div class="card-body">
+                                        <h6 class="card-title">
+                                            <b>{{ job.business_title }}</b></h6>
+                                        <div class="text-muted"
+                                             style="display: flex; justify-content: space-between;">
+                                            <div>
+                                                <div>{{ job.division }}</div>
+                                                <div> {{ job.department }} </div>
+                                                <div>{{ job.work_location }}</div>
+
+                                            </div>
+                                            <div style="text-align:right;">
+                                                {% if job.salary_frequency == "Annual" %}
+                                                    <div>
+                                                        ${{ job.salary_start|floatformat:"0"|intcomma }}
+                                                        - {{ job.salary_end|floatformat:"0"|intcomma }}
+                                                        Annually
+                                                    </div>
+                                                {% else %}
+                                                    <div>
+                                                        ${{ job.salary_start|floatformat:2 }}
+                                                        - {{ job.salary_end|floatformat:2 }} {{ job.salary_frequency }}</div>
+                                                {% endif %}
+                                                <div> {{ job.posting_date }} </div>
+                                                <div style="color: #2aa7cc">
+                                                    Applications
+                                                    submitted: {{ job.count }}</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </a>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div id="wrapper" style="text-align:center; margin-top: 20px">
+                    <div id="container" style="display:inline-block;text-align:left">
+                        {% if is_paginated %}
+                            {% if page_obj.has_previous %}
+                                <a class="btn btn-primary"
+                                   href="?{% query_transform request page=1 %}">
+                                    First </a>
+                                <a class="btn btn-primary"
+                                   href="?{% query_transform request page=page_obj.previous_page_number %}">
+                                    Previous </a>
+                            {% endif %}
+
+                            {% for num in page_obj.paginator.page_range %}
+                                {% if page_obj.number == num %}
+                                    <a class="btn btn-light"
+                                       href="?{% query_transform request page=num %}"> {{ num }} </a>
+                                {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                    <a class="btn btn-primary"
+                                       href="?{% query_transform request page=num %}"> {{ num }} </a>
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if page_obj.has_next %}
+                                <a class="btn btn-primary"
+                                   href="?{% query_transform request page=page_obj.next_page_number %}">
+                                    Next </a>
+                                <a class="btn btn-primary"
+                                   href="?{% query_transform request page=page_obj.paginator.num_pages %}">
+                                    Last </a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    {% endif %}
+
+{% endblock %}

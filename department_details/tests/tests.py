@@ -12,6 +12,14 @@ from uplyft.tests.resources import (
 from jobs.models import Job
 from apply.models import Application
 
+date_format = '%b. %d, %Y'
+
+
+def get_count_from_list(input_list, key):
+    for item in input_list:
+        if item.id == key:
+            return item.count
+
 
 class DepartmentDetailViewTest(TestCase):
     def setUp(self):
@@ -95,7 +103,7 @@ class DepartmentDetailViewTest(TestCase):
             )
         )
         self.assertTemplateUsed(response, "uplyft/base.html")
-        self.assertTemplateUsed(response, "department_details/department_detail.html")
+        self.assertTemplateUsed(response, "department_details/department_details.html")
 
     def test_view_uses_correct_template_employer(self):
         self.login_employer()
@@ -106,7 +114,7 @@ class DepartmentDetailViewTest(TestCase):
             )
         )
         self.assertTemplateUsed(response, "uplyft/base.html")
-        self.assertTemplateUsed(response, "department_details/department_detail.html")
+        self.assertTemplateUsed(response, "department_details/department_details.html")
 
     def test_view_returns_jobs_associated_with_current_department_candidate(self):
         self.login_candidate()
@@ -121,7 +129,7 @@ class DepartmentDetailViewTest(TestCase):
         for job in jobs_in_this_department:
             self.assertContains(response, job.id)
             self.assertContains(response, job.business_title)
-            self.assertContains(response, job.posting_date.strftime("%m/%d/%y"))
+            self.assertContains(response, job.posting_date.strftime(date_format))
 
     def test_view_returns_jobs_associated_with_current_department_employer(self):
         self.login_employer()
@@ -136,7 +144,7 @@ class DepartmentDetailViewTest(TestCase):
         for job in jobs_in_this_department:
             self.assertContains(response, job.id)
             self.assertContains(response, job.business_title)
-            self.assertContains(response, job.posting_date.strftime("%m/%d/%y"))
+            self.assertContains(response, job.posting_date.strftime(date_format))
 
     def test_context_has_count_of_submitted_applications_candidate(self):
         self.login_candidate()
@@ -147,16 +155,17 @@ class DepartmentDetailViewTest(TestCase):
             )
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTrue("submitted_applications_data" in response.context)
 
         apps_to_job1 = Application.objects.filter(job=self.job1).count()
         apps_to_job2 = Application.objects.filter(job=self.job2).count()
 
+        job1_count = get_count_from_list(response.context["jobs"], self.job1.id)
+        job2_count = get_count_from_list(response.context["jobs"], self.job2.id)
         self.assertEquals(
-            response.context["submitted_applications_data"][self.job1.id], apps_to_job1
+            job1_count, apps_to_job1
         )
         self.assertEquals(
-            response.context["submitted_applications_data"][self.job2.id], apps_to_job2
+            job2_count, apps_to_job2
         )
 
     def test_context_has_count_of_submitted_applications_employer(self):
@@ -168,16 +177,17 @@ class DepartmentDetailViewTest(TestCase):
             )
         )
         self.assertEqual(response.status_code, 200)
-        self.assertTrue("submitted_applications_data" in response.context)
 
         apps_to_job1 = Application.objects.filter(job=self.job1).count()
         apps_to_job2 = Application.objects.filter(job=self.job2).count()
 
+        job1_count = get_count_from_list(response.context["jobs"],self.job1.id)
+        job2_count = get_count_from_list(response.context["jobs"], self.job2.id)
         self.assertEquals(
-            response.context["submitted_applications_data"][self.job1.id], apps_to_job1
+            job1_count, apps_to_job1
         )
         self.assertEquals(
-            response.context["submitted_applications_data"][self.job2.id], apps_to_job2
+            job2_count, apps_to_job2
         )
 
     def test_context_displays_department_profile_details_labels_if_exists(self):
