@@ -7,7 +7,7 @@ from uplyft.tests.resources import create_candidate_with_active_profile, test_us
 class CandidateProfileFunctionalTests(LiveServerTestCase):
     def candidate_login(self):
         self.browser.get(
-            self.live_server_url + reverse("employer_login:employer_login")
+            self.live_server_url + reverse("candidate_login:candidate_login")
         )
         self.browser.find_element_by_name("username").send_keys(
             test_user_data["candidate"]["email"]
