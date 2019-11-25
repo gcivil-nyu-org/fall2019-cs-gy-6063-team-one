@@ -1,7 +1,9 @@
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Q
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
+from django.urls import reverse
 from django.views.generic import ListView
 
 from apply.models import Application
@@ -18,6 +20,8 @@ def dashboard(request):
             return handle_candidate_dashboard(request)
         else:
             return handle_employer_dashboard(request)
+    else:
+        return HttpResponseRedirect(reverse("errors:forbidden"))
 
 
 class ApplicationList(LoginRequiredMixin, ListView):

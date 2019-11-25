@@ -1,12 +1,18 @@
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+
 from jobs.models import Job
 from django.utils.translation import gettext as _
 from django.shortcuts import render, redirect
+
+from uplyft.decorators import candidate_login_required
 from .forms import ApplicationForm
 from .models import Application
 from uplyft.models import Candidate, ActiveProfile
 
 
+@login_required
+@candidate_login_required
 def apply(request, pk):
     candidate = Candidate.objects.get(user=request.user)
     active_prof = ActiveProfile.objects.get(candidate=candidate)
@@ -21,7 +27,9 @@ def apply(request, pk):
         "state": active_prof.candidate_profile.state,
         "email": active_prof.candidate_profile.email,
         "phone": active_prof.candidate_profile.phone,
-        "portfolio_website": active_prof.candidate_profile.portfolio_website,
+        "portfolio_website": active_prof.candidate_profile.portfolio_website
+        if active_prof.candidate_profile.portfolio_website
+        else "http://",
         "education": active_prof.candidate_profile.education,
         "experiences": active_prof.candidate_profile.experiences,
         "cover_letter": active_prof.candidate_profile.cover_letter,
