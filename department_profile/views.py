@@ -21,6 +21,12 @@ def update_department_profile(request):
         "website": department.department_profile.website
         if department.department_profile is not None
         else None,
+        "phone": department.department_profile.phone
+        if department.department_profile is not None
+        else None,
+        "email": department.department_profile.email
+        if department.department_profile is not None
+        else None,
     }
 
     if request.method == "POST":
