@@ -20,6 +20,7 @@ def create_one_demo_candidates(name_card):
         email=name_card["email"], password=name_card["password"]
     )
     user.is_candidate = True
+    user.is_active = True
     user.save()
 
     profile = CandidateProfile(
@@ -68,6 +69,7 @@ def create_one_demo_employer(name_card):
         email=name_card["email"], password=name_card["password"]
     )
     user.is_candidate = False
+    user.is_active = True
     user.save()
 
     try:
