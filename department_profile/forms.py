@@ -46,7 +46,7 @@ class DepartmentProfileForm(forms.ModelForm):
             not address.strip()
             and not description.strip()
             and not website.strip()
-            and not phone.strip()
+            and not phone
             and not email.strip()
         ):
             raise ValidationError("No changes requested yet - fill out the form!")
