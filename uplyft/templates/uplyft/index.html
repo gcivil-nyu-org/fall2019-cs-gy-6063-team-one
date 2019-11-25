@@ -6,8 +6,8 @@
 <div class="container d-flex h-100 align-items-center mt-5">
     <div class="mx-auto text-center">
         {% if not user.is_authenticated %}
-        <h1 name="title" class="intro-heading display-3 font-weight-bold mb-0 text-uppercase text-white">Uplyft</h1>
-        <h2 name="welcome_message" class="text-white mx-auto mt-2 mb-4">Start a new journey!</h2>
+        <h1 name="title" class="intro-heading display-3 font-weight-bold mb-0 text-uppercase turquoise-dark">Uplyft</h1>
+        <h2 name="welcome_message" class="turquoise-dark mx-auto mt-2 mb-4">Start a new journey!</h2>
         <a name="candidate_login_link" href="{% url 'candidate_login:candidate_login' %}"
            class="btn btn-primary js-scroll-trigger">Candidates</a>
         <a name="employer_login_link" href="{% url 'employer_login:employer_login' %}"
