@@ -1,0 +1,55 @@
+body{
+    background-attachment: fixed !important;
+}
+
+#id_first_name {
+    width: 50%;
+}
+
+#id_last_name {
+    width: 50%;
+}
+
+#id_address_line {
+    width: 50%;
+}
+
+#id_zip_code {
+    width: 50%;
+}
+
+#id_state {
+    width: 50%;
+}
+
+#id_email {
+    width: 50%;
+}
+
+#id_phone {
+    width: 50%;
+}
+
+#id_portfolio_website {
+    width: 50%;
+}
+
+#id_gender {
+    width: 50%;
+}
+
+#id_ethnicity {
+    width: 50%;
+}
+
+#id_race {
+    width: 50%;
+}
+
+#id_health_conditions {
+    width: 50%;
+}
+
+#id_veteran {
+    width: 50%;
+}
