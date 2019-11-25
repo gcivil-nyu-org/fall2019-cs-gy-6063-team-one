@@ -3,27 +3,24 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
+<link rel="stylesheet" type="text/css" href="{% static "employer_login/css/employer_login.css" %}">
+
 <div class="card py-4 col-md-6 col-lg-6 mx-auto">
-    <h1 class="mb-5"> Employer Login </h1>
+    <h1 class=""> Employer Login </h1>
     <form name="employer_login_form" class="reg_form" action="{% url 'employer_login:employer_login' %}" method="post">
         {% csrf_token %}
         {{ form|crispy }}
         <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
-        <table>
-            <tr>
-                <td>
-                    <input type="submit" name="submit" value="Login"/>
-
-                </td>
-                <td><a href="{% url 'register:employer_register' %}">
-                        <input type="button" value="Register"/>
-                    </a></td>
-            </tr>
-            <tr>
-                <a href="{% url 'password_reset:password_reset' %}">Forgot Password</a>
-            </tr>
-        </table>
+        <div class="single-line-link">
+            <a href="{% url 'password_reset:password_reset' %}">Forgot password?</a>
+        </div>
+        <div>
+            <input type="submit" name="submit" value="Login"/>
+        </div>
     </form>
+    <div id="id_register_link">
+        First time on Uplyft? <a name="employer_register_link" href="{% url 'register:employer_register' %}"><b>Register</b></a> <br>
+    </div>
 </div>
 
 {% endblock %}
