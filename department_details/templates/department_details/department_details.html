@@ -38,6 +38,9 @@
                                     <div class="text-black-50"> Dept #:
                                         <b>{{ department.id }}</b></div>
                                 {% endif %}
+                                {% if department.department_profile.description %}
+                                    <div class="text-black-50"> {{ department.department_profile.description }} </div>
+                                {% endif %}
                                 {% if department.department_profile.address %}
                                     <div class="text-black-50"> {{ department.department_profile.address }} </div>
                                 {% endif %}

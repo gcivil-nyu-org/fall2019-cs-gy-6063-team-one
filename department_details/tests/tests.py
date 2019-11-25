@@ -182,18 +182,6 @@ class DepartmentDetailViewTest(TestCase):
         self.assertEquals(job1_count, apps_to_job1)
         self.assertEquals(job2_count, apps_to_job2)
 
-    def test_context_displays_department_profile_details_labels_if_exists(self):
-        self.login_employer()
-        response = self.client.get(
-            reverse(
-                "department_details:department_detail",
-                kwargs={"pk": self.department.id},
-            )
-        )
-        self.assertEqual(response.status_code, 200)
-        self.assertContains(response, "Description")
-        self.assertContains(response, "Contact")
-
     def test_context_displays_department_profile_details_if_exists(self):
         self.login_employer()
         response = self.client.get(
