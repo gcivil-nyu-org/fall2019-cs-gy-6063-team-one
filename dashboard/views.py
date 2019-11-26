@@ -8,7 +8,7 @@ from django.views.generic import ListView
 
 from apply.models import Application
 from jobs.models import Job
-from uplyft.models import Candidate, Employer, CandidateProfile
+from uplyft.models import Candidate, Employer
 
 ALL = "ALL"
 

@@ -35,10 +35,15 @@ def apply(request, pk):
             # cover letter (or just a new resume)
             application = ApplicationForm(request.POST, request.FILES)
         job = Job.objects.get(pk=pk)
-        
-        application_in_database = Application.objects.filter(job=job).filter(candidate=candidate).filter()
 
-        
+        application_in_database = (
+            Application.objects.filter(job=job)
+            .filter(candidate=candidate)
+            .filter(status="AC")
+        )
+        if application_in_database.count() > 0:
+            return redirect("errors:forbidden")
+
         if application.is_valid():
 
             # Get the candidate's active profile
