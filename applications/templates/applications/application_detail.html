@@ -36,7 +36,7 @@
                 <li class="list-group-item border-0"><b>Veteran Status:</b> {{ application.candidate_profile.get_veteran_display }} </li>
                 <li class="list-group-item border-0"><b>Address:</b> {{ application.candidate_profile.address_line }}, {{ application.candidate_profile.state }} </li>
                 <hr class="dropdown-divider">
-                <li class="list-group-item border-0"><b>Portfolio Website:</b> {{ application.candidate_profile.portfolio_website }} </li>
+                <li class="list-group-item border-0"><b>Portfolio Website:</b> <a href="{{ application.candidate_profile.portfolio_website }}">{{ application.candidate_profile.portfolio_website }} </a></li>
                 {% if application.candidate_profile.cover_letter %}
                     <li class="list-group-item border-0"><b>Cover Letter:</b> <a href="{{ application.candidate_profile.cover_letter.url }}">{{ application.candidate_profile.cover_letter.name }}</a></li>
                 {% else %}
