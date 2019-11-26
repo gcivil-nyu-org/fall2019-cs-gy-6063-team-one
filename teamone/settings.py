@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "q4!d06oj_jy(1$q#@*&0bcnn4*ub*)0#5n9^p*hp+3#5)tb2(+"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["uplyft.herokuapp.com", "localhost", "127.0.0.1", "testserver"]
 
@@ -177,5 +177,4 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = (
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "M1y9_Z-jNwqArncabT7_zZWV"
 
 MEDIA_URL = "/media/"
-# MEDIA_ROOT = os.path.join(BASE_DIR, "media")
-MEDIA_ROOT = os.path.join(STATIC_ROOT, "media")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
