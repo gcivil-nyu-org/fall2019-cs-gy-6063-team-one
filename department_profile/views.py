@@ -40,9 +40,7 @@ def update_department_profile(request):
                 updated_profile = profile_form.save()
                 department.department_profile = updated_profile
                 department.save()
-                messages.success(
-                    request, _("Department profile was successfully updated")
-                )
+                messages.success(request, _("Department profile updated successfully!"))
                 return redirect(
                     reverse(
                         "department_details:department_detail",
@@ -52,9 +50,14 @@ def update_department_profile(request):
             else:
                 messages.error(request, _("No changes requested."))
                 return redirect(reverse("department_profile:update_department_profile"))
+
         else:
             messages.error(request, _("Please correct the error below."))
-            return redirect(reverse("department_profile:update_department_profile"))
+            return render(
+                request,
+                "department_profile/department_profile.html",
+                {"profile_form": profile_form, "department": department},
+            )
     else:
         profile_form = DepartmentProfileForm(initial=default_data)
         return render(
