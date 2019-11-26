@@ -26,6 +26,6 @@ class EmployerLoginFunctionalTests(StaticLiveServerTestCase):
         submit.click()
         dashboard_headline = self.browser.find_element_by_tag_name("h1").text
         expected_headline = (
-                "Welcome back, " + test_user_data["employer"]["first_name"] + "."
+            "Welcome back, " + test_user_data["employer"]["first_name"] + "."
         )
         self.assertEqual(dashboard_headline, expected_headline)
