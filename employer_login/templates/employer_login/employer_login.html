@@ -5,7 +5,7 @@
 
 <link rel="stylesheet" type="text/css" href="{% static "employer_login/css/employer_login.css" %}">
 
-<div class="card py-4 col-md-6 col-lg-6 mx-auto">
+<div class="card py-4 col-md-6 col-lg-6 mx-auto card-30em">
     <h1 class=""> Employer Login </h1>
     <form name="employer_login_form" class="reg_form" action="{% url 'employer_login:employer_login' %}" method="post">
         {% csrf_token %}
