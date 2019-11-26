@@ -5,14 +5,14 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('uplyft', '0005_auto_20191125_1355'),
-    ]
+    dependencies = [("uplyft", "0005_auto_20191125_1355")]
 
     operations = [
         migrations.AlterField(
-            model_name='candidateprofile',
-            name='portfolio_website',
-            field=models.URLField(blank=True, help_text='e.g. http://example.com', null=True),
-        ),
+            model_name="candidateprofile",
+            name="portfolio_website",
+            field=models.URLField(
+                blank=True, help_text="e.g. http://example.com", null=True
+            ),
+        )
     ]
