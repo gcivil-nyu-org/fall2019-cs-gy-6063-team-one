@@ -12,6 +12,8 @@ body{
 
 </style>
 
+<link rel="stylesheet" type="text/css" href="{% static "candidate_profile/css/candidate_profile.css" %}">
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,7 +26,7 @@ body{
             <div class="container card py-4 alert alert-primary" role="alert">{{ message }}</div>
     {% endfor %}
 {% endif %}
-<div class="container card py-4">
+<div class="container card py-4 card-50em">
     <h1 class=""> My Profile </h1>
     <hr class="my-4">
         <form class="reg_form" method="post">

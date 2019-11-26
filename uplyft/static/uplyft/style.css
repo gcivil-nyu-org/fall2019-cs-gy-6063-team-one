@@ -14,6 +14,10 @@ body {
     min-height: 100%;
 }
 
+.background-silhouette {
+    background-image: url("images/uplyft_background-turquoise-silhouette.jpg");
+}
+
 /* Hide Labels
 [for = "id_first_name"],[for="id_last_name"], [for="id_username"], [for="id_email"],[for="id_password1"],[for="id_password2"]{
   display:none;

@@ -29,7 +29,7 @@ def apply(request, pk):
         "phone": active_prof.candidate_profile.phone,
         "portfolio_website": active_prof.candidate_profile.portfolio_website
         if active_prof.candidate_profile.portfolio_website
-        else "http://",
+        else "http://example.com",
         "education": active_prof.candidate_profile.education,
         "experiences": active_prof.candidate_profile.experiences,
         "cover_letter": active_prof.candidate_profile.cover_letter,
@@ -44,7 +44,10 @@ def apply(request, pk):
     if request.method == "POST":
         application = ApplicationForm(request.POST)
         job = Job.objects.get(pk=pk)
+        
+        application_in_database = Application.objects.filter(job=job).filter(candidate=candidate).filter()
 
+        
         if application.is_valid():
 
             # Get the candidate's active profile

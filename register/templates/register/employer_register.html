@@ -3,8 +3,8 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-<div class="col-md-6 col-lg-6 mx-auto">
-    <h1 class="text-white mb-5">Create Account </h1>
+<div class="card py-4 col-md-6 col-lg-6 mx-auto card-30em">
+    <h1 class="">Create A New <span class="turquoise-dark">Employer</span> Account </h1>
 
     <form class="reg_form" action="{% url 'register:employer_register' %}" method="post">
         {% csrf_token %}

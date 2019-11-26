@@ -2,54 +2,28 @@ body{
     background-attachment: fixed !important;
 }
 
-#id_first_name {
-    width: 50%;
+.reg_form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
-#id_last_name {
-    width: 50%;
+.reg_form * {
+    flex-basis: 100%;
 }
 
-#id_address_line {
-    width: 50%;
-}
-
-#id_zip_code {
-    width: 50%;
-}
-
-#id_state {
-    width: 50%;
-}
-
-#id_email {
-    width: 50%;
-}
-
-#id_phone {
-    width: 50%;
-}
-
-#id_portfolio_website {
-    width: 50%;
-}
-
-#id_gender {
-    width: 50%;
-}
-
-#id_ethnicity {
-    width: 50%;
-}
-
-#id_race {
-    width: 50%;
-}
-
-#id_health_conditions {
-    width: 50%;
-}
-
-#id_veteran {
-    width: 50%;
+#div_id_first_name,
+#div_id_last_name,
+#div_id_zip_code,
+#div_id_state,
+#div_id_email,
+#div_id_phone,
+#div_id_gender,
+#div_id_ethnicity,
+#div_id_race,
+#div_id_health_conditions,
+#div_id_veteran {
+    max-width: 48.5%;
+    display: inline-block;
+    flex-grow: 1;
 }
