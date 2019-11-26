@@ -81,33 +81,51 @@
                     <ul class="list-group list-group-flush border-0">
 
                         <li class="list-group-item border-0"> <b>Description</b> </li>
+                        {% if job.description == "nan" %}
+                        <li class="list-group-item border-0"> Not specified. </li>
+                        {% else %}
                         <li class="list-group-item border-0"> {{ job.job_description }} </li>
+                        {% endif %}
 
                         <li class="list-group-item border-0"> <b>Minimum Qualifications</b> </li>
+                        {% if job.min_qualifications == "nan" %}
+                        <li class="list-group-item border-0"> Not specified. </li>
+                        {% else %}
                         <li class="list-group-item border-0"> {{ job.min_qualifications }} </li>
+                        {% endif %}
+
 
                         <li class="list-group-item border-0"> <b>Preferred Skills</b> </li>
-                        {% if job.preferred_skills != "nan" %}
-                        <li class="list-group-item border-0"> {{ job.preferred_skills }} </li>
-                        {% else %}
+                        {% if job.preferred_skills == "nan" %}
                         <li class="list-group-item border-0 text-black-50"> Not specified. </li>
+                        {% else %}
+                        <li class="list-group-item border-0"> {{ job.preferred_skills }} </li>
                         {% endif %}
 
                         <li class="list-group-item border-0"> <b>Residency Requirement</b> </li>
+                        {% if job.residency_requirement == "nan" %}
+                        <li class="list-group-item border-0"> Not specified. </li>
+                        {% else %}
                         <li class="list-group-item border-0"> {{ job.residency_requirement }} </li>
+                        {% endif %}
 
                         <li class="list-group-item border-0"> <b>Work location</b> </li>
+                        {% if job.work_location == "nan" %}
+                        <li class="list-group-item border-0"> Not specified. </li>
+                        {% else %}
                         <li class="list-group-item border-0"> {{job.work_location}}
                             {% if job.secondary_work_location != "nan" %}
                             <br>
                             <b>Secondary location:</b> {{ job.secondary_work_location }}
-                            {% endif %} </li>
+                        {% endif %}
+                        </li>
+                        {% endif %}
 
                         <li class="list-group-item border-0"><b>Additional Information</b> </li>
-                        {% if job.preferred_skills != "nan" %}
-                        <li class="list-group-item border-0"> {{ job.additional_info }} </li>
-                        {% else %}
+                        {% if job.additional_info == "nan" %}
                         <li class="list-group-item border-0 text-black-50"> Not specified. </li>
+                        {% else %}
+                        <li class="list-group-item border-0"> {{ job.additional_info }} </li>
                         {% endif %}
 
                     </ul>
@@ -119,7 +137,7 @@
                         <li class="list-group-item border-0"> <b>Contact</b> <br> 
                             {{ job.recruitment_contact }} </li>
                         {% endif %}
-
+                        
                         <li class="list-group-item border-0"> <b>Seniority Level or <br> Experience Level</b> <br> 
                             {{ job.level }} </li>
 
