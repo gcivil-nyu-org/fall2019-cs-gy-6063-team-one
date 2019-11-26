@@ -17,6 +17,7 @@ def create_one_demo_candidates(name_card):
         return
 
     user = CustomUser.objects.create_user(
+        first_name=name_card["first_name"], last_name=name_card["last_name"],
         email=name_card["email"], password=name_card["password"]
     )
     user.is_candidate = True
@@ -66,6 +67,7 @@ def create_one_demo_employer(name_card):
         return
 
     user = CustomUser.objects.create_user(
+        first_name=name_card["first_name"], last_name=name_card["last_name"],
         email=name_card["email"], password=name_card["password"]
     )
     user.is_candidate = False
