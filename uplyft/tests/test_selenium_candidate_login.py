@@ -27,5 +27,8 @@ class CandidateLoginFunctionalTests(StaticLiveServerTestCase):
         )
         submit = self.browser.find_element_by_name("submit")
         submit.click()
-        dashboard_title = self.browser.find_element_by_tag_name("h1")
-        self.assertEquals(dashboard_title.text, "Dashboard")
+        dashboard_headline = self.browser.find_element_by_tag_name("h1").text
+        expected_headline = (
+            "Welcome back, " + test_user_data["candidate"]["first_name"] + "."
+        )
+        self.assertEqual(dashboard_headline, expected_headline)
