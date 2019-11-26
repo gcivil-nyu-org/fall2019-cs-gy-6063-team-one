@@ -190,6 +190,9 @@ class Candidate(models.Model):
             return False
         return self.id != other.id
 
+    def __hash__(self):
+        return self.user.__hash__()
+
 
 class Employer(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, null=False)
