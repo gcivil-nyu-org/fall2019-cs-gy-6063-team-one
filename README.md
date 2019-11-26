@@ -27,23 +27,23 @@ Follow the following steps to reset candidates/employers in the database:
 
     Create demo users (employers or candidates), and skip for any existing demo user:
     
-        ```python
-        # Employers
-        from maintenance_worker import manage_demo_users; manage_demo_users.create_demo_employers()
-        
-        # Candidates
-        from maintenance_worker import manage_demo_users; manage_demo_users.create_demo_candidates()
-        ```
+    ```python
+    # Employers
+    from maintenance_worker import manage_demo_users; manage_demo_users.create_demo_employers()
+    
+    # Candidates
+    from maintenance_worker import manage_demo_users; manage_demo_users.create_demo_candidates()
+    ```
         
     Or reset demo users (employers or candidates), discarding any current user:
     
-        ```python
-        # Employers
-        from maintenance_worker import manage_demo_users; manage_demo_users.reset_demo_employers()
-        
-        # Candidates
-        from maintenance_worker import manage_demo_users; manage_demo_users.reset_demo_candidates()
-        ```
+    ```python
+    # Employers
+    from maintenance_worker import manage_demo_users; manage_demo_users.reset_demo_employers()
+    
+    # Candidates
+    from maintenance_worker import manage_demo_users; manage_demo_users.reset_demo_candidates()
+    ```
 
 3. check your database for the changes.
 
