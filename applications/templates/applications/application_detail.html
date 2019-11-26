@@ -16,8 +16,8 @@
     <div class="col-md-12 mb-3 mb-md-0">
         <div class="card py-4 h-100">
             <div class="card-body text-center">
-                <h4 class="text-uppercase m-0"> {{ job.business_title }} </h4>
-                <h6 class="text-uppercase m-0"> {{ job.department }} </h6>
+                <h4 class="text-uppercase m-0"> <a href="{% url 'jobs:job_detail' job.id %}">{{ job.business_title }} </a></h4>
+                <h6 class="text-uppercase m-0"> <a href="{% url 'department_details:department_detail' job.department.id %}">{{ job.department.name }}</a> </h6>
                 <hr class="my-4">
             </div>
 
@@ -34,7 +34,13 @@
                 <li class="list-group-item border-0"><b>Veteran Status:</b> {{ application.candidate_profile.get_veteran_display }} </li>
                 <li class="list-group-item border-0"><b>Address:</b> {{ application.candidate_profile.address_line }}, {{ application.candidate_profile.state }} </li>
                 <hr class="dropdown-divider">
-                <li class="list-group-item border-0"><b>Portfolio Website:</b> <a href="{{ application.candidate_profile.portfolio_website }}">{{ application.candidate_profile.portfolio_website }} </a></li>
+                <li class="list-group-item border-0"><b>Portfolio Website:</b>
+                    {% if application.candidate_profile.portfolio_website == "None" %}
+                    None
+                    {% else %}
+                    <a href="{{ application.candidate_profile.portfolio_website }}">{{ application.candidate_profile.portfolio_website }} </a>
+                    {% endif %}
+                </li>
                 {% if application.candidate_profile.cover_letter %}
                     <li class="list-group-item border-0"><b>Cover Letter:</b> <a href="{{ application.candidate_profile.cover_letter.url }}">{{ application.candidate_profile.cover_letter.name }}</a></li>
                 {% else %}
