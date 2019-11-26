@@ -41,17 +41,9 @@ class CandidateProfileFormTests(TestCase):
         form = CandidateProfileForm(instance=self.candidate)
         self.assertTrue(form.fields["portfolio_website"].label == "Portfolio website")
 
-    def test_education_field_label(self):
+    def test_resume_field_label(self):
         form = CandidateProfileForm(instance=self.candidate)
-        self.assertTrue(form.fields["education"].label == "Education")
-
-    def test_experiences_field_label(self):
-        form = CandidateProfileForm(instance=self.candidate)
-        self.assertTrue(form.fields["experiences"].label == "Experiences")
-
-    def test_cover_letter_label(self):
-        form = CandidateProfileForm(instance=self.candidate)
-        self.assertTrue(form.fields["cover_letter"].label == "Cover letter")
+        self.assertTrue(form.fields["resume"].label == "Resume")
 
     def test_gender_label(self):
         form = CandidateProfileForm(instance=self.candidate)
