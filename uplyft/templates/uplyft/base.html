@@ -54,6 +54,10 @@
                     </li>
                 {% endif %}
                 {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link js-scroll-trigger"
+                           href="{% url 'jobs:jobs' %}">Jobs</a>
+                    </li>
                     {% if user.is_candidate %}
                         <li class="nav-item">
                             <a class="nav-link js-scroll-trigger"
@@ -67,9 +71,9 @@
                                 Department Profile </a>
                         </li>
                     {% endif %}
-                    <li class="nav-item">
+                    <li>
                         <a class="nav-link js-scroll-trigger"
-                           href="{% url 'jobs:jobs' %}">Jobs</a>
+                        name="dashboard_link" href="{% url 'dashboard:dashboard' %}">Dashboard</a>
                     </li>
 
                     <li class="nav-item">

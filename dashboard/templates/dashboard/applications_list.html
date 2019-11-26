@@ -5,20 +5,21 @@
 {% load humanize %}
 
 {% block applications_list %}
-    <a href="{% url 'dashboard:dashboard' %}">
-        <button class="btn btn-primary mx-auto">Dashboard</button>
-    </a>
-    <a href="{% url 'dashboard:dashboard' 'ap' %}">
-        <button class="btn btn-primary mx-auto">Pending</button>
-    </a>
-    <a href="{% url 'dashboard:dashboard' 're' %}">
-        <button class="btn btn-primary mx-auto">Rejected</button>
-    </a>
-    <a href="{% url 'dashboard:dashboard' 'ac' %}">
-        <button class="btn btn-primary mx-auto">Accepted</button>
-    </a>
-    <h1 class="text-white mb-4">Application Listing</h1>
-
+    
+    <div class="container">
+        <h1 class="turquoise-dark mb-4">Application Listing</h1>
+        <div class="py-4 mb-3" style="align-content: center;">
+                <div class="listing-buttons-container">
+                    <a class="listing-button listing-button-wide btn btn-primary" href="{% url 'dashboard:dashboard' %}">← Dashboard</a>
+                    <a class="listing-button btn btn-primary" href="{% url 'dashboard:dashboard' 'ap' %}">Pending</a>
+                    <a class="listing-button btn btn-primary" href="{% url 'dashboard:dashboard' 're' %}">Rejected</a>
+                    <a class="listing-button btn btn-primary" href="{% url 'dashboard:dashboard' 'ac' %}">Accepted</a>
+                </div>
+            </div>
+    </div>
+    
+    
+    
     <div class="container dashboard-container">
         <div class="row">
             <div class="col-md-10 col-lg-8 mx-auto text-center">

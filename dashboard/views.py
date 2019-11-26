@@ -112,6 +112,9 @@ def handle_candidate_dashboard(request):
     except Application.DoesNotExist:
         candidate_applications = None
 
+    candidate = candidate[0]
+    candidate_name = candidate.candidate_profile.first_name
+
     accepted_count = 0
     rejected_count = 0
     pending_count = 0
@@ -126,6 +129,7 @@ def handle_candidate_dashboard(request):
             status=Application.STATUS_APPLIED
         ).count()
     context = {
+        "candidate_name": candidate_name,
         "accepted_count": accepted_count,
         "rejected_count": rejected_count,
         "pending_count": pending_count,

@@ -2,13 +2,9 @@
 {% load static %}
 {% block candidate_dashboard %}
 
-    {% if messages %}
-    {% for message in messages %}
-            <div class="container card py-4 alert alert-primary" role="alert">{{ message }}</div>
-    {% endfor %}
-{% endif %}
 
-    <h1 class="text-white mb-4">Dashboard</h1>
+    <h1 class="mb-4">Welcome back, {{ candidate_name }}.</h1>
+
 <div name=candidate_dashboard">
     <div class="container dashboard-container">
         <div class="row">
