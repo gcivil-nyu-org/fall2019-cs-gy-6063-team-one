@@ -1,0 +1,90 @@
+employers = [
+    {
+        "first_name": "Gennadiy",
+        "last_name": "Civil",
+        "email": "gcivil+employer@nyu.edu",
+        "password": "w4ldgK9gcryIVb10",
+        "department_name": "DEPT OF INFO TECH & TELECOMM",
+        "department_id_backup": 29,
+    },
+    {
+        "first_name": "Dan",
+        "last_name": "Gopstein",
+        "email": "dgopstein+employer@nyu.edu",
+        "password": "9cs8wl05mVyTXxZI",
+        "department_name": "BUSINESS INTEGRITY COMMISSION",
+        "department_id_backup": 13,
+    },
+    {
+        "first_name": "Robert",
+        "last_name": "Iger",
+        "email": "uplyft.demo+bobiger@gmail.com",
+        "password": "b39YDxQm7VawrkEJ",
+        "department_name": "DEPT OF PARKS & RECREATION",
+        "department_id_backup": 11,
+    },
+    {
+        "first_name": "Jamie",
+        "last_name": "Dimon",
+        "email": "uplyft.demo+jamiedimon@gmail.com",
+        "password": "eBMIQc7o8MPj3OQQ",
+        "department_name": "DEPARTMENT OF FINANCE",
+        "department_id_backup": 5,
+    },
+    {
+        "first_name": "Jean",
+        "last_name": "Liu",
+        "email": "uplyft.demo+jeanliuqing@gmail.com",
+        "password": "G4fddQLS88j3jIqQ",
+        "department_name": "DEPARTMENT OF TRANSPORTATION",
+        "department_id_backup": 51,
+    },
+    {
+        "first_name": "Rachel",
+        "last_name": "Whestone",
+        "email": "uplyft.demo+rachelwhestone@gmail.com",
+        "password": "KlZTP8EpOKKlNdvd",
+        "department_id_backup": 7,
+        "department_name": "DEPARTMENT OF BUSINESS SERV.",
+        "department_id_backup": 7,
+    },
+]
+
+candidates = (
+    {
+        "first_name": "Gennadiy",
+        "last_name": "Civil",
+        "email": "gcivil+candidate@nyu.edu",
+        "password": "FoR3Q1n4A1EVBHd2",
+    },
+    {
+        "first_name": "Dan",
+        "last_name": "Gopstein",
+        "email": "dgopstein+candidate@nyu.edu",
+        "password": "j7clHto7ZM877Zw9",
+    },
+    {
+        "first_name": "David",
+        "last_name": "Solomon",
+        "email": "uplyft.demo+davidsolomon@gmail.com",
+        "password": "eBMIQc7o8MPj3OQQ",
+    },
+    {
+        "first_name": "Scott",
+        "last_name": "Belsky",
+        "email": "uplyft.demo+scottbelsky@gmail.com",
+        "password": "TlZxIM6eyn2LnmCt",
+    },
+    {
+        "first_name": "Edith",
+        "last_name": "Cooper",
+        "email": "uplyft.demo+edithcooper@gmail.com",
+        "password": "7Bd4u1jJLYDNkNH4",
+    },
+    {
+        "first_name": "Isabel",
+        "last_name": "Ge",
+        "email": "uplyft.demo+isabelgemahe@gmail.com",
+        "password": "xCoiKP6nYki9UzR3",
+    },
+)

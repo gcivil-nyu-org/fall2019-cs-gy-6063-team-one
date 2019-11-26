@@ -5,20 +5,31 @@
 {% load humanize %}
 
 {% block applications_list %}
-    <a href="{% url 'dashboard:dashboard' %}">
-        <button class="btn btn-primary mx-auto">Dashboard</button>
-    </a>
-    <a href="{% url 'dashboard:dashboard' 'ap' %}">
-        <button class="btn btn-primary mx-auto">Pending</button>
-    </a>
-    <a href="{% url 'dashboard:dashboard' 're' %}">
-        <button class="btn btn-primary mx-auto">Rejected</button>
-    </a>
-    <a href="{% url 'dashboard:dashboard' 'ac' %}">
-        <button class="btn btn-primary mx-auto">Accepted</button>
-    </a>
-    <h1 class="text-white mb-4">Application Listing</h1>
+    
+    <div class="container">
 
+        <div class="py-4 mb-3">
+                <div class="listing-buttons-container">
+                    <a class="listing-button listing-button-wide btn btn-primary" href="{% url 'dashboard:dashboard' %}">← Dashboard</a>
+                    <a class="listing-button btn btn-primary" href="{% url 'dashboard:dashboard' 'ap' %}">Pending</a>
+                    <a class="listing-button btn btn-primary" href="{% url 'dashboard:dashboard' 're' %}">Rejected</a>
+                    <a class="listing-button btn btn-primary" href="{% url 'dashboard:dashboard' 'ac' %}">Accepted</a>
+                </div>
+            </div>
+
+    {% if application_type == "ap" %}
+        <h1 class="mb-4">Pending Applications</h1>
+        {% elif application_type == "re" %}
+        <h1 class="mb-4">Rejected Applications</h1>
+        {% elif application_type == "ac" %}
+        <h1 class="mb-4">Accepted Applications</h1>
+        {% else %}
+        <h1 class="mb-4">Applications</h1>
+        {% endif %}
+    </div>
+    
+    
+    
     <div class="container dashboard-container">
         <div class="row">
             <div class="col-md-10 col-lg-8 mx-auto text-center">
@@ -27,13 +38,14 @@
                     {{ form|crispy }}
                     <input type="text" name="q"
                            class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0"
-                           value="{{ request.GET.q }}" placeholder="Search jobs"/>
+                           value="{{ request.GET.q }}" placeholder="Search applications by First Name, Last Name or Job Title"/>
                     <button type="submit" class="btn btn-primary mx-auto">Search
                     </button>
+                    <a class="btn btn-danger" href="{% url 'dashboard:dashboard' application_type %}">
+                        Clear
+                    </a>
                 </form>
-                <a href="{% url 'dashboard:dashboard' application_type %}">
-                    <button class="float-right btn btn-primary mx-auto">Clear</button>
-                </a>
+
             </div>
         </div>
     </div>
@@ -42,6 +54,7 @@
     <div class="container dashboard-container">
         <div class="row">
             <div class="col-md-9 mt-3 center mx-auto text-left">
+            {% if applications %}
                 {% for application in applications %}
                     <a href="{% url 'applications:application_details' application.id %}">
                         <div class="card application-border {{ application.status }}">
@@ -49,7 +62,7 @@
                                 <h5 class="card-title">Application
                                     Number: {{ application.id }}</h5><br>
                                 <h5 class="card-title">Job
-                                    ID: {{ application.job.job_id }}</h5><br>
+                                    ID: {{ application.job.id }}</h5><br>
                                 <h5 class="card-title align-content-center">{{ application.job.business_title }}</h5>
                                 <span> <small> {{ application.submit_date }} </small> </span>
                                 <p class="card-text text-muted h6">
@@ -81,6 +94,14 @@
                         </div>
                     </a>
                 {% endfor %}
+            {% else %}
+                <div class="card" style="text-align: center">
+                <div class="card-body">
+                    There are no applications available.
+                </div>
+                </div>
+
+            {% endif %}
             </div>
 
         </div>

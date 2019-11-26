@@ -7,7 +7,9 @@ MAX_CHARS = 12000
 class DepartmentProfile(models.Model):
     address = models.CharField(max_length=100, blank=True, null=True)
     description = models.TextField(max_length=10000, blank=True, null=True)
-    website = models.URLField(help_text="Maximum 200 characters", blank=True, null=True)
+    website = models.URLField(
+        help_text="e.g. http://example.com", blank=True, null=True
+    )
     phone = PhoneNumberField(blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
 
@@ -23,9 +25,8 @@ class Department(models.Model):
 
 
 class Job(models.Model):
-    job_id = models.IntegerField()
+    id = models.IntegerField(primary_key=True)
     department = models.ForeignKey(Department, on_delete=models.CASCADE)
-    posting_type = models.CharField(max_length=MAX_CHARS)
     business_title = models.CharField(max_length=MAX_CHARS)
     civil_service_title = models.CharField(max_length=MAX_CHARS)
     title_code_no = models.CharField(max_length=MAX_CHARS)

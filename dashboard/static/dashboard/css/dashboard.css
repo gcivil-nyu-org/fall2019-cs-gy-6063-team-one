@@ -1,3 +1,23 @@
+h1 {
+    text-align: center;
+}
+
+.listing-buttons-container {
+    display: flex;
+    justify-content: center;
+}
+
+.listing-button {
+    display: inline-block;
+    width: 12em;
+    margin-left: 1em;
+    margin-right: 1em;
+}
+
+.listing-button.listing-button-wide {
+    width: 16em;
+}
+
 .card-dashboard {
     box-shadow: 2px 2px 10px #DADADA;
     margin: 5px;

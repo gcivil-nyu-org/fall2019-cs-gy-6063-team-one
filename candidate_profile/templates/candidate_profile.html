@@ -12,6 +12,8 @@ body{
 
 </style>
 
+<link rel="stylesheet" type="text/css" href="{% static "candidate_profile/css/candidate_profile.css" %}">
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,15 +21,17 @@ body{
     <title> My Profile </title>
 </head>
 <body>
+<div class="container" style="width: 50%">
 {% if messages %}
     {% for message in messages %}
-            <div class="container card py-4 alert alert-primary" role="alert">{{ message }}</div>
+            <div class="container card py-md-3 alert alert-primary" role="alert" style="text-align: center">{{ message }}</div>
     {% endfor %}
 {% endif %}
-<div class="container card py-4">
+</div>
+<div class="container card py-md-3 card-50em">
     <h1 class=""> My Profile </h1>
     <hr class="my-4">
-        <form class="reg_form" method="post">
+        <form class="reg_form" method="post" enctype="multipart/form-data">
           {% csrf_token %}
             {{ profile_form|crispy }}
               <button name="submit" type="submit" class="btn btn-primary">Save Changes</button>

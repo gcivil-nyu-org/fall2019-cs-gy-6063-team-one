@@ -7,6 +7,10 @@ class DepartmentProfileForm(forms.ModelForm):
     class Meta:
         model = DepartmentProfile
         fields = ("address", "description", "website", "phone", "email")
+        widgets = {
+            "description": forms.Textarea(attrs={"rows": 3}),
+            "phone": forms.TextInput(attrs={"placeholder": "e.g. +12125552368"}),
+        }
 
     def __init__(self, *args, **kwargs):
         super(DepartmentProfileForm, self).__init__(*args, **kwargs)
@@ -46,7 +50,7 @@ class DepartmentProfileForm(forms.ModelForm):
             not address.strip()
             and not description.strip()
             and not website.strip()
-            and not phone.strip()
+            and not phone
             and not email.strip()
         ):
             raise ValidationError("No changes requested yet - fill out the form!")

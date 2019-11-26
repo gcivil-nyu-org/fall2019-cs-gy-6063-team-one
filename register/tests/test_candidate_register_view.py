@@ -107,10 +107,14 @@ class CandidateRegisterViewTests(TestCase):
         self.good_POST()
         new_user = CustomUser.objects.first()
         self.assertEqual(
-            new_user.first_name, test_user_data["candidate"]["first_name"].lower()
+            new_user.first_name,
+            test_user_data["candidate"]["first_name"][:1].upper()
+            + test_user_data["candidate"]["first_name"][1:],
         )
         self.assertEqual(
-            new_user.last_name, test_user_data["candidate"]["last_name"].lower()
+            new_user.last_name,
+            test_user_data["candidate"]["last_name"][:1].upper()
+            + test_user_data["candidate"]["last_name"][1:],
         )
         self.assertEqual(new_user.email, test_user_data["candidate"]["email"].lower())
         self.assertTrue(
@@ -124,21 +128,6 @@ class CandidateRegisterViewTests(TestCase):
             reverse("register:email_confirmation"),
             fetch_redirect_response=False,
         )
-
-    def test_good_POST_success_message_added_to_context_of_login_success_page(self):
-        response = self.client.post(
-            reverse("register:candidate_register"),
-            data={
-                "first_name": test_user_data["candidate"]["first_name"],
-                "last_name": test_user_data["candidate"]["last_name"],
-                "email": test_user_data["candidate"]["email"],
-                "password1": test_user_data["candidate"]["password"],
-                "password2": test_user_data["candidate"]["password"],
-            },
-            follow=True,
-        )
-        messages = list(response.context["messages"])
-        self.assertEqual(str(messages[0]), "Account created successfully")
 
     def test_bad_POST_first_name_retains_form_data(self):
         response = self.bad_POST_first_name()

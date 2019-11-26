@@ -1,0 +1,29 @@
+body{
+    background-attachment: fixed !important;
+}
+
+.reg_form {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.reg_form * {
+    flex-basis: 100%;
+}
+
+#div_id_first_name,
+#div_id_last_name,
+#div_id_zip_code,
+#div_id_state,
+#div_id_email,
+#div_id_phone,
+#div_id_gender,
+#div_id_ethnicity,
+#div_id_race,
+#div_id_health_conditions,
+#div_id_veteran {
+    max-width: 48.5%;
+    display: inline-block;
+    flex-grow: 1;
+}
