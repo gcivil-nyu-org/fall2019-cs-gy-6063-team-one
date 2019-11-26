@@ -40,9 +40,7 @@ def update_department_profile(request):
                 updated_profile = profile_form.save()
                 department.department_profile = updated_profile
                 department.save()
-                messages.success(
-                    request, _("Department profile updated successfully!")
-                )
+                messages.success(request, _("Department profile updated successfully!"))
                 return redirect(
                     reverse(
                         "department_details:department_detail",

@@ -8,8 +8,8 @@ class DepartmentProfileForm(forms.ModelForm):
         model = DepartmentProfile
         fields = ("address", "description", "website", "phone", "email")
         widgets = {
-            'description': forms.Textarea(attrs={'rows': 3}),
-            'phone': forms.TextInput(attrs={'placeholder': 'e.g. +12125552368'})
+            "description": forms.Textarea(attrs={"rows": 3}),
+            "phone": forms.TextInput(attrs={"placeholder": "e.g. +12125552368"}),
         }
 
     def __init__(self, *args, **kwargs):
