@@ -1,9 +1,7 @@
 from django.urls import path
 
-from .views import DepartmentDetailView
+from .views import DepartmentDetails
 
 app_name = "department_details"
 
-urlpatterns = [
-    path("<int:pk>/", DepartmentDetailView.as_view(), name="department_detail")
-]
+urlpatterns = [path("<int:pk>/", DepartmentDetails.as_view(), name="department_detail")]

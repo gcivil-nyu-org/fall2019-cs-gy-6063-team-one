@@ -107,10 +107,14 @@ class CandidateRegisterViewTests(TestCase):
         self.good_POST()
         new_user = CustomUser.objects.first()
         self.assertEqual(
-            new_user.first_name, test_user_data["candidate"]["first_name"].lower()
+            new_user.first_name,
+            test_user_data["candidate"]["first_name"][:1].upper()
+            + test_user_data["candidate"]["first_name"][1:],
         )
         self.assertEqual(
-            new_user.last_name, test_user_data["candidate"]["last_name"].lower()
+            new_user.last_name,
+            test_user_data["candidate"]["last_name"][:1].upper()
+            + test_user_data["candidate"]["last_name"][1:],
         )
         self.assertEqual(new_user.email, test_user_data["candidate"]["email"].lower())
         self.assertTrue(

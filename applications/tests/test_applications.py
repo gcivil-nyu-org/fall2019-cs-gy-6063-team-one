@@ -179,12 +179,12 @@ class ApplicationDetailsViewTests(TestCase):
         )
         self.assertContains(response, self.app.candidate_profile.cover_letter)
 
-    def test_GET_displays_experiences_to_candidate(self):
+    def test_GET_displays_resume_to_candidate(self):
         self.login_candidate()
         response = self.client.get(
             reverse("applications:application_details", kwargs={"pk": self.app.id})
         )
-        self.assertContains(response, self.app.candidate_profile.experiences)
+        self.assertContains(response, self.app.candidate_profile.resume)
 
     def test_GET_displays_first_name_to_employer(self):
         self.login_employer()
@@ -282,9 +282,9 @@ class ApplicationDetailsViewTests(TestCase):
         )
         self.assertContains(response, self.app.candidate_profile.cover_letter)
 
-    def test_GET_displays_experiences_to_employer(self):
+    def test_GET_displays_resume_to_employer(self):
         self.login_employer()
         response = self.client.get(
             reverse("applications:application_details", kwargs={"pk": self.app.id})
         )
-        self.assertContains(response, self.app.candidate_profile.experiences)
+        self.assertContains(response, self.app.candidate_profile.resume)
