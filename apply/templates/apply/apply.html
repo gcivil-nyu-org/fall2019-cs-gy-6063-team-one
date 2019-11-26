@@ -7,8 +7,7 @@
 
 </style>
 
-<div class="col-md-6 col-lg-8 mx-auto">
-
+<div class="col-md-6 col-lg-7 mx-auto">
      <link rel="stylesheet" type="text/css" href="{% static "apply/css/apply.css" %}">
 
     <div class="apply">
@@ -29,7 +28,7 @@
             <p class="card-text"><small>{{job.job_description|truncatechars:500 }} <a href="{% url 'jobs:job_detail' job.id %}">View job></a></small></p>
         <br>
 
-        <form class="reg_form" method="post">
+        <form class="reg_form" method="post" enctype="multipart/form-data">
           {% csrf_token %}
             {{ application|crispy }}
               <button type="submit" class="btn btn-primary"> Submit Application</button>

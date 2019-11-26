@@ -42,13 +42,9 @@ class ApplicationFormTests(TestCase):
         form = ApplicationForm(instance=self.candidate)
         self.assertTrue(form.fields["portfolio_website"].label == "Portfolio website")
 
-    def test_education_field_label(self):
+    def test_resume_label(self):
         form = ApplicationForm(instance=self.candidate)
-        self.assertTrue(form.fields["education"].label == "Education")
-
-    def test_experiences_field_label(self):
-        form = ApplicationForm(instance=self.candidate)
-        self.assertTrue(form.fields["experiences"].label == "Experiences")
+        self.assertTrue(form.fields["resume"].label == "Resume")
 
     def test_cover_letter_label(self):
         form = ApplicationForm(instance=self.candidate)
