@@ -22,7 +22,14 @@
         </div>
     </form>
     <br>
-        <a href="{% provider_login_url 'google' %}"><img src="{% static 'candidate_login/images/btn_google_signin_dark_normal_web.png' %}"> </a>
+    <div class="btn darken-4 col s10 m4" style=" background: #eeeeee">
+     <a href="{% provider_login_url 'google' %}" style="text-transform:none">
+         <div class="left">
+             <img width="20px" alt="Google &quot;G&quot; Logo" src="{% static 'candidate_login/images/google_logo.png' %}"/>
+             <b>Sign in with Google</b>
+         </div>
+     </a>
+</div>
     <div id="id_register_link">
         First time on Uplyft? <a name="candidate_register_link" href="{% url 'register:candidate_register' %}"><b>Register</b></a>
         <br><br>
