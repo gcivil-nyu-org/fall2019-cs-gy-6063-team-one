@@ -19,10 +19,10 @@ body{
     <title> {{ department.name }} Profile </title>
 </head>
 <body>
-<div class="col-md-6 col-lg-7 mx-auto">
+<div class="container" style="width:50%">
 {% if messages %}
     {% for message in messages %}
-            <div class="container card py-4 alert alert-primary" role="alert">{{ message }}</div>
+            <div class="container card py-md-3 alert alert-primary" role="alert" style="text-align: center">{{ message }}</div>
     {% endfor %}
 {% endif %}
 </div>

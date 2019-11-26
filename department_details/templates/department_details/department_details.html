@@ -14,11 +14,13 @@
 
         </div>
     {% else %}
+        <div class="container" style="width:50%">
         {% if messages %}
     {% for message in messages %}
-            <div class="container card py-4 alert alert-primary" role="alert">{{ message }}</div>
+            <div class="container card py-md-3 alert alert-primary" role="alert" style="text-align: center">{{ message }}</div>
     {% endfor %}
 {% endif %}
+        </div>
         <div class="container" style="width: 1000px">
             <div class="card" style="padding: 20px">
                 {% if my_department == True %}

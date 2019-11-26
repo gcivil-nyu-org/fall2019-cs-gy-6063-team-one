@@ -7,10 +7,12 @@
 {{ form.errors }}
 {{ form.non_field_errors }}
 {% if messages %}
+    <div class="container" style="width: 50%">
     {% for message in messages %}
-            <div class="container card py-4 alert alert-primary" role="alert">{{ message }}</div>
+            <div class="container card py-md-3 alert alert-primary" role="alert" style="text-align: center">{{ message }}</div>
     {% endfor %}
 {% endif %}
+</div>
 
 <div class="container">
     <div class="col-md-12 mb-3 mb-md-0">
