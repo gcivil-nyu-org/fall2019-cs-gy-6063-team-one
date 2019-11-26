@@ -25,4 +25,4 @@ class EmployerLoginFunctionalTests(StaticLiveServerTestCase):
         submit = self.browser.find_element_by_name("submit")
         submit.click()
         dashboard_title = self.browser.find_element_by_tag_name("h1")
-        self.assertEquals(dashboard_title.text, "Welcome back")
+        self.assertContains(dashboard_title.text, "Welcome back")
