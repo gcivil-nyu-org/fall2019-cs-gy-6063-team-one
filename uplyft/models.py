@@ -145,7 +145,7 @@ class CandidateProfile(models.Model):
     phone = PhoneNumberField(blank=True, null=True)
     email = models.EmailField(blank=True, null=True)
     portfolio_website = models.URLField(
-        help_text="Maximum 200 characters", blank=True, null=True
+        help_text="e.g. http://example.com", blank=True, null=True, max_length=200,
     )
     # Cover Letter
     cover_letter = models.FileField(
