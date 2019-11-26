@@ -18,8 +18,12 @@
                 <div class="job-description-flex">
                     <div class="job-summary-left">
                         <div class="text-black-50"> {{ job.division }} •  <a href="{% url 'department_details:department_detail' job.department.id %}">{{ job.department.name }}</a></div>
+                        {% if job.work_location %}
                         <div class="text-black-50"> {{ job.work_location }} </div>
+                        {% endif %}
+                        {% if job.posting_date %}
                         <div class="text-black-50"> Posted on {{ job.posting_date }} </div>
+                        {% endif %}
                     </div>
 
                     <div class="job-primary-action-block-wrapper">
@@ -137,7 +141,7 @@
                         <li class="list-group-item border-0"> <b>Contact</b> <br> 
                             {{ job.recruitment_contact }} </li>
                         {% endif %}
-                        
+
                         <li class="list-group-item border-0"> <b>Seniority Level or <br> Experience Level</b> <br> 
                             {{ job.level }} </li>
 
