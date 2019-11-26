@@ -6,12 +6,16 @@ html {
 
 body {
     padding: 10rem 0;
-    background: url("images/background.jpg");
+    background: url("images/uplyft_background-turquoise.jpg");
     background-position: center;
     background-repeat: no-repeat;
     background-attachment: scroll;
     background-size: cover;
     min-height: 100%;
+}
+
+.background-silhouette {
+    background-image: url("images/uplyft_background-turquoise-silhouette.jpg");
 }
 
 /* Hide Labels
@@ -279,6 +283,14 @@ footer {
     background-color: rgba(248, 247, 216, 0.7);
 }
 
+.card-30em {
+    max-width: 30em;
+}
+
+.card-50em {
+    max-width: 50em;
+}
+
 .card-body h5 {
     display:inline;
 }
@@ -304,4 +316,11 @@ background-color: #296245;
 .status.AP{
     background-color: #2D3B5E;
     color: #FFF;
+}
+
+.turquoise-dark {
+    /* color: #3c6360; */
+    background: linear-gradient(45deg, #0192cc, #31a361);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
