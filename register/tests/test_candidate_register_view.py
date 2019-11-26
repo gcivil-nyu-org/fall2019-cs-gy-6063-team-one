@@ -125,21 +125,6 @@ class CandidateRegisterViewTests(TestCase):
             fetch_redirect_response=False,
         )
 
-    def test_good_POST_success_message_added_to_context_of_login_success_page(self):
-        response = self.client.post(
-            reverse("register:candidate_register"),
-            data={
-                "first_name": test_user_data["candidate"]["first_name"],
-                "last_name": test_user_data["candidate"]["last_name"],
-                "email": test_user_data["candidate"]["email"],
-                "password1": test_user_data["candidate"]["password"],
-                "password2": test_user_data["candidate"]["password"],
-            },
-            follow=True,
-        )
-        messages = list(response.context["messages"])
-        self.assertEqual(str(messages[0]), "Account created successfully")
-
     def test_bad_POST_first_name_retains_form_data(self):
         response = self.bad_POST_first_name()
         self.assertContains(

@@ -7,6 +7,9 @@ class DepartmentProfileForm(forms.ModelForm):
     class Meta:
         model = DepartmentProfile
         fields = ("address", "description", "website", "phone", "email")
+        widgets = {
+            'description': forms.Textarea(attrs={'rows': 3})
+        }
 
     def __init__(self, *args, **kwargs):
         super(DepartmentProfileForm, self).__init__(*args, **kwargs)
