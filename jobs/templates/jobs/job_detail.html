@@ -38,9 +38,9 @@
                                             {% csrf_token %}
                                 <input type="hidden" name="jobs_pk_id" value="{{ job.id }}" />
                                 {% if saved_this_job == False %}
-                                <input class="btn btn-primary btn-save" type="submit" name="save" value="Save" />
+                                <!-- <input class="btn btn-primary btn-save" type="submit" name="save" value="Save" /> -->
                                 {% else %}
-                                <input class="btn btn-primary btn-save" type="submit" name="unsave" value="Saved" />
+                                <!-- <input class="btn btn-primary btn-save" type="submit" name="unsave" value="Saved" /> -->
                                 {% endif %}
 
                             </form>
