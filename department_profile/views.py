@@ -1,11 +1,14 @@
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, reverse, redirect
 from django.utils.translation import gettext as _
+
 from uplyft.decorators import employer_login_required
-from django.contrib import messages
-from .forms import DepartmentProfileForm
 from uplyft.models import Employer
+from .forms import DepartmentProfileForm
 
 
+@login_required
 @employer_login_required
 def update_department_profile(request):
     employer = Employer.objects.get(user=request.user)

@@ -4,6 +4,8 @@ from apply.models import Application
 from uplyft.models import Candidate, Employer, CandidateProfile, ActiveProfile
 import datetime
 from decimal import Decimal
+from django.core.files.uploadedfile import SimpleUploadedFile
+
 
 test_user_data = {
     "candidate": {
@@ -33,9 +35,16 @@ test_user_data = {
             "state_display": "New Jersey",
             "phone": "+12018347135",
             "portfolio_website": "https://janejameson.com",
-            "cover_letter": "Please hire me, I need this job",
-            "experiences": "Nada",
-            "education": "Self-taught",
+            "resume": SimpleUploadedFile(
+                "test_resume_0.pdf",
+                open("media/tests/test_resume_0.pdf", "rb").read(),
+                content_type="application/pdf",
+            ),
+            "cover_letter": SimpleUploadedFile(
+                "test_cover_letter_0.pdf",
+                open("media/tests/test_cover_letter_0.pdf", "rb").read(),
+                content_type="application/pdf",
+            ),
             "additional_info": "Good listener",
         },
         "new_profile": {
@@ -58,11 +67,16 @@ test_user_data = {
             "state_display": "New York",
             "phone": "2013348135",
             "portfolio_website": "https://janeTjameson.com",
-            "cover_letter": "Please hire me, I need this job. "
-            "Since I wrote the original cover "
-            "letter, nothing has changed...",
-            "experiences": "Less than nada",
-            "education": "Teach me?",
+            "resume": SimpleUploadedFile(
+                "test_resume1.pdf",
+                open("media/tests/test_resume_1.pdf", "rb").read(),
+                content_type="application/pdf",
+            ),
+            "cover_letter": SimpleUploadedFile(
+                "test_cover_letter_1.pdf",
+                open("media/tests/test_cover_letter_1.pdf", "rb").read(),
+                content_type="application/pdf",
+            ),
             "additional_info": "Good at art",
         },
     },
@@ -94,9 +108,16 @@ test_user_data = {
                 "state_display": "New Jersey",
                 "phone": "+12018347135",
                 "portfolio_website": "https://janejameson.com",
-                "cover_letter": "Please hire me, I need this job",
-                "experiences": "Nada",
-                "education": "Self-taught",
+                "resume": SimpleUploadedFile(
+                    "test_resume_2.pdf",
+                    open("media/tests/test_resume_2.pdf", "rb").read(),
+                    content_type="application/pdf",
+                ),
+                "cover_letter": SimpleUploadedFile(
+                    "test_cover_letter_2.pdf",
+                    open("media/tests/test_cover_letter_2.pdf", "rb").read(),
+                    content_type="application/pdf",
+                ),
                 "additional_info": "Good listener",
             },
         },
@@ -127,9 +148,16 @@ test_user_data = {
                 "state_display": "New Jersey",
                 "phone": "+12018347135",
                 "portfolio_website": "https://facebook.com",
-                "cover_letter": "Please hire me, I need this job",
-                "experiences": "Nada",
-                "education": "Self-taught",
+                "resume": SimpleUploadedFile(
+                    "test_resume_3.pdf",
+                    open("media/tests/test_resume_3.pdf", "rb").read(),
+                    content_type="application/pdf",
+                ),
+                "cover_letter": SimpleUploadedFile(
+                    "test_cover_letter_3.pdf",
+                    open("media/tests/test_cover_letter_3.pdf", "rb").read(),
+                    content_type="application/pdf",
+                ),
                 "additional_info": "Good listener",
             },
         },
@@ -160,9 +188,16 @@ test_user_data = {
                 "state_display": "New York",
                 "phone": "+12018347135",
                 "portfolio_website": "https://facebook2.com",
-                "cover_letter": "...",
-                "experiences": "Nope",
-                "education": "Don't need it",
+                "resume": SimpleUploadedFile(
+                    "test_resume_4.pdf",
+                    open("media/tests/test_resume_4.pdf", "rb").read(),
+                    content_type="application/pdf",
+                ),
+                "cover_letter": SimpleUploadedFile(
+                    "test_cover_letter_4.pdf",
+                    open("media/tests/test_cover_letter_4.pdf", "rb").read(),
+                    content_type="application/pdf",
+                ),
                 "additional_info": "Special kind of guy",
             },
         },
@@ -331,9 +366,8 @@ def create_candidate_with_active_profile(user_data):
         state=user_data["profile"]["state"],
         phone=user_data["profile"]["phone"],
         portfolio_website=user_data["profile"]["portfolio_website"],
+        resume=user_data["profile"]["resume"],
         cover_letter=user_data["profile"]["cover_letter"],
-        experiences=user_data["profile"]["experiences"],
-        education=user_data["profile"]["education"],
         additional_info=user_data["profile"]["additional_info"],
     )
     candidate = Candidate.objects.create(user=custom_user, candidate_profile=profile)
@@ -374,9 +408,8 @@ def create_profile(user_data):
         state=user_data["state"],
         phone=user_data["phone"],
         portfolio_website=user_data["portfolio_website"],
+        resume=user_data["resume"],
         cover_letter=user_data["cover_letter"],
-        experiences=user_data["experiences"],
-        education=user_data["education"],
         additional_info=user_data["additional_info"],
     )
 

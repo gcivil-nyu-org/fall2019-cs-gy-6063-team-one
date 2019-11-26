@@ -14,9 +14,7 @@ class CandidateProfileForm(forms.ModelForm):
             "email",
             "phone",
             "portfolio_website",
-            "education",
-            "experiences",
-            "cover_letter",
+            "resume",
             "gender",
             "ethnicity",
             "race",
@@ -24,9 +22,12 @@ class CandidateProfileForm(forms.ModelForm):
             "veteran",
         )
 
+        help_texts = {"resume": "Allowed file types: .pdf, .doc, .docx"}
+
     # Make name and email always be mandatory
     def __init__(self, *args, **kwargs):
         super(CandidateProfileForm, self).__init__(*args, **kwargs)
         self.fields["first_name"].required = True
         self.fields["last_name"].required = True
         self.fields["email"].required = True
+        self.fields["resume"].required = False
