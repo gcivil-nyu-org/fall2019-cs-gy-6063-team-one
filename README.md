@@ -28,24 +28,28 @@ Follow the following steps to reset candidates/employers in the database:
     1. To create demo users (employers or candidates), and skip for any existing demo user:
     
         ```python
+        # Employers
         from maintenance_worker import manage_demo_users; manage_demo_users.create_demo_employers()
         ```
         
         or
         
         ```python
+        # Candidates
         from maintenance_worker import manage_demo_users; manage_demo_users.create_demo_candidates()
         ```
         
     2. To reset demo users (employers or candidates), discarding any current user:
     
         ```python
+        # Employers
         from maintenance_worker import manage_demo_users; manage_demo_users.reset_demo_employers()
         ```
 
         or
 
         ```python
+        # Candidates
         from maintenance_worker import manage_demo_users; manage_demo_users.reset_demo_candidates()
         ```
 
