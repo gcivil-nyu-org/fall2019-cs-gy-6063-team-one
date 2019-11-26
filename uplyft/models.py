@@ -7,6 +7,7 @@ from django.core.validators import FileExtensionValidator
 from uuid_upload_path import upload_to
 
 from jobs.models import Department
+from uplyft.s3_storage import ResumeStorage
 
 
 class CustomUserManager(BaseUserManager):
@@ -156,6 +157,7 @@ class CandidateProfile(models.Model):
     )
     # Resume chunks
     resume = models.FileField(
+        storage=ResumeStorage(),
         upload_to=upload_to,
         null=True,
         blank=True,
