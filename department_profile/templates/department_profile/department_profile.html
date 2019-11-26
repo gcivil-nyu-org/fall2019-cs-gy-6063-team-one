@@ -19,16 +19,17 @@ body{
     <title> {{ department.name }} Profile </title>
 </head>
 <body>
-
+<div class="col-md-6 col-lg-7 mx-auto">
 {% if messages %}
     {% for message in messages %}
             <div class="container card py-4 alert alert-primary" role="alert">{{ message }}</div>
     {% endfor %}
 {% endif %}
+</div>
 <div class="col-md-6 col-lg-7 mx-auto">
 <div class="container card py-4">
 
-    <h2 class="card-title"> {{ department.name }}</h2>
+    <h2 class="card-title" style="text-align: center"> {{ department.name.title }}</h2>
     <hr class="my-4">
         <form class="reg_form" method="post">
           {% csrf_token %}

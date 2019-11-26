@@ -50,7 +50,6 @@ class DepartmentDetails(LoginRequiredMixin, ListView):
             if employer:
                 if department.id == employer.department.id:
                     context["my_department"] = True
-        context["messages"] = None
         return context
 
     def get_queryset(self):
