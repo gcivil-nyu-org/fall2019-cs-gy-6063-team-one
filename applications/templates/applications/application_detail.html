@@ -62,21 +62,19 @@
                     </li>
                     <hr class="dropdown-divider">
                     <li class="list-group-item border-0"><b>Portfolio Website:</b>
-                        {% if application.candidate_profile.portfolio_website == "None" %}
+                        {% if application.candidate_profile.portfolio_website == None %}
                             None
                         {% else %}
                             <a href="{{ application.candidate_profile.portfolio_website }}">{{ application.candidate_profile.portfolio_website }} </a>
                         {% endif %}
                     </li>
-                    {% if application.candidate_profile.cover_letter %}
-                        <li class="list-group-item border-0"><b>Cover Letter:</b> <a
-                                href="{{ application.candidate_profile.cover_letter.url }}">{{ application.candidate_profile.cover_letter.name }}</a>
-                        </li>
-                    {% else %}
-                        <li class="list-group-item border-0"><b>Cover Letter:</b> No
-                            Submission
-                        </li>
-                    {% endif %}
+                    <li class="list-group-item border-0"><b>Cover Letter:</b>
+                        {% if application.candidate_profile.cover_letter %}
+                            <a href="{{ application.candidate_profile.cover_letter.url }}">{{ application.candidate_profile.cover_letter.name }}</a>
+                        {% else %}
+                            No Submission
+                        {% endif %}
+                    </li>
                     <li class="list-group-item border-0"><b>Resume:</b> <a
                             href="{{ application.candidate_profile.resume.url }}"> {{ application.candidate_profile.resume.name }}</a>
                     </li>
