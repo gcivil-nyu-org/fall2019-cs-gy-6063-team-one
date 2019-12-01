@@ -54,7 +54,7 @@ class CustomUser(AbstractUser):
 
 
 def file_size(value):
-    limit = 2*1024*1024
+    limit = 2 * 1024 * 1024
     if value.size > limit:
         raise ValidationError("File too large. Size should not exceed 2 MB")
 
@@ -159,14 +159,20 @@ class CandidateProfile(models.Model):
         upload_to=upload_to,
         null=True,
         blank=True,
-        validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"]), file_size],
+        validators=[
+            FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"]),
+            file_size,
+        ],
     )
     # Resume chunks
     resume = models.FileField(
         upload_to=upload_to,
         null=True,
         blank=True,
-        validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"]), file_size],
+        validators=[
+            FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"]),
+            file_size,
+        ],
     )
     additional_info = models.TextField(max_length=10000, blank=True, null=True)
 
