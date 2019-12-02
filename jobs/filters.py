@@ -1,5 +1,4 @@
 import django_filters
-from django_select2 import forms as select2_forms
 from .models import Job, Department
 
 
@@ -8,9 +7,8 @@ class JobFilter(django_filters.FilterSet):
         field_name="business_title", lookup_expr="icontains", label="Job Title"
     )
     department = django_filters.ModelMultipleChoiceFilter(
-        queryset=Department.objects.all(), widget=select2_forms.Select2MultipleWidget()
+        queryset=Department.objects.all()
     )
-
     work_location = django_filters.CharFilter(
         field_name="work_location", lookup_expr="icontains", label="Location"
     )
