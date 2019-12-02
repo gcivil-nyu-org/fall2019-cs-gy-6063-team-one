@@ -1,9 +1,7 @@
 import logging
-import django_filters
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
@@ -23,35 +21,11 @@ logger = logging.getLogger(__name__)
 
 class JobsView(LoginRequiredMixin, ListView, FilterView):
     filterset_class = JobFilter
-    #model = Job
+    # model = Job
     paginate_by = 10
     context_object_name = "jobs"
     template_name = "jobs/jobs.html"
     ordering = ["-posting_date"]
-
-    # Retrieves a Jobs queryset which matches the query on any of the following:
-    # - business_title
-    # - work_location
-    # -department.name
-    # If there is is no initial query, a queryset of all jobs is returned.
-    # The returned queryset is ordered by reverse posting date (latest applications
-    # will come up first)
-    """
-    def get_queryset(self):
-        try:
-            a = self.request.GET.get("q")
-        except KeyError:
-            a = None
-        if a:
-            queryset = Job.objects.filter(
-                Q(business_title__icontains=a)
-                | Q(work_location__icontains=a)
-                | Q(department__name__icontains=a)
-            ).order_by("-posting_date")
-        else:
-            queryset = Job.objects.all().order_by("-posting_date")
-        return queryset
-    """
 
     def get_queryset(self):
         queryset = Job.objects.all()
@@ -72,7 +46,6 @@ class JobsView(LoginRequiredMixin, ListView, FilterView):
                     "job", flat=True
                 )
             )
-        #context['filterset'] = self.filterset
         context["form"] = self.filterset.form
         context["jobs"] = self.filterset.qs.distinct()
         return context

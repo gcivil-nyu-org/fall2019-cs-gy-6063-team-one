@@ -40,7 +40,7 @@ urlpatterns = [
     path("department_details/", include("department_details.urls")),
     path("department_profile/", include("department_profile.urls")),
     path("unauthorized/", include("errors.urls")),
-    url(r'^select2/', include('django_select2.urls')),
+    url(r"^select2/", include("django_select2.urls")),
 ]
 
 
