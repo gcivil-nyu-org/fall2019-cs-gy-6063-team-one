@@ -1,5 +1,5 @@
 import logging
-
+import django_filters
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
@@ -21,12 +21,22 @@ from uplyft.models import Candidate
 logger = logging.getLogger(__name__)
 
 
-class JobsView(LoginRequiredMixin, ListView):
-    model = Job
+class JobsView(LoginRequiredMixin, ListView, FilterView):
+    filterset_class = JobFilter
+    #model = Job
     paginate_by = 10
     context_object_name = "jobs"
     template_name = "jobs/jobs.html"
+    ordering = ["-posting_date"]
 
+    # Retrieves a Jobs queryset which matches the query on any of the following:
+    # - business_title
+    # - work_location
+    # -department.name
+    # If there is is no initial query, a queryset of all jobs is returned.
+    # The returned queryset is ordered by reverse posting date (latest applications
+    # will come up first)
+    """
     def get_queryset(self):
         try:
             a = self.request.GET.get("q")
@@ -41,7 +51,16 @@ class JobsView(LoginRequiredMixin, ListView):
         else:
             queryset = Job.objects.all().order_by("-posting_date")
         return queryset
+    """
 
+    def get_queryset(self):
+        queryset = Job.objects.all()
+        self.filterset = JobFilter(self.request.GET, queryset=queryset)
+        return self.filterset.qs.distinct()
+
+    # Loads jobs_applied context object, which is used to display either "Apply
+    # now" or "Application submitted" within each job card depending on whether the
+    # candidate already has a pending application or not
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
@@ -53,6 +72,9 @@ class JobsView(LoginRequiredMixin, ListView):
                     "job", flat=True
                 )
             )
+        #context['filterset'] = self.filterset
+        context["form"] = self.filterset.form
+        context["jobs"] = self.filterset.qs.distinct()
         return context
 
 
