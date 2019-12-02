@@ -130,7 +130,9 @@ class JobsViewSideCandidateTest(TestCase):
         self.assertIsInstance(response.context["jobs"], QuerySet)
 
     def test_form_GET_response_retains_form_data(self):
-        response = self.client.get(reverse("jobs:jobs"), data={"business_title": "manager"})
+        response = self.client.get(
+            reverse("jobs:jobs"), data={"business_title": "manager"}
+        )
         self.assertContains(response, "manager")
 
     def test_good_GET_response_returns_correct_queryset(self):
@@ -141,14 +143,22 @@ class JobsViewSideCandidateTest(TestCase):
 
     def test_good_GET_response_returns_correct_queryset_with_business_title(self):
         self.create_job()
-        response = self.client.get(reverse("jobs:jobs"), data={"business_title": "manager"})
-        correct_queryset = Job.objects.filter(business_title__icontains="manager").order_by("-posting_date")
+        response = self.client.get(
+            reverse("jobs:jobs"), data={"business_title": "manager"}
+        )
+        correct_queryset = Job.objects.filter(
+            business_title__icontains="manager"
+        ).order_by("-posting_date")
         self.assertListEqual(list(correct_queryset), list(response.context["jobs"]))
 
     def test_good_GET_response_returns_correct_queryset_with_description(self):
         self.create_job()
-        response = self.client.get(reverse("jobs:jobs"), data={"description": "calculator"})
-        correct_queryset = Job.objects.filter(job_description__icontains="calculator").order_by("-posting_date")
+        response = self.client.get(
+            reverse("jobs:jobs"), data={"description": "calculator"}
+        )
+        correct_queryset = Job.objects.filter(
+            job_description__icontains="calculator"
+        ).order_by("-posting_date")
         self.assertListEqual(list(correct_queryset), list(response.context["jobs"]))
 
     def test_candidate_save_unsave_job(self):
