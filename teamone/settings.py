@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "widget_tweaks",
     "django_filters",
+    "file_resubmit",
     "django.contrib.sites",
     "allauth",
     "allauth.account",
@@ -89,6 +90,16 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "teamone.urls"
+
+CACHES = {
+    "default": {
+        "BACKEND": 'django.core.cache.backends.locmem.LocMemCache',
+    },
+    "file_resubmit": {
+        "BACKEND": 'django.core.cache.backends.filebased.FileBasedCache',
+        "LOCATION": '/tmp/file_resubmit/'
+    },
+}
 
 TEMPLATES = [
     {
