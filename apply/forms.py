@@ -1,5 +1,6 @@
 from django.forms import ModelForm, BooleanField, FileInput
 from uplyft.models import CandidateProfile
+import file_resubmit.widgets
 
 
 class ApplicationForm(ModelForm):
@@ -32,7 +33,7 @@ class ApplicationForm(ModelForm):
             "cover_letter": "Allowed file types: .pdf, .doc, .docx",
         }
 
-        widgets = {"cover_letter": FileInput}
+        widgets = {"cover_letter": file_resubmit.widgets.ResubmitFileWidget()}
 
     def __init__(self, *args, **kwargs):
         super(ApplicationForm, self).__init__(*args, **kwargs)
