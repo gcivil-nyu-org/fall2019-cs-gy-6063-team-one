@@ -1,4 +1,4 @@
-from django.forms import ModelForm, BooleanField, FileInput
+from django.forms import ModelForm, BooleanField
 from uplyft.models import CandidateProfile
 import file_resubmit.widgets
 
