@@ -62,8 +62,8 @@
                     </li>
                     <hr class="dropdown-divider">
                     <li class="list-group-item border-0"><b>Portfolio Website:</b>
-                        {% if application.candidate_profile.portfolio_website == None %}
-                            None
+                        {% if not application.candidate_profile.portfolio_website %}
+                            No Submission
                         {% else %}
                             <a href="{{ application.candidate_profile.portfolio_website }}">{{ application.candidate_profile.portfolio_website }} </a>
                         {% endif %}
