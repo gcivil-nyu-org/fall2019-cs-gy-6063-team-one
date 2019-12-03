@@ -3,23 +3,37 @@
 {% load static %}
 {% load crispy_forms_tags %}
 
-<style>
+ <link rel="stylesheet" type="text/css" href="{% static "apply/css/apply.css" %}">
 
-</style>
-
-<div class="col-md-6 col-lg-7 mx-auto">
-     <link rel="stylesheet" type="text/css" href="{% static "apply/css/apply.css" %}">
-
-    <div class="container">
+    <div class="container" style="width:50%">
         {% if messages %}
-        <ul>
             {% for message in messages %}
             <div class="container card py-md-3 alert alert-primary"
-                 role="alert" style="width:40em; text-align: center">{{ message }}</div>
+                 role="alert" style=" text-align: center">{{ message }}</div>
             {% endfor %}
-        </ul>
         {% endif %}
-</div>
+    </div>
+
+   {% if application.errors %}
+    <div class="container" style="width: 50%">
+        <ul style="list-style-type: none; padding:0">
+        {% for field in application %}
+          {% if field.errors %}
+            {% for error in field.errors %}
+            <div class="container card py-md-3 alert alert-primary" role="alert" style="text-align: center">
+                <li><b>{{ field.name|title }}: </b> {{ error|escape }}</li>
+            </div>
+            {% endfor %}
+          {% endif %}
+        {% endfor %}
+        </ul>
+        {% if application.non_field_errors %}
+            {{ application.non_field_errors }}
+        {% endif %}
+    </div>
+    {% endif %}
+
+<div class="col-md-6 col-lg-7 mx-auto">
 
     <div class="container card py-4  card-50em">
         <h1 class="mb-5"> Apply </h1>
