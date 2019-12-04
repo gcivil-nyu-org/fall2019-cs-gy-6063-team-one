@@ -1,8 +1,10 @@
 from django.test import TestCase
 from candidate_profile.forms import CandidateProfileForm
 from uplyft.tests.resources import test_user_data, create_candidate_with_active_profile
+from uplyft.tests.decorators import setUpMockedS3
 
 
+@setUpMockedS3
 class CandidateProfileFormTests(TestCase):
     def setUp(self):
         self.candidate = create_candidate_with_active_profile(

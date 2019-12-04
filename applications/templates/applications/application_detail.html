@@ -3,7 +3,12 @@
 {% load humanize %}
 
 {% block content %}
-
+    <link rel="stylesheet" type="text/css"
+          href="{% static "dashboard/css/dashboard.css" %}">
+    <h1 class="mb-4">Application Details for Job #<a
+            style="color: black; text-decoration: underline"
+            href="{% url 'jobs:job_detail' application.job_id %}">{{ application.job_id }}</a>
+    </h1>
     {{ form.errors }}
     {{ form.non_field_errors }}
     {% if messages %}
@@ -22,65 +27,201 @@
         <div class="container">
         <div class="col-md-12 mb-3 mb-md-0">
             <div class="card py-4 h-100">
+                {% if not employer_viewing %}
+                    <h5 class="application-bg {{ application.status }}"
+                        style="text-align: end"><b>Application
+                        Status:</b> {{ application.get_status_display }} </h5>
+                {% endif %}
                 <div class="card-body text-center">
                     <h4 class="text-uppercase m-0"><a
-                            href="{% url 'jobs:job_detail' job.id %}">{{ job.business_title }} </a>
+                            href="{% url 'jobs:job_detail' job.id %}"><u>{{ job.business_title }}</u>
+                    </a>
                     </h4>
                     <h6 class="text-uppercase m-0"><a
-                            href="{% url 'department_details:department_detail' job.department.id %}">{{ job.department.name }}</a>
+                            href="{% url 'department_details:department_detail' job.department.id %}"><u>{{ job.department.name }}</u></a>
                     </h6>
                     <hr class="my-4">
                 </div>
+                <h4 style="text-align: center; margin-bottom: 10px"><b>Job Details</b>
+                </h4>
+                <div class="table-wrapper">
+                    <table class="fl-table">
+                        <tr>
+                            <td width="30%">
+                                <b>Job Title:</b>
+                            </td>
+                            <td width="70%">
+                                {{ application.job.business_title.title }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Department:</b>
+                            </td>
+                            <td>
+                                {{ application.job.department.name.title }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Employment Type:</b>
+                            </td>
+                            <td>
+                                {% if job.ft_pt_indicator %}
+                                    {% if job.ft_pt_indicator == "F" %}
+                                        Full Time
+                                    {% else %}
+                                        Part Time
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Salary:</b>
+                            </td>
+                            <td>
+                                ${{ job.salary_start|floatformat:"-2"|intcomma }} –
+                                ${{ job.salary_end|floatformat:"-2"|intcomma }}, {{ job.salary_frequency }} </li>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <h4 style="text-align: center; margin-bottom: 10px; margin-top: 20px">
+                    <b>Personal Details</b></h4>
+                <div class="table-wrapper">
+                    <table class="fl-table">
+                        <tr>
+                            <td width="30%">
+                                <b>First Name:</b>
+                            </td>
+                            <td width="70%">
+                                {{ application.candidate_profile.first_name }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Last Name:</b>
+                            </td>
+                            <td>
+                                {{ application.candidate_profile.last_name }}
+                            </td>
+                        </tr>
 
-                <ul class="list-group list-group-flush border-0">
+                        <tr>
+                            <td>
+                                <b>Email:</b>
+                            </td>
+                            <td>
+                                {{ application.candidate_profile.email }}
+                            </td>
+                        </tr>
 
-                    <li class="list-group-item border-0"><b>First
-                        Name:</b> {{ application.candidate_profile.first_name }}</li>
-                    <li class="list-group-item border-0"><b>Last
-                        Name:</b> {{ application.candidate_profile.last_name }} </li>
-                    <li class="list-group-item border-0">
-                        <b>Email:</b> {{ application.candidate_profile.email }} </li>
-                    <li class="list-group-item border-0">
-                        <b>Phone:</b> {{ application.candidate_profile.phone }} </li>
-                    <li class="list-group-item border-0">
-                        <b>Gender:</b> {{ application.candidate_profile.get_gender_display }}
-                    </li>
-                    <li class="list-group-item border-0">
-                        <b>Ethnicity:</b> {{ application.candidate_profile.get_ethnicity_display }}
-                    </li>
-                    <li class="list-group-item border-0">
-                        <b>Race:</b> {{ application.candidate_profile.get_race_display }}
-                    </li>
-                    <li class="list-group-item border-0"><b>Health
-                        Conditions:</b> {{ application.candidate_profile.get_health_conditions_display }}
-                    </li>
-                    <li class="list-group-item border-0"><b>Veteran
-                        Status:</b> {{ application.candidate_profile.get_veteran_display }}
-                    </li>
-                    <li class="list-group-item border-0">
-                        <b>Address:</b> {{ application.candidate_profile.address_line }}, {{ application.candidate_profile.state }}
-                    </li>
-                    <hr class="dropdown-divider">
-                    <li class="list-group-item border-0"><b>Portfolio Website:</b>
-                        {% if application.candidate_profile.portfolio_website == "None" %}
-                            None
-                        {% else %}
-                            <a href="{{ application.candidate_profile.portfolio_website }}">{{ application.candidate_profile.portfolio_website }} </a>
-                        {% endif %}
-                    </li>
-                    {% if application.candidate_profile.cover_letter %}
-                        <li class="list-group-item border-0"><b>Cover Letter:</b> <a
-                                href="{{ application.candidate_profile.cover_letter.url }}">{{ application.candidate_profile.cover_letter.name }}</a>
-                        </li>
-                    {% else %}
-                        <li class="list-group-item border-0"><b>Cover Letter:</b> No
-                            Submission
-                        </li>
-                    {% endif %}
-                    <li class="list-group-item border-0"><b>Resume:</b> <a
-                            href="{{ application.candidate_profile.resume.url }}"> {{ application.candidate_profile.resume.name }}</a>
-                    </li>
-                    <hr class="dropdown-divider">
+                        <tr>
+                            <td>
+                                <b>Phone:</b>
+                            </td>
+                            <td>
+                                {{ application.candidate_profile.phone }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <b>Gender:</b>
+                            </td>
+                            <td>
+                                {{ application.candidate_profile.get_gender_display }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <b>Ethnicity:</b>
+                            </td>
+                            <td>
+                                {{ application.candidate_profile.get_ethnicity_display }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <b>Race:</b>
+                            </td>
+                            <td>
+                                {{ application.candidate_profile.get_race_display }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <b>Conditions:</b>
+                            </td>
+                            <td>
+                                {{ application.candidate_profile.get_health_conditions_display }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <b>Status:</b>
+                            </td>
+                            <td>
+                                {{ application.candidate_profile.get_veteran_display }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <b>Address:</b>
+                            </td>
+                            <td>
+                                {{ application.candidate_profile.address_line }}, {{ application.candidate_profile.state }}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <b>Portfolio Website:</b>
+
+                            </td>
+                            <td>
+                                {% if not application.candidate_profile.portfolio_website %}
+                                    No Submission
+                                {% else %}
+                                    <a href="{{ application.candidate_profile.portfolio_website }}">{{ application.candidate_profile.portfolio_website }} </a>
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <b>Cover Letter:</b>
+
+                            </td>
+                            <td>
+                                {% if application.candidate_profile.cover_letter %}
+                                    <a href="{{ application.candidate_profile.cover_letter.url }}">{{ application.candidate_profile.cover_letter.name }}</a>
+                                {% else %}
+                                    No Submission
+                                {% endif %}
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td>
+                                <b>Resume:</b></td>
+                            <td>
+                                <a href="{{ application.candidate_profile.resume.url }}"> {{ application.candidate_profile.resume.name }}</a>
+
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <hr class="dropdown-divider">
+                <ul class="list-group list-group-flush border-0"
+                    style="text-align: center">
 
                     {% if employer_viewing %}
 
@@ -94,18 +235,21 @@
                                        value="{{ application.id }}"/>
 
                                 <button type="submit" name="accept_button"
-                                        class="btn btn-primary">
+                                        class="btn"
+                                        style="background: darkgreen; color: white">
                                     Accept
                                 </button>
                                 <button type="submit" name="reject_button"
-                                        class="btn btn-primary">
+                                        class="btn"
+                                        style="background: darkred; color: white">
                                     Reject
                                 </button>
 
                             </form>
                         {% else %}
-                            <li class="list-group-item border-0"><b>Application
-                                Status:</b> {{ application.get_status_display }} </li>
+                            <h5 class="application-bg {{ application.status }}"
+                                style="text-align: center"><b>Application
+                                Status:</b> {{ application.get_status_display }} </h5>
                         {% endif %}
 
                     {% endif %}

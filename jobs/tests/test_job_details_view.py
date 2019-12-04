@@ -9,8 +9,10 @@ from uplyft.tests.resources import (
     test_user_data,
     create_profile,
 )
+from uplyft.tests.decorators import setUpMockedS3
 
 
+@setUpMockedS3
 class JobDetailViewTests(TestCase):
     def login_candidate(self):
         self.client.login(

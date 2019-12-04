@@ -3,8 +3,10 @@ from django.test import TestCase
 
 from register.forms import CandidateRegistrationForm
 from uplyft.tests.resources import test_user_data
+from uplyft.tests.decorators import setUpMockedS3
 
 
+@setUpMockedS3
 class CandidateRegistrationFormTests(TestCase):
     def test_first_name_field_label(self):
         form = CandidateRegistrationForm()

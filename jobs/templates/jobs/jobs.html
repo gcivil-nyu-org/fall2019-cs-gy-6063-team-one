@@ -3,32 +3,69 @@
 {% load crispy_forms_tags %}
 {% load my_templatetags %}
 {% load humanize %}
-
+{% load widget_tweaks %}
 {% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static "jobs/css/jobs.css" %}">
+<script src="{% static "jobs/js/jobs.js" %}"></script>
 
 <style>
 body{
     background-attachment: fixed !important;
 }
-
 </style>
 
 <div class="container card py-4">
     <h1 class="turquoise-dark mb-4" style="text-align: center;">Job Listings</h1>
 
-    <div class="">
+    <div class="main_search">
         <div class="col-md-10 col-lg-8 mx-auto text-center">
-            <form class="form-inline d-flex" method="GET" action="{% url 'jobs:jobs' %}">
-                {{ form|crispy }}
-                <input type="text" name="q" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0"
-                       value="{{request.GET.q}}" placeholder="Search jobs"/>
+            <form method="GET" action="{% url 'jobs:jobs' %}">
+
+            <div class="wrapper">
+
+                <div id="business_title_search">
+                {{ form.business_title.label_tag }}
+                {% render_field form.business_title class="item" %}
+                </div>
+
+                <div id="advanced_search">
+                    <div id="advanced_search_options" style="display: none">
+                    <div id="job_description_search">
+                    {{ form.job_description.label_tag }}
+                    {% render_field form.job_description class="item" %}
+                    </div>
+
+                    <div id="work_location_search">
+                    {{ form.work_location.label_tag }}
+                    {% render_field form.work_location class="item" %}
+                    </div>
+
+                    <div id="posting_date_search">
+                    {{ form.posting_date.label_tag }}
+                    {% render_field form.posting_date id="datepicker" %}
+                    </div>
+
+                     <div id="department_search">
+                    {{ form.department.label_tag }}
+                    {% render_field form.department %}
+                    </div>
+
+                    </div>
+                    <a href="#" id="advanced_options_link">View advanced options</a>
+
+                </div>
+
+                <div>
                 <button type="submit" class="btn btn-primary mx-auto">Search</button>
+                </div>
             </form>
         </div>
     </div>
 
     <div class="">
         <div class="col-md-9 mt-3 center mx-auto">
+            {% if jobs %}
             {% for job in jobs %}
             <a href="{% url 'jobs:job_detail' job.id %}">
                 <div class="card mt-3">
@@ -39,7 +76,7 @@ body{
                                     <div>{{ job.division }}</div>
                                     <div> {{ job.department }} </div>
                                     <div>{{job.work_location}}</div>
-                                    
+
                             </div>
                             <div style="text-align:right;">
                                 {% if job.salary_frequency == "Annual" %}
@@ -61,6 +98,10 @@ body{
                 </div>
             </a>
             {% endfor %}
+            {% else %}
+            <div> No results... try something else?</div>
+            {% endif %}
+
         </div>
     </div>
 
