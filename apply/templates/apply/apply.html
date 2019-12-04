@@ -40,7 +40,7 @@
             <h5 class="card-title">{{ job.business_title }}</h5>
             <p class="card-text text-muted h6"> # {{job.id }} | <a href="{% url 'department_details:department_detail' job.department.id %}">{{ job.department.name }}</a> </p>
             <hr class="h-bar">
-            <p class="card-text"><small>{{job.job_description|truncatechars:500 }} <a href="{% url 'jobs:job_detail' job.id %}">View job></a></small></p>
+            <p class="card-text"><small>{{job.job_description|truncatechars:500 }} <a href="{% url 'jobs:job_detail' job.id %}">View job</a></small></p>
         <br>
 
         <form class="reg_form" method="post" enctype="multipart/form-data">
