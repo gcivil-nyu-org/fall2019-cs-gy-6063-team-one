@@ -22,3 +22,6 @@ numpy==1.17.3
 django-phonenumber-field==3.0.1
 phonenumbers==8.10.22
 Pillow==6.2.1
+boto3
+django-storages
+moto

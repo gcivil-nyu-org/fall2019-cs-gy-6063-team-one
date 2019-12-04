@@ -17,8 +17,10 @@ from uplyft.tests.resources import (
     test_user_data,
     create_profile,
 )
+from uplyft.tests.decorators import setUpMockedS3
 
 
+@setUpMockedS3
 class JobsViewSideCandidateTest(TestCase):
     q = ""
 

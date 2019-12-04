@@ -9,8 +9,10 @@ from uplyft.tests.resources import (
     create_employer,
     create_profile,
 )
+from uplyft.tests.decorators import setUpMockedS3
 
 
+@setUpMockedS3
 class DashboardViewTests(TestCase):
     def setUp(self):
         self.department = create_department(test_user_data["department"])
