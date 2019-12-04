@@ -34,20 +34,68 @@
                 {% endif %}
                 <div class="card-body text-center">
                     <h4 class="text-uppercase m-0"><a
-                            href="{% url 'jobs:job_detail' job.id %}">{{ job.business_title }} </a>
+                            href="{% url 'jobs:job_detail' job.id %}"><u>{{ job.business_title }}</u>
+                    </a>
                     </h4>
                     <h6 class="text-uppercase m-0"><a
-                            href="{% url 'department_details:department_detail' job.department.id %}">{{ job.department.name }}</a>
+                            href="{% url 'department_details:department_detail' job.department.id %}"><u>{{ job.department.name }}</u></a>
                     </h6>
                     <hr class="my-4">
                 </div>
+                <h4 style="text-align: center; margin-bottom: 10px"><b>Job Details</b>
+                </h4>
                 <div class="table-wrapper">
                     <table class="fl-table">
                         <tr>
+                            <td width="30%">
+                                <b>Job Title:</b>
+                            </td>
+                            <td width="70%">
+                                {{ application.job.business_title.title }}
+                            </td>
+                        </tr>
+                        <tr>
                             <td>
-                                <b>First Name:</b>
+                                <b>Department:</b>
                             </td>
                             <td>
+                                {{ application.job.department.name.title }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Employment Type:</b>
+                            </td>
+                            <td>
+                                {% if job.ft_pt_indicator %}
+                                    {% if job.ft_pt_indicator == "F" %}
+                                        Full Time
+                                    {% else %}
+                                        Part Time
+                                    {% endif %}
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <b>Salary:</b>
+                            </td>
+                            <td>
+                                ${{ job.salary_start|floatformat:"-2"|intcomma }} –
+                                ${{ job.salary_end|floatformat:"-2"|intcomma }}, {{ job.salary_frequency }} </li>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <h4 style="text-align: center; margin-bottom: 10px; margin-top: 20px">
+                    <b>Personal Details</b></h4>
+                <div class="table-wrapper">
+                    <table class="fl-table">
+                        <tr>
+                            <td width="30%">
+                                <b>First Name:</b>
+                            </td>
+                            <td width="70%">
                                 {{ application.candidate_profile.first_name }}
                             </td>
                         </tr>
@@ -170,6 +218,7 @@
                         </tr>
                     </table>
                 </div>
+
                 <hr class="dropdown-divider">
                 <ul class="list-group list-group-flush border-0"
                     style="text-align: center">
