@@ -3,6 +3,8 @@ $(document).ready(function() {
 })
 
 $(document).ready(function(){
+
+
         $("#datepicker_0").datepicker({
             onSelect: function(selected){
                 $("#datepicker_1").datepicker("option","minDate", selected)
@@ -12,6 +14,10 @@ $(document).ready(function(){
             onSelect: function(selected){
                 $("#datepicker_0").datepicker("option","maxDate", selected)
             }
+        });
+        $('.datepicker').on('click', function(e) {
+            e.preventDefault();
+            $(this).attr("autocomplete", "off");
         });
 });
 
