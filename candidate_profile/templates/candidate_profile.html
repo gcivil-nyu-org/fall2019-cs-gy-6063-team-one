@@ -21,12 +21,14 @@ body{
     <title> My Profile </title>
 </head>
 <body>
+<div class="container" style="width: 50%">
 {% if messages %}
     {% for message in messages %}
-            <div class="container card py-4 alert alert-primary" role="alert">{{ message }}</div>
+            <div class="container card py-md-3 alert alert-primary" role="alert" style="text-align: center">{{ message }}</div>
     {% endfor %}
 {% endif %}
-<div class="container card py-4 card-50em">
+</div>
+<div class="container card py-md-3 card-50em">
     <h1 class=""> My Profile </h1>
     <hr class="my-4">
         <form class="reg_form" method="post" enctype="multipart/form-data">

@@ -162,6 +162,7 @@ def handle_employer_dashboard(request):
                 status=Application.STATUS_APPLIED
             ).count()
     context = {
+        "employer_name": employer.user.first_name,
         "accepted_count": accepted_count,
         "rejected_count": rejected_count,
         "pending_count": pending_count,

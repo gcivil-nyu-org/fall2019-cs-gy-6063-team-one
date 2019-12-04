@@ -4,77 +4,114 @@
 
 {% block content %}
 
-{{ form.errors }}
-{{ form.non_field_errors }}
-{% if messages %}
-    {% for message in messages %}
-            <div class="container card py-4 alert alert-primary" role="alert">{{ message }}</div>
-    {% endfor %}
-{% endif %}
+    {{ form.errors }}
+    {{ form.non_field_errors }}
+    {% if messages %}
+        <div class="container" style="width: 50%">
+        {% for message in messages %}
+            <div class="container card py-md-3 alert alert-primary" role="alert"
+                 style="text-align: center">{{ message }}</div>
+        {% endfor %}
+    {% endif %}
+</div>
 
-<div class="container">
-    <div class="col-md-12 mb-3 mb-md-0">
-        <div class="card py-4 h-100">
-            <div class="card-body text-center">
-                <h4 class="text-uppercase m-0"> <a href="{% url 'jobs:job_detail' job.id %}">{{ job.business_title }} </a></h4>
-                <h6 class="text-uppercase m-0"> <a href="{% url 'department_details:department_detail' job.department.id %}">{{ job.department.name }}</a> </h6>
-                <hr class="my-4">
-            </div>
+    {% if forbidden %}
+        {% include 'errors/errors.html' %}
+    {% else %}
 
-            <ul class="list-group list-group-flush border-0">
+        <div class="container">
+        <div class="col-md-12 mb-3 mb-md-0">
+            <div class="card py-4 h-100">
+                <div class="card-body text-center">
+                    <h4 class="text-uppercase m-0"><a
+                            href="{% url 'jobs:job_detail' job.id %}">{{ job.business_title }} </a>
+                    </h4>
+                    <h6 class="text-uppercase m-0"><a
+                            href="{% url 'department_details:department_detail' job.department.id %}">{{ job.department.name }}</a>
+                    </h6>
+                    <hr class="my-4">
+                </div>
 
-                <li class="list-group-item border-0"><b>First Name:</b> {{ application.candidate_profile.first_name }}</li>
-                <li class="list-group-item border-0"><b>Last Name:</b> {{ application.candidate_profile.last_name }} </li>
-                <li class="list-group-item border-0"><b>Email:</b> {{ application.candidate_profile.email }} </li>
-                <li class="list-group-item border-0"><b>Phone:</b> {{ application.candidate_profile.phone }} </li>
-                <li class="list-group-item border-0"><b>Gender:</b> {{ application.candidate_profile.get_gender_display }} </li>
-                <li class="list-group-item border-0"><b>Ethnicity:</b> {{ application.candidate_profile.get_ethnicity_display }} </li>
-                <li class="list-group-item border-0"><b>Race:</b> {{ application.candidate_profile.get_race_display }} </li>
-                <li class="list-group-item border-0"><b>Health Conditions:</b> {{ application.candidate_profile.get_health_conditions_display }} </li>
-                <li class="list-group-item border-0"><b>Veteran Status:</b> {{ application.candidate_profile.get_veteran_display }} </li>
-                <li class="list-group-item border-0"><b>Address:</b> {{ application.candidate_profile.address_line }}, {{ application.candidate_profile.state }} </li>
-                <hr class="dropdown-divider">
-                <li class="list-group-item border-0"><b>Portfolio Website:</b>
-                    {% if application.candidate_profile.portfolio_website == "None" %}
-                    None
-                    {% else %}
-                    <a href="{{ application.candidate_profile.portfolio_website }}">{{ application.candidate_profile.portfolio_website }} </a>
+                <ul class="list-group list-group-flush border-0">
+
+                    <li class="list-group-item border-0"><b>First
+                        Name:</b> {{ application.candidate_profile.first_name }}</li>
+                    <li class="list-group-item border-0"><b>Last
+                        Name:</b> {{ application.candidate_profile.last_name }} </li>
+                    <li class="list-group-item border-0">
+                        <b>Email:</b> {{ application.candidate_profile.email }} </li>
+                    <li class="list-group-item border-0">
+                        <b>Phone:</b> {{ application.candidate_profile.phone }} </li>
+                    <li class="list-group-item border-0">
+                        <b>Gender:</b> {{ application.candidate_profile.get_gender_display }}
+                    </li>
+                    <li class="list-group-item border-0">
+                        <b>Ethnicity:</b> {{ application.candidate_profile.get_ethnicity_display }}
+                    </li>
+                    <li class="list-group-item border-0">
+                        <b>Race:</b> {{ application.candidate_profile.get_race_display }}
+                    </li>
+                    <li class="list-group-item border-0"><b>Health
+                        Conditions:</b> {{ application.candidate_profile.get_health_conditions_display }}
+                    </li>
+                    <li class="list-group-item border-0"><b>Veteran
+                        Status:</b> {{ application.candidate_profile.get_veteran_display }}
+                    </li>
+                    <li class="list-group-item border-0">
+                        <b>Address:</b> {{ application.candidate_profile.address_line }}, {{ application.candidate_profile.state }}
+                    </li>
+                    <hr class="dropdown-divider">
+                    <li class="list-group-item border-0"><b>Portfolio Website:</b>
+                        {% if application.candidate_profile.portfolio_website == None %}
+                            None
+                        {% else %}
+                            <a href="{{ application.candidate_profile.portfolio_website }}">{{ application.candidate_profile.portfolio_website }} </a>
+                        {% endif %}
+                    </li>
+                    <li class="list-group-item border-0"><b>Cover Letter:</b>
+                        {% if application.candidate_profile.cover_letter %}
+                            <a href="{{ application.candidate_profile.cover_letter.url }}">{{ application.candidate_profile.cover_letter.name }}</a>
+                        {% else %}
+                            No Submission
+                        {% endif %}
+                    </li>
+                    <li class="list-group-item border-0"><b>Resume:</b> <a
+                            href="{{ application.candidate_profile.resume.url }}"> {{ application.candidate_profile.resume.name }}</a>
+                    </li>
+                    <hr class="dropdown-divider">
+
+                    {% if employer_viewing %}
+
+                        {% if application.status == application.STATUS_APPLIED %}
+                            <form class="application_detail_form"
+                                  action="{% url 'applications:application_details' application.id %}"
+                                  method="post">
+                                {% csrf_token %}
+                                <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
+                                <input type="hidden" name="application_id"
+                                       value="{{ application.id }}"/>
+
+                                <button type="submit" name="accept_button"
+                                        class="btn btn-primary">
+                                    Accept
+                                </button>
+                                <button type="submit" name="reject_button"
+                                        class="btn btn-primary">
+                                    Reject
+                                </button>
+
+                            </form>
+                        {% else %}
+                            <li class="list-group-item border-0"><b>Application
+                                Status:</b> {{ application.get_status_display }} </li>
+                        {% endif %}
+
                     {% endif %}
-                </li>
-                {% if application.candidate_profile.cover_letter %}
-                    <li class="list-group-item border-0"><b>Cover Letter:</b> <a href="{{ application.candidate_profile.cover_letter.url }}">{{ application.candidate_profile.cover_letter.name }}</a></li>
-                {% else %}
-                   <li class="list-group-item border-0"><b>Cover Letter:</b> No Submission </li>
-                {% endif %}
-                <li class="list-group-item border-0"><b>Resume:</b> <a href="{{ application.candidate_profile.resume.url }}"> {{ application.candidate_profile.resume.name }}</a></li>
-                <hr class="dropdown-divider">
 
-                {% if employer_viewing %}
-
-                {% if application.status == application.STATUS_APPLIED %}
-                <form class="application_detail_form" action="{% url 'applications:application_details' application.id %}" method="post">
-                    {% csrf_token %}
-                    <!--token to protect against Cross Site Request Forgeries (https://docs.djangoproject.com/en/2.2/ref/templates/builtins/#std:templatetag-csrf_token)-->
-                    <input type="hidden" name="application_id" value="{{ application.id }}"/>
-
-                    <button type="submit" name="accept_button" class="btn btn-primary">
-                    Accept
-                    </button>
-                    <button type="submit" name="reject_button" class="btn btn-primary">
-                    Reject
-                    </button>
-
-                </form>
-                {% else %}
-                <li class="list-group-item border-0"><b>Application Status:</b> {{ application.get_status_display }} </li>
-                {% endif %}
-
-                {% endif %}
-
-            </ul>
+                </ul>
+            </div>
         </div>
-    </div>
-
+    {% endif %}
 
 
 

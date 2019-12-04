@@ -1,13 +1,13 @@
 from django.views.generic import DetailView
 from apply.models import Application
 from jobs.models import Job
+from uplyft.models import Candidate, Employer
 from .forms import ProcessApplicationForm
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, Http404, HttpResponseRedirect
 from django.urls import reverse
 from django.views.generic import FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.views import View
-from django.contrib.auth import get_user_model
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
@@ -15,18 +15,41 @@ class ApplicationDetailView(LoginRequiredMixin, DetailView):
     model = Application
     template_name = "applications/application_detail.html"
 
+    def get(self, request, *args, **kwargs):
+        try:
+            self.object = self.get_object()
+        except Http404:
+            return HttpResponseRedirect(reverse("errors:not_found"))
+        context = self.get_context_data(object=self.object)
+        return self.render_to_response(context)
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["job"] = Job.objects.get(id=self.get_object().job_id)
-        email = self.request.session["email"]
-        current_user = get_user_model().objects.get(email=email)
+        current_user = self.request.user
+        application = self.object
+        context["forbidden"] = False
         if current_user.is_candidate:
+            current_candidate = Candidate.objects.get(user=current_user)
+            if application.candidate != current_candidate:
+                context["forbidden"] = True
+                context["code"] = 403
+                context["employer_viewing"] = False
+                context["form"] = None
+                return context
             context["employer_viewing"] = False
             context["form"] = None
+
         else:
+            current_employer = Employer.objects.get(user=current_user)
+            if application.job.department != current_employer.department:
+                context["forbidden"] = True
+                context["code"] = 403
+                context["employer_viewing"] = True
+                context["form"] = ProcessApplicationForm()
+                return context
             context["employer_viewing"] = True
             context["form"] = ProcessApplicationForm()
-
         return context
 
 

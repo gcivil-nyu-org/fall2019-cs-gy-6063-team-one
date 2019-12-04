@@ -10,15 +10,16 @@
 <div class="col-md-6 col-lg-7 mx-auto">
      <link rel="stylesheet" type="text/css" href="{% static "apply/css/apply.css" %}">
 
-    <div class="apply">
+    <div class="container">
         {% if messages %}
         <ul>
             {% for message in messages %}
-            <li class="text-white mb-5">{{ message }}</li>
+            <div class="container card py-md-3 alert alert-primary"
+                 role="alert" style="width:40em; text-align: center">{{ message }}</div>
             {% endfor %}
         </ul>
         {% endif %}
-    </div>
+</div>
 
     <div class="container card py-4  card-50em">
         <h1 class="mb-5"> Apply </h1>

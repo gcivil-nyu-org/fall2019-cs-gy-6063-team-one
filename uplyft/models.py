@@ -5,6 +5,7 @@ from localflavor.us import models as mailing
 from phonenumber_field.modelfields import PhoneNumberField
 from django.core.validators import FileExtensionValidator
 from uuid_upload_path import upload_to
+from django.core.exceptions import ValidationError
 
 from jobs.models import Department
 from uplyft.s3_storage import ResumeStorage
@@ -51,6 +52,12 @@ class CustomUser(AbstractUser):
 
     def __str__(self):
         return self.email
+
+
+def file_size(value):
+    limit = 2 * 1024 * 1024
+    if value.size > limit:
+        raise ValidationError("File too large. Size should not exceed 2 MB")
 
 
 class CandidateProfile(models.Model):
@@ -153,7 +160,10 @@ class CandidateProfile(models.Model):
         upload_to=upload_to,
         null=True,
         blank=True,
-        validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"])],
+        validators=[
+            FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"]),
+            file_size,
+        ],
     )
     # Resume chunks
     resume = models.FileField(
@@ -161,7 +171,10 @@ class CandidateProfile(models.Model):
         upload_to=upload_to,
         null=True,
         blank=True,
-        validators=[FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"])],
+        validators=[
+            FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"]),
+            file_size,
+        ],
     )
     additional_info = models.TextField(max_length=10000, blank=True, null=True)
 

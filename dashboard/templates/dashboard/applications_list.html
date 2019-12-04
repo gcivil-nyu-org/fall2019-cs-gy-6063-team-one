@@ -7,7 +7,7 @@
 {% block applications_list %}
     
     <div class="container">
-        <h1 class="mb-4">Application Listing</h1>
+
         <div class="py-4 mb-3">
                 <div class="listing-buttons-container">
                     <a class="listing-button listing-button-wide btn btn-primary" href="{% url 'dashboard:dashboard' %}">← Dashboard</a>
@@ -16,6 +16,16 @@
                     <a class="listing-button btn btn-primary" href="{% url 'dashboard:dashboard' 'ac' %}">Accepted</a>
                 </div>
             </div>
+
+    {% if application_type == "ap" %}
+        <h1 class="mb-4">Pending Applications</h1>
+        {% elif application_type == "re" %}
+        <h1 class="mb-4">Rejected Applications</h1>
+        {% elif application_type == "ac" %}
+        <h1 class="mb-4">Accepted Applications</h1>
+        {% else %}
+        <h1 class="mb-4">Applications</h1>
+        {% endif %}
     </div>
     
     
@@ -28,13 +38,14 @@
                     {{ form|crispy }}
                     <input type="text" name="q"
                            class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0"
-                           value="{{ request.GET.q }}" placeholder="Search jobs"/>
+                           value="{{ request.GET.q }}" placeholder="Search applications by First Name, Last Name or Job Title"/>
                     <button type="submit" class="btn btn-primary mx-auto">Search
                     </button>
+                    <a class="btn btn-danger" href="{% url 'dashboard:dashboard' application_type %}">
+                        Clear
+                    </a>
                 </form>
-                <a href="{% url 'dashboard:dashboard' application_type %}">
-                    <button class="float-right btn btn-primary mx-auto">Clear</button>
-                </a>
+
             </div>
         </div>
     </div>
@@ -43,6 +54,7 @@
     <div class="container dashboard-container">
         <div class="row">
             <div class="col-md-9 mt-3 center mx-auto text-left">
+            {% if applications %}
                 {% for application in applications %}
                     <a href="{% url 'applications:application_details' application.id %}">
                         <div class="card application-border {{ application.status }}">
@@ -82,6 +94,14 @@
                         </div>
                     </a>
                 {% endfor %}
+            {% else %}
+                <div class="card" style="text-align: center">
+                <div class="card-body">
+                    There are no applications available.
+                </div>
+                </div>
+
+            {% endif %}
             </div>
 
         </div>
