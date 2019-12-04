@@ -6,6 +6,10 @@ from uplyft.models import CustomUser
 class EmailValidationOnForgotPassword(PasswordResetForm):
     def clean_email(self):
         email = self.cleaned_data["email"]
+
+        # Checks whether the email exists in the database for password reset or not.
+        # Also checks whether the user have an active account or not.
+
         if CustomUser.objects.filter(email__iexact=email, is_active=False).exists():
             raise ValidationError(
                 "You need to activate your account first. Please check your email."
