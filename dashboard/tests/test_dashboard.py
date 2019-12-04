@@ -124,8 +124,8 @@ class DashboardViewTests(TestCase):
             reverse("dashboard:dashboard", kwargs={"app_status": "ap"}),
             data={"q": f"{self.profile.first_name}"},
         )
-        self.assertContains(response, self.profile.first_name)
-        self.assertContains(response, self.profile.last_name)
+        self.assertContains(response, self.app.job.department.name)
+        self.assertContains(response, self.app.job.job_description)
         self.assertContains(response, self.app.id)
         self.assertContains(response, self.app.job.business_title)
         self.assertEqual(response.status_code, 200)
@@ -136,8 +136,8 @@ class DashboardViewTests(TestCase):
             reverse("dashboard:dashboard", kwargs={"app_status": "ap"}),
             data={"q": f"{self.profile.last_name}"},
         )
-        self.assertContains(response, self.profile.first_name)
-        self.assertContains(response, self.profile.last_name)
+        self.assertContains(response, self.app.job.department.name)
+        self.assertContains(response, self.app.job.job_description)
         self.assertContains(response, self.app.id)
         self.assertContains(response, self.app.job.business_title)
         self.assertEqual(response.status_code, 200)
@@ -148,8 +148,8 @@ class DashboardViewTests(TestCase):
             reverse("dashboard:dashboard", kwargs={"app_status": "ap"}),
             data={"q": f"{self.job.business_title}"},
         )
-        self.assertContains(response, self.profile.first_name)
-        self.assertContains(response, self.profile.last_name)
+        self.assertContains(response, self.app.job.department.name)
+        self.assertContains(response, self.app.job.job_description)
         self.assertContains(response, self.app.id)
         self.assertContains(response, self.app.job.business_title)
         self.assertEqual(response.status_code, 200)
