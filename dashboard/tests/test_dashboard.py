@@ -118,26 +118,13 @@ class DashboardViewTests(TestCase):
         self.assertContains(response, self.app.job.business_title)
         self.assertEqual(response.status_code, 200)
 
-    def test_get_app_first_name_returns_application_candidate(self):
+    def test_get_app_department_returns_application_candidate(self):
         self.login_candidate()
         response = self.client.get(
             reverse("dashboard:dashboard", kwargs={"app_status": "ap"}),
-            data={"q": f"{self.profile.first_name}"},
+            data={"q": f"{self.job.department.name}"},
         )
-        self.assertContains(response, self.app.job.department.name)
-        self.assertContains(response, self.app.job.job_description)
-        self.assertContains(response, self.app.id)
-        self.assertContains(response, self.app.job.business_title)
-        self.assertEqual(response.status_code, 200)
-
-    def test_get_app_last_name_returns_application_card_candidate(self):
-        self.login_candidate()
-        response = self.client.get(
-            reverse("dashboard:dashboard", kwargs={"app_status": "ap"}),
-            data={"q": f"{self.profile.last_name}"},
-        )
-        self.assertContains(response, self.app.job.department.name)
-        self.assertContains(response, self.app.job.job_description)
+        self.assertContains(response, self.app.job.department.name.title())
         self.assertContains(response, self.app.id)
         self.assertContains(response, self.app.job.business_title)
         self.assertEqual(response.status_code, 200)
@@ -148,8 +135,7 @@ class DashboardViewTests(TestCase):
             reverse("dashboard:dashboard", kwargs={"app_status": "ap"}),
             data={"q": f"{self.job.business_title}"},
         )
-        self.assertContains(response, self.app.job.department.name)
-        self.assertContains(response, self.app.job.job_description)
+        self.assertContains(response, self.app.job.department.name.title())
         self.assertContains(response, self.app.id)
         self.assertContains(response, self.app.job.business_title)
         self.assertEqual(response.status_code, 200)
