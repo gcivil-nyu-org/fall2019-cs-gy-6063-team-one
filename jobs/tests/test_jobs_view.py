@@ -17,8 +17,10 @@ from uplyft.tests.resources import (
     test_user_data,
     create_profile,
 )
+from uplyft.tests.decorators import setUpMockedS3
 
 
+@setUpMockedS3
 class JobsViewSideCandidateTest(TestCase):
     q = ""
 
@@ -58,7 +60,7 @@ class JobsViewSideCandidateTest(TestCase):
             salary_frequency="Annual",
             work_location="110 William St. N Y",
             division="Strategy & Analytics",
-            job_description="Some text.",
+            job_description="Spend time working on accounts. Use a calculator.",
             min_qualifications="1.\tA baccalaureate degree \
             from an accredited college and\
              two years of experience in community \
@@ -112,31 +114,53 @@ class JobsViewSideCandidateTest(TestCase):
         self.assertTemplateUsed(response, "jobs/jobs.html")
 
     def test_form_GET_response_renders_correct_template(self):
-        response = self.client.get(reverse("jobs:jobs"), data={"q": self.q})
+        response = self.client.get(reverse("jobs:jobs"), data={})
         self.assertTemplateUsed(response, "uplyft/base.html")
         self.assertTemplateUsed(response, "jobs/jobs.html")
 
     def test_form_GET_response_returns_queryset_in_context(self):
-        response = self.client.get(reverse("jobs:jobs"), data={"q": self.q})
+        response = self.client.get(reverse("jobs:jobs"), data={})
         self.assertIsInstance(response.context["jobs"], QuerySet)
 
     def test_form_GET_response_returns_correct_view_in_context(self):
-        response = self.client.get(reverse("jobs:jobs"), data={"q": self.q})
+        response = self.client.get(reverse("jobs:jobs"), data={})
         self.assertIsInstance(response.context["view"], JobsView)
 
     def test_form_GET_response_returns_a_queryset(self):
-        response = self.client.get(reverse("jobs:jobs"), data={"q": self.q})
+        response = self.client.get(reverse("jobs:jobs"), data={})
         self.assertTrue("jobs" in response.context)
         self.assertIsInstance(response.context["jobs"], QuerySet)
 
     def test_form_GET_response_retains_form_data(self):
-        response = self.client.get(reverse("jobs:jobs"), data={"q": "manager"})
+        response = self.client.get(
+            reverse("jobs:jobs"), data={"business_title": "manager"}
+        )
         self.assertContains(response, "manager")
 
     def test_good_GET_response_returns_correct_queryset(self):
         self.create_job()
-        response = self.client.get(reverse("jobs:jobs"), data={"q": self.q})
+        response = self.client.get(reverse("jobs:jobs"), data={})
         correct_queryset = Job.objects.all().order_by("-posting_date")
+        self.assertListEqual(list(correct_queryset), list(response.context["jobs"]))
+
+    def test_good_GET_response_returns_correct_queryset_with_business_title(self):
+        self.create_job()
+        response = self.client.get(
+            reverse("jobs:jobs"), data={"business_title": "manager"}
+        )
+        correct_queryset = Job.objects.filter(
+            business_title__icontains="manager"
+        ).order_by("-posting_date")
+        self.assertListEqual(list(correct_queryset), list(response.context["jobs"]))
+
+    def test_good_GET_response_returns_correct_queryset_with_description(self):
+        self.create_job()
+        response = self.client.get(
+            reverse("jobs:jobs"), data={"description": "calculator"}
+        )
+        correct_queryset = Job.objects.filter(
+            job_description__icontains="calculator"
+        ).order_by("-posting_date")
         self.assertListEqual(list(correct_queryset), list(response.context["jobs"]))
 
     def test_candidate_save_unsave_job(self):

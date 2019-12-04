@@ -1,9 +1,7 @@
 import logging
-
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.decorators import login_required
-from django.db.models import Q
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
@@ -21,27 +19,22 @@ from uplyft.models import Candidate
 logger = logging.getLogger(__name__)
 
 
-class JobsView(LoginRequiredMixin, ListView):
-    model = Job
+class JobsView(LoginRequiredMixin, ListView, FilterView):
+    filterset_class = JobFilter
+    # model = Job
     paginate_by = 10
     context_object_name = "jobs"
     template_name = "jobs/jobs.html"
+    ordering = ["-posting_date"]
 
     def get_queryset(self):
-        try:
-            a = self.request.GET.get("q")
-        except KeyError:
-            a = None
-        if a:
-            queryset = Job.objects.filter(
-                Q(business_title__icontains=a)
-                | Q(work_location__icontains=a)
-                | Q(department__name__icontains=a)
-            ).order_by("-posting_date")
-        else:
-            queryset = Job.objects.all().order_by("-posting_date")
-        return queryset
+        queryset = Job.objects.all()
+        self.filterset = JobFilter(self.request.GET, queryset=queryset)
+        return self.filterset.qs.distinct()
 
+    # Loads jobs_applied context object, which is used to display either "Apply
+    # now" or "Application submitted" within each job card depending on whether the
+    # candidate already has a pending application or not
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user = self.request.user
@@ -53,6 +46,8 @@ class JobsView(LoginRequiredMixin, ListView):
                     "job", flat=True
                 )
             )
+        context["form"] = self.filterset.form
+        context["jobs"] = self.filterset.qs.distinct()
         return context
 
 
