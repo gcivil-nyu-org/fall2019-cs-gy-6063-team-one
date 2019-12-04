@@ -27,7 +27,7 @@ def update_candidate_profile(request):
             messages.success(request, _("Your profile was successfully updated"))
             return redirect("candidate_profile:profile")
         else:
-            messages.error(request, _("Please correct the error below."))
+            messages.error(request, _("Please correct the error(s) below."))
             return render(
                 request,
                 "candidate_profile.html",
