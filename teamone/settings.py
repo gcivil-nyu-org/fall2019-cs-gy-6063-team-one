@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "q4!d06oj_jy(1$q#@*&0bcnn4*ub*)0#5n9^p*hp+3#5)tb2(+"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["uplyft.herokuapp.com", "localhost", "127.0.0.1", "testserver"]
 
@@ -71,7 +71,7 @@ INSTALLED_APPS = [
     "storages",
 ]
 
-SITE_ID = 1
+SITE_ID = 2
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
