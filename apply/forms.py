@@ -29,8 +29,8 @@ class ApplicationForm(ModelForm):
         )
 
         help_texts = {
-            "resume": "Allowed file types: .pdf, .doc, .docx",
-            "cover_letter": "Allowed file types: .pdf, .doc, .docx",
+            "resume": "Allowed file types: .pdf, .doc, .docx <br/> Max file size: 2 MB",
+            "cover_letter": "Allowed file types: .pdf, .doc, .docx <br/> Max file size: 2 MB",
         }
 
         widgets = {"cover_letter": file_resubmit.widgets.ResubmitFileWidget()}
@@ -45,7 +45,6 @@ class ApplicationForm(ModelForm):
         self.fields["zip_code"].required = True
         self.fields["state"].required = True
         self.fields["email"].required = True
-
         self.fields["phone"].required = True
         self.fields["resume"].required = True
         self.fields["cover_letter"].required = False
