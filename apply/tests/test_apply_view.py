@@ -11,8 +11,10 @@ from uplyft.tests.resources import (
 )
 from apply.models import Application
 from django.core.files.uploadedfile import SimpleUploadedFile
+from uplyft.tests.decorators import setUpMockedS3
 
 
+@setUpMockedS3
 class ApplicationViewTests(TestCase):
     def login_candidate(self):
         self.client.login(

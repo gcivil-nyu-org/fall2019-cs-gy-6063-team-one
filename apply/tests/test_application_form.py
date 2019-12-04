@@ -2,8 +2,10 @@ from django.test import TestCase
 from apply.forms import ApplicationForm
 from uplyft.tests.resources import test_user_data, create_candidate_with_active_profile
 from django.forms import BooleanField
+from uplyft.tests.decorators import setUpMockedS3
 
 
+@setUpMockedS3
 class ApplicationFormTests(TestCase):
     def setUp(self):
         self.candidate = create_candidate_with_active_profile(

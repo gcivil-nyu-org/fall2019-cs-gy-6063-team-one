@@ -9,8 +9,10 @@ from uplyft.tests.resources import (
     create_department,
     create_employer,
 )
+from uplyft.tests.decorators import setUpMockedS3
 
 
+@setUpMockedS3
 class EmployerRegistrationFormTests(TestCase):
     def setUp(self):
         self.candidate = create_candidate_with_active_profile(
