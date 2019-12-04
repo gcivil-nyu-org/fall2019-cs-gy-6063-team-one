@@ -3,8 +3,16 @@ $(document).ready(function() {
 })
 
 $(document).ready(function(){
-        $("#datepicker_0").datepicker();
-        $("#datepicker_1").datepicker();
+        $("#datepicker_0").datepicker({
+            onSelect: function(selected){
+                $("#datepicker_1").datepicker("option","minDate", selected)
+            }
+        });
+        $("#datepicker_1").datepicker({
+            onSelect: function(selected){
+                $("#datepicker_0").datepicker("option","maxDate", selected)
+            }
+        });
 });
 
 $(document).ready(function() {
