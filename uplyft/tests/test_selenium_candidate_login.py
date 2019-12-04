@@ -2,6 +2,9 @@ from django.urls import reverse
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from uplyft.tests.resources import create_candidate_with_active_profile, test_user_data
+from uplyft.tests.decorators import setUpMockedS3Selenium
+
+setUpMockedS3Selenium()
 
 
 class CandidateLoginFunctionalTests(StaticLiveServerTestCase):
