@@ -34,6 +34,10 @@ class ApplicationList(LoginRequiredMixin, ListView):
         context = super().get_context_data(**kwargs)
         app_status = self.kwargs["app_status"]
         context["application_type"] = app_status
+        if self.request.user.is_candidate:
+            context["employer_viewing"] = False
+        else:
+            context["employer_viewing"] = True
         return context
 
     def get_candidate_applications(self, app_status):
@@ -54,9 +58,9 @@ class ApplicationList(LoginRequiredMixin, ListView):
             query = None
         if query:
             candidate_applications = candidate_applications.filter(
-                Q(job__business_title__contains=query)
-                | Q(candidate_profile__first_name__contains=query)
-                | Q(candidate_profile__last_name__contains=query)
+                Q(job__business_title__icontains=query)
+                | Q(candidate_profile__first_name__icontains=query)
+                | Q(candidate_profile__last_name__icontains=query)
             ).order_by("-submit_date")
         return candidate_applications
 

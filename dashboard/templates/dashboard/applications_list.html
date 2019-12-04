@@ -5,7 +5,7 @@
 {% load humanize %}
 
 {% block applications_list %}
-    
+
     <div class="container">
 
         <div class="py-4 mb-3">
@@ -27,9 +27,9 @@
         <h1 class="mb-4">Applications</h1>
         {% endif %}
     </div>
-    
-    
-    
+
+
+
     <div class="container dashboard-container">
         <div class="row">
             <div class="col-md-10 col-lg-8 mx-auto text-center">
@@ -50,7 +50,7 @@
         </div>
     </div>
 
-
+    {% if employer_viewing %}
     <div class="container dashboard-container">
         <div class="row">
             <div class="col-md-9 mt-3 center mx-auto text-left">
@@ -106,6 +106,63 @@
 
         </div>
     </div>
+    {% else %}
+        <div class="container dashboard-container">
+        <div class="row">
+            <div class="col-md-9 mt-3 center mx-auto text-left">
+            {% if applications %}
+                {% for application in applications %}
+                    <a href="{% url 'applications:application_details' application.id %}">
+                        <div class="card application-border {{ application.status }}">
+                            <div class="card-body">
+                                <h5 class="card-title">Application
+                                    Number: {{ application.id }}</h5><br>
+                                <h5 class="card-title">Job
+                                    ID: {{ application.job.id }}</h5><br>
+                                <h5 class="card-title align-content-center">{{ application.job.business_title }}</h5>
+                                <span> <small> {{ application.submit_date }} </small> </span>
+                                <p class="card-text text-muted h6">
+                                    <span class="status {{ application.status }}">
+                                        {% if application.status == "RE" %}
+                                            REJECTED
+                                        {% elif application.status == "AC" %}
+                                            ACCEPTED
+                                        {% elif application.status == "AP" %}
+                                            PENDING
+                                        {% endif %}
+                                     </span>
+                                </p>
+                                <hr class="h-bar">
+                                <p class="card-text">
+                                    {{ application.job.department }}
+                                </p>
+                                <p class="card-text">
+                                    <small>
+                                        {{ application.job.job_description|truncatechars:200 }}</small>
+                                </p>
+
+                                    <p class="card-text">
+                                        <small>
+                                            {{ application.job.work_location }}</small>
+                                    </p>
+
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% else %}
+                <div class="card" style="text-align: center">
+                <div class="card-body">
+                    There are no applications available.
+                </div>
+                </div>
+
+            {% endif %}
+            </div>
+
+        </div>
+    </div>
+    {% endif %}
 
     <div id="wrapper" style="text-align:center">
         <div id="container" style="display:inline-block;text-align:left">
