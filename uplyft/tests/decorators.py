@@ -5,7 +5,7 @@ from teamone.settings import AWS_STORAGE_BUCKET_NAME
 
 def setUpMockedS3(testClass):
     """
-        Set up `TestCase` class to use mocked AWS S3 storage 
+        Set up `TestCase` class to use mocked AWS S3 storage
         with the bucket name specified in `teamone.settings.AWS_STORAGE_BUCKET_NAME`
     """
 
