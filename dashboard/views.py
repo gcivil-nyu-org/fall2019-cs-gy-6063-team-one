@@ -59,8 +59,8 @@ class ApplicationList(LoginRequiredMixin, ListView):
         if query:
             candidate_applications = candidate_applications.filter(
                 Q(job__business_title__icontains=query)
-                | Q(candidate_profile__first_name__icontains=query)
-                | Q(candidate_profile__last_name__icontains=query)
+                | Q(job__department__name__icontains=query)
+                | Q(job__job_description__icontains=query)
             ).order_by("-submit_date")
         return candidate_applications
 
