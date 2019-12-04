@@ -19,16 +19,15 @@ from uplyft.models import Candidate
 logger = logging.getLogger(__name__)
 
 
-class JobsView(LoginRequiredMixin, ListView, FilterView):
+class JobsView(LoginRequiredMixin, ListView):
     filterset_class = JobFilter
-    # model = Job
+    model = Job
     paginate_by = 10
     context_object_name = "jobs"
     template_name = "jobs/jobs.html"
-    ordering = ["-posting_date"]
 
     def get_queryset(self):
-        queryset = Job.objects.all()
+        queryset = Job.objects.all().order_by("-posting_date")
         self.filterset = JobFilter(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct()
 
@@ -47,14 +46,13 @@ class JobsView(LoginRequiredMixin, ListView, FilterView):
                 )
             )
         context["form"] = self.filterset.form
-        context["jobs"] = self.filterset.qs.distinct()
         return context
 
 
 class JobAdvancedSearch(LoginRequiredMixin, FilterView):
     filterset_class = JobFilter
     template_name = "jobs/job_search.html"
-    paginate_by = 10
+    paginate_by = 1
     ordering = ["-posting_date"]
 
 
