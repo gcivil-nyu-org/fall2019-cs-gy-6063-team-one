@@ -11,6 +11,7 @@ from uplyft.tests.resources import (
 )
 from jobs.models import Job
 from apply.models import Application
+from uplyft.tests.decorators import setUpMockedS3
 
 date_format = "%b. %d, %Y"
 
@@ -21,6 +22,7 @@ def get_count_from_list(input_list, key):
             return item.count
 
 
+@setUpMockedS3
 class DepartmentDetailViewTest(TestCase):
     def setUp(self):
         self.department = create_department_with_profile(test_user_data["department"])
