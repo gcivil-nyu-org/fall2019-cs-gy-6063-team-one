@@ -157,6 +157,7 @@ class CandidateProfile(models.Model):
     )
     # Cover Letter
     cover_letter = models.FileField(
+        storage=ResumeStorage(),
         upload_to=upload_to,
         null=True,
         blank=True,
