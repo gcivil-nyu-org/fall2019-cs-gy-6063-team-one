@@ -1,8 +1,14 @@
 {% extends "uplyft/base.html" %}
 {% block content %}
-<div class="col-md-6 col-lg-6 mx-auto">
-    <div class="alert alert-info">
+<div class="col-lg-8 mx-auto">
+    <div class="container card py-4 col-lg-8 alert alert-primary" role="alert" style="text-align: center">
         Your account has been created! You can login now.
     </div >
+<div class="mx-auto text-center">
+<a name="candidate_login_link" href="{% url 'candidate_login:candidate_login' %}"
+                   class="btn btn-primary js-scroll-trigger">Candidates</a>
+<a name="employer_login_link" href="{% url 'employer_login:employer_login' %}"
+                   class="btn btn-primary js-scroll-trigger">Employers</a>
+    </div>
 </div>
 {% endblock content %}
