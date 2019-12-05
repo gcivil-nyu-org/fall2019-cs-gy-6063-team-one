@@ -8,12 +8,14 @@ $(document).ready(function(){
         $("#datepicker_0").datepicker({
             onSelect: function(selected){
                 $("#datepicker_1").datepicker("option","minDate", selected)
-            }
+            },
+            changeMonth: true,
         });
         $("#datepicker_1").datepicker({
             onSelect: function(selected){
                 $("#datepicker_0").datepicker("option","maxDate", selected)
-            }
+            },
+            changeMonth: true,
         });
         $('.datepicker').on('click', function(e) {
             e.preventDefault();
