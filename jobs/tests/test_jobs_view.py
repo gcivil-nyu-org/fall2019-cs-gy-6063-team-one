@@ -133,7 +133,7 @@ class JobsViewSideCandidateTest(TestCase):
 
     def test_form_GET_response_retains_form_data(self):
         response = self.client.get(
-            reverse("jobs:jobs"), data={"business_title": "manager"}
+            reverse("jobs:jobs"), data={"q": "manager"}
         )
         self.assertContains(response, "manager")
 
