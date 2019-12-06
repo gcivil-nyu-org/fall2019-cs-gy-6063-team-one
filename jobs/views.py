@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
+from django.db.models import Q
 from django_filters.views import FilterView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
@@ -27,6 +28,52 @@ class JobsView(LoginRequiredMixin, ListView):
     template_name = "jobs/jobs.html"
 
     def get_queryset(self):
+        try:
+            a = self.request.GET.get("q")
+        except KeyError:
+            a = None
+        if a:
+            queryset = Job.objects.filter(
+                Q(business_title__icontains=a)
+                | Q(work_location__icontains=a)
+                | Q(department__name__icontains=a)
+                | Q(job_description__icontains=a)
+                | Q(civil_service_title__icontains=a)
+                | Q(job_category__icontains=a)
+                | Q(division__icontains=a)
+                | Q(min_qualifications__icontains=a)
+                | Q(additional_info__icontains=a)
+                | Q(id__iexact=a)
+            ).order_by("-posting_date")
+        else:
+            queryset = Job.objects.all().order_by("-posting_date")
+        return queryset
+
+    # Loads jobs_applied context object, which is used to display either "Apply
+    # now" or "Application submitted" within each job card depending on whether the
+    # candidate already has a pending application or not
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        user = self.request.user
+        context["user"] = user
+        if user.is_candidate:
+            candidate = Candidate.objects.get(user=self.request.user)
+            context["jobs_applied"] = list(
+                Application.objects.filter(candidate=candidate).values_list(
+                    "job", flat=True
+                )
+            )
+        return context
+
+
+class JobAdvancedSearchView(LoginRequiredMixin, ListView, FilterView):
+    filterset_class = JobFilter
+    model = Job
+    paginate_by = 10
+    context_object_name = "jobs"
+    template_name = "jobs/jobs_advanced_search.html"
+
+    def get_queryset(self):
         queryset = Job.objects.all().order_by("-posting_date")
         self.filterset = JobFilter(self.request.GET, queryset=queryset)
         return self.filterset.qs.distinct()
@@ -47,13 +94,6 @@ class JobsView(LoginRequiredMixin, ListView):
             )
         context["form"] = self.filterset.form
         return context
-
-
-class JobAdvancedSearch(LoginRequiredMixin, FilterView):
-    filterset_class = JobFilter
-    template_name = "jobs/job_search.html"
-    paginate_by = 1
-    ordering = ["-posting_date"]
 
 
 class JobDetailView(LoginRequiredMixin, DetailView):
