@@ -55,6 +55,27 @@ body{
           {% csrf_token %}
             {{ profile_form|crispy }}
               <button name="submit" type="submit" class="btn btn-primary">Save Changes</button>
+                <script type="text/javascript">
+                    function checkUpload(size)
+                    {
+                        if(size>2)
+                        {
+                         var n = size.toFixed(2);
+                            alert('Your file size is: ' + n + "MiB, and it is too large to upload! Please try to upload smaller file (2MiB or less).");
+                            <!--If the resume submission is too large, make the value NULL-->
+                            $('#id_resume').val('');
+                        }
+                        else
+                        {
+                            //alert('File size is OK');
+                        }
+                    }
+                    $('#id_resume').change(function() {
+                    var fileSize = this.files[0].size/1024/1024;
+                        checkUpload(fileSize);
+
+                    });
+                </script>
         </form>
 </div>
 

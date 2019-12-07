@@ -3,7 +3,6 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from localflavor.us import models as mailing
 from phonenumber_field.modelfields import PhoneNumberField
-from django.core.validators import FileExtensionValidator
 from uuid_upload_path import upload_to
 from django.core.exceptions import ValidationError
 
@@ -57,7 +56,7 @@ class CustomUser(AbstractUser):
 def file_size(value):
     limit = 2 * 1024 * 1024
     if value.size > limit:
-        raise ValidationError("File too large. Size should not exceed 2 MB")
+        raise ValidationError("File too large. Size should not exceed 2 MiB")
 
 
 class CandidateProfile(models.Model):
@@ -162,8 +161,7 @@ class CandidateProfile(models.Model):
         null=True,
         blank=True,
         validators=[
-            FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"]),
-            file_size,
+            file_size
         ],
     )
     # Resume chunks
@@ -173,8 +171,7 @@ class CandidateProfile(models.Model):
         null=True,
         blank=True,
         validators=[
-            FileExtensionValidator(allowed_extensions=["pdf", "doc", "docx"]),
-            file_size,
+            file_size
         ],
     )
     additional_info = models.TextField(max_length=10000, blank=True, null=True)

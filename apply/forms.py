@@ -1,6 +1,7 @@
 from django.forms import ModelForm, BooleanField
 from uplyft.models import CandidateProfile
 import file_resubmit.widgets
+from django.forms.widgets import ClearableFileInput
 
 
 class ApplicationForm(ModelForm):
@@ -29,12 +30,22 @@ class ApplicationForm(ModelForm):
         )
 
         help_texts = {
-            "resume": "Allowed file types: .pdf, .doc, .docx <br/> Max file size: 2 MB",
+            "resume": "Allowed file types: .pdf, .doc, .docx <br/> Max file size: 2 MiB",
             "cover_letter": "Allowed file types: .pdf, .doc, .docx <br/> Max "
-            "file size: 2 MB",
+            "file size: 2 MiB",
         }
 
-        widgets = {"cover_letter": file_resubmit.widgets.ResubmitFileWidget()}
+        widgets = {"resume": ClearableFileInput(attrs={
+                    "accept": "application/pdf, application/msword, \
+                    application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                }),
+            "cover_letter": file_resubmit.widgets.ResubmitFileWidget(
+                attrs={
+                    "accept": "application/pdf, application/msword, \
+                    application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                }
+            )
+        }
 
     def __init__(self, *args, **kwargs):
         super(ApplicationForm, self).__init__(*args, **kwargs)

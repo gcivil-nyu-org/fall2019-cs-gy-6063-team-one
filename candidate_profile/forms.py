@@ -23,10 +23,17 @@ class CandidateProfileForm(forms.ModelForm):
             "veteran",
         )
 
-        widgets = {"resume": file_resubmit.widgets.ResubmitFileWidget()}
+        widgets = {
+            "resume": file_resubmit.widgets.ResubmitFileWidget(
+                attrs={
+                    "accept": "application/pdf, application/msword, \
+                    application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                }
+            )
+        }
         help_texts = {
             "resume": "Allowed file types: .pdf, .doc, .docx <br/> "
-            "Max file size: 2 MB"
+            "Max file size: 2 MiB"
         }
 
     # Make name and email always be mandatory
