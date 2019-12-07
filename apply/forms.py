@@ -30,7 +30,8 @@ class ApplicationForm(ModelForm):
         )
 
         help_texts = {
-            "resume": "Allowed file types: .pdf, .doc, .docx <br/> Max file size: 2 MiB",
+            "resume": "Allowed file types: .pdf, .doc, .docx <br/> \
+            Max file size: 2 MiB",
             "cover_letter": "Allowed file types: .pdf, .doc, .docx <br/> Max "
             "file size: 2 MiB",
         }
@@ -39,13 +40,15 @@ class ApplicationForm(ModelForm):
             "resume": ClearableFileInput(
                 attrs={
                     "accept": "application/pdf, application/msword, \
-                    application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    application/vnd.openxmlformats-officedocument.\
+                    wordprocessingml.document"
                 }
             ),
             "cover_letter": file_resubmit.widgets.ResubmitFileWidget(
                 attrs={
                     "accept": "application/pdf, application/msword, \
-                    application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    application/vnd.openxmlformats-officedocument.\
+                    wordprocessingml.document"
                 }
             ),
         }
