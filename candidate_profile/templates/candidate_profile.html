@@ -36,7 +36,7 @@ body{
       {% if field.errors %}
         {% for error in field.errors %}
         <div class="container card py-md-3 alert alert-primary" role="alert" style="text-align: center">
-            <li><b>{{ field.name|title }}: </b> {{ error|escape }}</li>
+            <li>{{ error|escape }}</li>
         </div>
         {% endfor %}
       {% endif %}

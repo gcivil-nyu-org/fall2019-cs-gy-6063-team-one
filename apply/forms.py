@@ -2,6 +2,7 @@ from django.forms import ModelForm, BooleanField
 from uplyft.models import CandidateProfile
 import file_resubmit.widgets
 from django.forms.widgets import ClearableFileInput
+from django.core.exceptions import ValidationError
 
 
 class ApplicationForm(ModelForm):
@@ -67,16 +68,20 @@ class ApplicationForm(ModelForm):
         self.fields["resume"].required = True
         self.fields["cover_letter"].required = False
 
-    # def clean_active_application_already_exists(self):
-    #     jobs_pk_id = self.cleaned_data["jobs_pk_id"]
-    #     email = self.request.session["email"]
-    #     user = get_user_model().objects.get(email=email)
-    #     candidate = Candidate.objects.get(user=user)
-    #     job = Job.objects.get(pk=jobs_pk_id)
-    #     active_application_exists = Application.objects.filter(
-    #         job=job, candidate=candidate, status="ACTIVE"
-    #     )
-    #     if active_application_exists.count() > 0:
-    #         raise ValidationError(
-    #             "Candidate has already submitted an ACTIVE application for this job."
-    #         )
+    def clean_first_name(self):
+        first_name = (
+            self.cleaned_data["first_name"][:1].upper()
+            + self.cleaned_data["first_name"][1:]
+        )
+        if not first_name.isalpha():
+            raise ValidationError("First name should contain only letters (A-Z).")
+        return first_name
+
+    def clean_last_name(self):
+        last_name = (
+            self.cleaned_data["last_name"][:1].upper()
+            + self.cleaned_data["last_name"][1:]
+        )
+        if not last_name.isalpha():
+            raise ValidationError("Last name should contain only letters (A-Z).")
+        return last_name
