@@ -35,16 +35,19 @@ class ApplicationForm(ModelForm):
             "file size: 2 MiB",
         }
 
-        widgets = {"resume": ClearableFileInput(attrs={
+        widgets = {
+            "resume": ClearableFileInput(
+                attrs={
                     "accept": "application/pdf, application/msword, \
                     application/vnd.openxmlformats-officedocument.wordprocessingml.document"
-                }),
+                }
+            ),
             "cover_letter": file_resubmit.widgets.ResubmitFileWidget(
                 attrs={
                     "accept": "application/pdf, application/msword, \
                     application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 }
-            )
+            ),
         }
 
     def __init__(self, *args, **kwargs):

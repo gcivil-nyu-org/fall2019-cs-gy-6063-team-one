@@ -160,9 +160,7 @@ class CandidateProfile(models.Model):
         upload_to=upload_to,
         null=True,
         blank=True,
-        validators=[
-            file_size
-        ],
+        validators=[file_size],
     )
     # Resume chunks
     resume = models.FileField(
@@ -170,9 +168,7 @@ class CandidateProfile(models.Model):
         upload_to=upload_to,
         null=True,
         blank=True,
-        validators=[
-            file_size
-        ],
+        validators=[file_size],
     )
     additional_info = models.TextField(max_length=10000, blank=True, null=True)
 
