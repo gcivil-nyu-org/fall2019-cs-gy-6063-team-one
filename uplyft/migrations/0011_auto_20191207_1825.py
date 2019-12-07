@@ -8,19 +8,29 @@ import uuid_upload_path.storage
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('uplyft', '0010_auto_20191204_0326'),
-    ]
+    dependencies = [("uplyft", "0010_auto_20191204_0326")]
 
     operations = [
         migrations.AlterField(
-            model_name='candidateprofile',
-            name='cover_letter',
-            field=models.FileField(blank=True, null=True, storage=uplyft.s3_storage.ResumeStorage(), upload_to=uuid_upload_path.storage.upload_to, validators=[uplyft.models.file_size]),
+            model_name="candidateprofile",
+            name="cover_letter",
+            field=models.FileField(
+                blank=True,
+                null=True,
+                storage=uplyft.s3_storage.ResumeStorage(),
+                upload_to=uuid_upload_path.storage.upload_to,
+                validators=[uplyft.models.file_size],
+            ),
         ),
         migrations.AlterField(
-            model_name='candidateprofile',
-            name='resume',
-            field=models.FileField(blank=True, null=True, storage=uplyft.s3_storage.ResumeStorage(), upload_to=uuid_upload_path.storage.upload_to, validators=[uplyft.models.file_size]),
+            model_name="candidateprofile",
+            name="resume",
+            field=models.FileField(
+                blank=True,
+                null=True,
+                storage=uplyft.s3_storage.ResumeStorage(),
+                upload_to=uuid_upload_path.storage.upload_to,
+                validators=[uplyft.models.file_size],
+            ),
         ),
     ]
