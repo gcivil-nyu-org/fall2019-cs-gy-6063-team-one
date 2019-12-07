@@ -16,16 +16,48 @@ body{
 </style>
 
 <div class="container card py-4">
-    <h1 class="turquoise-dark mb-4" style="text-align: center;">Job Search</h1>
+    <h1 class="turquoise-dark mb-4" style="text-align: center;">Advanced Job Search</h1>
 
     <form method="GET" action="{% url 'jobs:jobs' %}">
+
+        <div class="main_search">
         <div class="col-md-10 col-lg-8 mx-auto text-center">
-            <input type="text" name="q" class="form-control flex-fill mr-0 mr-sm-2 mb-3 mb-sm-0"
-                   value="{{request.GET.q}}" placeholder="Search jobs by title, department, description, or anything else..."/>
-            <button type="submit" class="btn btn-primary mx-auto">Search</button>
-            <a href="{% url 'jobs:search' %}">Advanced search options</a>
+
+            <div class="wrapper">
+                <div id="business_title_search">
+                    {{ form.business_title.label_tag }}
+                    {% render_field form.business_title %}
+                    </div>
+                <div id="job_description_search">
+                    {{ form.job_description.label_tag }}
+                    {% render_field form.job_description %}
+                    </div>
+
+                    <div id="work_location_search">
+                    {{ form.work_location.label_tag }}
+                    {% render_field form.work_location %}
+                    </div>
+
+                    <div id="posting_date_search">
+                    {{ form.posting_date.label_tag }}
+                    {% render_field form.posting_date id="datepicker" %}
+                    </div>
+
+                     <div id="department_search">
+                    {{ form.department.label_tag }}
+                    {% render_field form.department %}
+                    </div>
+
+                <div>
+                <button type="submit" class="btn btn-primary mx-auto">Search</button>
+                </div>
+            </div>
         </div>
+    </div>
+
     </form>
+
+
 
     <div class="">
         <div class="col-md-9 mt-3 center mx-auto">
@@ -77,7 +109,7 @@ body{
             <a class="btn btn-primary" href="?{% query_transform request page=page_obj.previous_page_number %}">
                 Previous </a>
             {% endif %}
-    
+
             {% for num in page_obj.paginator.page_range %}
             {% if page_obj.number == num %}
             <a class="btn btn-light" href="?{% query_transform request page=num %}"> {{ num }} </a>
@@ -85,7 +117,7 @@ body{
             <a class="btn btn-primary" href="?{% query_transform request page=num %}"> {{ num }} </a>
             {% endif %}
             {% endfor %}
-    
+
             {% if page_obj.has_next %}
             <a class="btn btn-primary" href="?{% query_transform request page=page_obj.next_page_number %}"> Next </a>
             <a class="btn btn-primary" href="?{% query_transform request page=page_obj.paginator.num_pages %}"> Last </a>

@@ -51,9 +51,13 @@ button {
 }
 
 /* https://www.hongkiat.com/blog/jquery-ui-datepicker/ */
+/*
+body {
+	background: url('../img/darkdenim3.png') repeat 0 0 #555;
+}
+*/
 /* DatePicker Container */
 .ui-datepicker {
-	background: white;
 	width: 216px;
 	height: auto;
 	margin: 5px auto 0;
@@ -70,6 +74,7 @@ button {
 	width: 100%;
 }
 .ui-datepicker-header {
+	background: url('img/dark_leather.png') repeat 0 0 #000;
 	color: #e0e0e0;
 	font-weight: bold;
 	-webkit-box-shadow: inset 0px 1px 1px 0px rgba(250, 250, 250, 2);
@@ -91,6 +96,7 @@ button {
 	height: 30px;
 	text-align: center;
 	cursor: pointer;
+	background-image: url('img/arrow.png');
 	background-repeat: no-repeat;
 	line-height: 600%;
 	overflow: hidden;
@@ -123,6 +129,7 @@ button {
 	filter: dropshadow(color=#fff, offx=1, offy=0);
 }
 .ui-datepicker tbody td {
+	background-color: teal;
 	padding: 0;
 	border-right: 1px solid #bbb;
 }
