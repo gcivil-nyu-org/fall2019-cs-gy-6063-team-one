@@ -41,13 +41,15 @@ class ApplicationForm(ModelForm):
             "resume": ClearableFileInput(
                 attrs={
                     "accept": "application/pdf, application/msword, "
-                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    "application/vnd.openxmlformats-officedocument."
+                              "wordprocessingml.document"
                 }
             ),
             "cover_letter": file_resubmit.widgets.ResubmitFileWidget(
                 attrs={
                     "accept": "application/pdf, application/msword, "
-                    "application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    "application/vnd.openxmlformats-officedocument."
+                              "wordprocessingml.document"
                 }
             ),
         }
