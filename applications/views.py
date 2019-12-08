@@ -97,4 +97,8 @@ class WithdrawApplicationView(LoginRequiredMixin, DetailView):
             "applications:application_details", kwargs={"pk": self.kwargs["pk"]}
         )
         """
-        return HttpResponseRedirect(reverse("applications:application_details", kwargs={"pk": self.kwargs["pk"]}))
+        return HttpResponseRedirect(
+            reverse(
+                "applications:application_details", kwargs={"pk": self.kwargs["pk"]}
+            )
+        )

@@ -59,10 +59,8 @@ class JobsView(LoginRequiredMixin, ListView):
             candidate = Candidate.objects.get(user=self.request.user)
             context["jobs_applied"] = list(
                 Application.objects.filter(
-                    candidate=candidate,
-                    status__in=["AC", "AP"]).values_list(
-                    "job", flat=True
-                )
+                    candidate=candidate, status__in=["AC", "AP"]
+                ).values_list("job", flat=True)
             )
         return context
 
@@ -117,7 +115,7 @@ class JobDetailView(LoginRequiredMixin, DetailView):
             if context["open_applications"].count() > 0:
                 context["application_id"] = context["open_applications"][0].id
             context["saved_this_job"] = (
-                    SavedJobs.objects.filter(user=user, job=job).count() > 0
+                SavedJobs.objects.filter(user=user, job=job).count() > 0
             )
 
             # Get the applications that have been submitted for this job by other people

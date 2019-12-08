@@ -5,14 +5,21 @@ from django.db import migrations, models
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('apply', '0002_auto_20191118_1623'),
-    ]
+    dependencies = [("apply", "0002_auto_20191118_1623")]
 
     operations = [
         migrations.AlterField(
-            model_name='application',
-            name='status',
-            field=models.CharField(choices=[('AP', 'Applied'), ('AC', 'Accepted'), ('RE', 'Rejected'), ('W', 'Withdrawn')], default='AP', max_length=2),
-        ),
+            model_name="application",
+            name="status",
+            field=models.CharField(
+                choices=[
+                    ("AP", "Applied"),
+                    ("AC", "Accepted"),
+                    ("RE", "Rejected"),
+                    ("W", "Withdrawn"),
+                ],
+                default="AP",
+                max_length=2,
+            ),
+        )
     ]
