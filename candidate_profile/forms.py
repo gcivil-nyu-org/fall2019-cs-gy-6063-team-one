@@ -27,9 +27,8 @@ class CandidateProfileForm(forms.ModelForm):
         widgets = {
             "resume": file_resubmit.widgets.ResubmitFileWidget(
                 attrs={
-                    "accept": "application/pdf, application/msword, \
-                    application/vnd.openxmlformats-officedocument.\
-                    wordprocessingml.document"
+                    "accept": "application/pdf, application/msword," \
+                              " application/vnd.openxmlformats-officedocument.wordprocessingml.document"
                 }
             )
         }
