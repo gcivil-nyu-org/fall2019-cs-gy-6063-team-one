@@ -27,8 +27,9 @@ class CandidateProfileForm(forms.ModelForm):
         widgets = {
             "resume": file_resubmit.widgets.ResubmitFileWidget(
                 attrs={
-                    "accept": "application/pdf, application/msword," \
-                              " application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                    "accept": "application/pdf, application/msword,"
+                    " application/vnd.openxmlformats-officedocument."
+                              "wordprocessingml.document"
                 }
             )
         }
@@ -62,4 +63,3 @@ class CandidateProfileForm(forms.ModelForm):
         if not last_name.isalpha():
             raise ValidationError("Last name should contain only letters (A-Z).")
         return last_name
-
