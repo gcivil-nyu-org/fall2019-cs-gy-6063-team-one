@@ -100,6 +100,7 @@ class ApplicationList(LoginRequiredMixin, ListView):
                 Application.STATUS_ACCEPTED,
                 Application.STATUS_REJECTED,
                 Application.STATUS_APPLIED,
+                Application.STATUS_WITHDRAWN,
                 ALL,
             ]:
                 app_status = None
@@ -122,6 +123,7 @@ def handle_candidate_dashboard(request):
     accepted_count = 0
     rejected_count = 0
     pending_count = 0
+    withdrawn_count = 0
     if candidate_applications:
         accepted_count = candidate_applications.filter(
             status=Application.STATUS_ACCEPTED
@@ -132,11 +134,15 @@ def handle_candidate_dashboard(request):
         pending_count = candidate_applications.filter(
             status=Application.STATUS_APPLIED
         ).count()
+        withdrawn_count = candidate_applications.filter(
+            status=Application.STATUS_WITHDRAWN
+        ).count()
     context = {
         "candidate_name": candidate_name,
         "accepted_count": accepted_count,
         "rejected_count": rejected_count,
         "pending_count": pending_count,
+        "withdrawn_count": withdrawn_count,
     }
     return render(request, "dashboard/candidate_dashboard.html", context=context)
 
@@ -150,6 +156,7 @@ def handle_employer_dashboard(request):
     accepted_count = 0
     rejected_count = 0
     pending_count = 0
+    withdrawn_count = 0
     if jobs:
         try:
             employer_applications = Application.objects.filter(job__in=jobs)
@@ -165,10 +172,14 @@ def handle_employer_dashboard(request):
             pending_count = employer_applications.filter(
                 status=Application.STATUS_APPLIED
             ).count()
+            withdrawn_count = employer_applications.filter(
+                status=Application.STATUS_APPLIED
+            ).count()
     context = {
         "employer_name": employer.user.first_name,
         "accepted_count": accepted_count,
         "rejected_count": rejected_count,
         "pending_count": pending_count,
+        "withdrawn_count": withdrawn_count,
     }
     return render(request, "dashboard/employer_dashboard.html", context=context)

@@ -4,7 +4,11 @@
 
 {% block content %}
     <link rel="stylesheet" type="text/css"
-          href="{% static "dashboard/css/dashboard.css" %}">
+          href="{% static 'dashboard/css/dashboard.css' %}">
+    <link rel="stylesheet" type="text/css"
+          href="{% static 'applications/css/applications.css' %}">
+    <script src="{% static 'applications/js/applications.js' %}"></script>
+
     <h1 class="mb-4">Application Details for Job #<a
             style="color: black; text-decoration: underline"
             href="{% url 'jobs:job_detail' application.job_id %}">{{ application.job_id }}</a>
@@ -44,7 +48,7 @@
                 </div>
                 <h4 style="text-align: center; margin-bottom: 10px"><b>Job Details</b>
                 </h4>
-                <div class="table-wrapper">
+                <div id="job_details" class="table-wrapper">
                     <table class="fl-table">
                         <tr>
                             <td width="30%">
@@ -89,7 +93,7 @@
                 </div>
                 <h4 style="text-align: center; margin-bottom: 10px; margin-top: 20px">
                     <b>Personal Details</b></h4>
-                <div class="table-wrapper">
+                <div id="personal_details" class="table-wrapper">
                     <table class="fl-table">
                         <tr>
                             <td width="30%">
@@ -155,7 +159,7 @@
 
                         <tr>
                             <td>
-                                <b>Conditions:</b>
+                                <b>Health Conditions:</b>
                             </td>
                             <td>
                                 {{ application.candidate_profile.get_health_conditions_display }}
@@ -164,7 +168,7 @@
 
                         <tr>
                             <td>
-                                <b>Status:</b>
+                                <b>Veteran Status:</b>
                             </td>
                             <td>
                                 {{ application.candidate_profile.get_veteran_display }}
@@ -250,6 +254,20 @@
                             <h5 class="application-bg {{ application.status }}"
                                 style="text-align: center"><b>Application
                                 Status:</b> {{ application.get_status_display }} </h5>
+                        {% endif %}
+                    {% else %}
+
+                        {% if application.status == "AP" %}
+                        <button id="withdraw_button">Withdraw application</button>
+
+
+                        <div id="withdraw">
+                            <form id="withdraw_form" action="{% url 'applications:withdraw' application.id %}" method="post" display="none">{% csrf_token %}</form>
+                            <button form="withdraw_form" id="yes"> Yes - withdraw this application.</button>
+                            <button id="no"> No - cancel! </button>
+
+                        </div>
+
                         {% endif %}
 
                     {% endif %}

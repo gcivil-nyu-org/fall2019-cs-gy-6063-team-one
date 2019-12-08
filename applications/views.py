@@ -83,3 +83,18 @@ class ProcessApplicationView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         view = ProcessApplication.as_view()
         return view(request, *args, **kwargs)
+
+
+class WithdrawApplicationView(LoginRequiredMixin, DetailView):
+    def post(self, request, *args, **kwargs):
+        application = Application.objects.get(id=self.kwargs["pk"])
+        if application:
+            if application.status == Application.STATUS_APPLIED:
+                application.status = Application.STATUS_WITHDRAWN
+                application.save()
+
+        """return reverse(
+            "applications:application_details", kwargs={"pk": self.kwargs["pk"]}
+        )
+        """
+        return HttpResponseRedirect(reverse("applications:application_details", kwargs={"pk": self.kwargs["pk"]}))
