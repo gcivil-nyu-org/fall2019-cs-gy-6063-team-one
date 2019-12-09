@@ -324,23 +324,30 @@ class ApplicationDetailsViewTests(TestCase):
 
     def employer_can_accept_application(self):
         self.login_employer()
-        response = self.client.get(
+        self.client.get(
             reverse("applications:application_details", kwargs={"pk": self.app.id})
         )
         self.assertTrue(self.app.status == "AP")
-        self.client.post(reverse("applications:application_details",
-                                 kwargs={"pk": self.app.id},
-                                 data={'accept_button', 'Accept'}))
+        self.client.post(
+            reverse(
+                "applications:application_details",
+                kwargs={"pk": self.app.id},
+                data={"accept_button", "Accept"},
+            )
+        )
         self.assertTrue(self.app.status == "AC")
 
     def employer_can_reject_application(self):
         self.login_employer()
-        response = self.client.get(
+        self.client.get(
             reverse("applications:application_details", kwargs={"pk": self.app.id})
         )
         self.assertTrue(self.app.status == "AP")
-        self.client.post(reverse("applications:application_details",
-                                 kwargs={"pk": self.app.id},
-                                 data={'reject_button', 'Reject'}))
+        self.client.post(
+            reverse(
+                "applications:application_details",
+                kwargs={"pk": self.app.id},
+                data={"reject_button", "Reject"},
+            )
+        )
         self.assertTrue(self.app.status == "RE")
-
