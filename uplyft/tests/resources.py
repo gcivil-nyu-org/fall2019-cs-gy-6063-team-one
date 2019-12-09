@@ -226,7 +226,7 @@ test_user_data = {
             "password": "cN3KJXi35374GxsCxZET",
             "password1": "cN3KJXi35374GxsCxZET",
             "password2": "cN3KJXi35374GxsCxZET",
-        }
+        },
     ],
     "invalid_user_details": {
         "first_name": "...",
@@ -255,7 +255,7 @@ test_user_data = {
                 "address": "113 Broadway, New York NY 10012",
                 "phone": "+12129471135",
                 "email": "firedept@nyc.gov",
-            }
+            },
         },
         {
             "id": 2,
@@ -266,8 +266,8 @@ test_user_data = {
                 "address": "113 Broadway, New York NY 10012",
                 "phone": "+2013347193",
                 "email": "health@nyc.gov",
-            }
-        }
+            },
+        },
     ],
     "department_with_no_profile": {
         "id": 2,

@@ -304,11 +304,13 @@ class ApplicationDetailsViewTests(TestCase):
         response = self.client.get(
             reverse("applications:application_details", kwargs={"pk": self.app.id})
         )
-        self.assertContains(response, "You do not have the right permissions to view this page")
+        self.assertContains(
+            response, "You do not have the right permissions to view this page"
+        )
 
     def test_non_department_employer_cannot_view_application(self):
         other_department = create_department(test_user_data["departments"][1])
-        non_department_employer = create_employer(other_department, test_user_data["employers"][1])
+        create_employer(other_department, test_user_data["employers"][1])
         self.client.login(
             email=test_user_data["employers"][1]["email"],
             password=test_user_data["employers"][1]["password"],
@@ -316,6 +318,6 @@ class ApplicationDetailsViewTests(TestCase):
         response = self.client.get(
             reverse("applications:application_details", kwargs={"pk": self.app.id})
         )
-        self.assertContains(response, "You do not have the right permissions to view this page")
-
-
+        self.assertContains(
+            response, "You do not have the right permissions to view this page"
+        )
