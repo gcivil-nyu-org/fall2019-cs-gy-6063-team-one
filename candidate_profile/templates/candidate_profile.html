@@ -61,7 +61,7 @@ body{
                         if(size>2)
                         {
                          var n = size.toFixed(2);
-                            alert('Your file size is: ' + n + "MiB, and it is too large to upload! Please try to upload smaller file (2MiB or less).");
+                            alert('Your file size is: ' + n + "MB, and it is too large to upload! Please try to upload smaller file (2MB or less).");
                             <!--If the resume submission is too large, make the value NULL-->
                             $('#id_resume').val('');
                         }
@@ -71,7 +71,7 @@ body{
                         }
                     }
                     $('#id_resume').change(function() {
-                    var fileSize = this.files[0].size/1024/1024;
+                    var fileSize = this.files[0].size/1000/1000;
                         checkUpload(fileSize);
 
                     });
