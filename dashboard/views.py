@@ -173,7 +173,7 @@ def handle_employer_dashboard(request):
                 status=Application.STATUS_APPLIED
             ).count()
             withdrawn_count = employer_applications.filter(
-                status=Application.STATUS_APPLIED
+                status=Application.STATUS_WITHDRAWN
             ).count()
     context = {
         "employer_name": employer.user.first_name,

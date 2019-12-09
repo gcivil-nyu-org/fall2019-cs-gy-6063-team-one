@@ -7,8 +7,9 @@
 
 <div name=candidate_dashboard">
     <div class="container dashboard-container">
+
         <div class="row">
-            <div class="col-md-3 col-lg-4">
+            <div class="col-md-2 col-lg-1">
                 <div class="card-dashboard hidden">
                 </div>
             </div>
@@ -20,16 +21,7 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-3 col-lg-4">
-                <div class="card-dashboard hidden">
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="container dashboard-container">
-        <div class="row">
-            <div class="col-md-1 col-lg-2">
+            <div class="col-md-2 col-lg-2">
                 <div class="card-dashboard hidden">
                 </div>
             </div>
@@ -41,6 +33,18 @@
                     </div>
                 </a>
             </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-lg-2">
+                <div class="card-dashboard hidden">
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2 col-lg-1">
+                <div class="card-dashboard hidden">
+                </div>
+            </div>
             <div class="col-md-5 col-lg-4">
                 <a class="white" href="{% url 'dashboard:dashboard' 're' %}">
                     <div class="card-dashboard danger">
@@ -49,19 +53,21 @@
                     </div>
                 </a>
             </div>
+            <div class="col-md-2 col-lg-2">
+                <div class="card-dashboard hidden">
+                </div>
+            </div>
             <div class="col-md-5 col-lg-4">
                 <a class="white" href="{% url 'dashboard:dashboard' 'w' %}">
-                    <div class="card-dashboard danger">
+                    <div class="card-dashboard warning">
                         <span class="dashboard-numbers">{{ withdrawn_count }}&rarr;</span>
                         <span class="dashboard-name">Withdrawn Applications</span>
                     </div>
                 </a>
             </div>
+        </div>
 
-            <div class="col-md-1 col-lg-2">
-                <div class="card-dashboard hidden">
-                </div>
-            </div>
+
         </div>
 
     </div>

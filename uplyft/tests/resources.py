@@ -351,6 +351,7 @@ def create_candidate_with_active_profile(user_data):
         first_name=user_data["first_name"],
         last_name=user_data["last_name"],
         is_candidate=True,
+        is_active=True,
     )
     profile = CandidateProfile.objects.create(
         email=user_data["email"],

@@ -14,6 +14,7 @@
                     <a class="listing-button btn btn-primary" href="{% url 'dashboard:dashboard' 'ap' %}">Pending</a>
                     <a class="listing-button btn btn-primary" href="{% url 'dashboard:dashboard' 're' %}">Rejected</a>
                     <a class="listing-button btn btn-primary" href="{% url 'dashboard:dashboard' 'ac' %}">Accepted</a>
+                    <a class="listing-button btn btn-primary" href="{% url 'dashboard:dashboard' 'w' %}">Withdrawn</a>
                 </div>
             </div>
 
@@ -23,6 +24,8 @@
         <h1 class="mb-4">Rejected Applications</h1>
         {% elif application_type == "ac" %}
         <h1 class="mb-4">Accepted Applications</h1>
+        {% elif application_type == "w" %}
+        <h1 class="mb-4">Withdrawn Applications</h1>
         {% else %}
         <h1 class="mb-4">Applications</h1>
         {% endif %}
