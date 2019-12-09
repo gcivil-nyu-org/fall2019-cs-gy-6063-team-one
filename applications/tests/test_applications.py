@@ -291,7 +291,7 @@ class ApplicationDetailsViewTests(TestCase):
         )
         self.assertContains(response, self.app.candidate_profile.resume)
 
-    def test_GET_other_candidate_cannot_view_application(self):
+    def test_other_candidate_cannot_view_application(self):
         # create other candidate
         self.other_candidate = create_candidate_with_active_profile(
             test_user_data["candidates"][1]
@@ -305,3 +305,17 @@ class ApplicationDetailsViewTests(TestCase):
             reverse("applications:application_details", kwargs={"pk": self.app.id})
         )
         self.assertContains(response, "You do not have the right permissions to view this page")
+
+    def test_non_department_employer_cannot_view_application(self):
+        other_department = create_department(test_user_data["departments"][1])
+        non_department_employer = create_employer(other_department, test_user_data["employers"][1])
+        self.client.login(
+            email=test_user_data["employers"][1]["email"],
+            password=test_user_data["employers"][1]["password"],
+        )
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(response, "You do not have the right permissions to view this page")
+
+
