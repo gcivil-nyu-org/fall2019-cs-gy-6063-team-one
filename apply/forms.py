@@ -1,5 +1,7 @@
-from django.forms import ModelForm, BooleanField, FileInput
+from django.forms import ModelForm, BooleanField
 from uplyft.models import CandidateProfile
+import file_resubmit.widgets
+from django.forms.widgets import ClearableFileInput
 
 
 class ApplicationForm(ModelForm):
@@ -28,11 +30,28 @@ class ApplicationForm(ModelForm):
         )
 
         help_texts = {
-            "resume": "Allowed file types: .pdf, .doc, .docx",
-            "cover_letter": "Allowed file types: .pdf, .doc, .docx",
+            "resume": "Allowed file types: .pdf, .doc, .docx <br/> \
+            Max file size: 2 MB",
+            "cover_letter": "Allowed file types: .pdf, .doc, .docx <br/> Max "
+            "file size: 2 MB",
         }
 
-        widgets = {"cover_letter": FileInput}
+        widgets = {
+            "resume": ClearableFileInput(
+                attrs={
+                    "accept": "application/pdf, application/msword, \
+                    application/vnd.openxmlformats-officedocument.\
+                    wordprocessingml.document"
+                }
+            ),
+            "cover_letter": file_resubmit.widgets.ResubmitFileWidget(
+                attrs={
+                    "accept": "application/pdf, application/msword, \
+                    application/vnd.openxmlformats-officedocument.\
+                    wordprocessingml.document"
+                }
+            ),
+        }
 
     def __init__(self, *args, **kwargs):
         super(ApplicationForm, self).__init__(*args, **kwargs)
@@ -44,7 +63,6 @@ class ApplicationForm(ModelForm):
         self.fields["zip_code"].required = True
         self.fields["state"].required = True
         self.fields["email"].required = True
-
         self.fields["phone"].required = True
         self.fields["resume"].required = True
         self.fields["cover_letter"].required = False

@@ -1,5 +1,6 @@
 from django import forms
 from uplyft.models import CandidateProfile
+import file_resubmit.widgets
 
 
 class CandidateProfileForm(forms.ModelForm):
@@ -22,7 +23,19 @@ class CandidateProfileForm(forms.ModelForm):
             "veteran",
         )
 
-        help_texts = {"resume": "Allowed file types: .pdf, .doc, .docx"}
+        widgets = {
+            "resume": file_resubmit.widgets.ResubmitFileWidget(
+                attrs={
+                    "accept": "application/pdf, application/msword, \
+                    application/vnd.openxmlformats-officedocument.\
+                    wordprocessingml.document"
+                }
+            )
+        }
+        help_texts = {
+            "resume": "Allowed file types: .pdf, .doc, .docx <br/> "
+            "Max file size: 2 MB"
+        }
 
     # Make name and email always be mandatory
     def __init__(self, *args, **kwargs):

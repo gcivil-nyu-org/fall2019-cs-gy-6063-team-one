@@ -40,13 +40,48 @@
             <h5 class="card-title">{{ job.business_title }}</h5>
             <p class="card-text text-muted h6"> # {{job.id }} | <a href="{% url 'department_details:department_detail' job.department.id %}">{{ job.department.name }}</a> </p>
             <hr class="h-bar">
-            <p class="card-text"><small>{{job.job_description|truncatechars:500 }} <a href="{% url 'jobs:job_detail' job.id %}">View job></a></small></p>
+            <p class="card-text"><small>{{job.job_description|truncatechars:500 }} <a href="{% url 'jobs:job_detail' job.id %}">View job</a></small></p>
         <br>
 
         <form class="reg_form" method="post" enctype="multipart/form-data">
           {% csrf_token %}
             {{ application|crispy }}
               <button type="submit" class="btn btn-primary"> Submit Application</button>
+                <script type="text/javascript">
+
+                    function checkUpload1(size)
+                    {
+                        if(size>2)
+                        {
+                            var n = size.toFixed(2);
+                            alert('Your file size is: ' + n + "MB, and it is too large to upload! Please try to upload smaller file (2MB or less).");
+                            <!--If the resume submission is too large, make the value NULL-->
+                            $('#id_resume').val('');
+                        }
+                    }
+
+                    function checkUpload2(size)
+                    {
+                        if(size>2)
+                        {
+                            var n = size.toFixed(2);
+                            alert('Your file size is: ' + n + "MB, and it is too large to upload! Please try to upload smaller file (2MB or less).");
+                             <!--If the cover letter submission is too large, make the value NULL-->
+                            $('#id_cover_letter').val('');
+                        }
+                    }
+
+                    $('#id_resume').change(function() {
+                    var fileSize = this.files[0].size/1000/1000;
+                        checkUpload1(fileSize);
+
+                    });
+
+                    $('#id_cover_letter').change(function() {
+                    var fileSize = this.files[0].size/1000/1000;
+                        checkUpload2(fileSize);
+                    });
+                </script>
         </form>
     </div>
 </div>
