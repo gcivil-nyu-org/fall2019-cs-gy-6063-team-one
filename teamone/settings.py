@@ -68,6 +68,7 @@ INSTALLED_APPS = [
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
     "storages",
+    "notifications.apps.NotificationsConfig",
 ]
 
 SITE_ID = 2

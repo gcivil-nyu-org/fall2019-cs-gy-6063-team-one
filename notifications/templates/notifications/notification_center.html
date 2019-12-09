@@ -1,0 +1,91 @@
+{% extends "uplyft/base.html" %}
+{% load static %}
+{% load crispy_forms_tags %}
+{% load my_templatetags %}
+{% load humanize %}
+{% load widget_tweaks %}
+{% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'notifications/css/notification_center.css' %}">
+
+<style>
+    body {
+        background-attachment: fixed !important;
+    }
+</style>
+
+<div class="container card py-4">
+    <h1 class="turquoise-dark mb-4" style="text-align: center;">Notifications for {{ user.first_name }}</h1>
+
+    <div class="col-md-9 mt-3 center mx-auto">
+        {% if entities %}
+        <div>
+            {% if user.has_unread_notifications %}
+            <a href="{% url 'notifications:readall' %}">Mark all as Read</a>
+            {% else %}
+            
+            {% endif %}
+        </div>
+        {% for key, value in entities.items %}
+        {% if value.0.status == Notification.STATUS_UNREAD %}
+        <div class="card mt-3 unreadNotificationStrip">
+        {% else %}
+        <div class="card mt-3 normalNotificationStrip">
+        {% endif %}
+            <div class="card-body">
+                <div id="message content">
+                    {% if value.0.entity_type == Notification.ENTITY_TYPE_APPLICATION_REJECTED %}
+                    Your <a href="{% url 'applications:application_details' value.1.id %}">application</a> for <b>{{ value.1.job.business_title }}</b> at {{ value.1.job.department.name }} is rejected.
+                    {% elif value.0.entity_type == Notificatio.ENTITY_TYPE_APPLICATION_REVIEWED %}
+                    Your <a href="{% url 'applications:application_details' value.1.id %}">application</a> for <b>{{ value.1.job.business_title }}</b> at {{ value.1.job.department.name }} is reviewed.
+                    {% elif value.0.entity_type == Notification.ENTITY_TYPE_APPLICATION_ADVANCED %}
+                    Your <a href="{% url 'applications:application_details' value.1.id %}">application</a> for <b>{{ value.1.job.business_title }}</b> at {{ value.1.job.department.name }} is advanced.
+                    {% elif value.0.entity_type == Notification.ENTITY_TYPE_APPLICATION_RECEIVED %}
+                    A new <a href="{% url 'applications:application_details' value.1.id %}">application</a> for <b>{{ value.1.job.business_title }}</b> at your organization is submitted.
+                    {% endif %}
+                </div>
+                <div class="notificationStripDate mt-3">
+                    {{ value.0.created_on|naturaltime }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <div>There are no notifications right now.</div>
+        {% endif %}
+
+    </div>
+
+    <div class="mt-3 py-4" id="wrapper" style="text-align:center">
+        <div id="container" style="display:inline-block;text-align:left">
+            {% if is_paginated %}
+            {% if page_obj.has_previous %}
+            <a class="btn btn-primary" href="?{% query_transform request page=1 %}"> First </a>
+            <a class="btn btn-primary" href="?{% query_transform request page=page_obj.previous_page_number %}">
+                Previous </a>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+            {% if page_obj.number == num %}
+            <a class="btn btn-light" href="?{% query_transform request page=num %}"> {{ num }} </a>
+            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+            <a class="btn btn-primary" href="?{% query_transform request page=num %}"> {{ num }} </a>
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <a class="btn btn-primary" href="?{% query_transform request page=page_obj.next_page_number %}"> Next </a>
+            <a class="btn btn-primary" href="?{% query_transform request page=page_obj.paginator.num_pages %}"> Last
+            </a>
+            {% endif %}
+            {% endif %}
+        </div>
+    </div>
+
+
+</div>
+
+
+
+
+{% endblock %}

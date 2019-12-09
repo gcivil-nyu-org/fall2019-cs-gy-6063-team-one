@@ -11,7 +11,7 @@ MAX_EMAIL_LENGTH = 60
 class Application(models.Model):
     job = models.ForeignKey(Job, on_delete=models.CASCADE)
     candidate = models.ForeignKey(Candidate, on_delete=models.CASCADE)
-    submit_date = models.DateField(null=False, default=datetime.now)
+    submit_date = models.DateField(auto_now_add=True, null=False)
     STATUS_APPLIED = "AP"
     STATUS_ACCEPTED = "AC"
     STATUS_REJECTED = "RE"
