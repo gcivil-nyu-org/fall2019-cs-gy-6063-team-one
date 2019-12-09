@@ -52,7 +52,6 @@ class NotificationCenterView(LoginRequiredMixin, ListView):
             else:
                 pass
         context["entities"] = notification_entities
-        print(notification_entities)
 
         return context
 

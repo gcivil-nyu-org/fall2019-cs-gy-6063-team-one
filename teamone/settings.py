@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "q4!d06oj_jy(1$q#@*&0bcnn4*ub*)0#5n9^p*hp+3#5)tb2(+"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["uplyft.herokuapp.com", "localhost", "127.0.0.1", "testserver"]
 
@@ -71,7 +71,7 @@ INSTALLED_APPS = [
     "notifications.apps.NotificationsConfig",
 ]
 
-SITE_ID = 2
+SITE_ID = 1
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -178,8 +178,8 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = (
 )
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "M1y9_Z-jNwqArncabT7_zZWV"
 
-AWS_ACCESS_KEY_ID = "AKIA46VH6MQWLLV5ADGA"
-AWS_SECRET_ACCESS_KEY = "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"
+AWS_ACCESS_KEY_ID = "AKIA46VH6MQWFGIZCO5M"
+AWS_SECRET_ACCESS_KEY = "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"
 AWS_STORAGE_BUCKET_NAME = "uplyft-s3"
 AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=600"}

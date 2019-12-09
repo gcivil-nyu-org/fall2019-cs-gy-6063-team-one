@@ -1,5 +1,4 @@
 from django.db import models
-from datetime import datetime
 from uplyft.models import CustomUser
 
 # Create your models here.
