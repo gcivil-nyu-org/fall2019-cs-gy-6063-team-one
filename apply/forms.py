@@ -32,9 +32,9 @@ class ApplicationForm(ModelForm):
 
         help_texts = {
             "resume": "Allowed file types: .pdf, .doc, .docx <br/> \
-            Max file size: 2 MiB",
+            Max file size: 2 MB",
             "cover_letter": "Allowed file types: .pdf, .doc, .docx <br/> Max "
-            "file size: 2 MiB",
+            "file size: 2 MB",
         }
 
         widgets = {
