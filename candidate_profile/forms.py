@@ -34,7 +34,7 @@ class CandidateProfileForm(forms.ModelForm):
         }
         help_texts = {
             "resume": "Allowed file types: .pdf, .doc, .docx <br/> "
-            "Max file size: 2 MiB"
+            "Max file size: 2 MB"
         }
 
     # Make name and email always be mandatory
