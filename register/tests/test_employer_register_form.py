@@ -114,14 +114,18 @@ class EmployerRegistrationFormTests(TestCase):
                 "password1": test_user_data["employers"][1]["password"],
                 "password2": test_user_data["employers"][1]["password"],
                 "department": self.job.department.id,
-            }
+            },
         )
-        self.assertRedirects(response, reverse("register:email_confirmation"),
-                             status_code=302,
-                             target_status_code=200, fetch_redirect_response=True)
+        self.assertRedirects(
+            response,
+            reverse("register:email_confirmation"),
+            status_code=302,
+            target_status_code=200,
+            fetch_redirect_response=True,
+        )
 
     def test_register_post_form_creates_inactive_employer(self):
-        response = self.client.post(
+        self.client.post(
             reverse("register:employer_register"),
             data={
                 "first_name": test_user_data["employers"][1]["first_name"],
@@ -130,7 +134,7 @@ class EmployerRegistrationFormTests(TestCase):
                 "password1": test_user_data["employers"][1]["password"],
                 "password2": test_user_data["employers"][1]["password"],
                 "department": self.job.department.id,
-            }
+            },
         )
         self.assertEquals(Employer.objects.all().count(), 1)
         employer = Employer.objects.get(id=1)
@@ -146,8 +150,12 @@ class EmployerRegistrationFormTests(TestCase):
                 "password1": test_user_data["employers"][1]["password"],
                 "password2": test_user_data["employers"][1]["password"],
                 "department": self.job.department.id,
-            }
+            },
         )
-        self.assertRedirects(response, reverse("register:email_confirmation"),
-                             status_code=302,
-                             target_status_code=200, fetch_redirect_response=True)
+        self.assertRedirects(
+            response,
+            reverse("register:email_confirmation"),
+            status_code=302,
+            target_status_code=200,
+            fetch_redirect_response=True,
+        )
