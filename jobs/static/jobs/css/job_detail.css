@@ -29,6 +29,7 @@
 .job-description-main-content {
     width: 70%;
 }
+
 .job-description-misc-attributes {
     width: 30%;
 }
@@ -39,4 +40,25 @@
 
 .job-description-misc-attribute-name {
     color: gray;
+}
+
+.title-div {
+    height: 3em;
+    line-height: 3em;
+    vertical-align: middle;
+}
+
+.input-star {
+    padding: 0px !important;
+    background: transparent;
+    border: none;
+    font-size: 2em;
+    line-height: 1.2em;
+}
+
+.input-star-selected {
+    padding: 0px !important;
+    background: transparent;
+    border: none;
+    font-size: 1.25em;
 }
