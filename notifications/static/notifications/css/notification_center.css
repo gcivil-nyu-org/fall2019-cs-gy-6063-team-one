@@ -1,0 +1,11 @@
+.unreadNotificationStrip {
+    border-left: cadetblue 5px solid;
+}
+
+.normalNotificationStrip {
+    border-left: lightgray 5px solid;
+}
+
+.notificationStripDate {
+    color: gray;
+}

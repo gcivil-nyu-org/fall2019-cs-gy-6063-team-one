@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.urls import reverse
 from applications.forms import ProcessApplicationForm
+from apply.models import Application
 from uplyft.tests.resources import (
     create_department,
     create_job,
@@ -322,32 +323,28 @@ class ApplicationDetailsViewTests(TestCase):
             response, "You do not have the right permissions to view this page"
         )
 
-    def employer_can_accept_application(self):
+    def test_employer_can_accept_application(self):
         self.login_employer()
         self.client.get(
             reverse("applications:application_details", kwargs={"pk": self.app.id})
         )
         self.assertTrue(self.app.status == "AP")
         self.client.post(
-            reverse(
-                "applications:application_details",
-                kwargs={"pk": self.app.id},
-                data={"accept_button", "Accept"},
-            )
+            reverse("applications:application_details", kwargs={"pk": self.app.id}),
+            {"accept_button": "Accept"},
         )
+        self.app = Application.objects.get(pk=self.app.id)
         self.assertTrue(self.app.status == "AC")
 
-    def employer_can_reject_application(self):
+    def test_employer_can_reject_application(self):
         self.login_employer()
         self.client.get(
             reverse("applications:application_details", kwargs={"pk": self.app.id})
         )
         self.assertTrue(self.app.status == "AP")
         self.client.post(
-            reverse(
-                "applications:application_details",
-                kwargs={"pk": self.app.id},
-                data={"reject_button", "Reject"},
-            )
+            reverse("applications:application_details", kwargs={"pk": self.app.id}),
+            {"reject_button": "Reject"},
         )
+        self.app = Application.objects.get(pk=self.app.id)
         self.assertTrue(self.app.status == "RE")
