@@ -101,12 +101,16 @@ class WithdrawApplicationView(LoginRequiredMixin, DetailView):
             if application.status == Application.STATUS_APPLIED:
                 application.status = Application.STATUS_WITHDRAWN
                 application.save()
-                notification = Notification(
-                    recipient=application.candidate.user,
-                    entity_type=Notification.ENTITY_TYPE_APPLICATION_WITHDRAWN,
-                    entity_fk_pk=application.id,
+                liaisons = Employer.objects.filter(
+                    department=application.job.department
                 )
-                notification.save()
+                for liaison in liaisons:
+                    notification = Notification(
+                        recipient=liaison.user,
+                        entity_type=Notification.ENTITY_TYPE_APPLICATION_WITHDRAWN,
+                        entity_fk_pk=application.id,
+                    )
+                    notification.save()
         return HttpResponseRedirect(
             reverse(
                 "applications:application_details", kwargs={"pk": self.kwargs["pk"]}

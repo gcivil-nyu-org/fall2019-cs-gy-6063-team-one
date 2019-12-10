@@ -46,6 +46,8 @@ class NotificationCenterView(LoginRequiredMixin, ListView):
                 == Notification.ENTITY_TYPE_APPLICATION_REVIEWED
                 or notification.entity_type
                 == Notification.ENTITY_TYPE_APPLICATION_RECEIVED
+                or notification.entity_type
+                == Notification.ENTITY_TYPE_APPLICATION_WITHDRAWN
             ):
                 application = Application.objects.get(id=notification.entity_fk_pk)
                 notification_entities[notification.id] = (notification, application)
