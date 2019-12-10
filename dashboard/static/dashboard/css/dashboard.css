@@ -3,10 +3,6 @@ h1 {
     text-align: center;
 }
 
-h2 {
-    background: rgba(255, 255, 255, 0.5);
-}
-
 .listing-buttons-container {
     display: flex;
     justify-content: center;
@@ -48,6 +44,10 @@ h2 {
     color: #FFF;
 }
 
+.card-dashboard.favorite {
+    background-color: #9F7F2B;
+    color: #FFF;
+}
 .card-dashboard.warning {
     background-color: #708090;
     color: #FFF;
@@ -91,7 +91,7 @@ h2 {
 .dashboard-container {
     justify-content: center;
     padding: 20px;
-    width: 1000em;
+    width: 80%;
 }
 
 .flex-container {

@@ -10,12 +10,30 @@
     <link rel="stylesheet" type="text/css" href="{% static "jobs/css/job_detail.css" %}">
 
     <div class="col-md-12 mb-3 mb-md-0">
-        <div class="card py-4 h-100">
+        <div class="card py-4 h-100" style="padding-top: 0px !important;">
             <div class="card-body">
 
-                <h5 class="card-title"> <b> {{ job.business_title }} </b> </h5>
+                <div style="width: 100%; height: 3em" >
+                    <div class="title-div">
+                        <h5> <b> {{ job.business_title }} </b> </h5>
+                    {% if user.is_candidate %}
+                        <form style="display: inline" action="{% url 'jobs:save_job' job.id %}" method="post">
+                                                {% csrf_token %}
+                            <input type="hidden" name="jobs_pk_id" value="{{ job.id }}" />
+                            {% if saved_this_job == False %}
+                                <input title="Save job" class="input-star" type="submit" name="save" value="&star;"/>
+                            {% else %}
+                                <input title="Remove from saved" class="input-star-selected" type="submit" name="unsave" value="&#11088;" />
+                            {% endif %}
+                        </form>
+                    {% endif %}
+                    </div>
+                    <div>
 
-                <div class="job-description-flex">
+                    </div>
+                </div>
+
+                <div class="job-description-flex" style="width: 100%">
                     <div class="job-summary-left">
                         <div class="text-black-50"> {{ job.division }} •  <a href="{% url 'department_details:department_detail' job.department.id %}">{{ job.department.name }}</a></div>
                         {% if job.work_location %}
@@ -31,19 +49,9 @@
                             <div>
                                 <a class="small" href="{% url 'applications:application_details' application_id %}">View application</a>
                             </div>
-                            {% endif %}
+                        {% endif %}
 
                         <div class="job-primary-action-block">
-                            <form class="job-primary-action" action="{% url 'jobs:save_job' job.id %}" method="post">
-                                            {% csrf_token %}
-                                <input type="hidden" name="jobs_pk_id" value="{{ job.id }}" />
-                                {% if saved_this_job == False %}
-                                <!-- <input class="btn btn-primary btn-save" type="submit" name="save" value="Save" /> -->
-                                {% else %}
-                                <!-- <input class="btn btn-primary btn-save" type="submit" name="unsave" value="Saved" /> -->
-                                {% endif %}
-
-                            </form>
 
                             {% if user.is_candidate %}
                             <form class="job-primary-action" action="{% url 'apply:apply' job.id%}" method="get">
