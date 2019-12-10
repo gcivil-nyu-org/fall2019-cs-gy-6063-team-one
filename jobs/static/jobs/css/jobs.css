@@ -51,11 +51,7 @@ button {
 }
 
 /* https://www.hongkiat.com/blog/jquery-ui-datepicker/ */
-/*
-body {
-	background: url('../img/darkdenim3.png') repeat 0 0 #555;
-}
-*/
+
 /* DatePicker Container */
 .ui-datepicker {
 	width: 216px;

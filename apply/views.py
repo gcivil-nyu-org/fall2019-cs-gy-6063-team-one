@@ -17,24 +17,31 @@ from notifications.models import Notification
 def apply(request, pk):
     candidate = Candidate.objects.get(user=request.user)
     active_prof = ActiveProfile.objects.get(candidate=candidate)
+    current_res = active_prof.candidate_profile.resume
 
     # request.FILES is a dictionary that holds the files the candidate uploaded
     if request.method == "POST":
         if request.FILES == {}:  # The candidate uploaded no files
             # The candidate wants to use their existing resume (and no cover letter)
             file_data = {"resume": active_prof.candidate_profile.resume}
-            application = ApplicationForm(request.POST, file_data)
+            application = ApplicationForm(
+                request.POST, file_data, initial={"resume": current_res}
+            )
         elif "resume" not in request.FILES and "cover_letter" in request.FILES:
             # The candidate wants to use their existing resume (and a new cover letter)
             file_data = {
                 "resume": active_prof.candidate_profile.resume,
                 "cover_letter": request.FILES["cover_letter"],
             }
-            application = ApplicationForm(request.POST, file_data)
+            application = ApplicationForm(
+                request.POST, file_data, initial={"resume": current_res}
+            )
         else:
             # The candidate provides either a new resume and a new
             # cover letter (or just a new resume)
-            application = ApplicationForm(request.POST, request.FILES)
+            application = ApplicationForm(
+                request.POST, request.FILES, initial={"resume": current_res}
+            )
         job = Job.objects.get(pk=pk)
 
         application_in_database = (
