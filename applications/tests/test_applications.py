@@ -330,10 +330,7 @@ class ApplicationDetailsViewTests(TestCase):
         )
         self.assertTrue(self.app.status == Application.STATUS_APPLIED)
         self.client.post(
-            reverse(
-                "applications:application_details",
-                kwargs={"pk": self.app.id}
-            ),
+            reverse("applications:application_details", kwargs={"pk": self.app.id}),
             data={"accept_button": "Accept"},
         )
         self.app = Application.objects.get(pk=self.app.id)
@@ -346,10 +343,7 @@ class ApplicationDetailsViewTests(TestCase):
         )
         self.assertTrue(self.app.status == Application.STATUS_APPLIED)
         self.client.post(
-            reverse(
-                "applications:application_details",
-                kwargs={"pk": self.app.id}
-            ),
+            reverse("applications:application_details", kwargs={"pk": self.app.id}),
             data={"reject_button": "Reject"},
         )
         self.app = Application.objects.get(pk=self.app.id)
