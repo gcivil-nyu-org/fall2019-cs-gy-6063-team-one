@@ -11,6 +11,7 @@ from uplyft.tests.resources import (
     create_department,
     create_employer,
 )
+from .models import Notification
 
 
 @setUpMockedS3
@@ -49,10 +50,6 @@ class NotificationCenterTests(TestCase):
 
     def test_NC_application_rejected_notification(self):
         self.login_employer()
-        self.client.get(
-            reverse("applications:application_details", kwargs={"pk": self.app.id})
-        )
-        self.assertTrue(self.app.status == "AP")
         self.client.post(
             reverse("applications:application_details", kwargs={"pk": self.app.id}),
             {"reject_button": "Reject"},
@@ -62,3 +59,26 @@ class NotificationCenterTests(TestCase):
             reverse("notifications:notification_center")
         )
         self.assertEqual(len(notification_center_page.context["entities"].keys()), 1)
+
+    # TODO: test NC handling of other notification entities or types
+
+    def test_NC_read_all(self):
+        self.login_employer()
+        self.client.post(
+            reverse("applications:application_details", kwargs={"pk": self.app.id}),
+            {"reject_button": "Reject"},
+        )
+        self.login_candidate()
+        notification_center_page = self.client.get(
+            reverse("notifications:notification_center")
+        )
+        user = notification_center_page.context["user"]
+        unreadNotifications = Notification.objects.filter(
+            recipient=user, status=Notification.STATUS_UNREAD
+        )
+        self.assertEqual(unreadNotifications.count(), 1)
+        self.client.get(reverse("notifications:readall"))
+        unreadNotifications = Notification.objects.filter(
+            recipient=user, status=Notification.STATUS_UNREAD
+        )
+        self.assertEqual(unreadNotifications.count(), 0)
