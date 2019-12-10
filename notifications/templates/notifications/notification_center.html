@@ -35,13 +35,15 @@
             <div class="card-body">
                 <div id="message content">
                     {% if value.0.entity_type == Notification.ENTITY_TYPE_APPLICATION_REJECTED %}
-                    Your <a href="{% url 'applications:application_details' value.1.id %}">application</a> for <b>{{ value.1.job.business_title }}</b> at {{ value.1.job.department.name }} is rejected.
+                    Your <a href="{% url 'applications:application_details' value.1.id %}">application</a> for <b>{{ value.1.job.business_title }}</b> at {{ value.1.job.department.name }} was rejected.
                     {% elif value.0.entity_type == Notificatio.ENTITY_TYPE_APPLICATION_REVIEWED %}
-                    Your <a href="{% url 'applications:application_details' value.1.id %}">application</a> for <b>{{ value.1.job.business_title }}</b> at {{ value.1.job.department.name }} is reviewed.
+                    Your <a href="{% url 'applications:application_details' value.1.id %}">application</a> for <b>{{ value.1.job.business_title }}</b> at {{ value.1.job.department.name }} was reviewed.
                     {% elif value.0.entity_type == Notification.ENTITY_TYPE_APPLICATION_ADVANCED %}
-                    Your <a href="{% url 'applications:application_details' value.1.id %}">application</a> for <b>{{ value.1.job.business_title }}</b> at {{ value.1.job.department.name }} is advanced.
+                    Your <a href="{% url 'applications:application_details' value.1.id %}">application</a> for <b>{{ value.1.job.business_title }}</b> at {{ value.1.job.department.name }} was advanced.
                     {% elif value.0.entity_type == Notification.ENTITY_TYPE_APPLICATION_RECEIVED %}
-                    A new <a href="{% url 'applications:application_details' value.1.id %}">application</a> for <b>{{ value.1.job.business_title }}</b> at your organization is submitted.
+                    A new <a href="{% url 'applications:application_details' value.1.id %}">application</a> for <b>{{ value.1.job.business_title }}</b> at your organization was submitted.
+                    {% elif value.0.entity_type == Notification.ENTITY_TYPE_APPLICATION_WITHDRAWN %}
+                    A submitted <a href="{% url 'applications:application_details' value.1.id %}">application</a> for <b>{{ value.1.job.business_title }}</b> at your organization was withdrawn by the applicant.
                     {% endif %}
                 </div>
                 <div class="notificationStripDate mt-3">
