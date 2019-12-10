@@ -1,5 +1,5 @@
 from django.test import TestCase
-
+from django.urls import reverse
 from register.forms import EmployerRegistrationForm
 from uplyft.tests.resources import (
     test_user_data,
@@ -10,6 +10,7 @@ from uplyft.tests.resources import (
     create_employer,
 )
 from uplyft.tests.decorators import setUpMockedS3
+from uplyft.models import Employer
 
 
 @setUpMockedS3
@@ -19,7 +20,6 @@ class EmployerRegistrationFormTests(TestCase):
             test_user_data["candidate"]
         )
         self.department = create_department(test_user_data["department"])
-        self.employer = create_employer(self.department, test_user_data["employer"])
         self.job = create_job(self.department, test_user_data["job_details"][0])
         self.profile = create_profile(test_user_data["candidate"]["profile"])
 
@@ -91,14 +91,63 @@ class EmployerRegistrationFormTests(TestCase):
         self.assertFalse(form.is_valid())
 
     def test_email_already_taken_form_invalid(self):
+        employer = create_employer(self.department, test_user_data["employer"])
         form = EmployerRegistrationForm(
             data={
                 "first_name": test_user_data["employers"][1]["first_name"],
                 "last_name": test_user_data["employers"][1]["last_name"],
-                "email": self.employer.user.email,
+                "email": employer.user.email,
                 "password1": test_user_data["employers"][1]["password"],
                 "password2": test_user_data["employers"][1]["password"],
                 "department": self.job.department.id,
             }
         )
         self.assertFalse(form.is_valid())
+
+    def test_register_post_form_redirects_to_email_confirmation(self):
+        response = self.client.post(
+            reverse("register:employer_register"),
+            data={
+                "first_name": test_user_data["employers"][1]["first_name"],
+                "last_name": test_user_data["employers"][1]["last_name"],
+                "email": test_user_data["employers"][1]["email"],
+                "password1": test_user_data["employers"][1]["password"],
+                "password2": test_user_data["employers"][1]["password"],
+                "department": self.job.department.id,
+            }
+        )
+        self.assertRedirects(response, reverse("register:email_confirmation"),
+                             status_code=302,
+                             target_status_code=200, fetch_redirect_response=True)
+
+    def test_register_post_form_creates_inactive_employer(self):
+        response = self.client.post(
+            reverse("register:employer_register"),
+            data={
+                "first_name": test_user_data["employers"][1]["first_name"],
+                "last_name": test_user_data["employers"][1]["last_name"],
+                "email": test_user_data["employers"][1]["email"],
+                "password1": test_user_data["employers"][1]["password"],
+                "password2": test_user_data["employers"][1]["password"],
+                "department": self.job.department.id,
+            }
+        )
+        self.assertEquals(Employer.objects.all().count(), 1)
+        employer = Employer.objects.get(id=1)
+        self.assertFalse(employer.user.is_active)
+
+    def test_register_bad_post_retains_errors(self):
+        response = self.client.post(
+            reverse("register:employer_register"),
+            data={
+                "first_name": test_user_data["employers"][1]["first_name"],
+                "last_name": test_user_data["employers"][1]["last_name"],
+                "email": test_user_data["employers"][1]["email"],
+                "password1": test_user_data["employers"][1]["password"],
+                "password2": test_user_data["employers"][1]["password"],
+                "department": self.job.department.id,
+            }
+        )
+        self.assertRedirects(response, reverse("register:email_confirmation"),
+                             status_code=302,
+                             target_status_code=200, fetch_redirect_response=True)
