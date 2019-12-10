@@ -6,14 +6,9 @@
     <h1 class="mb-4">Welcome back, {{ candidate_name|title }}.</h1>
 
 <div name=candidate_dashboard">
-    <div class="container dashboard-container">
+    <div class="container flex-container dashboard-container">
 
-        <div class="row">
-            <div class="col-md-2 col-lg-1">
-                <div class="card-dashboard hidden">
-                </div>
-            </div>
-            <div class="col-md-5 col-lg-4">
+            <div class="block col-lg-4">
                 <a class="white" href="{% url 'dashboard:dashboard' 'ap' %}">
                     <div class="card-dashboard primary">
                         <span class="dashboard-numbers">{{ pending_count }}&rarr;</span>
@@ -21,11 +16,8 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-2 col-lg-2">
-                <div class="card-dashboard hidden">
-                </div>
-            </div>
-            <div class="col-md-5 col-lg-4">
+
+            <div class="block col-lg-4">
                 <a class="white" href="{% url 'dashboard:dashboard' 'ac' %}">
                     <div class="card-dashboard success">
                         <span class="dashboard-numbers">{{ accepted_count }}&rarr;</span>
@@ -33,19 +25,8 @@
                     </div>
                 </a>
             </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2 col-lg-2">
-                <div class="card-dashboard hidden">
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-md-2 col-lg-1">
-                <div class="card-dashboard hidden">
-                </div>
-            </div>
-            <div class="col-md-5 col-lg-4">
+
+            <div class="block col-lg-4">
                 <a class="white" href="{% url 'dashboard:dashboard' 're' %}">
                     <div class="card-dashboard danger">
                         <span class="dashboard-numbers">{{ rejected_count }}&rarr;</span>
@@ -53,11 +34,8 @@
                     </div>
                 </a>
             </div>
-            <div class="col-md-2 col-lg-2">
-                <div class="card-dashboard hidden">
-                </div>
-            </div>
-            <div class="col-md-5 col-lg-4">
+
+            <div class="block col-lg-4">
                 <a class="white" href="{% url 'dashboard:dashboard' 'w' %}">
                     <div class="card-dashboard warning">
                         <span class="dashboard-numbers">{{ withdrawn_count }}&rarr;</span>
@@ -65,7 +43,6 @@
                     </div>
                 </a>
             </div>
-        </div>
 
 
         </div>
