@@ -35,23 +35,70 @@ class EmployerRegistrationFormTests(TestCase):
         form = EmployerRegistrationForm()
         self.assertTrue(form.fields["email"].label == "Email")
 
-    # def test_department_field_label(self):
-    #     form = EmployerRegistrationForm()
-    #     self.assertTrue(form.fields["department"].label == "Department")
+    def test_department_field_label(self):
+        form = EmployerRegistrationForm()
+        self.assertTrue(form.fields["department"].label == "Department")
+
+    def test_all_good_form_valid(self):
+        form = EmployerRegistrationForm(
+            data={
+                "first_name": test_user_data["employers"][1]["first_name"],
+                "last_name": test_user_data["employers"][1]["last_name"],
+                "email": test_user_data["employers"][1]["email"],
+                "password1": test_user_data["employers"][1]["password"],
+                "password2": test_user_data["employers"][1]["password"],
+                "department": self.job.department.id,
+            }
+        )
+        self.assertTrue(form.is_valid())
 
     def test_missing_department_form_invalid(self):
-        form = EmployerRegistrationForm(data=test_user_data["employer"])
+        form = EmployerRegistrationForm(
+            data={
+                "first_name": test_user_data["employers"][1]["first_name"],
+                "last_name": test_user_data["employers"][1]["last_name"],
+                "email": test_user_data["employers"][1]["email"],
+                "password1": test_user_data["employers"][1]["password"],
+                "password2": test_user_data["employers"][1]["password"],
+            }
+        )
         self.assertFalse(form.is_valid())
 
-    # def test_all_good_form_valid(self):
-    #     form = EmployerRegistrationForm(
-    #         data={
-    #             "first_name": test_user_data["candidate"]["first_name"],
-    #             "last_name": test_user_data["candidate"]["last_name"],
-    #             "email": test_user_data["candidate"]["email"],
-    #             "password1": test_user_data["candidate"]["password"],
-    #             "password2": test_user_data["candidate"]["password"],
-    #             "department": self.job.department,
-    #         }
-    #     )
-    #     self.assertTrue(form.is_valid())
+    def test_invalid_first_name_form_invalid(self):
+        form = EmployerRegistrationForm(
+            data={
+                "first_name": test_user_data["invalid_user_details"]["first_name"],
+                "last_name": test_user_data["employers"][1]["last_name"],
+                "email": test_user_data["employers"][1]["email"],
+                "password1": test_user_data["employers"][1]["password"],
+                "password2": test_user_data["employers"][1]["password"],
+                "department": self.job.department.id,
+            }
+        )
+        self.assertFalse(form.is_valid())
+
+    def test_invalid_last_name_form_invalid(self):
+        form = EmployerRegistrationForm(
+            data={
+                "first_name": test_user_data["employers"][1]["first_name"],
+                "last_name": test_user_data["invalid_user_details"]["last_name"],
+                "email": test_user_data["employers"][1]["email"],
+                "password1": test_user_data["employers"][1]["password"],
+                "password2": test_user_data["employers"][1]["password"],
+                "department": self.job.department.id,
+            }
+        )
+        self.assertFalse(form.is_valid())
+
+    def test_email_already_taken_form_invalid(self):
+        form = EmployerRegistrationForm(
+            data={
+                "first_name": test_user_data["employers"][1]["first_name"],
+                "last_name": test_user_data["employers"][1]["last_name"],
+                "email": self.employer.user.email,
+                "password1": test_user_data["employers"][1]["password"],
+                "password2": test_user_data["employers"][1]["password"],
+                "department": self.job.department.id,
+            }
+        )
+        self.assertFalse(form.is_valid())
