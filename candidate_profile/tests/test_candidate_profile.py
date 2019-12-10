@@ -1,11 +1,19 @@
 from django.test import TestCase
+from django.urls import reverse
 from candidate_profile.forms import CandidateProfileForm
-from uplyft.tests.resources import test_user_data, create_candidate_with_active_profile
 from uplyft.tests.decorators import setUpMockedS3
+from uplyft.tests.resources import test_user_data, create_candidate_with_active_profile
+from uplyft.models import ActiveProfile
 
 
 @setUpMockedS3
 class CandidateProfileFormTests(TestCase):
+    def login_candidate(self):
+        self.client.login(
+            email=test_user_data["candidate"]["email"],
+            password=test_user_data["candidate"]["password"],
+        )
+
     def setUp(self):
         self.candidate = create_candidate_with_active_profile(
             test_user_data["candidate"]
@@ -72,6 +80,74 @@ class CandidateProfileFormTests(TestCase):
             instance=self.candidate, data=test_user_data["candidate"]["profile"]
         )
         self.assertTrue(form.is_valid())
+
+    def test_good_POST(self):
+        self.login_candidate()
+        response = self.client.post(
+            reverse("candidate_profile:profile"),
+            data=test_user_data["candidate"]["new_profile"],
+        )
+        self.assertRedirects(
+            response,
+            reverse("candidate_profile:profile"),
+            status_code=302,
+            target_status_code=200,
+            fetch_redirect_response=True,
+        )
+        active_profile = ActiveProfile.objects.get(candidate_id=self.candidate.id)
+        self.assertEqual(
+            active_profile.candidate_profile.first_name,
+            test_user_data["candidate"]["new_profile"]["first_name"],
+        )
+        self.assertEqual(
+            active_profile.candidate_profile.last_name,
+            test_user_data["candidate"]["new_profile"]["last_name"],
+        )
+        self.assertEqual(
+            active_profile.candidate_profile.email,
+            test_user_data["candidate"]["new_profile"]["email"],
+        )
+        self.assertEqual(
+            active_profile.candidate_profile.phone,
+            test_user_data["candidate"]["new_profile"]["phone"],
+        )
+        self.assertEqual(
+            active_profile.candidate_profile.address_line,
+            test_user_data["candidate"]["new_profile"]["address_line"],
+        )
+        self.assertEqual(
+            active_profile.candidate_profile.zip_code,
+            test_user_data["candidate"]["new_profile"]["zip_code"],
+        )
+        self.assertEqual(
+            active_profile.candidate_profile.state,
+            test_user_data["candidate"]["new_profile"]["state"],
+        )
+        self.assertEqual(
+            active_profile.candidate_profile.portfolio_website,
+            test_user_data["candidate"]["new_profile"]["portfolio_website"],
+        )
+        self.assertEqual(
+            active_profile.candidate_profile.gender,
+            test_user_data["candidate"]["new_profile"]["gender"],
+        )
+        self.assertEqual(
+            active_profile.candidate_profile.health_conditions,
+            test_user_data["candidate"]["new_profile"]["health_conditions"],
+        )
+        self.assertEqual(
+            active_profile.candidate_profile.veteran,
+            test_user_data["candidate"]["new_profile"]["veteran"],
+        )
+        self.assertEqual(
+            active_profile.candidate_profile.ethnicity,
+            test_user_data["candidate"]["new_profile"]["ethnicity"],
+        )
+        self.assertEqual(
+            active_profile.candidate_profile.race,
+            test_user_data["candidate"]["new_profile"]["race"],
+        )
+        # missing: check for resume
 
     # def test_only_first_name_form_still_valid(self):
     #     form = CandidateProfileForm(instance=self.candidate, data={
