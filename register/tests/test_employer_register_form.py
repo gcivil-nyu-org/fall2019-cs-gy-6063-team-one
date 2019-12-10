@@ -104,6 +104,35 @@ class EmployerRegistrationFormTests(TestCase):
         )
         self.assertFalse(form.is_valid())
 
+    def test_view_accessible_by_name(self):
+        response = self.client.get(reverse("register:employer_register"))
+        self.assertEqual(response.status_code, 200)
+
+    def test_view_uses_correct_template(self):
+        response = self.client.get(reverse("register:employer_register"))
+        self.assertTemplateUsed(response, "uplyft/base.html")
+        self.assertTemplateUsed(response, "register/employer_register.html")
+
+    def test_form_passed_in_context(self):
+        response = self.client.get(reverse("register:employer_register"))
+        self.assertTrue("form" in response.context)
+        self.assertIsInstance(response.context["form"], EmployerRegistrationForm)
+
+    def test_employer_already_registered_redirect_to_index(self):
+        create_employer(self.department, test_user_data["employer"])
+        self.client.login(
+            email=test_user_data["employer"]["email"],
+            password=test_user_data["employer"]["password"],
+        )
+        response = self.client.get(reverse("register:employer_register"))
+        self.assertRedirects(
+            response,
+            expected_url=reverse("uplyft:index"),
+            status_code=302,
+            target_status_code=302,
+            fetch_redirect_response=True,
+        )
+
     def test_register_post_form_redirects_to_email_confirmation(self):
         response = self.client.post(
             reverse("register:employer_register"),
