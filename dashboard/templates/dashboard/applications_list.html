@@ -18,13 +18,13 @@
                 </div>
             </div>
 
-    {% if application_type == "ap" %}
+    {% if application_type == Application.STATUS_APPLIED %}
         <h1 class="mb-4">Pending Applications</h1>
-        {% elif application_type == "re" %}
+        {% elif application_type == Application.STATUS_REJECTED %}
         <h1 class="mb-4">Rejected Applications</h1>
-        {% elif application_type == "ac" %}
+        {% elif application_type == Application.STATUS_ACCEPTED %}
         <h1 class="mb-4">Accepted Applications</h1>
-        {% elif application_type == "w" %}
+        {% elif application_type == Application.STATUS_WITHDRAWN %}
         <h1 class="mb-4">Withdrawn Applications</h1>
         {% else %}
         <h1 class="mb-4">Applications</h1>

@@ -92,11 +92,6 @@ class WithdrawApplicationView(LoginRequiredMixin, DetailView):
             if application.status == Application.STATUS_APPLIED:
                 application.status = Application.STATUS_WITHDRAWN
                 application.save()
-
-        """return reverse(
-            "applications:application_details", kwargs={"pk": self.kwargs["pk"]}
-        )
-        """
         return HttpResponseRedirect(
             reverse(
                 "applications:application_details", kwargs={"pk": self.kwargs["pk"]}
