@@ -192,24 +192,26 @@ button {
 }
 
 .input-star-button {
+	background: transparent;
+	align-self: center;
     padding: 0px  !important;
 	margin-left: 0px !important;
 	margin-right: 0px !important;
-    background: transparent;
     border: none;
-    font-size: 2em;
+    font-size: 1.2em;
     line-height: 1.2em;
-	width: 1em;
+	width: 2em;
 	height: 2em;
 }
 
 .input-star-button-selected {
+	background: transparent;
+	align-self: center;
     padding: 0px  !important;
 	margin-left: 0px !important;
 	margin-right: 0px !important;
-    background: transparent;
     border: none;
-    font-size: 1.25em;
+    font-size: 1.2em;
 	width: 2em;
 	height: 2em;
 }
