@@ -22,12 +22,6 @@ class ApplicationViewTests(TestCase):
             password=test_user_data["candidate"]["password"],
         )
 
-    def login_employer(self):
-        self.client.login(
-            email=test_user_data["employer"]["email"],
-            password=test_user_data["employer"]["password"],
-        )
-
     def setUp(self):
         self.candidate = create_candidate_with_active_profile(
             test_user_data["candidate"]
