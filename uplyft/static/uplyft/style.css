@@ -319,6 +319,11 @@ background-color: #296245;
     color: #FFF;
 }
 
+.status.W{
+    background-color: #708090;
+    color: #FFF;
+}
+
 .btn.RE{
 background-color: #8C3D3B;
     color: #FFF;
@@ -331,6 +336,11 @@ background-color: #296245;
 
 .btn.AP{
     background-color: #2D3B5E;
+    color: #FFF;
+}
+
+.btn.W{
+    background-color: #708090;
     color: #FFF;
 }
 

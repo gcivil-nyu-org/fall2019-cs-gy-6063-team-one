@@ -5,58 +5,79 @@
 
     <h1 class="mb-4">Welcome back, {{ candidate_name|title }}.</h1>
 
-<div name=candidate_dashboard">
-    <div class="container dashboard-container">
-        <h2 class="text-white mb-4" style="text-align: center">Applications</h2>
-        <div class="row">
-            <div class="col-md-5 col-lg-4">
-                <a class="white" href="{% url 'dashboard:dashboard' 'ap' %}">
-                    <div class="card-dashboard primary">
-                        <span class="dashboard-numbers">{{ pending_count }}&rarr;</span>
-                        <span class="dashboard-name">Pending Applications</span>
-                    </div>
-                </a>
+    <div name=candidate_dashboard">
+        <div class="container dashboard-container">
+            <h2 class="text-black mb-3 font-weight-bold" style="text-align: center">
+                Applications</h2>
+            <div class="row">
+                <div class="col-sm-0 col-md-1 col-lg-2">
+                </div>
+                <div class="col-sm-3 col-md-5 col-lg-4">
+                    <a class="white"
+                       href="{% url 'dashboard:dashboard' 'ap' %}">
+                        <div class="card-dashboard primary">
+                            <span class="dashboard-numbers">{{ pending_count }}&rarr;</span>
+                            <span class="dashboard-name">Pending Applications</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-3 col-md-5 col-lg-4">
+                    <a class="white"
+                       href="{% url 'dashboard:dashboard' 'ac' %}">
+                        <div class="card-dashboard success">
+                            <span class="dashboard-numbers">{{ accepted_count }}&rarr;</span>
+                            <span class="dashboard-name">Accepted Applications</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-0 col-md-1 col-lg-2">
+                </div>
             </div>
-            <div class="col-md-5 col-lg-4">
-                <a class="white" href="{% url 'dashboard:dashboard' 'ac' %}">
-                    <div class="card-dashboard success">
-                        <span class="dashboard-numbers">{{ accepted_count }}&rarr;</span>
-                        <span class="dashboard-name">Accepted Applications</span>
-                    </div>
-                </a>
+            <div class="row">
+                <div class="col-sm-1 col-md-1 col-lg-2">
+                </div>
+                <div class="col-sm-3 col-md-5 col-lg-4">
+                    <a class="white"
+                       href="{% url 'dashboard:dashboard' 're' %}">
+                        <div class="card-dashboard danger">
+                            <span class="dashboard-numbers">{{ rejected_count }}&rarr;</span>
+                            <span class="dashboard-name">Rejected Applications</span>
+                        </div>
+                    </a>
+                </div>
+
+                <div class="col-sm-3 col-md-5 col-lg-4">
+                    <a class="white"
+                       href="{% url 'dashboard:dashboard' 'w' %}">
+                        <div class="card-dashboard warning">
+                            <span class="dashboard-numbers">{{ withdrawn_count }}&rarr;</span>
+                            <span class="dashboard-name">Withdrawn Applications</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-1 col-md-1 col-lg-2">
+                </div>
             </div>
-            <div class="col-md-5 col-lg-4">
-                <a class="white" href="{% url 'dashboard:dashboard' 're' %}">
-                    <div class="card-dashboard danger">
-                        <span class="dashboard-numbers">{{ rejected_count }}&rarr;</span>
-                        <span class="dashboard-name">Rejected Applications</span>
+            <h2 class="text-black mb-3 mt-5 font-weight-bold" style="text-align: center;">
+                Jobs</h2>
+            <div class="row">
+                <div class="col-sm-1 col-md-4 col-lg-4">
+                    <div class="card-dashboard hidden">
                     </div>
-                </a>
+                </div>
+                <div class="col-sm-3 col-md-4 col-lg-4">
+                    <a class="white" href="{% url 'jobs:jobs' %}?save=1">
+                        <div class="card-dashboard favorite">
+                            <span class="dashboard-numbers">&star;{{ favorite_count }}&rarr;</span>
+                            <span class="dashboard-name">favorite Jobs</span>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-sm-1 col-md-4 col-lg-4">
+                    <div class="card-dashboard hidden">
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="container dashboard-container">
-        <h2 class="text-white mb-4" style="text-align: center">Jobs</h2>
-        <div class="row">
-            <div class="col-md-5 col-lg-4">
-                <div class="card-dashboard hidden">
-                </div>
-            </div>
-            <div class="col-md-5 col-lg-4">
-                <a class="white" href="{% url 'jobs:jobs'%}?save=1">
-                    <div class="card-dashboard favorite">
-                        <span class="dashboard-numbers">{{ favorite_count }}&rarr;</span>
-                        <span class="dashboard-name">favorite Jobs</span>
-                    </div>
-                </a>
-            </div>
-            <div class="col-md-5 col-lg-4">
-                <div class="card-dashboard hidden">
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 {% endblock %}
