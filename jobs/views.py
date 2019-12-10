@@ -10,7 +10,6 @@ from django_filters.views import FilterView
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
-
 from apply.models import Application
 from jobs.helper import jobs_helper
 from .filters import JobFilter
@@ -59,9 +58,9 @@ class JobsView(LoginRequiredMixin, ListView):
         if user.is_candidate:
             candidate = Candidate.objects.get(user=self.request.user)
             context["jobs_applied"] = list(
-                Application.objects.filter(candidate=candidate).values_list(
-                    "job", flat=True
-                )
+                Application.objects.filter(
+                    candidate=candidate, status__in=["AC", "AP"]
+                ).values_list("job", flat=True)
             )
         return context
 
@@ -111,7 +110,7 @@ class JobDetailView(LoginRequiredMixin, DetailView):
             context["candidate_viewing"] = True
             candidate = Candidate.objects.get(user=user)
             context["open_applications"] = Application.objects.filter(
-                candidate=candidate, job=job
+                candidate=candidate, job=job, status=Application.STATUS_APPLIED
             )
             if context["open_applications"].count() > 0:
                 context["application_id"] = context["open_applications"][0].id
