@@ -29,10 +29,10 @@ class JobsView(LoginRequiredMixin, ListView):
 
     def get_queryset(self):
         try:
-            self.favourite = self.request.GET.get("save")
+            self.favorite = self.request.GET.get("save")
         except KeyError:
-            self.favourite = None
-        if self.favourite and self.favourite == "1":
+            self.favorite = None
+        if self.favorite and self.favorite == "1":
             job_ids = SavedJobs.objects.filter(user=self.request.user).values_list(
                 "job", flat=True
             )
@@ -89,10 +89,10 @@ class JobAdvancedSearchView(LoginRequiredMixin, ListView, FilterView):
 
     def get_queryset(self):
         try:
-            self.favourite = self.request.GET.get("save")
+            self.favorite = self.request.GET.get("save")
         except KeyError:
-            self.favourite = None
-        if self.favourite and self.favourite == "1":
+            self.favorite = None
+        if self.favorite and self.favorite == "1":
             job_ids = SavedJobs.objects.filter(user=self.request.user).values_list(
                 "job", flat=True
             )

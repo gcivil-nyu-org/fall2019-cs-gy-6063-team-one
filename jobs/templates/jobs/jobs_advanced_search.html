@@ -49,19 +49,19 @@ body{
                     {% render_field form.department %}
                     </div>
 
-                <div id="favourites" class="float-left">
+                <div id="favorites" class="float-left">
                     {% if user.is_candidate %}
-                        Favourites:
+                        favorites:
                     {% if request.GET.save %}
                         {% if request.GET.save == "1" %}
                             <input type="hidden" name="save" value="1">
                             <button title="Show All Jobs" class="input-star-button-selected" name="save" type="submit" value="0">&#11088;</button>
                         {% else %}
                             <input type="hidden" name="save" value="0">
-                            <button title="Show Favourites Only" class="input-star-button" name="save" type="submit" value="1">&star;</button>
+                            <button title="Show Favorites Only" class="input-star-button" name="save" type="submit" value="1">&star;</button>
                         {% endif %}
                     {% else %}
-                        <button title="Show Favourites Only" class="input-star-button" name="save" type="submit" value="1">&star;</button>
+                        <button title="Show favorites Only" class="input-star-button" name="save" type="submit" value="1">&star;</button>
                     {% endif %}
                 {% endif %}
                 </div>
