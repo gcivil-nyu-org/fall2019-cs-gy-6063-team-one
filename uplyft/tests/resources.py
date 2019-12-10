@@ -65,7 +65,7 @@ test_user_data = {
             "zip_code": "07087",
             "state": "NY",
             "state_display": "New York",
-            "phone": "2013348135",
+            "phone": "+12013348135",
             "portfolio_website": "https://janeTjameson.com",
             "resume": SimpleUploadedFile(
                 "test_resume1.pdf",

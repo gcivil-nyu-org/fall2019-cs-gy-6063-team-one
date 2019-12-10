@@ -22,12 +22,6 @@ class ApplicationViewTests(TestCase):
             password=test_user_data["candidate"]["password"],
         )
 
-    def login_employer(self):
-        self.client.login(
-            email=test_user_data["employer"]["email"],
-            password=test_user_data["employer"]["password"],
-        )
-
     def setUp(self):
         self.candidate = create_candidate_with_active_profile(
             test_user_data["candidate"]
@@ -133,3 +127,51 @@ class ApplicationViewTests(TestCase):
         )
         self.assertEquals(response.status_code, 302)
         self.assertEqual(Application.objects.all().count(), 1)
+
+    def test_bad_POST_first_name_non_alpha(self):
+        self.login_candidate()
+        resume = SimpleUploadedFile(
+            "test_resume_0.pdf",
+            open("media/tests/test_resume_0.pdf", "rb").read(),
+            content_type="application/pdf",
+        )
+        data = {
+            "first_name": test_user_data["invalid_user_details"]["first_name"],
+            "last_name": test_user_data["candidate"]["profile"]["last_name"],
+            "email": test_user_data["candidate"]["profile"]["email"],
+            "address_line": test_user_data["candidate"]["profile"]["address_line"],
+            "zip_code": test_user_data["candidate"]["profile"]["zip_code"],
+            "state": test_user_data["candidate"]["profile"]["state"],
+            "phone": test_user_data["candidate"]["profile"]["phone"],
+            "resume": resume,
+        }
+        response = self.client.post(
+            reverse("apply:apply", kwargs={"pk": self.job.id}), data=data
+        )
+        self.assertEquals(response.status_code, 200)
+        self.assertEqual(Application.objects.all().count(), 0)
+        self.assertContains(response, "First name should contain only letters (A-Z).")
+
+    def test_bad_POST_last_name_non_alpha(self):
+        self.login_candidate()
+        resume = SimpleUploadedFile(
+            "test_resume_0.pdf",
+            open("media/tests/test_resume_0.pdf", "rb").read(),
+            content_type="application/pdf",
+        )
+        data = {
+            "first_name": test_user_data["candidate"]["profile"]["first_name"],
+            "last_name": test_user_data["invalid_user_details"]["last_name"],
+            "email": test_user_data["candidate"]["profile"]["email"],
+            "address_line": test_user_data["candidate"]["profile"]["address_line"],
+            "zip_code": test_user_data["candidate"]["profile"]["zip_code"],
+            "state": test_user_data["candidate"]["profile"]["state"],
+            "phone": test_user_data["candidate"]["profile"]["phone"],
+            "resume": resume,
+        }
+        response = self.client.post(
+            reverse("apply:apply", kwargs={"pk": self.job.id}), data=data
+        )
+        self.assertEquals(response.status_code, 200)
+        self.assertEqual(Application.objects.all().count(), 0)
+        self.assertContains(response, "Last name should contain only letters (A-Z).")

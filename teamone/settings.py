@@ -24,7 +24,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = "q4!d06oj_jy(1$q#@*&0bcnn4*ub*)0#5n9^p*hp+3#5)tb2(+"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["uplyft.herokuapp.com", "localhost", "127.0.0.1", "testserver"]
 
@@ -187,9 +187,9 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = (
 )
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "M1y9_Z-jNwqArncabT7_zZWV"
 
-AWS_ACCESS_KEY_ID = "AKIA46VH6MQWFGIZCO5M"
-AWS_SECRET_ACCESS_KEY = "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"
-AWS_STORAGE_BUCKET_NAME = "uplyft-s3"
+AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
+AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
+AWS_STORAGE_BUCKET_NAME = os.environ["AWS_STORAGE_BUCKET_NAME"]
 AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=600"}
 # AWS_LOCATION = 'static'
