@@ -11,6 +11,7 @@ from uplyft.tests.resources import (
     create_profile,
 )
 from uplyft.tests.decorators import setUpMockedS3
+from apply.models import Application
 
 
 @setUpMockedS3
@@ -322,32 +323,34 @@ class ApplicationDetailsViewTests(TestCase):
             response, "You do not have the right permissions to view this page"
         )
 
-    def employer_can_accept_application(self):
+    def test_employer_can_accept_application(self):
         self.login_employer()
         self.client.get(
             reverse("applications:application_details", kwargs={"pk": self.app.id})
         )
-        self.assertTrue(self.app.status == "AP")
+        self.assertTrue(self.app.status == Application.STATUS_APPLIED)
         self.client.post(
             reverse(
                 "applications:application_details",
-                kwargs={"pk": self.app.id},
-                data={"accept_button", "Accept"},
-            )
+                kwargs={"pk": self.app.id}
+            ),
+            data={"accept_button": "Accept"},
         )
-        self.assertTrue(self.app.status == "AC")
+        self.app = Application.objects.get(pk=self.app.id)
+        self.assertTrue(self.app.status == Application.STATUS_ACCEPTED)
 
-    def employer_can_reject_application(self):
+    def test_employer_can_reject_application(self):
         self.login_employer()
         self.client.get(
             reverse("applications:application_details", kwargs={"pk": self.app.id})
         )
-        self.assertTrue(self.app.status == "AP")
+        self.assertTrue(self.app.status == Application.STATUS_APPLIED)
         self.client.post(
             reverse(
                 "applications:application_details",
-                kwargs={"pk": self.app.id},
-                data={"reject_button", "Reject"},
-            )
+                kwargs={"pk": self.app.id}
+            ),
+            data={"reject_button": "Reject"},
         )
-        self.assertTrue(self.app.status == "RE")
+        self.app = Application.objects.get(pk=self.app.id)
+        self.assertTrue(self.app.status == Application.STATUS_REJECTED)
