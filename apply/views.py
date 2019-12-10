@@ -8,7 +8,8 @@ from django.shortcuts import render, redirect
 from uplyft.decorators import candidate_login_required
 from .forms import ApplicationForm
 from .models import Application
-from uplyft.models import Candidate, ActiveProfile
+from uplyft.models import Candidate, Employer, ActiveProfile
+from notifications.models import Notification
 
 
 @login_required
@@ -123,6 +124,14 @@ def apply(request, pk):
                     )
                 app_obj.save()
             messages.success(request, "Application submitted")
+            liaisons = Employer.objects.filter(department=app_obj.job.department)
+            for liaison in liaisons:
+                notification = Notification(
+                    recipient=liaison.user,
+                    entity_type=Notification.ENTITY_TYPE_APPLICATION_RECEIVED,
+                    entity_fk_pk=app_obj.id,
+                )
+                notification.save()
             return redirect("applications:application_details", pk=app_obj.pk)
         else:
             messages.error(request, _("Please correct the error(s) below."))

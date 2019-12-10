@@ -52,6 +52,14 @@ class CustomUser(AbstractUser):
     def __str__(self):
         return self.email
 
+    def has_unread_notifications(self):
+        from notifications.models import Notification
+
+        unread_notifications = Notification.objects.filter(
+            recipient=self, status=Notification.STATUS_UNREAD
+        ).count()
+        return unread_notifications > 0
+
 
 def file_size(value):
     limit = 2 * 1000 * 1000

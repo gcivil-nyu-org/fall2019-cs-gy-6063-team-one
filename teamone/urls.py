@@ -39,6 +39,7 @@ urlpatterns = [
     path("department_details/", include("department_details.urls")),
     path("department_profile/", include("department_profile.urls")),
     path("unauthorized/", include("errors.urls")),
+    path("notifications/", include("notifications.urls")),
 ]
 
 
