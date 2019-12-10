@@ -42,6 +42,11 @@ h1 {
     color: #FFF;
 }
 
+.card-dashboard.favourite {
+    background-color: #9F7F2B;
+    color: #FFF;
+}
+
 .card-dashboard.success {
     background-color: #296245;
     color: #FFF;
@@ -83,7 +88,7 @@ h1 {
             rgba(100, 100, 100, 0.6)
     );
     padding: 20px;
-    width: 1000em;
+    width: 80%;
 }
 
 .application-border{

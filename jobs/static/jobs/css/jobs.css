@@ -38,11 +38,8 @@ div #posting_date_search {
 }
 
 input, button {
-    margin-right: 20px;
-    margin-left: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    max-width: 100%;
+	margin: 10px;
+	max-width: 100%;
     flex-grow: 1;
 }
 
@@ -192,4 +189,27 @@ button {
 .ui-datepicker-calendar tr:last-child .ui-state-active {
 	height: 29px;
 	margin-bottom: 0;
+}
+
+.input-star-button {
+    padding: 0px  !important;
+	margin-left: 0px !important;
+	margin-right: 0px !important;
+    background: transparent;
+    border: none;
+    font-size: 2em;
+    line-height: 1.2em;
+	width: 1em;
+	height: 2em;
+}
+
+.input-star-button-selected {
+    padding: 0px  !important;
+	margin-left: 0px !important;
+	margin-right: 0px !important;
+    background: transparent;
+    border: none;
+    font-size: 1.25em;
+	width: 2em;
+	height: 2em;
 }

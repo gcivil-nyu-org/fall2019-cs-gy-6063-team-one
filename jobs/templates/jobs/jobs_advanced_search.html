@@ -16,9 +16,10 @@ body{
 </style>
 
 <div class="container card py-4">
+    <a class="btn btn-primary" style="width: 30%; float: left" href="{% url 'jobs:jobs'%}">← Simple Job Search</a>
     <h1 class="turquoise-dark mb-4" style="text-align: center;">Advanced Job Search</h1>
 
-    <form method="GET" action="{% url 'jobs:jobs' %}">
+    <form method="GET" action="{% url 'jobs:search' %}">
 
         <div class="main_search">
         <div class="col-md-10 col-lg-8 mx-auto text-center">
@@ -48,6 +49,23 @@ body{
                     {% render_field form.department %}
                     </div>
 
+                <div id="favourites" class="float-left">
+                    {% if user.is_candidate %}
+                        Favourites:
+                    {% if request.GET.save %}
+                        {% if request.GET.save == "1" %}
+                            <input type="hidden" name="save" value="1">
+                            <button title="Show All Jobs" class="input-star-button-selected" name="save" type="submit" value="0">&#11088;</button>
+                        {% else %}
+                            <input type="hidden" name="save" value="0">
+                            <button title="Show Favourites Only" class="input-star-button" name="save" type="submit" value="1">&star;</button>
+                        {% endif %}
+                    {% else %}
+                        <button title="Show Favourites Only" class="input-star-button" name="save" type="submit" value="1">&star;</button>
+                    {% endif %}
+                {% endif %}
+                </div>
+
                 <div>
                 <button type="submit" class="btn btn-primary mx-auto">Search</button>
                 </div>
@@ -66,7 +84,9 @@ body{
             <a href="{% url 'jobs:job_detail' job.id %}">
                 <div class="card mt-3">
                     <div class="card-body">
-                        <h6 class="card-title"><b>{{ job.business_title }}</b></h6>
+                        <h6 class="card-title"><b>{{ job.business_title }}{% if user.is_candidate and job.id in jobs_saved %}
+                            &#11088;
+                        {% endif %}</b></h6>
                         <div class="text-muted" style="display: flex; justify-content: space-between;">
                             <div>
                                     <div>{{ job.division }}</div>

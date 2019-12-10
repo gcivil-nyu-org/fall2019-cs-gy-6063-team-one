@@ -7,7 +7,7 @@ from django.urls import reverse
 from django.views.generic import ListView
 
 from apply.models import Application
-from jobs.models import Job
+from jobs.models import Job, SavedJobs
 from uplyft.models import Candidate, Employer
 
 ALL = "ALL"
@@ -132,11 +132,13 @@ def handle_candidate_dashboard(request):
         pending_count = candidate_applications.filter(
             status=Application.STATUS_APPLIED
         ).count()
+    favorite_count = SavedJobs.objects.filter(user=request.user).count()
     context = {
         "candidate_name": candidate_name,
         "accepted_count": accepted_count,
         "rejected_count": rejected_count,
         "pending_count": pending_count,
+        "favorite_count": favorite_count,
     }
     return render(request, "dashboard/candidate_dashboard.html", context=context)
 

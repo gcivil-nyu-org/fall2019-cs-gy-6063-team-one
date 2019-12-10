@@ -301,10 +301,11 @@ footer {
 
 .status {
     float: right;
+    padding: 8px;
 }
 
 .status.RE{
-background-color: #8C3D3B;
+    background-color: #8C3D3B;
     color: #FFF;
 }
 
@@ -314,6 +315,21 @@ background-color: #296245;
 }
 
 .status.AP{
+    background-color: #2D3B5E;
+    color: #FFF;
+}
+
+.btn.RE{
+background-color: #8C3D3B;
+    color: #FFF;
+}
+
+.btn.AC{
+background-color: #296245;
+    color: #FFF;
+}
+
+.btn.AP{
     background-color: #2D3B5E;
     color: #FFF;
 }
