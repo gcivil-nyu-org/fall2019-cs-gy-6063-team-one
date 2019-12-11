@@ -1,0 +1,35 @@
+.W {
+    color: red;
+}
+
+.W_text {
+    color: grey;
+}
+
+.withdraw-button {
+    margin: 5px;
+    border-radius: 5px;
+    width: 30%;
+    align-self: center;
+    height: 3em;
+    padding: 0px !important;
+    border-width: 0px;
+}
+
+.withdraw-button.regular{
+    background-color: #708090;
+    color: #FFF;
+}
+
+.withdraw-button.yes {
+    background-color: #296245 !important;
+    color: #FFF;
+    width: 40%;
+}
+
+.withdraw-button.no {
+    background-color: #8C3D3B !important;
+    color: #FFF;
+    width: 40%;
+}
+

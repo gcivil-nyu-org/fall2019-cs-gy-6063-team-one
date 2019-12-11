@@ -9,6 +9,7 @@ from django.views.generic import FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.views import View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from notifications.models import Notification
 
 
 class ApplicationDetailView(LoginRequiredMixin, DetailView):
@@ -62,11 +63,19 @@ class ProcessApplication(SingleObjectMixin, FormView):
         if not request.user.is_authenticated:
             return HttpResponseForbidden()
         application = Application.objects.get(id=self.get_object().id)
+        notification = Notification(
+            recipient=application.candidate.user,
+            entity_type=Notification.ENTITY_TYPE_APPLICATION_REVIEWED,
+            entity_fk_pk=application.id,
+        )
         if "accept_button" in self.request.POST:
             application.status = "AC"
+            notification.entity_type = Notification.ENTITY_TYPE_APPLICATION_ADVANCED
         elif "reject_button" in self.request.POST:
             application.status = "RE"
+            notification.entity_type = Notification.ENTITY_TYPE_APPLICATION_REJECTED
         application.save()
+        notification.save()
         return super().post(request, *args, **kwargs)
 
     def get_success_url(self):
@@ -83,3 +92,27 @@ class ProcessApplicationView(LoginRequiredMixin, View):
     def post(self, request, *args, **kwargs):
         view = ProcessApplication.as_view()
         return view(request, *args, **kwargs)
+
+
+class WithdrawApplicationView(LoginRequiredMixin, DetailView):
+    def post(self, request, *args, **kwargs):
+        application = Application.objects.get(id=self.kwargs["pk"])
+        if application:
+            if application.status == Application.STATUS_APPLIED:
+                application.status = Application.STATUS_WITHDRAWN
+                application.save()
+                liaisons = Employer.objects.filter(
+                    department=application.job.department
+                )
+                for liaison in liaisons:
+                    notification = Notification(
+                        recipient=liaison.user,
+                        entity_type=Notification.ENTITY_TYPE_APPLICATION_WITHDRAWN,
+                        entity_fk_pk=application.id,
+                    )
+                    notification.save()
+        return HttpResponseRedirect(
+            reverse(
+                "applications:application_details", kwargs={"pk": self.kwargs["pk"]}
+            )
+        )

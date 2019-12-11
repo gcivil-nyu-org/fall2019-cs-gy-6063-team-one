@@ -11,9 +11,10 @@
         <div class="py-4 mb-3">
                 <div class="listing-buttons-container">
                     <a class="listing-button listing-button-wide btn btn-primary" href="{% url 'dashboard:dashboard' %}">← Dashboard</a>
-                    <a class="listing-button btn btn-primary" href="{% url 'dashboard:dashboard' 'ap' %}">Pending</a>
-                    <a class="listing-button btn btn-primary" href="{% url 'dashboard:dashboard' 're' %}">Rejected</a>
-                    <a class="listing-button btn btn-primary" href="{% url 'dashboard:dashboard' 'ac' %}">Accepted</a>
+                    <a class="listing-button btn AP"  href="{% url 'dashboard:dashboard' 'ap' %}">Pending</a>
+                    <a class="listing-button btn RE" href="{% url 'dashboard:dashboard' 're' %}">Rejected</a>
+                    <a class="listing-button btn AC" href="{% url 'dashboard:dashboard' 'ac' %}">Accepted</a>
+                    <a class="listing-button btn W" href="{% url 'dashboard:dashboard' 'w' %}">Withdrawn</a>
                 </div>
             </div>
 
@@ -23,6 +24,8 @@
         <h1 class="mb-4">Rejected Applications</h1>
         {% elif application_type == "ac" %}
         <h1 class="mb-4">Accepted Applications</h1>
+        {% elif application_type == "w" %}
+        <h1 class="mb-4">Withdrawn Applications</h1>
         {% else %}
         <h1 class="mb-4">Applications</h1>
         {% endif %}
@@ -49,7 +52,7 @@
 
                     <button type="submit" class="btn btn-primary mx-auto">Search
                     </button>
-                    <a class="btn btn-danger" href="{% url 'dashboard:dashboard' application_type %}">
+                    <a class="btn RE" href="{% url 'dashboard:dashboard' application_type %}">
                         Clear
                     </a>
                 </form>
@@ -81,6 +84,8 @@
                                             ACCEPTED
                                         {% elif application.status == "AP" %}
                                             PENDING
+                                        {% elif application.status == "W" %}
+                                            WITHDRAWN
                                         {% endif %}
                                      </span>
                                 </p>
@@ -137,6 +142,8 @@
                                             ACCEPTED
                                         {% elif application.status == "AP" %}
                                             PENDING
+                                        {% elif application.status == "W" %}
+                                            WITHDRAWN
                                         {% endif %}
                                      </span>
                                 </p>

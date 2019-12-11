@@ -65,7 +65,7 @@ test_user_data = {
             "zip_code": "07087",
             "state": "NY",
             "state_display": "New York",
-            "phone": "2013348135",
+            "phone": "+12013348135",
             "portfolio_website": "https://janeTjameson.com",
             "resume": SimpleUploadedFile(
                 "test_resume1.pdf",
@@ -210,6 +210,24 @@ test_user_data = {
         "password1": "cN3KJXi35374GxsCxZET",
         "password2": "cN3KJXi35374GxsCxZET",
     },
+    "employers": [
+        {
+            "first_name": "John",
+            "last_name": "Johnson",
+            "email": "john@example.com",
+            "password": "cN3KJXi35374GxsCxZET",
+            "password1": "cN3KJXi35374GxsCxZET",
+            "password2": "cN3KJXi35374GxsCxZET",
+        },
+        {
+            "first_name": "James",
+            "last_name": "JoJohnson",
+            "email": "john@goooooogle.com",
+            "password": "cN3KJXi35374GxsCxZET",
+            "password1": "cN3KJXi35374GxsCxZET",
+            "password2": "cN3KJXi35374GxsCxZET",
+        },
+    ],
     "invalid_user_details": {
         "first_name": "...",
         "last_name": "***()()",
@@ -227,6 +245,30 @@ test_user_data = {
             "email": "firedept@nyu.gov",
         },
     },
+    "departments": [
+        {
+            "id": 1,
+            "name": "NYC Fire",
+            "department_profile": {
+                "description": "We stop fires.",
+                "website": "https://fires.com",
+                "address": "113 Broadway, New York NY 10012",
+                "phone": "+12129471135",
+                "email": "firedept@nyc.gov",
+            },
+        },
+        {
+            "id": 2,
+            "name": "NYC Health",
+            "department_profile": {
+                "description": "We stop diseases.",
+                "website": "https://healthnyc.com",
+                "address": "113 Broadway, New York NY 10012",
+                "phone": "+2013347193",
+                "email": "health@nyc.gov",
+            },
+        },
+    ],
     "department_with_no_profile": {
         "id": 2,
         "name": "NYC Water",
@@ -351,6 +393,7 @@ def create_candidate_with_active_profile(user_data):
         first_name=user_data["first_name"],
         last_name=user_data["last_name"],
         is_candidate=True,
+        is_active=True,
     )
     profile = CandidateProfile.objects.create(
         email=user_data["email"],

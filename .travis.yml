@@ -15,6 +15,9 @@ before_install:
   - mkdir geckodriver
   - tar -xzf geckodriver-v0.26.0-linux64.tar.gz -C geckodriver
   - export PATH=$PATH:$PWD/geckodriver
+  - export AWS_SECRET_ACCESS_KEY="fooSecretAccessKey"
+  - export AWS_ACCESS_KEY_ID="fooAccessKeyID"
+  - export AWS_STORAGE_BUCKET_NAME="fooBucket"
 
 install:
   - pip install -r requirements.txt
@@ -26,7 +29,7 @@ before_script:
 script:
   - black --check .
   - flake8 .
-  - coverage run --source=candidate_profile,candidate_login,employer_login,jobs,register,uplyft,apply,applications,dashboard,department_details,department_profile manage.py test
+  - coverage run --source=candidate_profile,candidate_login,employer_login,jobs,register,uplyft,apply,applications,dashboard,department_details,department_profile,notifications manage.py test
 
 after_script:
   - coveralls

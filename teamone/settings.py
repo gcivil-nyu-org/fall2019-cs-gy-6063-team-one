@@ -62,15 +62,17 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "widget_tweaks",
     "django_filters",
+    "file_resubmit",
     "django.contrib.sites",
     "allauth",
     "allauth.account",
     "allauth.socialaccount",
     "allauth.socialaccount.providers.google",
     "storages",
+    "notifications.apps.NotificationsConfig",
 ]
 
-SITE_ID = 2
+SITE_ID = 1
 
 AUTHENTICATION_BACKENDS = (
     # Needed to login by username in Django admin, regardless of `allauth`
@@ -90,6 +92,14 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = "teamone.urls"
+
+CACHES = {
+    "default": {"BACKEND": "django.core.cache.backends.locmem.LocMemCache"},
+    "file_resubmit": {
+        "BACKEND": "django.core.cache.backends.filebased.FileBasedCache",
+        "LOCATION": "/tmp/file_resubmit/",
+    },
+}
 
 TEMPLATES = [
     {
@@ -177,14 +187,16 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = (
 )
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "M1y9_Z-jNwqArncabT7_zZWV"
 
-AWS_ACCESS_KEY_ID = "AKIA46VH6MQWLLV5ADGA"
-AWS_SECRET_ACCESS_KEY = "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"
-AWS_STORAGE_BUCKET_NAME = "uplyft-s3"
+AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
+AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
+AWS_STORAGE_BUCKET_NAME = os.environ["AWS_STORAGE_BUCKET_NAME"]
 AWS_S3_CUSTOM_DOMAIN = "%s.s3.amazonaws.com" % AWS_STORAGE_BUCKET_NAME
 AWS_S3_OBJECT_PARAMETERS = {"CacheControl": "max-age=600"}
 # AWS_LOCATION = 'static'
 
 # AWS_DEFAULT_ACL = None
+PHONENUMBER_DB_FORMAT = "NATIONAL"
+PHONENUMBER_DEFAULT_REGION = "US"
 
 MEDIA_URL = "/media/"
 DEFAULT_FILE_STORAGE = "uplyft.s3_storage.ResumeStorage"

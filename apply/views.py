@@ -8,7 +8,8 @@ from django.shortcuts import render, redirect
 from uplyft.decorators import candidate_login_required
 from .forms import ApplicationForm
 from .models import Application
-from uplyft.models import Candidate, ActiveProfile
+from uplyft.models import Candidate, Employer, ActiveProfile
+from notifications.models import Notification
 
 
 @login_required
@@ -16,24 +17,31 @@ from uplyft.models import Candidate, ActiveProfile
 def apply(request, pk):
     candidate = Candidate.objects.get(user=request.user)
     active_prof = ActiveProfile.objects.get(candidate=candidate)
+    current_res = active_prof.candidate_profile.resume
 
     # request.FILES is a dictionary that holds the files the candidate uploaded
     if request.method == "POST":
         if request.FILES == {}:  # The candidate uploaded no files
             # The candidate wants to use their existing resume (and no cover letter)
             file_data = {"resume": active_prof.candidate_profile.resume}
-            application = ApplicationForm(request.POST, file_data)
+            application = ApplicationForm(
+                request.POST, file_data, initial={"resume": current_res}
+            )
         elif "resume" not in request.FILES and "cover_letter" in request.FILES:
             # The candidate wants to use their existing resume (and a new cover letter)
             file_data = {
                 "resume": active_prof.candidate_profile.resume,
                 "cover_letter": request.FILES["cover_letter"],
             }
-            application = ApplicationForm(request.POST, file_data)
+            application = ApplicationForm(
+                request.POST, file_data, initial={"resume": current_res}
+            )
         else:
             # The candidate provides either a new resume and a new
             # cover letter (or just a new resume)
-            application = ApplicationForm(request.POST, request.FILES)
+            application = ApplicationForm(
+                request.POST, request.FILES, initial={"resume": current_res}
+            )
         job = Job.objects.get(pk=pk)
 
         application_in_database = (
@@ -116,6 +124,14 @@ def apply(request, pk):
                     )
                 app_obj.save()
             messages.success(request, "Application submitted")
+            liaisons = Employer.objects.filter(department=app_obj.job.department)
+            for liaison in liaisons:
+                notification = Notification(
+                    recipient=liaison.user,
+                    entity_type=Notification.ENTITY_TYPE_APPLICATION_RECEIVED,
+                    entity_fk_pk=app_obj.id,
+                )
+                notification.save()
             return redirect("applications:application_details", pk=app_obj.pk)
         else:
             messages.error(request, _("Please correct the error(s) below."))

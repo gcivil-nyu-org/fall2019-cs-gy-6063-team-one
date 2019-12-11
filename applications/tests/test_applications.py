@@ -11,6 +11,7 @@ from uplyft.tests.resources import (
     create_profile,
 )
 from uplyft.tests.decorators import setUpMockedS3
+from apply.models import Application
 
 
 @setUpMockedS3
@@ -290,3 +291,74 @@ class ApplicationDetailsViewTests(TestCase):
             reverse("applications:application_details", kwargs={"pk": self.app.id})
         )
         self.assertContains(response, self.app.candidate_profile.resume)
+
+    def test_other_candidate_cannot_view_application(self):
+        # create other candidate
+        self.other_candidate = create_candidate_with_active_profile(
+            test_user_data["candidates"][1]
+        )
+        # login other candidate
+        self.client.login(
+            email=test_user_data["candidates"][1]["email"],
+            password=test_user_data["candidates"][1]["password"],
+        )
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(
+            response, "You do not have the right permissions to view this page"
+        )
+
+    def test_non_department_employer_cannot_view_application(self):
+        other_department = create_department(test_user_data["departments"][1])
+        create_employer(other_department, test_user_data["employers"][1])
+        self.client.login(
+            email=test_user_data["employers"][1]["email"],
+            password=test_user_data["employers"][1]["password"],
+        )
+        response = self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertContains(
+            response, "You do not have the right permissions to view this page"
+        )
+
+    def test_employer_can_accept_application(self):
+        self.login_employer()
+        self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertTrue(self.app.status == Application.STATUS_APPLIED)
+        self.client.post(
+            reverse("applications:application_details", kwargs={"pk": self.app.id}),
+            data={"accept_button": "Accept"},
+        )
+        self.app = Application.objects.get(pk=self.app.id)
+        self.assertTrue(self.app.status == Application.STATUS_ACCEPTED)
+
+    def test_employer_can_reject_application(self):
+        self.login_employer()
+        self.client.get(
+            reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertTrue(self.app.status == Application.STATUS_APPLIED)
+        self.client.post(
+            reverse("applications:application_details", kwargs={"pk": self.app.id}),
+            data={"reject_button": "Reject"},
+        )
+        self.app = Application.objects.get(pk=self.app.id)
+        self.assertTrue(self.app.status == Application.STATUS_REJECTED)
+
+    def test_anonymous_user_cannot_process_application(self):
+        response = self.client.post(
+            reverse("applications:application_details", kwargs={"pk": self.app.id}),
+            data={"accept_button": "Accept"},
+        )
+        expected_url = (
+            reverse("candidate_login:candidate_login")
+            + "?next="
+            + reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertRedirects(
+            response, expected_url, status_code=302, target_status_code=200
+        )
