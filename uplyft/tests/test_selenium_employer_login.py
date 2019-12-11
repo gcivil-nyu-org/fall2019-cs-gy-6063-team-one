@@ -2,7 +2,6 @@ from django.urls import reverse
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from selenium import webdriver
 from uplyft.tests.resources import create_department, create_employer, test_user_data
-import time
 
 
 class EmployerLoginFunctionalTests(StaticLiveServerTestCase):
@@ -16,7 +15,9 @@ class EmployerLoginFunctionalTests(StaticLiveServerTestCase):
         self.browser.quit()
 
     def test_employer_login_and_redirect_to_dashboard(self):
-        self.browser.get(self.live_server_url + reverse("employer_login:employer_login"))
+        self.browser.get(
+            self.live_server_url + reverse("employer_login:employer_login")
+        )
         email_input = self.browser.find_element_by_name("username")
         email_input.send_keys(test_user_data["employer"]["email"])
         password_input = self.browser.find_element_by_name("password")

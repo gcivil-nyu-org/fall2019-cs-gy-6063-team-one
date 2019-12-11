@@ -19,7 +19,9 @@ class CandidateLoginFunctionalTests(StaticLiveServerTestCase):
         self.browser.quit()
 
     def test_candidate_login_redirect_to_dashboard(self):
-        self.browser.get(self.live_server_url + reverse("candidate_login:candidate_login"))
+        self.browser.get(
+            self.live_server_url + reverse("candidate_login:candidate_login")
+        )
         self.browser.find_element_by_name("username").send_keys(
             test_user_data["candidate"]["email"]
         )
