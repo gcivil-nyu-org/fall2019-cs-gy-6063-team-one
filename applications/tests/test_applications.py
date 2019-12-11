@@ -348,3 +348,17 @@ class ApplicationDetailsViewTests(TestCase):
         )
         self.app = Application.objects.get(pk=self.app.id)
         self.assertTrue(self.app.status == Application.STATUS_REJECTED)
+
+    def test_anonymous_user_cannot_process_application(self):
+        response = self.client.post(
+            reverse("applications:application_details", kwargs={"pk": self.app.id}),
+            data={"accept_button": "Accept"},
+        )
+        expected_url = (
+            reverse("candidate_login:candidate_login")
+            + "?next="
+            + reverse("applications:application_details", kwargs={"pk": self.app.id})
+        )
+        self.assertRedirects(
+            response, expected_url, status_code=302, target_status_code=200
+        )
