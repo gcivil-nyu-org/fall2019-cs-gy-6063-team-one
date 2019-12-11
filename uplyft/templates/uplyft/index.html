@@ -13,9 +13,8 @@
                     all your job-related woes. Search among 1400+ jobs in 55+ departments in NYC, that are updated
                     frequently, apply and manage your applications in a simple way. If you’re an employer, you can
                     view/manage the applications submitted to your department. </h2>
-                <a name="candidate_login_link" href="#learnmore" class="btn btn-primary js-scroll-trigger">Learn more</a>
-                <a name="employer_login_link" href="{% url 'employer_login:employer_login' %}"
-                    class="btn btn-primary js-scroll-trigger">Employers</a>
+                <a name="reveal" href="#learnmore" class="btn btn-primary js-scroll-trigger">Learn
+                    more</a>
             </div>
         </div>
     </div>
@@ -40,6 +39,9 @@
                         <li>Add jobs to favorites, and view them in your dashboard</li>
                         <li>Withdraw your application if needed</li>
                     </ul>
+                    <div>
+                        <a name="candidate_login_link" href="{% url 'candidate_login:candidate_login' %}" class="btn btn-primary"><b>Get started ></b></a>
+                    </div>
                 </div>
                 <div class="feature-highlights">
                     <div class="feature-highlight-item feature-highlight-item-grow">
@@ -82,6 +84,9 @@
                         <li>Update department profile for up-to-date descriptions of your department</li>
                         <li>Want to check out your competition? Search for jobs from all departments</li>
                     </ul>
+                </div>
+                <div>
+                    <a name="employer_login_link" href="{% url 'employer_login:employer_login' %}" class="btn btn-primary"><b>Get started ></b></a>
                 </div>
                 <div class="feature-highlights">
                     <div class="feature-highlight-item feature-highlight-item-grow">
