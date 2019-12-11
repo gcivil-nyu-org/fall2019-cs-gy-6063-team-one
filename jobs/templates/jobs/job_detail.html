@@ -15,15 +15,15 @@
 
                 <div style="width: 100%; height: 3em" >
                     <div class="title-div">
-                        <h5> <b> {{ job.business_title }} </b> </h5>
+                        <h5 style="display: inline;"> <b> {{ job.business_title }} </b> </h5>
                     {% if user.is_candidate %}
-                        <form style="display: inline" action="{% url 'jobs:save_job' job.id %}" method="post">
+                        <form style="display: inline;" action="{% url 'jobs:save_job' job.id %}" method="post">
                                                 {% csrf_token %}
                             <input type="hidden" name="jobs_pk_id" value="{{ job.id }}" />
                             {% if saved_this_job == False %}
-                                <input title="Save job" class="input-star" type="submit" name="save" value="&star;"/>
+                                <input alt="star" title="Save job" class="input-star" type="image" src="{% static "jobs/css/img/star.png" %}" name="save"/>
                             {% else %}
-                                <input title="Remove from saved" class="input-star-selected" type="submit" name="unsave" value="&#11088;" />
+                                <input alt="filled-star" title="Remove from saved" class="input-star" type="image" src="{% static "jobs/css/img/star-fill.png" %}" name="unsave"/>
                             {% endif %}
                         </form>
                     {% endif %}

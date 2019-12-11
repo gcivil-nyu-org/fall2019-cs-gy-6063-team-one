@@ -50,15 +50,6 @@
 
 .input-star {
     padding: 0px !important;
-    background: transparent;
     border: none;
-    font-size: 2em;
-    line-height: 1.2em;
-}
-
-.input-star-selected {
-    padding: 0px !important;
-    background: transparent;
-    border: none;
-    font-size: 1.25em;
+    height: 1.2em;
 }
