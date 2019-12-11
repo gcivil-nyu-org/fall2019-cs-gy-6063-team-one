@@ -14,8 +14,31 @@ body {
     min-height: 100%;
 }
 
+body.index-body {
+    background: none;
+    padding: 0;
+}
+
+.background-pattern {
+    background: url("images/uplyft_background-turquoise.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    min-height: 100%;
+}
+
 .background-silhouette {
     background-image: url("images/uplyft_background-turquoise-silhouette.jpg");
+    background-position: bottom;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    background-size: cover;
+    min-height: 100%;
+    background-size: 100em;
+    padding-top: 10em;
+    padding-bottom: 30em;
+    filter: drop-shadow(0px 0px 30px white);
 }
 
 /* Hide Labels
@@ -114,7 +137,8 @@ body {
     background-color: transparent;
 }
 
-#mainNav .navbar-nav .nav-item:active, #mainNav .navbar-nav .nav-item:focus {
+#mainNav .navbar-nav .nav-item:active,
+#mainNav .navbar-nav .nav-item:focus {
     outline: none;
     background-color: transparent;
 }
@@ -147,10 +171,8 @@ body {
     }
 
     #mainNav.navbar-shrink {
-        background: linear-gradient(
-                rgba(50, 50, 50, 0.6),
-                rgba(50, 50, 50, 0.6)
-        );
+        background: linear-gradient(rgba(50, 50, 50, 0.6),
+                rgba(50, 50, 50, 0.6));
     }
 
     #mainNav.navbar-shrink .navbar-brand {
@@ -246,7 +268,8 @@ a {
     color: #64a19d;
 }
 
-a:focus, a:hover {
+a:focus,
+a:hover {
     text-decoration: none;
     color: #3c6360;
 }
@@ -255,7 +278,8 @@ a.white {
     color: #ffffff;
 }
 
-a.white:focus, a.white:hover {
+a.white:focus,
+a.white:hover {
     text-decoration: none;
     color: #3c6360;
 }
@@ -292,11 +316,11 @@ footer {
 }
 
 .card-body h5 {
-    display:inline;
+    display: inline;
 }
 
-.card-body span{
-    float:right;
+.card-body span {
+    float: right;
 }
 
 .status {
@@ -304,42 +328,42 @@ footer {
     padding: 8px;
 }
 
-.status.RE{
+.status.RE {
     background-color: #8C3D3B;
     color: #FFF;
 }
 
-.status.AC{
-background-color: #296245;
+.status.AC {
+    background-color: #296245;
     color: #FFF;
 }
 
-.status.AP{
+.status.AP {
     background-color: #2D3B5E;
     color: #FFF;
 }
 
-.status.W{
+.status.W {
     background-color: #708090;
     color: #FFF;
 }
 
-.btn.RE{
-background-color: #8C3D3B;
+.btn.RE {
+    background-color: #8C3D3B;
     color: #FFF;
 }
 
-.btn.AC{
-background-color: #296245;
+.btn.AC {
+    background-color: #296245;
     color: #FFF;
 }
 
-.btn.AP{
+.btn.AP {
     background-color: #2D3B5E;
     color: #FFF;
 }
 
-.btn.W{
+.btn.W {
     background-color: #708090;
     color: #FFF;
 }
@@ -347,6 +371,89 @@ background-color: #296245;
 .turquoise-dark {
     /* color: #3c6360; */
     background: linear-gradient(45deg, #0192cc, #31a361);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+/* For index page showcase */
+.feature-flex {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    margin-bottom: 7em;
+    margin-top: 5em;
+}
+
+.feature-main-text {
+    width: 50%;
+    border: 1px royalblue;
+}
+
+.padding-left-2 {
+    padding-left: 2em;
+}
+
+.padding-right-2 {
+    padding-right: 2em;
+}
+
+/* .feature-main-text-headline {
+    
+} */
+
+.feature-illustration {
+    width: 50%;
+}
+
+.feature-highlights {
+    width: 100%;
+    border: 1px orange;
+    display: flex;
+    justify-content: start;
+    margin-top: 3em;
+}
+
+.feature-highlights-space-between {
+    justify-content: space-between;
+}
+
+.feature-highlight-item {
+    border: 1px red;
+    line-height: normal;
+}
+
+.feature-highlight-item-grow {
+    flex-grow: 1;
+}
+
+.gigantic {
+    font-size: 3em;
+    font-weight: bolder;
+    line-height: 1.2em;
+    /* background: linear-gradient(45deg, #FF6464, red);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent; */
+
+}
+
+.accent-color-1 {
+    color: #FF6464;
+    filter: hue-rotate(-90deg);
+}
+
+.accent-color-2 {
+    color: orange;
+    filter: hue-rotate(0deg);
+}
+
+.large-text {
+    font-size: 1.5em;
+    /* color: rgb(81, 94, 170); */
+    color: #8387A1;
+    font-weight: bold;
+    /* font-weight: bold; */
+}
+
+ul {
+    padding-inline-start: 1.5em;
 }

@@ -3,16 +3,102 @@
 {% block content %}
 <!-- Header -->
 
-<body class="background-silhouette">
-    <div class="container d-flex h-100 align-items-center mt-5">
+<body class="index-body">
+    <div class="background-pattern">
+        <div class="container d-flex h-100 align-items-center background-silhouette">
             <div class="mx-auto text-center">
-                <h1 name="title" class="intro-heading display-3 font-weight-bold mb-0 text-uppercase turquoise-dark">Uplyft</h1>
-                <h2 name="welcome_message" class="turquoise-dark mx-auto mt-2 mb-4">Start a new journey!</h2>
-                <a name="candidate_login_link" href="{% url 'candidate_login:candidate_login' %}"
-                   class="btn btn-primary js-scroll-trigger">Candidates</a>
+                <h1 name="title" class="intro-heading display-3 font-weight-bold mb-0 text-uppercase turquoise-dark">
+                    Uplyft</h1>
+                <h2 name="welcome_message" class="mx-auto mt-2 mb-4">Uplyft provides a simple, intuitive solution for
+                    all your job-related woes. Search among 1400+ jobs in 55+ departments in NYC, that are updated
+                    frequently, apply and manage your applications in a simple way. If you’re an employer, you can
+                    view/manage the applications submitted to your department. </h2>
+                <a name="candidate_login_link" href="#learnmore" class="btn btn-primary js-scroll-trigger">Learn more</a>
                 <a name="employer_login_link" href="{% url 'employer_login:employer_login' %}"
-                   class="btn btn-primary js-scroll-trigger">Employers</a>
+                    class="btn btn-primary js-scroll-trigger">Employers</a>
             </div>
         </div>
+    </div>
+
+    <div id="learnmore" class="container js-scroll-trigger" style="padding-top: 5em;">
+        <div class="feature-flex">
+            <div class="feature-illustration">
+                <img src="{% static 'uplyft/images/candidate.gif' %}" style="width: 100%; filter: hue-rotate(-90deg);">
+            </div>
+
+            <div class="feature-main-text padding-left-2">
+                <h3 class="turquoise-dark"><b>Candidates</b></h3>
+                <h4>Sit back, relax and apply to your dream job.</h4>
+                <br>
+                <div>
+                    <ul>
+                        <li>Search for public sector jobs in NYC</li>
+                        <li>Looking for something specific? Try our advanced search</li>
+                        <li>Apply to any job that you’re interested in</li>
+                        <li>Update your profile to speed up applications</li>
+                        <li>Go to the dashboard to view summary of your applications</li>
+                        <li>Add jobs to favorites, and view them in your dashboard</li>
+                        <li>Withdraw your application if needed</li>
+                    </ul>
+                </div>
+                <div class="feature-highlights">
+                    <div class="feature-highlight-item feature-highlight-item-grow">
+                        <div class="gigantic accent-color-1">1400+</div>
+                        <div class="large-text">Jobs and growing</div>
+                    </div>
+                    <div class="feature-highlight-item feature-highlight-item-grow">
+                        <div class="gigantic accent-color-1">55+</div>
+                        <div class="large-text">City Departments</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-highlights feature-highlights-space-between">
+                <div class="feature-highlight-item">
+                    <div class="gigantic accent-color-1">Apply</i></div>
+                    <div class="large-text">any job on Uplyft</div>
+                </div>
+                <div class="feature-highlight-item">
+                    <div class="gigantic accent-color-1">Dashboard</i></div>
+                    <div class="large-text">all-in-one quick glance</div>
+                </div>
+                <div class="feature-highlight-item">
+                    <div class="gigantic accent-color-1">Favorite Jobs</i></div>
+                    <div class="large-text">save for later</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="feature-flex">
+            <div class="feature-main-text padding-right-2">
+                <h3 class="turquoise-dark"><b>Employers</b></h3>
+                <h4>Recruit the best talent for your Department.</h4>
+                <br>
+                <div>
+                    <ul>
+                        <li>View the summary of applications on the Dashboard</li>
+                        <li>View the detailed application submitted to your department</li>
+                        <li>Review and respond to received applications</li>
+                        <li>Update department profile for up-to-date descriptions of your department</li>
+                        <li>Want to check out your competition? Search for jobs from all departments</li>
+                    </ul>
+                </div>
+                <div class="feature-highlights">
+                    <div class="feature-highlight-item feature-highlight-item-grow">
+                        <div class="gigantic accent-color-2">Review</div>
+                        <div class="large-text">applications</div>
+                    </div>
+                    <div class="feature-highlight-item feature-highlight-item-grow">
+                        <div class="gigantic accent-color-2">Dashboard</div>
+                        <div class="large-text">quick glance</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="feature-illustration">
+                <img src="{% static 'uplyft/images/employer.gif' %}" style="width: 100%; filter: hue-rotate(-10deg);">
+            </div>
+        </div>
+    </div>
 </body>
 {% endblock %}
