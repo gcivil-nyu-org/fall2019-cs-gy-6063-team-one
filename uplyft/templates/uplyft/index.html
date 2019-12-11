@@ -9,17 +9,14 @@
             <div class="mx-auto text-center">
                 <h1 name="title" class="intro-heading display-3 font-weight-bold mb-0 text-uppercase turquoise-dark">
                     Uplyft</h1>
-                <h2 name="welcome_message" class="mx-auto mt-2 mb-4">Uplyft provides a simple, intuitive solution for
-                    all your job-related woes. Search among 1400+ jobs in 55+ departments in NYC, that are updated
-                    frequently, apply and manage your applications in a simple way. If you’re an employer, you can
-                    view/manage the applications submitted to your department. </h2>
+                <h3 name="welcome_message" class="mx-auto mt-2 mb-4 font-weight-bold font-italic"><span style="background-color: rgba(255, 255, 255, 0.7);">Candidates find jobs. <br>Employers find candidates.</span> </h3>
                 <a name="reveal" href="#learnmore" class="btn btn-primary js-scroll-trigger">Learn
                     more</a>
             </div>
         </div>
     </div>
 
-    <div id="learnmore" class="container js-scroll-trigger" style="padding-top: 5em;">
+    <div id="learnmore" class="container js-scroll-trigger" style="padding-top: 2em;">
         <div class="feature-flex">
             <div class="feature-illustration">
                 <img src="{% static 'uplyft/images/candidate.gif' %}" style="width: 100%; filter: hue-rotate(-90deg);">
@@ -40,7 +37,7 @@
                         <li>Withdraw your application if needed</li>
                     </ul>
                     <div>
-                        <a name="candidate_login_link" href="{% url 'candidate_login:candidate_login' %}" class="btn btn-primary"><b>Get started ></b></a>
+                        <a name="candidate_login_link" href="{% url 'register:candidate_register' %}" class="btn btn-primary"><b>Get started ></b></a>
                     </div>
                 </div>
                 <div class="feature-highlights">
@@ -57,15 +54,15 @@
 
             <div class="feature-highlights feature-highlights-space-between">
                 <div class="feature-highlight-item">
-                    <div class="gigantic accent-color-1">Apply</i></div>
+                    <div class="gigantic accent-color-1">Apply</div>
                     <div class="large-text">any job on Uplyft</div>
                 </div>
                 <div class="feature-highlight-item">
-                    <div class="gigantic accent-color-1">Dashboard</i></div>
+                    <div class="gigantic accent-color-1">Dashboard</div>
                     <div class="large-text">all-in-one quick glance</div>
                 </div>
                 <div class="feature-highlight-item">
-                    <div class="gigantic accent-color-1">Favorite Jobs</i></div>
+                    <div class="gigantic accent-color-1">Favorite Jobs</div>
                     <div class="large-text">save for later</div>
                 </div>
             </div>
@@ -86,7 +83,7 @@
                     </ul>
                 </div>
                 <div>
-                    <a name="employer_login_link" href="{% url 'employer_login:employer_login' %}" class="btn btn-primary"><b>Get started ></b></a>
+                    <a name="employer_login_link" href="{% url 'register:employer_register' %}" class="btn btn-primary"><b>Get started ></b></a>
                 </div>
                 <div class="feature-highlights">
                     <div class="feature-highlight-item feature-highlight-item-grow">

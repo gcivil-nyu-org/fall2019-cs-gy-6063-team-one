@@ -258,13 +258,13 @@
                     {% else %}
 
                         {% if application.status == "AP" %}
-                        <button id="withdraw_button">Withdraw application</button>
+                        <button id="withdraw_button" class="withdraw-button regular" style="">Withdraw application</button>
 
 
                         <div id="withdraw">
                             <form id="withdraw_form" action="{% url 'applications:withdraw' application.id %}" method="post" display="none">{% csrf_token %}</form>
-                            <button form="withdraw_form" id="yes"> Yes - withdraw this application.</button>
-                            <button id="no"> No - cancel! </button>
+                            <button form="withdraw_form" class="withdraw-button yes" id="yes"> Yes - withdraw this application.</button>
+                            <button id="no" class="withdraw-button no" > No - cancel! </button>
 
                         </div>
 
