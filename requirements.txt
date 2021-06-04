@@ -1,5 +1,5 @@
 model_mommy
-django==2.2.10
+django==2.2.21
 django-localflavor==2.2
 python-stdnum==1.11
 six==1.11.0
