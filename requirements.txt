@@ -19,7 +19,7 @@ django-file-resubmit==0.5.2
 selenium==3.141.0
 django-uuid-upload-path==1.0.0
 pandas==0.25.3
-numpy==1.17.3
+numpy==1.22.0
 django-phonenumber-field==3.0.1
 phonenumbers==8.10.22
 Pillow==6.2.1
