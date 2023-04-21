@@ -3,7 +3,7 @@ django==2.2.10
 django-localflavor==2.2
 python-stdnum==1.11
 six==1.11.0
-sqlparse==0.3.0
+sqlparse==0.4.4
 pytz==2019.3
 django-crispy-forms==1.7.2
 django-allauth==0.40.0
